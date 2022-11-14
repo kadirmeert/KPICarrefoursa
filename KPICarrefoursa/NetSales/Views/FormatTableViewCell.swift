@@ -1,0 +1,54 @@
+//
+//  FormatTableViewCell.swift
+//  KPICarrefoursa
+//
+//  Created by Mert on 10.11.2022.
+//
+
+import UIKit
+
+class FormatTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var formatİnnerView: UIView!
+    @IBOutlet weak var formatLabel: UILabel!
+    @IBOutlet weak var formatİmageView: UIImageView!
+    @IBOutlet weak var formatPercView: UILabel!
+    @IBOutlet weak var yearLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var progressView: UIProgressView!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.formatİnnerView.dropShadow(cornerRadius: 12)
+        self.progressView.dropShadow(cornerRadius: 12)
+        
+    }
+    func prepareCell(format: String, color: String, count: Int, percentage: String, price: String, gelisim: String, years: String) {
+        
+        if Double(gelisim.trimmingCharacters(in: ["%"," "])) ?? 0.0 > 0.0 {
+            self.formatPercView.text = gelisim.trimmingCharacters(in: [" "])
+            self.formatİmageView.image = UIImage(named: "Up")
+            self.priceLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+            self.formatPercView.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+        } else {
+            self.formatPercView.text = gelisim.trimmingCharacters(in: [" "])
+            self.formatİmageView.image = UIImage(named: "down")
+            self.priceLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+            self.formatPercView.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+        }
+        self.yearLabel.text = years
+        self.formatLabel.text = format
+        
+        self.priceLabel.text = "\(String(format: "%.1f", "\(price.dropLast(2))".toDouble )) TL"
+        self.progressView.setProgress((Float(percentage) ?? 0.0) / 100, animated: true)
+        progressView.progressTintColor = UIColor(hexString: color)
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+}
