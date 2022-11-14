@@ -1,0 +1,6 @@
+framework module Pods_KPICarrefoursaTests {
+  umbrella header "Pods-KPICarrefoursaTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
