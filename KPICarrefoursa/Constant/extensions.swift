@@ -225,5 +225,14 @@ extension String {
         return Double(self) ?? 0.0
     }
 }
-
+extension UIView {
+    func applyGradient(colors: [UIColor]) -> CAGradientLayer {
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.frame = self.bounds
+        gradient.colors = colors.map { $0.cgColor }
+        gradient.cornerRadius = 12
+        self.layer.insertSublayer(gradient, at: 0)
+        return gradient
+    }
+}
 

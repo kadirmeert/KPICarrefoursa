@@ -14,6 +14,8 @@ struct PriceStores {
     var Stores = [String]()
     var LastUpdate = [String]()
     var Oran = [Double]()
+    var ColorStores = [String]()
+
     
 }
 struct PriceCategory{
@@ -21,6 +23,7 @@ struct PriceCategory{
     var AveragePrice = [Double]()
     var Ciro = [Double]()
     var Category = [String]()
-    
+    var ColorCategory = [String]()
+
     
 }

@@ -31,6 +31,7 @@ class AuthViewController: UIViewController {
     let username = ""
     let password = ""
     var isActive: Bool = true
+    var isGradientAdded: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,8 +51,11 @@ class AuthViewController: UIViewController {
             self.passwordTextField.text = UserDefaults.standard.string(forKey: "password")
             isActive = false
             loginButton.isEnabled = true
+            
         }
+  
     }
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -60,6 +64,7 @@ class AuthViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         
         self.accountTextField.attributedPlaceholder = NSAttributedString(string: "Username", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
         self.passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password" , attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
@@ -71,6 +76,9 @@ class AuthViewController: UIViewController {
         self.accountView.layer.cornerRadius = 12
         self.passwordView.layer.cornerRadius = 12
         self.loginButtonView.dropShadow(cornerRadius: 12)
+        self.loginButtonView.applyGradient(colors: [UIColor(red:0/255, green:71/255, blue:151/255, alpha: 1),  UIColor(red:0/255, green:120/255, blue:255/255, alpha: 1), UIColor(red:0/255, green:71/255, blue:151/255, alpha: 1)] )
+
+        
         self.rememberButton.layer.cornerRadius = 4
         self.rememberButton.layer.borderWidth = 1
         self.rememberButton.layer.borderColor = UIColor.gray.cgColor

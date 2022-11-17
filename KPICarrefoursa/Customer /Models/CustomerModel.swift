@@ -13,6 +13,7 @@ struct CustomerStores {
     var Ciro2021 = [Double]()
     var Format = [String]()
     var LastUpdate = [String]()
+    var ColorStores = [String]()
     
 }
 struct CustomerCategory{
@@ -20,5 +21,7 @@ struct CustomerCategory{
     var Ciro = [Double]()
     var Ciro2021 = [Double]()
     var Category = [String]()
+    var ColorCategory = [String]()
+
     
 }

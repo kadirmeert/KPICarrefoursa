@@ -13,13 +13,16 @@ struct ProductStores {
     var Product = [Int]()
     var Stores = [String]()
     var LastUpdate = [String]()
-    
+    var ColorStores = [String]()
+
 }
 struct ProductCategory{
     
     var Oran = [Double]()
     var Product = [Int]()
     var Category = [String]()
+    var ColorCategory = [String]()
+
     
 }
 

@@ -11,8 +11,8 @@ target 'KPICarrefoursa' do
   pod 'Charts'
   pod 'MKMagneticProgress'
   pod 'JGProgressHUD'
-  
 
+  
   target 'KPICarrefoursaTests' do
     inherit! :search_paths
     # Pods for testing

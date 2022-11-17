@@ -86,10 +86,12 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mainRadius()
+       
         if self.dashboardValue.Customer.isEmpty {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
             self.checkDataDashboard()
+            
         }
         self.refreshControl.tintColor = UIColor.gray
                 self.refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControl.Event.valueChanged)
@@ -99,6 +101,8 @@ class MainViewController: UIViewController {
         
         
     }
+
+    
     override func didReceiveMemoryWarning() {
            super.didReceiveMemoryWarning()
            // Dispose of any resources that can be recreated.

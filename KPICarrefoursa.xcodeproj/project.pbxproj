@@ -65,6 +65,7 @@
 		417C06972905A849000CD45C /* AveragePriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C06962905A849000CD45C /* AveragePriceViewController.swift */; };
 		417C06992905A8AD000CD45C /* PriceStoresTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C06982905A8AD000CD45C /* PriceStoresTableViewCell.swift */; };
 		417C069B2905A8C5000CD45C /* PriceCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C069A2905A8C5000CD45C /* PriceCategoryTableViewCell.swift */; };
+		41859E5C292510DE00CC16F7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41859E5B292510DD00CC16F7 /* GoogleService-Info.plist */; };
 		41BF9F9D28F5815B002A9BAE /* NumberOfStoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BF9F9C28F5815A002A9BAE /* NumberOfStoresViewController.swift */; };
 		41BF9F9F28F58170002A9BAE /* NumberOfStores.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41BF9F9E28F58170002A9BAE /* NumberOfStores.storyboard */; };
 		41BFEF3A29091CAC00DE6DE8 /* AverageBasketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BFEF3929091CAC00DE6DE8 /* AverageBasketModel.swift */; };
@@ -77,6 +78,7 @@
 		41BFEF492909259100DE6DE8 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41BFEF482909259100DE6DE8 /* Montserrat-Medium.ttf */; };
 		41D4686D291396FB0003C0CC /* OtpAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D4686C291396FB0003C0CC /* OtpAlertViewController.swift */; };
 		41D4686F291397050003C0CC /* OtpAlert.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41D4686E291397050003C0CC /* OtpAlert.storyboard */; };
+		41EA01012925120800266C57 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 41EA01002925120800266C57 /* FirebaseCrashlytics */; };
 		41F0798628F411B500BD5976 /* ConfirmToOtpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F0798528F411B500BD5976 /* ConfirmToOtpViewController.swift */; };
 		41F1797628F1A8C00010CA9D /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F1797528F1A8C00010CA9D /* ConfirmViewController.swift */; };
 		41F5E8702913A129004D6D56 /* OTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F5E86F2913A129004D6D56 /* OTPTextField.swift */; };
@@ -164,6 +166,7 @@
 		417C06962905A849000CD45C /* AveragePriceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AveragePriceViewController.swift; sourceTree = "<group>"; };
 		417C06982905A8AD000CD45C /* PriceStoresTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PriceStoresTableViewCell.swift; path = KPICarrefoursa/Price/PriceStoresTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		417C069A2905A8C5000CD45C /* PriceCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceCategoryTableViewCell.swift; sourceTree = "<group>"; };
+		41859E5B292510DD00CC16F7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		41BF9F9C28F5815A002A9BAE /* NumberOfStoresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfStoresViewController.swift; sourceTree = "<group>"; };
 		41BF9F9E28F58170002A9BAE /* NumberOfStores.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NumberOfStores.storyboard; sourceTree = "<group>"; };
 		41BFEF3929091CAC00DE6DE8 /* AverageBasketModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AverageBasketModel.swift; sourceTree = "<group>"; };
@@ -196,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A43F278659F09D6C0495257 /* Pods_KPICarrefoursa.framework in Frameworks */,
+				41EA01012925120800266C57 /* FirebaseCrashlytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +314,7 @@
 				4122E77128EB0A920031931E /* Assets.xcassets */,
 				4122E77328EB0A920031931E /* LaunchScreen.storyboard */,
 				4122E77628EB0A920031931E /* Info.plist */,
+				41859E5B292510DD00CC16F7 /* GoogleService-Info.plist */,
 			);
 			path = KPICarrefoursa;
 			sourceTree = "<group>";
@@ -674,12 +679,16 @@
 				4122E76228EB0A8A0031931E /* Frameworks */,
 				4122E76328EB0A8A0031931E /* Resources */,
 				53849AD9D54F9DD985524746 /* [CP] Embed Pods Frameworks */,
+				41859E532925097400CC16F7 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = KPICarrefoursa;
+			packageProductDependencies = (
+				41EA01002925120800266C57 /* FirebaseCrashlytics */,
+			);
 			productName = KPICarrefoursa;
 			productReference = 4122E76528EB0A8A0031931E /* KPICarrefoursa.app */;
 			productType = "com.apple.product-type.application";
@@ -755,6 +764,9 @@
 				Base,
 			);
 			mainGroup = 4122E75C28EB0A8A0031931E;
+			packageReferences = (
+				41EA00FF2925120800266C57 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 4122E76628EB0A8A0031931E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -790,6 +802,7 @@
 				4122E77028EB0A8A0031931E /* Main.storyboard in Resources */,
 				41BF9F9F28F58170002A9BAE /* NumberOfStores.storyboard in Resources */,
 				4122E7A828EB119C0031931E /* OTP.storyboard in Resources */,
+				41859E5C292510DE00CC16F7 /* GoogleService-Info.plist in Resources */,
 				41BFEF432909221100DE6DE8 /* Montserrat-SemiBold.ttf in Resources */,
 				412A28E528F2092800F232D3 /* Confirm.storyboard in Resources */,
 			);
@@ -833,6 +846,25 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		41859E532925097400CC16F7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
 		};
 		53849AD9D54F9DD985524746 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1055,7 +1087,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1145,6 +1177,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9J4BXRQHCP;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = KPICarrefoursa/Info.plist;
@@ -1177,6 +1210,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9J4BXRQHCP;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = KPICarrefoursa/Info.plist;
@@ -1320,6 +1354,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		41EA00FF2925120800266C57 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = exactVersion;
+				version = 9.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		41EA01002925120800266C57 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 41EA00FF2925120800266C57 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4122E75D28EB0A8A0031931E /* Project object */;
 }

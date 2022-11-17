@@ -109,6 +109,7 @@ class ProductViewController: UIViewController, ChartViewDelegate {
 //            if hourlyButton.isSelected == true {
 //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
 //            }
+            self.yesterdayButton.isSelected = true
             if yesterdayButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
             }
@@ -130,6 +131,7 @@ class ProductViewController: UIViewController, ChartViewDelegate {
 //            if hourlyButton.isSelected == true {
 //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
 //            }
+            self.yesterdayButton.isSelected = true
             if yesterdayButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
             }
@@ -147,6 +149,11 @@ class ProductViewController: UIViewController, ChartViewDelegate {
             }
         }
         if !self.productStores.Stores.isEmpty {
+            hud.textLabel.text = "Loading"
+            hud.show(in: self.view)
+            self.checkChartData()
+        }
+        else {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
             self.checkChartData()
@@ -198,10 +205,13 @@ class ProductViewController: UIViewController, ChartViewDelegate {
                     self.productStores.Oran = json!["ProductByStores"]?.value(forKey: "Oran") as? [Double] ?? [0.0]
                     self.productStores.Product = json!["ProductByStores"]?.value(forKey: "Product") as? [Int] ?? [0]
                     self.productStores.Stores = json!["ProductByStores"]?.value(forKey: "Stores") as? [String] ?? ["0"]
+                    self.productStores.ColorStores = json!["ProductByStores"]?.value(forKey: "ColorStores") as? [String] ?? ["0"]
                     self.productCategory.Oran = json!["ProductByCategory"]?.value(forKey: "Oran") as? [Double] ?? [0.0]
                     self.productCategory.Product = json!["ProductByCategory"]?.value(forKey: "Product") as? [Int] ?? [0]
                     self.productCategory.Category = json!["ProductByCategory"]?.value(forKey: "Category") as? [String] ?? ["0"]
                     self.productStores.LastUpdate =  json!["ProductLastUpdate"]?.value(forKey: "LastUpdate") as? [String] ?? [""]
+                    self.productCategory.ColorCategory = json!["ProductByCategory"]?.value(forKey: "ColorCategory") as? [String] ?? ["0"]
+
                     
                     DispatchQueue.main.async {
                         self.hud.dismiss()
@@ -249,13 +259,18 @@ class ProductViewController: UIViewController, ChartViewDelegate {
         let dataSetStores = PieChartDataSet(entries: entriesStores, label: "")
         let dataSetChannel = PieChartDataSet(entries: entriesChannel, label: "")
         
-        var  colors: [UIColor] = []
-        for i in 0..<User.colors.count {
-            colors.append(UIColor(hexString: User.colors[i]))
+        var  colorsStore: [UIColor] = []
+        for i in 0..<self.productStores.ColorStores.count {
+            colorsStore.append(UIColor(hexString: productStores.ColorStores[i]))
+        }
+        var  colorsCategory: [UIColor] = []
+        for i in 0..<self.productCategory.ColorCategory.count {
+            colorsCategory.append(UIColor(hexString: productCategory.ColorCategory[i]))
         }
         
-        dataSetChannel.colors = colors
-        dataSetStores.colors = colors
+        dataSetStores.colors = colorsStore
+        dataSetChannel.colors = colorsCategory
+        
         
         dataSetStores.sliceSpace = 1
         dataSetStores.drawValuesEnabled = false
@@ -510,7 +525,7 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource {
             let storeCell = tableView.dequeueReusableCell(withIdentifier: "productStoreCell", for: indexPath) as! ProductStoresTableViewCell
             if !self.productStores.Stores.isEmpty {
                 let selectedProduct = self.productStores.Product[indexPath.item]
-                let selectedColor = User.colors[indexPath.item]
+                let selectedColor = self.productStores.ColorStores[indexPath.item]
                 let selectedInfo = self.productStores.Stores[indexPath.item]
                 let isLast = indexPath.item == (self.productStores.Stores.count - 1)
                 storeCell.prepareCell(info: selectedInfo , color: selectedColor, count: isLast, product: selectedProduct)
@@ -523,7 +538,7 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource {
             if !self.productCategory.Category.isEmpty {
                 
                 let selectedProduct = self.productCategory.Product[indexPath.item]
-                let selectedColor = User.colors[indexPath.item]
+                let selectedColor = self.productCategory.ColorCategory[indexPath.item]
                 let selectedInfo = self.productCategory.Category[indexPath.item]
                 let isLast = indexPath.item == (self.productCategory.Category.count - 1)
                 categoryCell.prepareCell(info: selectedInfo, color: selectedColor, count: isLast, product: selectedProduct)

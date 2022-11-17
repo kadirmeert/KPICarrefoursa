@@ -39,32 +39,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7FA8AFB7-A806-4AD8-AE9D-A7C8950B0393"
+            uuid = "92482062-2626-477A-B583-39D62EDDAF75"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "KPICarrefoursa/NetSales/ViewControllers/NetSalesViewController.swift"
+            filePath = "KPICarrefoursa/Product/ViewControllers/ProductViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1163"
-            endingLineNumber = "1163"
-            landmarkName = "monthlyBtnPressed(_:)"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
+            landmarkName = "DidChangeProductValue(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8B731B22-9775-45D5-9D8B-F7105F2B5141"
+            uuid = "082A988A-3E1B-46E5-B57B-C12688DF22D5"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "KPICarrefoursa/NetSales/ViewControllers/NetSalesViewController.swift"
+            filePath = "KPICarrefoursa/Product/ViewControllers/ProductViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1168"
-            endingLineNumber = "1168"
-            landmarkName = "monthlyBtnPressed(_:)"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "DidChangeProductValue(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

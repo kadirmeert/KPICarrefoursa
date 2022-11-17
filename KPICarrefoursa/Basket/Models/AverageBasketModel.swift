@@ -14,12 +14,14 @@ struct BasketStores {
     var Stores = [String]()
     var LastUpdate = [String]()
     var Oran = [Double]()
+    var ColorStores = [String]()
 }
 struct BasketCategory{
     
     var AverageBasket = [Double]()
     var Ciro = [Double]()
     var Category = [String]()
+    var ColorCategory = [String]()
     
     
 }

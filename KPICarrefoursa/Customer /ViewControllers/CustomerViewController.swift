@@ -116,6 +116,7 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
 //            if hourlyButton.isSelected == true {
 //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
 //            }
+            self.yesterdayButton.isSelected = true
             if yesterdayButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
             }
@@ -142,7 +143,7 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
 //            if hourlyButton.isSelected == true {
 //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
 //            }
-            
+            self.yesterdayButton.isSelected = true
             if yesterdayButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
             }
@@ -165,6 +166,11 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
         }
         
         if !self.customerStores.Format.isEmpty {
+            hud.textLabel.text = "Loading"
+            hud.show(in: self.view)
+            self.checkChartData()
+        }
+        else {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
             self.checkChartData()
@@ -216,10 +222,13 @@ func checkChartData() {
                 self.customerStores.Ciro = json!["CustomerByStores"]?.value(forKey: "Ciro") as? [Double] ?? [0.0]
                 self.customerStores.Ciro2021 = json!["CustomerByStores"]?.value(forKey: "Ciro2021") as? [Double] ?? [0.0]
                 self.customerStores.Format = json!["CustomerByStores"]?.value(forKey: "Format") as? [String] ?? ["0"]
+                self.customerStores.ColorStores = json!["CustomerByStores"]?.value(forKey: "ColorStores") as? [String] ?? ["0"]
                 self.customerCategory.Ciro = json!["CustomerByCategory"]?.value(forKey: "Ciro") as? [Double] ?? [0.0]
                 self.customerCategory.Ciro2021 = json!["CustomerByCategory"]?.value(forKey: "Ciro2021") as? [Double] ?? [0.0]
                 self.customerCategory.Category = json!["CustomerByCategory"]?.value(forKey: "Category") as? [String] ?? ["0"]
                 self.customerStores.LastUpdate =  json!["CustomerLastUpdate"]?.value(forKey: "LastUpdate") as? [String] ?? [""]
+                self.customerCategory.ColorCategory = json!["CustomerByCategory"]?.value(forKey: "ColorCategory") as? [String] ?? ["0"]
+
                 
                 DispatchQueue.main.async {
                     self.hud.dismiss()
@@ -267,13 +276,18 @@ func setupPieChart() {
     let dataSetStores = PieChartDataSet(entries: entriesStores, label: "")
     let dataSetChannel = PieChartDataSet(entries: entriesChannel, label: "")
     
-    var  colors: [UIColor] = []
-    for i in 0..<User.colors.count {
-        colors.append(UIColor(hexString: User.colors[i]))
+    var  colorsStore: [UIColor] = []
+    for i in 0..<self.customerStores.ColorStores.count {
+        colorsStore.append(UIColor(hexString: customerStores.ColorStores[i]))
+    }
+    var  colorsCategory: [UIColor] = []
+    for i in 0..<self.customerCategory.ColorCategory.count {
+        colorsCategory.append(UIColor(hexString: customerCategory.ColorCategory[i]))
     }
     
-    dataSetChannel.colors = colors
-    dataSetStores.colors = colors
+    dataSetStores.colors = colorsStore
+    dataSetChannel.colors = colorsCategory
+    
     
     dataSetStores.sliceSpace = 1
     dataSetStores.drawValuesEnabled = false
@@ -525,7 +539,7 @@ extension CustomerViewController: UITableViewDelegate, UITableViewDataSource {
             let storeCell = tableView.dequeueReusableCell(withIdentifier: "customerStoreCell", for: indexPath) as! CustomerStoreTableViewCell
             if !self.customerStores.Format.isEmpty {
                 let selectedCiro = self.customerStores.Ciro[indexPath.item]
-                let selectedColor = User.colors[indexPath.item]
+                let selectedColor = self.customerStores.ColorStores[indexPath.item]
                 let selectedInfo = self.customerStores.Format[indexPath.item]
                 let isLast = indexPath.item == (self.customerStores.Format.count - 1)
                 storeCell.prepareCell(info: selectedInfo, color: selectedColor, count: isLast, ciro: selectedCiro)
@@ -537,7 +551,7 @@ extension CustomerViewController: UITableViewDelegate, UITableViewDataSource {
             let chanelCell = tableView.dequeueReusableCell(withIdentifier: "customerCategoryCell", for: indexPath) as! CustomerCategoryTableViewCell
             if !self.customerCategory.Category.isEmpty {
                 let selectedCiro = self.customerCategory.Ciro[indexPath.item]
-                let selectedColor = User.colors[indexPath.item]
+                let selectedColor = self.customerCategory.ColorCategory[indexPath.item]
                 let selectedInfo = self.customerCategory.Category[indexPath.item]
                 let isLast = indexPath.item == (self.customerCategory.Category.count - 1)
                 chanelCell.prepareCell(info: selectedInfo, color: selectedColor, count: isLast, ciro: selectedCiro)

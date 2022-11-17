@@ -38,6 +38,7 @@ class OtpCheckViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
         self.otpButtonView.dropShadow(cornerRadius: 12)
+        self.otpButtonView.applyGradient(colors: [UIColor(red:0/255, green:71/255, blue:151/255, alpha: 1),  UIColor(red:0/255, green:120/255, blue:255/255, alpha: 1), UIColor(red:0/255, green:71/255, blue:151/255, alpha: 1)])
         self.loginView.dropShadow(cornerRadius: 12)
         otpContainerView.addSubview(otpStackView)
         otpStackView.delegate = self
@@ -52,6 +53,7 @@ class OtpCheckViewController: UIViewController, UITextFieldDelegate {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         
     }
+    
     @objc func timerAction() {
         backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask(expirationHandler: {
             UIApplication.shared.endBackgroundTask(self.backgroundTaskIdentifier!)
@@ -125,6 +127,7 @@ class OtpCheckViewController: UIViewController, UITextFieldDelegate {
                     User.JWT = json!["Jwt"] as? String ?? ""
                     print(User.JWT)
                     self.login()
+                    self.timer.invalidate()
                 }
             }
         })
@@ -183,12 +186,14 @@ class OtpCheckViewController: UIViewController, UITextFieldDelegate {
                     print(User.JWT)
                     
                     DispatchQueue.main.async {
+                        
                         self.counter = 120
                         self.infoLabel.isHidden = true
                         self.resendLabel.isHidden = true
                         self.resendButton.isHidden = true
                         self.timerLabel.isHidden = false
                         self.resendView.isHidden = true
+                        self.timerLabel.text = "120s"
                         self.resendtimer()
                     }
                 }
@@ -199,37 +204,11 @@ class OtpCheckViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func loginBtnPressed(_ sender: Any) {
         print("Final OTP : ",otpStackView.getOTP())
+        
         self.checkOtp()
     }
 }
-//extension StringProtocol {
-//    subscript(offset: Int) -> Element {
-//        return self[index(startIndex, offsetBy: offset)]
-//    }
-//    subscript(_ range: Range<Int>) -> SubSequence {
-//        return prefix(range.lowerBound + range.count)
-//            .suffix(range.count)
-//    }
-//    subscript(range: ClosedRange<Int>) -> SubSequence {
-//        return prefix(range.lowerBound + range.count)
-//            .suffix(range.count)
-//    }
-//    subscript(range: PartialRangeThrough<Int>) -> SubSequence {
-//        return prefix(range.upperBound.advanced(by: 1))
-//    }
-//    subscript(range: PartialRangeUpTo<Int>) -> SubSequence {
-//        return prefix(range.upperBound)
-//    }
-//    subscript(range: PartialRangeFrom<Int>) -> SubSequence {
-//        return suffix(Swift.max(0, count - range.lowerBound))
-//    }
-//}
-//extension BidirectionalCollection {
-//    subscript(safe offset: Int) -> Element? {
-//        guard !isEmpty, let i = index(startIndex, offsetBy: offset, limitedBy: index(before: endIndex)) else { return nil }
-//        return self[i]
-//    }
-//}
+
 extension OtpCheckViewController: OTPDelegate {
     
     func didChangeValidity(isValid: Bool) {

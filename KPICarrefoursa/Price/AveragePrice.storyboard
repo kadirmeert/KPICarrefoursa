@@ -12,8 +12,8 @@
         <array key="Montserrat-Bold.ttf">
             <string>Montserrat-Bold</string>
         </array>
-        <array key="Montserrat-VariableFont_wght.ttf">
-            <string>MontserratRoman-Regular</string>
+        <array key="Montserrat-BoldItalic.ttf">
+            <string>Montserrat-BoldItalic</string>
         </array>
     </customFonts>
     <scenes>
@@ -35,7 +35,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Price" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hb6-Qy-cbp">
-                                        <rect key="frame" x="284" y="20.666666666666671" width="90" height="49"/>
+                                        <rect key="frame" x="276" y="20.666666666666671" width="90" height="49"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="90" id="mmf-I5-eOW"/>
                                         </constraints>
@@ -50,7 +50,7 @@
                                     <constraint firstItem="Shz-0w-z3X" firstAttribute="centerY" secondItem="0dA-0K-A0f" secondAttribute="centerY" id="46F-Yu-Umo"/>
                                     <constraint firstItem="Shz-0w-z3X" firstAttribute="leading" secondItem="0dA-0K-A0f" secondAttribute="leading" constant="24" id="89z-fZ-pl0"/>
                                     <constraint firstAttribute="height" constant="90" id="nWK-td-5ef"/>
-                                    <constraint firstAttribute="trailing" secondItem="hb6-Qy-cbp" secondAttribute="trailing" constant="16" id="wEF-gQ-9ES"/>
+                                    <constraint firstAttribute="trailing" secondItem="hb6-Qy-cbp" secondAttribute="trailing" constant="24" id="wEF-gQ-9ES"/>
                                     <constraint firstAttribute="bottom" secondItem="Shz-0w-z3X" secondAttribute="bottom" constant="23" id="wPW-qv-fd8"/>
                                     <constraint firstItem="hb6-Qy-cbp" firstAttribute="centerY" secondItem="0dA-0K-A0f" secondAttribute="centerY" id="x15-Zy-oJU"/>
                                 </constraints>
@@ -283,7 +283,7 @@
                                 </constraints>
                                 <string key="text">Last Updated Time
 October 11, 2022 14:37</string>
-                                <fontDescription key="fontDescription" name="MontserratRoman-Regular" family="Montserrat" pointSize="10"/>
+                                <fontDescription key="fontDescription" name="Montserrat-BoldItalic" family="Montserrat" pointSize="10"/>
                                 <color key="textColor" red="0.89531916379999998" green="0.2085605562" blue="0.2214163542" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -311,7 +311,7 @@ October 11, 2022 14:37</string>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w7R-tG-8HT">
                                                 <rect key="frame" x="32" y="24" width="326" height="440.66666666666669"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Price Breakdown by Stores" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BVl-R4-sXo">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Price Breakdown by Stores" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BVl-R4-sXo">
                                                         <rect key="frame" x="12" y="24" width="302" height="18.666666666666671"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="16"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -406,7 +406,7 @@ October 11, 2022 14:37</string>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bBv-dD-rPg">
                                                 <rect key="frame" x="32" y="496.66666666666663" width="326" height="440.66666666666663"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Price Breakdown by Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oS8-eR-69d">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Price Breakdown by Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="oS8-eR-69d">
                                                         <rect key="frame" x="12" y="24" width="302" height="18.666666666666671"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="16"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

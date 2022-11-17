@@ -97,12 +97,10 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var foodİmage: UIImageView!
     @IBOutlet weak var nonFoodİmage: UIImageView!
     @IBOutlet weak var netSalesLflLabel: UILabel!
-    
     @IBOutlet weak var sales2021İmage: UIImageView!
-    
     @IBOutlet weak var sales2022Bİmage: UIImageView!
-    
     @IBOutlet weak var sales2022LEimage: UIImageView!
+    
     //MARK: Properties
     
     var jsonmessage: Int = 1
@@ -121,6 +119,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
     let str: Array = [String]()
     var years = "2021"
     let removeCharacters: Set<Character> = ["v", "s", "%", "K", "T", "L", " ", "B", "E"]
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareUI()
@@ -134,9 +134,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
             self.scrool.alwaysBounceVertical = true
             scrool.addSubview(refreshControl)
         }
-        
-        
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -147,6 +146,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         
         self.setupPieChart()
     }
+    
     @objc func refresh(sender:AnyObject) {
         // Code to refresh table view
         self.checkNetSales()
@@ -187,8 +187,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         self.progress2021.layer.cornerRadius = 5
         self.progress2022B.layer.cornerRadius = 5
         self.progress2022LE.layer.cornerRadius = 5
-        self.netSales2021Button.isSelected = true
-        self.netSales2021Button.tintColor = .clear
+//        self.netSales2021Button.isSelected = true
+//        self.yesterdayStoreButton.tintColor = .clear
     }
     
     @IBAction func switchValueDidChange(_ sender: UISwitch) {
@@ -200,6 +200,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
 //                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"DateFormat\": \"2022B\"}"
 //                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"DateFormat\": \"2022LE\"}"
 //            }
+            self.yesterdayStoreButton.isSelected = true
             if yesterdayStoreButton.isSelected == true {
                 
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"DateFormat\": \"2021\"}"
@@ -244,6 +245,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
 //                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"DateFormat\": \"2022B\"}"
 //                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"DateFormat\": \"2022LE\"}"
 //            }
+            self.yesterdayStoreButton.isSelected = true
             if yesterdayStoreButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"DateFormat\": \"2021\"}"
                 self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"DateFormat\": \"2021\"}"
@@ -827,10 +829,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                         self.storesTableView.reloadData()
                         self.chanelTableView.reloadData()
                         self.formatTableView.reloadData()
-                        self.storesTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-                        self.storesTableView.flashScrollIndicators()
-                        self.chanelTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-                        self.chanelTableView.flashScrollIndicators()
+
                     }
                     
                 }

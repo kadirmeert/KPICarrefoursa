@@ -20,7 +20,7 @@ class BasketStoresTableViewCell: UITableViewCell {
     }
     func prepareCell(info: String, color: String, count: Bool, ciro: Double) {
     
-            self.basketStoresİmageView.backgroundColor = UIColor(hexString: color)
+        self.basketStoresİmageView.backgroundColor = UIColor(hexString: color)
         self.basketStoresLabel.text = "\(info): \(String(format: "%.2f", ciro / 1000.0 )) K"
     
         }

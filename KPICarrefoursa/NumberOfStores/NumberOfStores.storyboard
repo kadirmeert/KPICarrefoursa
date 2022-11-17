@@ -35,7 +35,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number Of Stores" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1yx-48-OnI">
-                                        <rect key="frame" x="284" y="23" width="90" height="44"/>
+                                        <rect key="frame" x="276" y="23" width="90" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="90" id="G8w-Rw-9bz"/>
                                         </constraints>
@@ -52,7 +52,7 @@
                                     <constraint firstAttribute="bottom" secondItem="VWw-Mf-vOE" secondAttribute="bottom" constant="23" id="jxs-Es-FaY"/>
                                     <constraint firstItem="VWw-Mf-vOE" firstAttribute="leading" secondItem="EpD-IC-sgw" secondAttribute="leading" constant="24" id="o0X-sH-BAg"/>
                                     <constraint firstItem="1yx-48-OnI" firstAttribute="centerY" secondItem="EpD-IC-sgw" secondAttribute="centerY" id="wgr-9b-1bw"/>
-                                    <constraint firstAttribute="trailing" secondItem="1yx-48-OnI" secondAttribute="trailing" constant="16" id="ze4-05-1Ou"/>
+                                    <constraint firstAttribute="trailing" secondItem="1yx-48-OnI" secondAttribute="trailing" constant="24" id="ze4-05-1Ou"/>
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MEv-Q4-qtV">
@@ -314,7 +314,7 @@ October 11, 2022 14:37</string>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="olb-QA-XtY">
                                                 <rect key="frame" x="32" y="24" width="326" height="527"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number Of Breakdown by Stores" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ElD-6u-e1E">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number Of Breakdown by Stores" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ElD-6u-e1E">
                                                         <rect key="frame" x="30.333333333333343" y="24" width="265.33333333333326" height="24"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="24" id="Zjk-xV-bxL"/>
@@ -348,7 +348,7 @@ October 11, 2022 14:37</string>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lqF-Cl-SOP">
                                                                             <rect key="frame" x="0.0" y="0.0" width="276" height="43.666666666666664"/>
                                                                             <subviews>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t0a-Gz-akS">
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="t0a-Gz-akS">
                                                                                     <rect key="frame" x="31" y="13.333333333333334" width="40" height="17.333333333333329"/>
                                                                                     <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
                                                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

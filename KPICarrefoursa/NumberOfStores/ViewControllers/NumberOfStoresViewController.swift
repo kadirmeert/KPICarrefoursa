@@ -121,6 +121,7 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
 //            if hourlyStoreButton.isSelected == true {
 //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
 //            }
+            self.yesterdayStoreButton.isSelected = true
             if yesterdayStoreButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
             }
@@ -142,6 +143,7 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
 //            if hourlyStoreButton.isSelected == true {
 //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
 //            }
+            self.yesterdayStoreButton.isSelected = true
             if yesterdayStoreButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
             }
@@ -214,7 +216,6 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
                     print(self.numberOfStores.Area)
                     self.numberOfStores.City = json!["Stores"]?.value(forKey: "City") as? [Int] ?? [0]
                     self.numberOfStores.Color = json!["Stores"]?.value(forKey: "Color") as? [String] ?? ["0"]
-                    //                    self.hourlyData.HourlyFilterType = json!["Stores"]?.value(forKey: "FilterType") as! [String]
                     self.numberOfStores.Format = json!["Stores"]?.value(forKey: "Format") as? [String] ?? ["0"]
                     self.numberOfStores.LastUpdate = json!["Stores"]?.value(forKey: "LastUpdate") as? [String] ?? ["0"]
                     self.numberOfStores.StoreNumber = json!["Stores"]?.value(forKey: "StoreNumber") as? [Int] ?? [0]
@@ -505,12 +506,21 @@ extension NumberOfStoresViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let storeCell = tableView.dequeueReusableCell(withIdentifier: "numberOfStoresCell", for: indexPath) as! NumberOfStoresTableViewCell
         if !self.numberOfStores.Color.isEmpty {
-            let selectedColor = self.numberOfStores.Color[indexPath.item]
-            let selectedFormat = self.numberOfStores.Format[indexPath.item]
-            let selectedArea = self.numberOfStores.Area[indexPath.item]
-            let selectedCity = self.numberOfStores.City[indexPath.item]
-            let isLast = indexPath.item == (self.numberOfStores.Color.count - 1)
-            storeCell.prepareCell(format: selectedFormat, color: selectedColor, count: isLast, area: selectedArea, city: selectedCity)
+            if self.numberOfStores.Color[0] == "0" {
+                let selectedColor = "0"
+                let selectedFormat = self.numberOfStores.Format[indexPath.item]
+                let selectedArea = self.numberOfStores.Area[indexPath.item]
+                let selectedCity = self.numberOfStores.City[indexPath.item]
+                let isLast = indexPath.item == (self.numberOfStores.Color.count - 1)
+                storeCell.prepareCell(format: selectedFormat, color: selectedColor, count: isLast, area: selectedArea, city: selectedCity)
+            } else {
+                let selectedColor = self.numberOfStores.Color[indexPath.item]
+                let selectedFormat = self.numberOfStores.Format[indexPath.item]
+                let selectedArea = self.numberOfStores.Area[indexPath.item]
+                let selectedCity = self.numberOfStores.City[indexPath.item]
+                let isLast = indexPath.item == (self.numberOfStores.Color.count - 1)
+                storeCell.prepareCell(format: selectedFormat, color: selectedColor, count: isLast, area: selectedArea, city: selectedCity)
+            }
         }
         return storeCell
     }

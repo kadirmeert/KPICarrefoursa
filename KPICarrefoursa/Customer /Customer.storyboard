@@ -35,7 +35,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Customer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vh1-GR-6Sg">
-                                        <rect key="frame" x="271.33333333333331" y="32.666666666666671" width="102.66666666666669" height="24.666666666666671"/>
+                                        <rect key="frame" x="263.33333333333331" y="32.666666666666671" width="102.66666666666669" height="24.666666666666671"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="20"/>
                                         <color key="textColor" red="0.018043307590000002" green="0.27759099009999999" blue="0.60158270599999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -47,7 +47,7 @@
                                     <constraint firstAttribute="bottom" secondItem="8cC-rO-ZOZ" secondAttribute="bottom" constant="23" id="EfZ-i6-XCb"/>
                                     <constraint firstItem="8cC-rO-ZOZ" firstAttribute="top" secondItem="ijw-M0-HJc" secondAttribute="top" constant="23" id="KHQ-an-vR2"/>
                                     <constraint firstItem="8cC-rO-ZOZ" firstAttribute="centerY" secondItem="ijw-M0-HJc" secondAttribute="centerY" id="KJN-Mp-UiQ"/>
-                                    <constraint firstAttribute="trailing" secondItem="Vh1-GR-6Sg" secondAttribute="trailing" constant="16" id="UjB-6C-udX"/>
+                                    <constraint firstAttribute="trailing" secondItem="Vh1-GR-6Sg" secondAttribute="trailing" constant="24" id="UjB-6C-udX"/>
                                     <constraint firstAttribute="height" constant="90" id="mTK-Yi-ZWK"/>
                                     <constraint firstItem="Vh1-GR-6Sg" firstAttribute="centerY" secondItem="ijw-M0-HJc" secondAttribute="centerY" id="mmd-Vl-YrR"/>
                                 </constraints>
@@ -308,7 +308,7 @@ October 11, 2022 14:37</string>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xrl-Jw-WaK">
                                                 <rect key="frame" x="32" y="24" width="326" height="454"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Customer Breakdown by Stores" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhI-p5-pA1">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Customer Breakdown by Stores" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhI-p5-pA1">
                                                         <rect key="frame" x="30.666666666666657" y="24" width="265" height="18.666666666666671"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="16"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -401,7 +401,7 @@ October 11, 2022 14:37</string>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n8U-ln-QhM">
                                                 <rect key="frame" x="32" y="510" width="326" height="454"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Customer Breakdown by Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Inm-eL-CXg">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Customer Breakdown by Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Inm-eL-CXg">
                                                         <rect key="frame" x="18.666666666666657" y="24" width="289" height="18.666666666666671"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="16"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

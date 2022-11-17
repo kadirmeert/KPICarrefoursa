@@ -13,5 +13,6 @@ struct Channel{
     var Oran = [Int]()
     var Channels = [String]()
     var IsLfl = [Int]()
+
     
 }

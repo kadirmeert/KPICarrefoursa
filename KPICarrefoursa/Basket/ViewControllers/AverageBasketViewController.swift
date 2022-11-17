@@ -50,7 +50,7 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
     
     var jsonmessage: Int = 1
     var userDC: String = ""
-    var chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1}"
+    var chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
     var basketStores = BasketStores()
     var basketCategory = BasketCategory()
     var hud = JGProgressHUD()
@@ -112,6 +112,7 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
 //            if hourlyButton.isSelected == true {
 //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
 //            }
+            self.yesterdayButton.isSelected = true
             if yesterdayButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
             }
@@ -133,6 +134,7 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
 //            if hourlyButton.isSelected == true {
 //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
 //            }
+            self.yesterdayButton.isSelected = true
             if yesterdayButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
             }
@@ -150,6 +152,11 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
             }
         }
         if !self.basketStores.Stores.isEmpty {
+            hud.textLabel.text = "Loading"
+            hud.show(in: self.view)
+            self.checkChartData()
+        }
+        else {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
             self.checkChartData()
@@ -200,10 +207,13 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
                     self.basketStores.AverageBasket = json!["AverageBasketByStores"]?.value(forKey: "AverageBasket") as? [Double] ?? [0.0]
                     self.basketStores.Stores = json!["AverageBasketByStores"]?.value(forKey: "Stores") as? [String] ?? ["0"]
                     self.basketStores.Oran = json!["AverageBasketByStores"]?.value(forKey: "Oran") as? [Double] ?? [0.0]
+                    self.basketStores.ColorStores = json!["AverageBasketByStores"]?.value(forKey: "ColorStores") as? [String] ?? ["0"]
                     self.basketCategory.Ciro = json!["AverageBasketByCategory"]?.value(forKey: "Ciro") as? [Double] ?? [0.0]
                     self.basketCategory.AverageBasket = json!["AverageBasketByCategory"]?.value(forKey: "AverageBasket") as? [Double] ?? [0.0]
                     self.basketCategory.Category = json!["AverageBasketByCategory"]?.value(forKey: "Category") as? [String] ?? ["0"]
                     self.basketStores.LastUpdate =  json!["BasketLastUpdate"]?.value(forKey: "LastUpdate") as? [String] ?? [""]
+                    self.basketCategory.ColorCategory = json!["AverageBasketByCategory"]?.value(forKey: "ColorCategory") as? [String] ?? ["0"]
+
                    
 
                     DispatchQueue.main.async {
@@ -253,13 +263,17 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
         let dataSetStores = PieChartDataSet(entries: entriesStores, label: "")
         let dataSetChannel = PieChartDataSet(entries: entriesChannel, label: "")
         
-        var  colors: [UIColor] = []
-        for i in 0..<User.colors.count {
-            colors.append(UIColor(hexString: User.colors[i]))
+        var  colorsStore: [UIColor] = []
+        for i in 0..<self.basketStores.ColorStores.count {
+            colorsStore.append(UIColor(hexString: basketStores.ColorStores[i]))
+        }
+        var  colorsCategory: [UIColor] = []
+        for i in 0..<self.basketCategory.ColorCategory.count {
+            colorsCategory.append(UIColor(hexString: basketCategory.ColorCategory[i]))
         }
         
-        dataSetChannel.colors = colors
-        dataSetStores.colors = colors
+        dataSetStores.colors = colorsStore
+        dataSetChannel.colors = colorsCategory
         
         dataSetStores.sliceSpace = 1
         dataSetStores.drawValuesEnabled = false
@@ -512,7 +526,7 @@ extension AverageBasketViewController: UITableViewDelegate, UITableViewDataSourc
             let storeCell = tableView.dequeueReusableCell(withIdentifier: "basketStoreCell", for: indexPath) as! BasketStoresTableViewCell
             if !self.basketStores.Stores.isEmpty {
                 let selectedCiro = self.basketStores.Ciro[indexPath.item]
-                let selectedColor = User.colors[indexPath.item]
+                let selectedColor = self.basketStores.ColorStores[indexPath.item]
                 let selectedInfo = self.basketStores.Stores[indexPath.item]
                 let isLast = indexPath.item == (self.basketStores.Stores.count - 1)
                 storeCell.prepareCell(info: selectedInfo , color: selectedColor, count: isLast, ciro: selectedCiro)
@@ -524,7 +538,7 @@ extension AverageBasketViewController: UITableViewDelegate, UITableViewDataSourc
             let chanelCell = tableView.dequeueReusableCell(withIdentifier: "basketCategoryCell", for: indexPath) as! BasketCategoryTableViewCell
             if !self.basketCategory.Category.isEmpty {
                 let selectedCiro = self.basketCategory.Ciro[indexPath.item]
-                let selectedColor = User.colors[indexPath.item]
+                let selectedColor = self.basketCategory.ColorCategory[indexPath.item]
                 let selectedInfo = self.basketCategory.Category[indexPath.item]
                 let isLast = indexPath.item == (self.basketCategory.Category.count - 1)
                 chanelCell.prepareCell(info: selectedInfo, color: selectedColor, count: isLast, ciro: selectedCiro)

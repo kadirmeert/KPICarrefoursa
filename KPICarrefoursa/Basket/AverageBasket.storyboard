@@ -12,8 +12,8 @@
         <array key="Montserrat-Bold.ttf">
             <string>Montserrat-Bold</string>
         </array>
-        <array key="Montserrat-VariableFont_wght.ttf">
-            <string>MontserratRoman-Regular</string>
+        <array key="Montserrat-BoldItalic.ttf">
+            <string>Montserrat-BoldItalic</string>
         </array>
     </customFonts>
     <scenes>
@@ -35,7 +35,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Basket" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5YS-Bp-THJ">
-                                        <rect key="frame" x="284" y="20.666666666666671" width="90" height="49"/>
+                                        <rect key="frame" x="276" y="20.666666666666671" width="90" height="49"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="90" id="VFr-be-7rJ"/>
                                         </constraints>
@@ -49,7 +49,7 @@
                                     <constraint firstItem="lZT-bu-Y3V" firstAttribute="leading" secondItem="kD4-YS-MD8" secondAttribute="leading" constant="24" id="9Av-P5-EFk"/>
                                     <constraint firstItem="5YS-Bp-THJ" firstAttribute="centerY" secondItem="kD4-YS-MD8" secondAttribute="centerY" id="DUz-8W-Mh6"/>
                                     <constraint firstItem="lZT-bu-Y3V" firstAttribute="centerY" secondItem="kD4-YS-MD8" secondAttribute="centerY" id="OwV-oM-aTq"/>
-                                    <constraint firstAttribute="trailing" secondItem="5YS-Bp-THJ" secondAttribute="trailing" constant="16" id="T4L-Wd-PFN"/>
+                                    <constraint firstAttribute="trailing" secondItem="5YS-Bp-THJ" secondAttribute="trailing" constant="24" id="T4L-Wd-PFN"/>
                                     <constraint firstItem="lZT-bu-Y3V" firstAttribute="top" secondItem="kD4-YS-MD8" secondAttribute="top" constant="23" id="gGa-9v-4x2"/>
                                     <constraint firstAttribute="bottom" secondItem="lZT-bu-Y3V" secondAttribute="bottom" constant="23" id="jWS-tr-C4A"/>
                                     <constraint firstAttribute="height" constant="90" id="olR-9v-ZJm"/>
@@ -283,7 +283,7 @@
                                 </constraints>
                                 <string key="text">Last Updated Time
 October 11, 2022 14:37</string>
-                                <fontDescription key="fontDescription" name="MontserratRoman-Regular" family="Montserrat" pointSize="10"/>
+                                <fontDescription key="fontDescription" name="Montserrat-BoldItalic" family="Montserrat" pointSize="10"/>
                                 <color key="textColor" red="0.89531916379999998" green="0.2085605562" blue="0.2214163542" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -311,7 +311,7 @@ October 11, 2022 14:37</string>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSy-18-7X5">
                                                 <rect key="frame" x="32" y="24" width="326" height="440.66666666666669"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Basket Breakdown by Stores" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uen-hF-kw6">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Basket Breakdown by Stores" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uen-hF-kw6">
                                                         <rect key="frame" x="12" y="24" width="302" height="18.666666666666671"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="16"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -406,7 +406,7 @@ October 11, 2022 14:37</string>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iu8-GN-Lrw">
                                                 <rect key="frame" x="32" y="496.66666666666663" width="326" height="440.66666666666663"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Basket Breakdown by Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5gf-8S-txb">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Basket Breakdown by Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="5gf-8S-txb">
                                                         <rect key="frame" x="12" y="24" width="302" height="18.666666666666671"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="16"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

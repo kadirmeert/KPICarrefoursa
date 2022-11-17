@@ -19,8 +19,9 @@ class BasketCategoryTableViewCell: UITableViewCell {
 
     }
     func prepareCell(info: String, color: String, count: Bool, ciro: Double) {
+        
     
-            self.basketCategoryİmageView.backgroundColor = UIColor(hexString: color)
+        self.basketCategoryİmageView.backgroundColor = UIColor(hexString: color)
         self.basketCategoryLabel.text = "\(info): \(String(format: "%.2f", ciro / 1000.0 )) K"
     
         }

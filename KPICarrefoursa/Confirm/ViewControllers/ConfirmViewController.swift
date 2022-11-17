@@ -28,6 +28,7 @@ class ConfirmViewController: UIViewController {
         self.phoneView.layer.cornerRadius = 12
         self.confirmView.dropShadow(cornerRadius: 12)
         self.phoneButtonView.dropShadow(cornerRadius: 12)
+        self.phoneButtonView.applyGradient(colors: [UIColor(red:0/255, green:71/255, blue:151/255, alpha: 1),  UIColor(red:0/255, green:120/255, blue:255/255, alpha: 1), UIColor(red:0/255, green:71/255, blue:151/255, alpha: 1)])
         self.phoneNumberTextField.attributedPlaceholder = NSAttributedString(string: "Phone Number", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
         
     }

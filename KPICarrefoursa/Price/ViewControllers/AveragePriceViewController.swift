@@ -50,7 +50,7 @@ class AveragePriceViewController: UIViewController, ChartViewDelegate {
     
     var jsonmessage: Int = 1
     var userDC: String = ""
-    var chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1}"
+    var chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
     var priceStores = PriceStores()
     var priceCategory = PriceCategory()
     var hud = JGProgressHUD()
@@ -108,6 +108,7 @@ class AveragePriceViewController: UIViewController, ChartViewDelegate {
 //            if hourlyButton.isSelected == true {
 //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
 //            }
+            self.yesterdayButton.isSelected = true
             if yesterdayButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
             }
@@ -129,6 +130,7 @@ class AveragePriceViewController: UIViewController, ChartViewDelegate {
 //            if hourlyButton.isSelected == true {
 //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
 //            }
+            self.yesterdayButton.isSelected = true
             if yesterdayButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
             }
@@ -146,6 +148,11 @@ class AveragePriceViewController: UIViewController, ChartViewDelegate {
             }
         }
         if !self.priceStores.Stores.isEmpty {
+            hud.textLabel.text = "Loading"
+            hud.show(in: self.view)
+            self.checkChartData()
+        }
+        else {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
             self.checkChartData()
@@ -196,10 +203,13 @@ class AveragePriceViewController: UIViewController, ChartViewDelegate {
                     self.priceStores.AveragePrice = json!["AveragePriceByStores"]?.value(forKey: "AveragePrice") as? [Double] ?? [0.0]
                     self.priceStores.Stores = json!["AveragePriceByStores"]?.value(forKey: "Stores") as? [String] ?? ["0"]
                     self.priceStores.Oran = json!["AveragePriceByStores"]?.value(forKey: "Oran") as? [Double] ?? [0.0]
+                    self.priceStores.ColorStores = json!["AveragePriceByStores"]?.value(forKey: "ColorStores") as? [String] ?? ["0"]
                     self.priceCategory.Ciro = json!["AveragePriceByCategory"]?.value(forKey: "Ciro") as? [Double] ?? [0.0]
                     self.priceCategory.AveragePrice = json!["AveragePriceByCategory"]?.value(forKey: "AveragePrice") as? [Double] ?? [0.0]
                     self.priceCategory.Category = json!["AveragePriceByCategory"]?.value(forKey: "Category") as? [String] ?? ["0"]
                     self.priceStores.LastUpdate =  json!["PriceLastUpdate"]?.value(forKey: "LastUpdate") as? [String] ?? [""]
+                    self.priceCategory.ColorCategory = json!["AveragePriceByCategory"]?.value(forKey: "ColorCategory") as? [String] ?? ["0"]
+
                     
                     DispatchQueue.main.async {
                         self.hud.dismiss()
@@ -247,13 +257,18 @@ class AveragePriceViewController: UIViewController, ChartViewDelegate {
         let dataSetStores = PieChartDataSet(entries: entriesStores, label: "")
         let dataSetChannel = PieChartDataSet(entries: entriesChannel, label: "")
         
-        var  colors: [UIColor] = []
-        for i in 0..<User.colors.count {
-            colors.append(UIColor(hexString: User.colors[i]))
+        var  colorsStore: [UIColor] = []
+        for i in 0..<self.priceStores.ColorStores.count {
+            colorsStore.append(UIColor(hexString: priceStores.ColorStores[i]))
+        }
+        var  colorsCategory: [UIColor] = []
+        for i in 0..<self.priceCategory.ColorCategory.count {
+            colorsCategory.append(UIColor(hexString: priceCategory.ColorCategory[i]))
         }
         
-        dataSetChannel.colors = colors
-        dataSetStores.colors = colors
+        dataSetStores.colors = colorsStore
+        dataSetChannel.colors = colorsCategory
+       
         
         dataSetStores.sliceSpace = 1
         dataSetStores.drawValuesEnabled = false
@@ -510,7 +525,7 @@ extension AveragePriceViewController: UITableViewDelegate, UITableViewDataSource
             let storeCell = tableView.dequeueReusableCell(withIdentifier: "priceStoreCell", for: indexPath) as! PriceStoresTableViewCell
             if !self.priceStores.Stores.isEmpty {
                 let selectedCiro = self.priceStores.Ciro[indexPath.item]
-                let selectedColor = User.colors[indexPath.item]
+                let selectedColor = self.priceStores.ColorStores[indexPath.item]
                 let selectedInfo = self.priceStores.Stores[indexPath.item]
                 let isLast = indexPath.item == (self.priceStores.Stores.count - 1)
                 storeCell.prepareCell(info: selectedInfo , color: selectedColor, count: isLast, ciro: selectedCiro)
@@ -522,7 +537,7 @@ extension AveragePriceViewController: UITableViewDelegate, UITableViewDataSource
             let chanelCell = tableView.dequeueReusableCell(withIdentifier: "priceCategoryCell", for: indexPath) as! PriceCategoryTableViewCell
             if !self.priceCategory.Category.isEmpty {
                 let selectedCiro = self.priceCategory.Ciro[indexPath.item]
-                let selectedColor = User.colors[indexPath.item]
+                let selectedColor = self.priceCategory.ColorCategory[indexPath.item]
                 let selectedInfo = self.priceCategory.Category[indexPath.item]
                 let isLast = indexPath.item == (self.priceCategory.Category.count - 1)
                 chanelCell.prepareCell(info: selectedInfo, color: selectedColor, count: isLast, ciro: selectedCiro)
