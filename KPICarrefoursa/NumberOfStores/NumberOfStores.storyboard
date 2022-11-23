@@ -349,13 +349,13 @@ October 11, 2022 14:37</string>
                                                                             <rect key="frame" x="0.0" y="0.0" width="276" height="43.666666666666664"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="t0a-Gz-akS">
-                                                                                    <rect key="frame" x="31" y="13.333333333333334" width="40" height="17.333333333333329"/>
+                                                                                    <rect key="frame" x="23" y="13.333333333333334" width="40" height="17.333333333333329"/>
                                                                                     <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
                                                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fdb-bi-VF7">
-                                                                                    <rect key="frame" x="8" y="14.333333333333336" width="15" height="15"/>
+                                                                                    <rect key="frame" x="0.0" y="14.333333333333336" width="15" height="15"/>
                                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="15" id="3Rs-Ek-JfQ"/>
@@ -365,7 +365,7 @@ October 11, 2022 14:37</string>
                                                                             </subviews>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
-                                                                                <constraint firstItem="fdb-bi-VF7" firstAttribute="leading" secondItem="lqF-Cl-SOP" secondAttribute="leading" constant="8" id="1ab-Ox-XHj"/>
+                                                                                <constraint firstItem="fdb-bi-VF7" firstAttribute="leading" secondItem="lqF-Cl-SOP" secondAttribute="leading" id="1ab-Ox-XHj"/>
                                                                                 <constraint firstItem="t0a-Gz-akS" firstAttribute="leading" secondItem="fdb-bi-VF7" secondAttribute="trailing" constant="8" id="7W6-jx-Zkj"/>
                                                                                 <constraint firstItem="fdb-bi-VF7" firstAttribute="centerY" secondItem="lqF-Cl-SOP" secondAttribute="centerY" id="jsk-Ku-NdF"/>
                                                                                 <constraint firstItem="t0a-Gz-akS" firstAttribute="centerY" secondItem="fdb-bi-VF7" secondAttribute="centerY" id="ygO-uV-BKx"/>

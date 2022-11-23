@@ -18,7 +18,7 @@ class PriceStoresTableViewCell: UITableViewCell {
         self.priceStoresİmageView.dropShadow(cornerRadius: self.priceStoresİmageView.frame.height / 2)
 
     }
-    func prepareCell(info: String, color: String, count: Bool, ciro: Double) {
+    func prepareCell(info: String, color: String, ciro: Double) {
         self.priceStoresİmageView.backgroundColor = UIColor(hexString: color)
         self.priceStoresLabel.text = "\(info): \(String(format: "%.2f", ciro / 1000.0 )) K"
 

@@ -16,14 +16,19 @@ class FormatTableViewCell: UITableViewCell {
     @IBOutlet weak var yearLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var formatView: UIView!
+    
+    let removeCharacters: Set<Character> = [" ", "-"]
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.formatİnnerView.dropShadow(cornerRadius: 12)
-        self.progressView.dropShadow(cornerRadius: 12)
+        self.progressView.dropShadow(cornerRadius: 8)
+        self.formatView.layer.cornerRadius = 4
         
     }
-    func prepareCell(format: String, color: String, count: Int, percentage: String, price: String, gelisim: String, years: String) {
+    func prepareCell(format: String, color: String, percentage: String, price: String, gelisim: String, years: String) {
+        
         
         if Double(gelisim.trimmingCharacters(in: ["%"," "])) ?? 0.0 > 0.0 {
             self.formatPercView.text = gelisim.trimmingCharacters(in: [" "])
@@ -31,7 +36,7 @@ class FormatTableViewCell: UITableViewCell {
             self.priceLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
             self.formatPercView.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
         } else {
-            self.formatPercView.text = gelisim.trimmingCharacters(in: [" "])
+            self.formatPercView.text = gelisim.components(separatedBy: [" ", "-"]).joined()
             self.formatİmageView.image = UIImage(named: "down")
             self.priceLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
             self.formatPercView.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
@@ -39,9 +44,10 @@ class FormatTableViewCell: UITableViewCell {
         self.yearLabel.text = years
         self.formatLabel.text = format
         
-        self.priceLabel.text = "\(String(format: "%.1f", "\(price.dropLast(2))".toDouble )) TL"
-        self.progressView.setProgress((Float(percentage) ?? 0.0) / 100, animated: true)
+        self.priceLabel.text = "\(String(format: "%.1f", "\(price.dropLast(2).components(separatedBy: [" ", "-"]).joined())".toDouble )) TL"
+        self.progressView.setProgress((Float(gelisim.trimmingCharacters(in: ["%"," "])) ?? 0.0) / 100, animated: false)
         progressView.progressTintColor = UIColor(hexString: color)
+        progressView.backgroundColor = UIColor(hexString: color).withAlphaComponent(0.2)
         
         
         

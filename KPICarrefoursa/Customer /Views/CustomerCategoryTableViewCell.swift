@@ -22,7 +22,7 @@ class CustomerCategoryTableViewCell: UITableViewCell {
         self.customerCategoryİmageView.dropShadow(cornerRadius: self.customerCategoryİmageView.frame.height / 2)
 
     }
-    func prepareCell(info: String, color: String, count: Bool, ciro: Double) {
+    func prepareCell(info: String, color: String, ciro: Double) {
         
         self.customerCategoryİmageView.backgroundColor = UIColor(hexString: color)
         self.customerCategoryLabel.text = "\(info): \(String(format: "%.2f", ciro / 1000.0 )) K"

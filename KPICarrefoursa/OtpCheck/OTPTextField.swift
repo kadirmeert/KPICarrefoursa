@@ -12,11 +12,16 @@ class OTPTextField: UITextField {
     
     weak var previousTextField: OTPTextField?
     weak var nextTextField: OTPTextField?
+    weak var textField: OTPTextField?
     
     override public func deleteBackward(){
-        text = ""
-        previousTextField?.becomeFirstResponder()
-        previousTextField?.text = ""
+        if text == "" {
+            previousTextField?.text = ""
+            previousTextField?.becomeFirstResponder()
+        } else {
+            text = ""
+        }
+        
     }
     
 }

@@ -32,6 +32,8 @@
 		4122E7AA28EB11B00031931E /* OtpCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4122E7A928EB11B00031931E /* OtpCheckViewController.swift */; };
 		4122E7B528EC451F0031931E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4122E7B428EC451F0031931E /* Colors.swift */; };
 		412A28E528F2092800F232D3 /* Confirm.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 412A28E428F2092800F232D3 /* Confirm.storyboard */; };
+		412C843A292CA57300D80BCC /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 412C8439292CA57300D80BCC /* FirebaseCrashlytics */; };
+		412C843C292CA57300D80BCC /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 412C843B292CA57300D80BCC /* FirebaseFirestore */; };
 		412F1A3B28F82AA7007F1A52 /* Splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 412F1A3A28F82AA7007F1A52 /* Splash.storyboard */; };
 		412F1A3D28F82AB7007F1A52 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412F1A3C28F82AB7007F1A52 /* SplashViewController.swift */; };
 		414C9BDC29028ABC00935541 /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414C9BDB29028ABB00935541 /* MainModel.swift */; };
@@ -66,6 +68,7 @@
 		417C06992905A8AD000CD45C /* PriceStoresTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C06982905A8AD000CD45C /* PriceStoresTableViewCell.swift */; };
 		417C069B2905A8C5000CD45C /* PriceCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C069A2905A8C5000CD45C /* PriceCategoryTableViewCell.swift */; };
 		41859E5C292510DE00CC16F7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41859E5B292510DD00CC16F7 /* GoogleService-Info.plist */; };
+		41A5C8D829279C2F00048A35 /* SalesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A5C8D729279C2F00048A35 /* SalesTableViewCell.swift */; };
 		41BF9F9D28F5815B002A9BAE /* NumberOfStoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BF9F9C28F5815A002A9BAE /* NumberOfStoresViewController.swift */; };
 		41BF9F9F28F58170002A9BAE /* NumberOfStores.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41BF9F9E28F58170002A9BAE /* NumberOfStores.storyboard */; };
 		41BFEF3A29091CAC00DE6DE8 /* AverageBasketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BFEF3929091CAC00DE6DE8 /* AverageBasketModel.swift */; };
@@ -76,9 +79,9 @@
 		41BFEF452909222000DE6DE8 /* Montserrat-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41BFEF442909222000DE6DE8 /* Montserrat-ExtraBold.ttf */; };
 		41BFEF472909239C00DE6DE8 /* Montserrat-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41BFEF462909239C00DE6DE8 /* Montserrat-BoldItalic.ttf */; };
 		41BFEF492909259100DE6DE8 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41BFEF482909259100DE6DE8 /* Montserrat-Medium.ttf */; };
+		41C07C30292DF93F001DB44E /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41C07C2F292DF93F001DB44E /* Storyboard.storyboard */; };
 		41D4686D291396FB0003C0CC /* OtpAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D4686C291396FB0003C0CC /* OtpAlertViewController.swift */; };
 		41D4686F291397050003C0CC /* OtpAlert.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41D4686E291397050003C0CC /* OtpAlert.storyboard */; };
-		41EA01012925120800266C57 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 41EA01002925120800266C57 /* FirebaseCrashlytics */; };
 		41F0798628F411B500BD5976 /* ConfirmToOtpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F0798528F411B500BD5976 /* ConfirmToOtpViewController.swift */; };
 		41F1797628F1A8C00010CA9D /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F1797528F1A8C00010CA9D /* ConfirmViewController.swift */; };
 		41F5E8702913A129004D6D56 /* OTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F5E86F2913A129004D6D56 /* OTPTextField.swift */; };
@@ -167,6 +170,7 @@
 		417C06982905A8AD000CD45C /* PriceStoresTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PriceStoresTableViewCell.swift; path = KPICarrefoursa/Price/PriceStoresTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		417C069A2905A8C5000CD45C /* PriceCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		41859E5B292510DD00CC16F7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		41A5C8D729279C2F00048A35 /* SalesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesTableViewCell.swift; sourceTree = "<group>"; };
 		41BF9F9C28F5815A002A9BAE /* NumberOfStoresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfStoresViewController.swift; sourceTree = "<group>"; };
 		41BF9F9E28F58170002A9BAE /* NumberOfStores.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NumberOfStores.storyboard; sourceTree = "<group>"; };
 		41BFEF3929091CAC00DE6DE8 /* AverageBasketModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AverageBasketModel.swift; sourceTree = "<group>"; };
@@ -177,6 +181,7 @@
 		41BFEF442909222000DE6DE8 /* Montserrat-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-ExtraBold.ttf"; path = "../../KPI Doküman/Montserrat/static/Montserrat-ExtraBold.ttf"; sourceTree = "<group>"; };
 		41BFEF462909239C00DE6DE8 /* Montserrat-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-BoldItalic.ttf"; path = "../../KPI Doküman/Montserrat/static/Montserrat-BoldItalic.ttf"; sourceTree = "<group>"; };
 		41BFEF482909259100DE6DE8 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Medium.ttf"; path = "../../KPI Doküman/Montserrat/static/Montserrat-Medium.ttf"; sourceTree = "<group>"; };
+		41C07C2F292DF93F001DB44E /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		41D4686C291396FB0003C0CC /* OtpAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtpAlertViewController.swift; sourceTree = "<group>"; };
 		41D4686E291397050003C0CC /* OtpAlert.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OtpAlert.storyboard; sourceTree = "<group>"; };
 		41F0798528F411B500BD5976 /* ConfirmToOtpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmToOtpViewController.swift; sourceTree = "<group>"; };
@@ -199,7 +204,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A43F278659F09D6C0495257 /* Pods_KPICarrefoursa.framework in Frameworks */,
-				41EA01012925120800266C57 /* FirebaseCrashlytics in Frameworks */,
+				412C843A292CA57300D80BCC /* FirebaseCrashlytics in Frameworks */,
+				412C843C292CA57300D80BCC /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,6 +378,7 @@
 				4122E7A428EB0BCD0031931E /* extensions.swift */,
 				4122E7B428EC451F0031931E /* Colors.swift */,
 				4161586C28EDB5DF009A1C0C /* User.swift */,
+				41C07C2F292DF93F001DB44E /* Storyboard.storyboard */,
 			);
 			path = Constant;
 			sourceTree = "<group>";
@@ -433,6 +440,7 @@
 				417C06622905402C000CD45C /* ChanelTableViewCell.swift */,
 				417C06652905456F000CD45C /* StoresTableViewCell.swift */,
 				41627AE7291CD377002502AC /* FormatTableViewCell.swift */,
+				41A5C8D729279C2F00048A35 /* SalesTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -687,7 +695,8 @@
 			);
 			name = KPICarrefoursa;
 			packageProductDependencies = (
-				41EA01002925120800266C57 /* FirebaseCrashlytics */,
+				412C8439292CA57300D80BCC /* FirebaseCrashlytics */,
+				412C843B292CA57300D80BCC /* FirebaseFirestore */,
 			);
 			productName = KPICarrefoursa;
 			productReference = 4122E76528EB0A8A0031931E /* KPICarrefoursa.app */;
@@ -765,7 +774,7 @@
 			);
 			mainGroup = 4122E75C28EB0A8A0031931E;
 			packageReferences = (
-				41EA00FF2925120800266C57 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				412C8438292CA57300D80BCC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 4122E76628EB0A8A0031931E /* Products */;
 			projectDirPath = "";
@@ -788,6 +797,7 @@
 				417C067329059942000CD45C /* Customer.storyboard in Resources */,
 				41D4686F291397050003C0CC /* OtpAlert.storyboard in Resources */,
 				41BFEF3F290921FF00DE6DE8 /* Montserrat-Black.ttf in Resources */,
+				41C07C30292DF93F001DB44E /* Storyboard.storyboard in Resources */,
 				417C06832905A06E000CD45C /* Product.storyboard in Resources */,
 				417C06872905A579000CD45C /* AverageBasket.storyboard in Resources */,
 				4122E79C28EB0B430031931E /* Auth.storyboard in Resources */,
@@ -961,6 +971,7 @@
 				41627AE8291CD377002502AC /* FormatTableViewCell.swift in Sources */,
 				41741D90290800DF0048CB00 /* NetSalesFormatModel.swift in Sources */,
 				4114E7BB28FE95FB0042BD19 /* NumberOfStoresModel.swift in Sources */,
+				41A5C8D829279C2F00048A35 /* SalesTableViewCell.swift in Sources */,
 				417C066E29059185000CD45C /* CustomerStoreTableViewCell.swift in Sources */,
 				417C06812905A03A000CD45C /* ProductModel.swift in Sources */,
 				4122E7B528EC451F0031931E /* Colors.swift in Sources */,
@@ -1356,7 +1367,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		41EA00FF2925120800266C57 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		412C8438292CA57300D80BCC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
@@ -1367,10 +1378,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		41EA01002925120800266C57 /* FirebaseCrashlytics */ = {
+		412C8439292CA57300D80BCC /* FirebaseCrashlytics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 41EA00FF2925120800266C57 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 412C8438292CA57300D80BCC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
+		};
+		412C843B292CA57300D80BCC /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 412C8438292CA57300D80BCC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

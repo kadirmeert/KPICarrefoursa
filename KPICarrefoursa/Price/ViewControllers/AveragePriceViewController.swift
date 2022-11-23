@@ -213,9 +213,11 @@ class AveragePriceViewController: UIViewController, ChartViewDelegate {
                     
                     DispatchQueue.main.async {
                         self.hud.dismiss()
-                        let removeCharactersLatUpdate: Set<Character> = ["T", ":"]
-                        self.priceStores.LastUpdate[0].removeAll(where: { removeCharactersLatUpdate.contains($0) })
-                        self.lastUpdateTime.text = "Last Updated Time \(self.priceStores.LastUpdate[0].dropLast(6))"
+                     
+//                        let removeCharactersLatUpdate: Set<Character> = ["T"]
+//                        self.priceStores.LastUpdate[0].removeAll(where: { removeCharactersLatUpdate.contains($0) })
+                        self.lastUpdateTime.text = "Last Updated Time \(self.priceStores.LastUpdate[0])"
+                        self.lastUpdateTime.text!.insert(" ", at: self.lastUpdateTime.text!.index(self.lastUpdateTime.text!.startIndex, offsetBy: 9) )
                         self.setupPieChart()
                         self.storesTableView.reloadData()
                         self.categoryTableView.reloadData()
@@ -230,7 +232,7 @@ class AveragePriceViewController: UIViewController, ChartViewDelegate {
         storesChartView.chartDescription.enabled = false
         storesChartView.drawHoleEnabled = false
         storesChartView.rotationAngle = 0
-        //        storesChartView.rotationEnabled = false
+        storesChartView.rotationEnabled = false
         //        storesChartView.isUserInteractionEnabled = false
         storesChartView.drawEntryLabelsEnabled = true
         storesChartView.legend.enabled = false
@@ -239,7 +241,7 @@ class AveragePriceViewController: UIViewController, ChartViewDelegate {
         categoryChartView.chartDescription.enabled = false
         categoryChartView.drawHoleEnabled = false
         categoryChartView.rotationAngle = 0
-        //        categoryChartView.rotationEnabled = false
+        categoryChartView.rotationEnabled = false
         //        categoryChartView.isUserInteractionEnabled = false
         categoryChartView.drawEntryLabelsEnabled = true
         categoryChartView.legend.enabled = false
@@ -523,24 +525,76 @@ extension AveragePriceViewController: UITableViewDelegate, UITableViewDataSource
         var cellToReturn = UITableViewCell()
         if tableView == self.storesTableView {
             let storeCell = tableView.dequeueReusableCell(withIdentifier: "priceStoreCell", for: indexPath) as! PriceStoresTableViewCell
+            if !self.priceStores.Ciro.isEmpty {
+                let selectedCiro = self.priceStores.Ciro[indexPath.item]
+                let selectedColor = self.priceStores.ColorStores[indexPath.item]
+                let selectedInfo = self.priceStores.Stores[indexPath.item]
+                storeCell.prepareCell(info: selectedInfo , color: selectedColor, ciro: selectedCiro)
+            } else {
+                let selectedCiro = self.priceStores.Ciro[0]
+                let selectedColor = self.priceStores.ColorStores[indexPath.item]
+                let selectedInfo = self.priceStores.Stores[indexPath.item]
+                storeCell.prepareCell(info: selectedInfo , color: selectedColor, ciro: selectedCiro)
+            }
+            if !self.priceStores.ColorStores.isEmpty {
+                let selectedCiro = self.priceStores.Ciro[indexPath.item]
+                let selectedColor = self.priceStores.ColorStores[indexPath.item]
+                let selectedInfo = self.priceStores.Stores[indexPath.item]
+                storeCell.prepareCell(info: selectedInfo , color: selectedColor, ciro: selectedCiro)
+            } else {
+                let selectedCiro = self.priceStores.Ciro[indexPath.item]
+                let selectedColor = self.priceStores.ColorStores[0]
+                let selectedInfo = self.priceStores.Stores[indexPath.item]
+                storeCell.prepareCell(info: selectedInfo , color: selectedColor, ciro: selectedCiro)
+            }
             if !self.priceStores.Stores.isEmpty {
                 let selectedCiro = self.priceStores.Ciro[indexPath.item]
                 let selectedColor = self.priceStores.ColorStores[indexPath.item]
                 let selectedInfo = self.priceStores.Stores[indexPath.item]
-                let isLast = indexPath.item == (self.priceStores.Stores.count - 1)
-                storeCell.prepareCell(info: selectedInfo , color: selectedColor, count: isLast, ciro: selectedCiro)
+                storeCell.prepareCell(info: selectedInfo , color: selectedColor, ciro: selectedCiro)
+            } else {
+                let selectedCiro = self.priceStores.Ciro[indexPath.item]
+                let selectedColor = self.priceStores.ColorStores[indexPath.item]
+                let selectedInfo = self.priceStores.Stores[0]
+                storeCell.prepareCell(info: selectedInfo , color: selectedColor, ciro: selectedCiro)
             }
             cellToReturn = storeCell
             
             
         }  else if tableView == self.categoryTableView {
             let chanelCell = tableView.dequeueReusableCell(withIdentifier: "priceCategoryCell", for: indexPath) as! PriceCategoryTableViewCell
+            if !self.priceCategory.Ciro.isEmpty {
+                let selectedCiro = self.priceCategory.Ciro[indexPath.item]
+                let selectedColor = self.priceCategory.ColorCategory[indexPath.item]
+                let selectedInfo = self.priceCategory.Category[indexPath.item]
+                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+            } else {
+                let selectedCiro = self.priceCategory.Ciro[0]
+                let selectedColor = self.priceCategory.ColorCategory[indexPath.item]
+                let selectedInfo = self.priceCategory.Category[indexPath.item]
+                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+            }
+            if !self.priceCategory.ColorCategory.isEmpty {
+                let selectedCiro = self.priceCategory.Ciro[indexPath.item]
+                let selectedColor = self.priceCategory.ColorCategory[indexPath.item]
+                let selectedInfo = self.priceCategory.Category[indexPath.item]
+                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+            } else {
+                let selectedCiro = self.priceCategory.Ciro[indexPath.item]
+                let selectedColor = self.priceCategory.ColorCategory[0]
+                let selectedInfo = self.priceCategory.Category[indexPath.item]
+                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+            }
             if !self.priceCategory.Category.isEmpty {
                 let selectedCiro = self.priceCategory.Ciro[indexPath.item]
                 let selectedColor = self.priceCategory.ColorCategory[indexPath.item]
                 let selectedInfo = self.priceCategory.Category[indexPath.item]
-                let isLast = indexPath.item == (self.priceCategory.Category.count - 1)
-                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, count: isLast, ciro: selectedCiro)
+                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+            } else {
+                let selectedCiro = self.priceCategory.Ciro[indexPath.item]
+                let selectedColor = self.priceCategory.ColorCategory[indexPath.item]
+                let selectedInfo = self.priceCategory.Category[0]
+                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
             }
             cellToReturn = chanelCell
         }

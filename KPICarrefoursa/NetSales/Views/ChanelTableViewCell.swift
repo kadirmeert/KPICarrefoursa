@@ -21,7 +21,7 @@ class ChanelTableViewCell: UITableViewCell {
 
     }
     
-    func prepareCell(info: String, color: String, count: Bool) {
+    func prepareCell(info: String, color: String) {
         
         self.chanelİmage.backgroundColor = UIColor(hexString: color)
         self.chanelLabel.text = "\(info)"

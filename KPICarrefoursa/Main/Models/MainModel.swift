@@ -24,7 +24,7 @@ struct DashboardCards: Decodable {
     var AveragePricevs2021 = [Double]()
     var Area = [Int]()
     var StoreNumber = [Int]()
-    var LastUpdate = [String]()
+    var last_update = [String]()
     
     
 }

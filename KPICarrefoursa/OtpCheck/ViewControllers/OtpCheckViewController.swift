@@ -19,7 +19,6 @@ class OtpCheckViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var loginView: UIView!
     @IBOutlet weak var otpButton: UIButton!
     @IBOutlet weak var otpButtonView: UIView!
-    @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var resendButton: UIButton!
     @IBOutlet weak var resendView: UIView!
@@ -45,7 +44,6 @@ class OtpCheckViewController: UIViewController, UITextFieldDelegate {
         otpStackView.heightAnchor.constraint(equalTo: otpContainerView.heightAnchor).isActive = true
         otpStackView.centerXAnchor.constraint(equalTo: otpContainerView.centerXAnchor).isActive = true
         otpStackView.centerYAnchor.constraint(equalTo: otpContainerView.centerYAnchor).isActive = true
-        self.phoneLabel.text = User.phoneNumber
         resendtimer()
     }
     

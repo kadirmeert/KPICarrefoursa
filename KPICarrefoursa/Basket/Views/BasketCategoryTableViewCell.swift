@@ -18,7 +18,7 @@ class BasketCategoryTableViewCell: UITableViewCell {
         self.basketCategoryİmageView.dropShadow(cornerRadius: self.basketCategoryİmageView.frame.height / 2)
 
     }
-    func prepareCell(info: String, color: String, count: Bool, ciro: Double) {
+    func prepareCell(info: String, color: String, ciro: Double) {
         
     
         self.basketCategoryİmageView.backgroundColor = UIColor(hexString: color)

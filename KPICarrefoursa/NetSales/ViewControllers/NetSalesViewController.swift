@@ -148,7 +148,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
     }
     
     @objc func refresh(sender:AnyObject) {
-        // Code to refresh table view
+        hud.textLabel.text = "Loading"
+        hud.show(in: self.view)
         self.checkNetSales()
         refreshControl.endRefreshing()
         
@@ -187,8 +188,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         self.progress2021.layer.cornerRadius = 5
         self.progress2022B.layer.cornerRadius = 5
         self.progress2022LE.layer.cornerRadius = 5
-//        self.netSales2021Button.isSelected = true
-//        self.yesterdayStoreButton.tintColor = .clear
+
     }
     
     @IBAction func switchValueDidChange(_ sender: UISwitch) {
@@ -282,13 +282,18 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
             hud.show(in: self.view)
             self.checkNetSales()
         }
+        else {
+            hud.textLabel.text = "Loading"
+            hud.show(in: self.view)
+            self.checkNetSales()
+        }
     }
     override func viewWillLayoutSubviews() {
         self.netSalesStoresHeight.constant = self.storesTableView.contentSize.height
         self.netSalesChanelHeight.constant = self.chanelTableView.contentSize.height
-        self.netSalesFormatHeight.constant = self.formatTableView.contentSize.height
-        if self.netSalesFormat.Format.count > 6 {
-            self.netSalesHeight.constant = 3000
+        self.netSalesFormatHeight.constant = self.formatTableView.contentSize.height + 10
+        if self.netSalesFormat.Format.count >= 6 {
+            self.netSalesHeight.constant = 3100
         } else if self.netSalesFormat.Format.count < 4 {
             self.netSalesHeight.constant = 2500
         }
@@ -341,15 +346,18 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                     self.netSalesCiro.IsLfl = json!["NetSalesTurnover"]?.value(forKey: "IsLfl") as? [Int] ?? [0]
                     self.netSalesStores.Aciklama = json!["NetSalesByStores"]?.value(forKey: "Aciklama") as? [String] ?? ["0"]
                     self.netSalesStores.Oran = json!["NetSalesByStores"]?.value(forKey: "Oran") as? [Int] ?? [0]
+                    self.netSalesStores.ColorStores = json!["NetSalesByStores"]?.value(forKey: "ColorStores") as? [String] ?? ["0"]
                     self.netSalesStores.Stores = json!["NetSalesByStores"]?.value(forKey: "Stores") as? [String] ?? ["0"]
                     self.netSalesChannel.Aciklama = json!["NetSalesByChannel"]?.value(forKey: "Aciklama") as? [String] ?? ["0"]
                     self.netSalesChannel.Channels = json!["NetSalesByChannel"]?.value(forKey: "Channels") as? [String] ?? ["0"]
+                    self.netSalesChannel.ColorChannels = json!["NetSalesByChannel"]?.value(forKey: "ColorChannels") as? [String] ?? ["0"]
                     self.netSalesChannel.IsLfl = json!["NetSalesByChannel"]?.value(forKey: "IsLfl") as? [Int] ?? [0]
                     self.netSalesChannel.Oran = json!["NetSalesByChannel"]?.value(forKey: "Oran") as? [Int] ?? [0]
                     self.netSalesFormat.Aciklama1 = json!["NetSalesByFormat"]?.value(forKey: "Aciklama1") as? [String] ?? ["0"]
                     self.netSalesFormat.Aciklama2 = json!["NetSalesByFormat"]?.value(forKey: "Aciklama2") as? [String] ?? ["0"]
                     self.netSalesFormat.Format = json!["NetSalesByFormat"]?.value(forKey: "Format") as? [String] ?? ["0"]
                     self.netSalesFormat.Gelisim = json!["NetSalesByFormat"]?.value(forKey: "Gelisim") as? [String] ?? ["0"]
+                    self.netSalesFormat.ColorFormat = json!["NetSalesByFormat"]?.value(forKey: "ColorFormat") as? [String] ?? ["0"]
                     self.netSalesCategory.Aciklama = json!["NetSalesByCategory"]?.value(forKey: "Aciklama") as? [String] ?? ["0"]
                     self.netSalesCategory.Category = json!["NetSalesByCategory"]?.value(forKey: "Category") as? [String] ?? ["0"]
                     self.netSalesCategory.Oran = json!["NetSalesByCategory"]?.value(forKey: "Oran") as? [String] ?? ["0"]
@@ -378,9 +386,9 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                             
                             let removeCharacters: Set<Character> = ["v", "s", " ", "%", "B"]
                             self.netSalesCiro.Gelisim[i].removeAll(where: { removeCharacters.contains($0) } )
-                            let removeCharactersLatUpdate: Set<Character> = ["T", ":"]
-                            self.netSalesCiro.LastUpdate[0].removeAll(where: { removeCharactersLatUpdate.contains($0) })
-                            self.lastUpdateTİme.text = "Last Updated Time \(self.netSalesCiro.LastUpdate[0].dropLast(6))"
+//                            let removeCharactersLatUpdate: Set<Character> = ["T", ":"]
+//                            self.netSalesCiro.LastUpdate[0].removeAll(where: { removeCharactersLatUpdate.contains($0) })
+                            self.lastUpdateTİme.text = "Last Updated Time \(self.netSalesCiro.LastUpdate[0])"
                             
                             if self.netSalesCiro.Gelisim.count == 1 {
                                 if Int(self.netSalesCiro.Gelisim[0].dropLast(2)) ?? 0 >= 0 {
@@ -390,8 +398,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                     self.percentage2021.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                     
                                 } else {
-                                    self.percentage2021.text = "% \(self.netSalesCiro.Gelisim[0].dropLast(2))"
-                                    self.MTL2021.text = "\(self.netSalesCiro.Ciro[0]) MTL"
+                                    self.percentage2021.text = "% \(self.netSalesCiro.Gelisim[0].components(separatedBy: [" ", "-"]).joined().dropLast(2))"
+                                    self.MTL2021.text = "\(self.netSalesCiro.Ciro[0].components(separatedBy: [" ", "-"]).joined()) MTL"
                                     self.sales2021İmage.image = UIImage(named: "down")
                                     self.MTL2021.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     self.percentage2021.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
@@ -405,21 +413,21 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                     self.percentage2021.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                     
                                 } else {
-                                    self.percentage2021.text = "% \(self.netSalesCiro.Gelisim[0].dropLast(2))"
-                                    self.MTL2021.text = "\(self.netSalesCiro.Ciro[0]) MTL"
+                                    self.percentage2021.text = "% \(self.netSalesCiro.Gelisim[0].components(separatedBy: [" ", "-"]).joined().dropLast(2))"
+                                    self.MTL2021.text = "\(self.netSalesCiro.Ciro[0].components(separatedBy: [" ", "-"]).joined()) MTL"
                                     self.sales2021İmage.image = UIImage(named: "down")
                                     self.MTL2021.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     self.percentage2021.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                 }
                                 if Int(self.netSalesCiro.Gelisim[1].dropLast(2)) ?? 0 >= 0 {
-                                    self.percentage2022B.text = "% \(self.netSalesCiro.Gelisim[1].dropLast(2))"
+                                    self.percentage2022B.text = "% \(self.netSalesCiro.Gelisim[1].trimmingCharacters(in: ["-"]).dropLast(2))"
                                     self.MTL2022B.text = "\(self.netSalesCiro.Ciro[1]) MTL"
                                     self.sales2022Bİmage.image = UIImage(named: "Up")
                                     self.percentage2022B.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                     
                                 } else {
-                                    self.percentage2022B.text = "% \(self.netSalesCiro.Gelisim[1].dropLast(2))"
-                                    self.MTL2022B.text = "\(self.netSalesCiro.Ciro[1]) MTL"
+                                    self.percentage2022B.text = "% \(self.netSalesCiro.Gelisim[1].components(separatedBy: [" ", "-"]).joined().dropLast(2))"
+                                    self.MTL2022B.text = "\(self.netSalesCiro.Ciro[1].components(separatedBy: [" ", "-"]).joined()) MTL"
                                     self.sales2022Bİmage.image = UIImage(named: "down")
                                     self.MTL2022B.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     self.percentage2022B.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
@@ -433,8 +441,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                     self.percentage2021.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                     
                                 } else {
-                                    self.percentage2021.text = "% \(self.netSalesCiro.Gelisim[0].dropLast(2))"
-                                    self.MTL2021.text = "\(self.netSalesCiro.Ciro[0]) MTL"
+                                    self.percentage2021.text = "% \(self.netSalesCiro.Gelisim[0].components(separatedBy: [" ", "-"]).joined().dropLast(2))"
+                                    self.MTL2021.text = "\(self.netSalesCiro.Ciro[0].components(separatedBy: [" ", "-"]).joined()) MTL"
                                     self.sales2021İmage.image = UIImage(named: "down")
                                     self.MTL2021.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     self.percentage2021.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
@@ -446,8 +454,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                     self.percentage2022B.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                     
                                 } else {
-                                    self.percentage2022B.text = "% \(self.netSalesCiro.Gelisim[1].dropLast(2))"
-                                    self.MTL2022B.text = "\(self.netSalesCiro.Ciro[1]) MTL"
+                                    self.percentage2022B.text = "% \(self.netSalesCiro.Gelisim[1].components(separatedBy: [" ", "-"]).joined().dropLast(2))"
+                                    self.MTL2022B.text = "\(self.netSalesCiro.Ciro[1].components(separatedBy: [" ", "-"]).joined()) MTL"
                                     self.sales2022Bİmage.image = UIImage(named: "down")
                                     self.MTL2022B.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     self.percentage2022B.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
@@ -459,8 +467,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                     self.percentage2022LE.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                     
                                 } else {
-                                    self.percentage2022LE.text = "% \(self.netSalesCiro.Gelisim[2].dropLast(2))"
-                                    self.MTL2022LE.text = "\(self.netSalesCiro.Ciro[2]) MTL"
+                                    self.percentage2022LE.text = "% \(self.netSalesCiro.Gelisim[2].components(separatedBy: [" ", "-"]).joined().dropLast(2))"
+                                    self.MTL2022LE.text = "\(self.netSalesCiro.Ciro[2].components(separatedBy: [" ", "-"]).joined()) MTL"
                                     self.sales2022LEimage.image = UIImage(named: "down")
                                     self.MTL2022LE.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     self.percentage2022LE.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
@@ -508,19 +516,19 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                 
                                 if self.netSalesCategory.Category[index] == "Other" {
                                     self.otherProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index])"
-                                    self.otherPercLabel.text = "0"
+                                    self.otherPercLabel.text = "0.0"
                                     self.otherProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
                                 }
                                 
                                 if self.netSalesCategory.Category[index] == "Food" {
                                     self.foodProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index])"
-                                    self.foodPercLabel.text = "0"
+                                    self.foodPercLabel.text = "0.0"
                                     self.foodProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
                                 }
                                 
                                 if self.netSalesCategory.Category[index] == "Non Food" {
                                     self.nonFoodProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index])"
-                                    self.nonFoodPercLabel.text = "0"
+                                    self.nonFoodPercLabel.text = "0.0"
                                     self.nonFoodProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
                                 }
                                 
@@ -542,8 +550,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                         self.fmcgİmage.image = UIImage(named: "down")
                                         self.fmcgPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     }
-                                    
-                                    self.fmcgProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index])"
+                                    self.fmcgProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index].toDouble)"
+
                                     self.fmcgProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
                                 }
                                 
@@ -559,7 +567,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                         self.freshFoodİmage.image = UIImage(named: "down")
                                         self.freshFoodPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     }
-                                    self.freshFoodProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index])"
+                                    self.freshFoodProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index].toDouble)"
                                     self.freshFoodProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
                                     
                                 }
@@ -577,7 +585,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                         self.homePercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     }
 
-                                    self.homeProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index])"
+                                    self.homeProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index].toDouble)"
                                     self.homeProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
                                 }
                                 
@@ -593,7 +601,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                         self.textfilePercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     }
 
-                                    self.textileProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index])"
+                                    self.textileProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index].toDouble)"
                                     self.textileProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
                                 }
                                 
@@ -610,7 +618,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                         self.electronicPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     }
                                     
-                                    self.electronicProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index])"
+                                    self.electronicProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index].toDouble)"
                                     self.electronicProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
                                 }
                                 
@@ -627,7 +635,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                         self.otherPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     }
 
-                                    self.otherProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index])"
+                                    self.otherProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index].toDouble)"
                                     self.otherProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
                                 }
                                 if self.netSalesCategory.Category[index] == "Food" {
@@ -642,7 +650,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                         self.foodPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     }
                                     
-                                    self.foodProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index])"
+                                    self.foodProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index].toDouble)"
                                     self.foodProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
                                 }
                                 
@@ -658,7 +666,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                         self.nonFoodPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     }
 
-                                    self.nonFoodProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index])"
+                                    self.nonFoodProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index].toDouble)"
                                     self.nonFoodProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
                                 }
                             }
@@ -667,162 +675,33 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                         //MARK: Format
                         for i in 0..<self.netSalesFormat.Aciklama1.count {
                             
-                            
-                            
                             self.netSalesFormat.Aciklama1[i].removeAll(where: { self.removeCharacters.contains($0) } )
-                            
                         }
                         
                         for index in 0..<self.netSalesFormat.Format.count {
-                            
+        
                             self.netSalesFormat.Aciklama2[index].removeAll(where: { self.removeCharacters.contains($0) } )
                             
                         }
-                        //
-                        //
-                        //
-                        //                            if self.netSalesFormat.Format[index] == "Hypermarket" {
-                        //                                if Double(self.netSalesFormat.Gelisim[index].trimmingCharacters(in: ["%"," "])) ?? 0.0 > 0.0 {
-                        //                                    self.perHyperLabel.text = self.netSalesFormat.Gelisim[index].trimmingCharacters(in: [" "])
-                        //                                    self.hyperİmage.image = UIImage(named: "Up")
-                        //                                    self.hyperPriceLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                        //                                    self.perHyperLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                        //                                } else {
-                        //                                    self.hyperİmage.image = UIImage(named: "down")
-                        //                                    self.perHyperLabel.text = self.netSalesFormat.Gelisim[index].trimmingCharacters(in: [" "])
-                        //                                    self.hyperPriceLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                        //                                    self.perHyperLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                        //
-                        //                                }
-                        //                                self.hyperPriceLabel.text = "\(self.netSalesFormat.Aciklama2[index].dropLast(4)) TL"
-                        //                                self.progressHypermarket.setProgress((Float(self.netSalesFormat.Aciklama1[index]) ?? 0.0) / 100, animated: true)
-                        //                            }
-                        //                            if self.netSalesFormat.Format[index] == "Supermarket" {
-                        //                                if Double(self.netSalesFormat.Gelisim[index].trimmingCharacters(in: ["%"," "])) ?? 0.0 > 0.0 {
-                        //                                    self.perSuperLabel.text = self.netSalesFormat.Gelisim[index].trimmingCharacters(in: [" "])
-                        //                                    self.superİmage.image = UIImage(named: "Up")
-                        //                                    self.superPriceLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                        //                                    self.perSuperLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                        //                                } else {
-                        //                                    self.superİmage.image = UIImage(named: "down")
-                        //                                    self.perSuperLabel.text = self.netSalesFormat.Gelisim[index].trimmingCharacters(in: [" "])
-                        //                                    self.superPriceLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                        //                                    self.perSuperLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                        //                                }
-                        //                                self.superPriceLabel.text = "\(self.netSalesFormat.Aciklama2[index].dropLast(4)) TL"
-                        //                                self.progressSupermarket.setProgress((Float(self.netSalesFormat.Aciklama1[index]) ?? 0.0) / 100, animated: true)
-                        //                            }
-                        //                            if self.netSalesFormat.Format[index] == "Gourmet" {
-                        //                                if Double(self.netSalesFormat.Gelisim[index].trimmingCharacters(in: ["%"," "])) ?? 0.0 > 0.0 {
-                        //                                    self.perGourLabel.text = self.netSalesFormat.Gelisim[index].trimmingCharacters(in: [" "])
-                        //                                    self.gourmetİmage.image = UIImage(named: "Up")
-                        //                                    self.gourPriceLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                        //                                    self.perGourLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                        //                                } else {
-                        //                                    self.gourmetİmage.image = UIImage(named: "down")
-                        //                                    self.perGourLabel.text = self.netSalesFormat.Gelisim[index].trimmingCharacters(in: [" "])
-                        //                                    self.gourPriceLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                        //                                    self.perGourLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                        //                                }
-                        //                                self.gourPriceLabel.text = "\(self.netSalesFormat.Aciklama2[index].dropLast(4)) TL"
-                        //                                self.progressGourmet.setProgress((Float(self.netSalesFormat.Aciklama1[index]) ?? 0.0) / 100, animated: true)
-                        //                            }
-                        //                            if self.netSalesFormat.Format[index] == "Mini" {
-                        //                                if Double(self.netSalesFormat.Gelisim[index].trimmingCharacters(in: ["%"," "])) ?? 0.0 > 0.0 {
-                        //                                    self.perMiniLabel.text = self.netSalesFormat.Gelisim[index].trimmingCharacters(in: [" "])
-                        //                                    self.miniİmage.image = UIImage(named: "Up")
-                        //                                    self.miniPriceLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                        //                                    self.perMiniLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                        //                                } else {
-                        //                                    self.miniİmage.image = UIImage(named: "down")
-                        //                                    self.perMiniLabel.text = self.netSalesFormat.Gelisim[index].trimmingCharacters(in: [" "])
-                        //                                    self.miniPriceLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                        //                                    self.perMiniLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                        //                                }
-                        //                                self.miniPriceLabel.text = "\(self.netSalesFormat.Aciklama2[index].dropLast(4)) TL"
-                        //                                self.progressMini.setProgress((Float(self.netSalesFormat.Aciklama1[index]) ?? 0.0) / 100, animated: true)
-                        //                            }
-                        //                            if self.netSalesFormat.Format[index] == "E-Commerce" {
-                        //                                if Double(self.netSalesFormat.Gelisim[index].trimmingCharacters(in: ["%"," "])) ?? 0.0 > 0.0 {
-                        //                                    self.perComLabel.text = self.netSalesFormat.Gelisim[index].trimmingCharacters(in: [" "])
-                        //                                    self.comİmage.image = UIImage(named: "Up")
-                        //                                    self.comPriceLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                        //                                    self.perComLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                        //                                } else {
-                        //                                    self.comİmage.image = UIImage(named: "down")
-                        //                                    self.perComLabel.text = self.netSalesFormat.Gelisim[index].trimmingCharacters(in: [" "])
-                        //                                    self.comPriceLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                        //                                    self.perComLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                        //                                }
-                        //                                self.comPriceLabel.text = "\(self.netSalesFormat.Aciklama2[index].dropLast(4)) TL"
-                        //                                self.progressEcommerce.setProgress((Float(self.netSalesFormat.Aciklama1[index]) ?? 0.0) / 100, animated: true)
-                        //                            }
-                        //                            if self.netSalesFormat.Format[index] == "WholeSale" {
-                        //                                if Double(self.netSalesFormat.Gelisim[index].trimmingCharacters(in: ["%"," "])) ?? 0.0 > 0.0 {
-                        //                                    self.perWholeLabel.text = self.netSalesFormat.Gelisim[index].trimmingCharacters(in: [" "])
-                        //                                    self.wholeİmage.image = UIImage(named: "Up")
-                        //                                    self.wholePriceLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                        //                                    self.perWholeLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                        //                                } else {
-                        //                                    self.wholeİmage.image = UIImage(named: "down")
-                        //                                    self.perWholeLabel.text = self.netSalesFormat.Gelisim[index].trimmingCharacters(in: [" "])
-                        //                                    self.wholePriceLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                        //                                    self.perWholeLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                        //                                }
-                        //                                self.wholePriceLabel.text = "\(self.netSalesFormat.Aciklama2[index].dropLast(4)) TL"
-                        //                                self.progressWholesale.setProgress((Float(self.netSalesFormat.Aciklama1[index]) ?? 0.0) / 100, animated: true)
-                        //                            }
-                        //                            if self.netSalesFormat.Format[index] == "Export" {
-                        //                                if Double(self.netSalesFormat.Gelisim[index].trimmingCharacters(in: ["%"," "])) ?? 0.0 > 0.0 {
-                        //                                    self.perExportLabel.text = self.netSalesFormat.Gelisim[index].trimmingCharacters(in: [" "])
-                        //                                    self.exportİmage.image = UIImage(named: "Up")
-                        //                                    self.exportPriceLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                        //                                    self.perExportLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                        //                                } else {
-                        //                                    self.exportİmage.image = UIImage(named: "down")
-                        //                                    self.perExportLabel.text = self.netSalesFormat.Gelisim[index].trimmingCharacters(in: [" "])
-                        //                                    self.exportPriceLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                        //                                    self.perExportLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                        //                                }
-                        //                                self.exportPriceLabel.text = "\(self.netSalesFormat.Aciklama2[index].dropLast(4)) TL"
-                        //                                self.progressExport.setProgress((Float(self.netSalesFormat.Aciklama1[index]) ?? 0.0) / 100, animated: true)
-                        //                            }
-                        //                            if self.netSalesFormat.Format[index] == "Franchise" {
-                        //                                if Double(self.netSalesFormat.Gelisim[index].trimmingCharacters(in: ["%"," "])) ?? 0.0 > 0.0 {
-                        //                                    self.perFranLabel.text = self.netSalesFormat.Gelisim[index].trimmingCharacters(in: [" "])
-                        //                                    self.franİmage.image = UIImage(named: "Up")
-                        //                                    self.franPriceLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                        //                                    self.perFranLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                        //                                } else {
-                        //                                    self.franİmage.image = UIImage(named: "down")
-                        //                                    self.perFranLabel.text = self.netSalesFormat.Gelisim[index].trimmingCharacters(in: [" "])
-                        //                                    self.franPriceLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                        //                                    self.perFranLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                        //                                }
-                        //
-                        //                                self.franPriceLabel.text = "\(self.netSalesFormat.Aciklama2[index].dropLast(4)) TL"
-                        //                                self.progressFranchise.setProgress((Float(self.netSalesFormat.Aciklama1[index]) ?? 0.0) / 100, animated: true)
-                        //                            }
-                        //                        }
-                        
+     
                         if self.netSalesCiro.Gelisim.count == 1 {
                             self.progress2021.transform = CGAffineTransformMakeScale(1, 1)
-                            self.progress2021.setProgress((Float(self.netSalesCiro.Ciro[0]) ?? 0.0) / 100, animated: false)
+                            self.progress2021.setProgress((Float(self.netSalesCiro.Gelisim[0].dropLast(2)) ?? 0.0) / 100, animated: false)
                             
                         }
                         else if self.netSalesCiro.Gelisim.count == 2 {
                             self.progress2021.transform = CGAffineTransformMakeScale(1, 1)
-                            self.progress2021.setProgress((Float(self.netSalesCiro.Ciro[0]) ?? 0.0) / 100, animated: false)
+                            self.progress2021.setProgress((Float(self.netSalesCiro.Gelisim[0].dropLast(2)) ?? 0.0) / 100, animated: false)
                             self.progress2022B.transform = CGAffineTransformMakeScale(1, 1)
-                            self.progress2022B.setProgress((Float(self.netSalesCiro.Ciro[1]) ?? 0.0) / 100 , animated: false)
+                            self.progress2022B.setProgress((Float(self.netSalesCiro.Gelisim[1].dropLast(2)) ?? 0.0) / 100 , animated: false)
                         }
                         else if self.netSalesCiro.Gelisim.count == 3 {
                             self.progress2021.transform = CGAffineTransformMakeScale(1, 1)
-                            self.progress2021.setProgress((Float(self.netSalesCiro.Ciro[0]) ?? 0.0) / 100, animated: false)
+                            self.progress2021.setProgress((Float(self.netSalesCiro.Gelisim[0].dropLast(2)) ?? 0.0) / 100, animated: false)
                             self.progress2022B.transform = CGAffineTransformMakeScale(1, 1)
-                            self.progress2022B.setProgress((Float(self.netSalesCiro.Ciro[1]) ?? 0.0) / 100 , animated: false)
+                            self.progress2022B.setProgress((Float(self.netSalesCiro.Gelisim[1].dropLast(2)) ?? 0.0) / 100 , animated: false)
                             self.progress2022LE.transform = CGAffineTransformMakeScale(1, 1)
-                            self.progress2022LE.setProgress((Float(self.netSalesCiro.Ciro[2]) ?? 0.0) / 100 , animated: false)
+                            self.progress2022LE.setProgress((Float(self.netSalesCiro.Gelisim[2].dropLast(2)) ?? 0.0) / 100 , animated: false)
                         }
                         
                         self.setupPieChart()
@@ -842,8 +721,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         storesChartView.chartDescription.enabled = false
         storesChartView.drawHoleEnabled = false
         storesChartView.rotationAngle = 0
-        //        storesChartView.rotationEnabled = false
-        //        storesChartView.isUserInteractionEnabled = false
+        storesChartView.rotationEnabled = false
+        //storesChartView.isUserInteractionEnabled = false
         storesChartView.drawEntryLabelsEnabled = true
         storesChartView.legend.enabled = false
         storesChartView.transparentCircleColor = NSUIColor(white: 1.0, alpha: 105.0/255.0)
@@ -851,8 +730,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         chanelChartView.chartDescription.enabled = false
         chanelChartView.drawHoleEnabled = false
         chanelChartView.rotationAngle = 0
-        //        chanelChartView.rotationEnabled = false
-        //        chanelChartView.isUserInteractionEnabled = false
+        chanelChartView.rotationEnabled = false
+        //chanelChartView.isUserInteractionEnabled = false
         chanelChartView.drawEntryLabelsEnabled = true
         chanelChartView.legend.enabled = false
         chanelChartView.transparentCircleColor = NSUIColor(white: 1.0, alpha: 105.0/255.0)
@@ -869,17 +748,21 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         let dataSetStores = PieChartDataSet(entries: entriesStores, label: "")
         let dataSetChannel = PieChartDataSet(entries: entriesChannel, label: "")
         
-        var  colors: [UIColor] = []
-        for i in 0..<User.colors.count {
-            colors.append(UIColor(hexString: User.colors[i]))
+        var  colorsStore: [UIColor] = []
+        for i in 0..<self.netSalesStores.ColorStores.count {
+            colorsStore.append(UIColor(hexString: netSalesStores.ColorStores[i]))
+        }
+        var  colorsCategory: [UIColor] = []
+        for i in 0..<self.netSalesChannel.ColorChannels.count {
+            colorsCategory.append(UIColor(hexString: netSalesChannel.ColorChannels[i]))
         }
         
-        dataSetChannel.colors = colors
-        dataSetStores.colors = colors
+        dataSetStores.colors = colorsStore
+        dataSetChannel.colors = colorsCategory
         
-        dataSetStores.sliceSpace = 1
+        dataSetStores.sliceSpace = 2
         dataSetStores.drawValuesEnabled = false
-        dataSetChannel.sliceSpace = 1
+        dataSetChannel.sliceSpace = 2
         dataSetChannel.drawValuesEnabled = false
         storesChartView.data = PieChartData(dataSet: dataSetStores)
         storesChartView.notifyDataSetChanged()
@@ -939,6 +822,11 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
 //            hud.show(in: self.view)
 //            self.checkNetSales()
 //        }
+//    else {
+//        hud.textLabel.text = "Loading"
+//        hud.show(in: self.view)
+//        self.checkNetSales()
+//    }
 //        self.setupPieChart()
 //        self.hourlyStoreView.backgroundColor = UIColor.white
 //        self.hourlyStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
@@ -999,6 +887,11 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         }
         
         if !self.netSalesCiro.Ciro.isEmpty {
+            hud.textLabel.text = "Loading"
+            hud.show(in: self.view)
+            self.checkNetSales()
+        }
+        else {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
             self.checkNetSales()
@@ -1068,6 +961,11 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
             hud.show(in: self.view)
             self.checkNetSales()
         }
+        else {
+            hud.textLabel.text = "Loading"
+            hud.show(in: self.view)
+            self.checkNetSales()
+        }
         self.setupPieChart()
 //        self.hourlyStoreView.backgroundColor = UIColor.clear
 //        self.hourlyStoreLabel.textColor = UIColor.white
@@ -1132,6 +1030,12 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
             hud.show(in: self.view)
             self.checkNetSales()
         }
+        else {
+            hud.textLabel.text = "Loading"
+            hud.show(in: self.view)
+            self.checkNetSales()
+        }
+        
         self.setupPieChart()
 //        self.hourlyStoreView.backgroundColor = UIColor.clear
 //        self.hourlyStoreLabel.textColor = UIColor.white
@@ -1192,6 +1096,11 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         }
         
         if !self.netSalesCiro.Ciro.isEmpty {
+            hud.textLabel.text = "Loading"
+            hud.show(in: self.view)
+            self.checkNetSales()
+        }
+        else {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
             self.checkNetSales()
@@ -1258,6 +1167,11 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
             hud.show(in: self.view)
             self.checkNetSales()
         }
+        else {
+            hud.textLabel.text = "Loading"
+            hud.show(in: self.view)
+            self.checkNetSales()
+        }
         self.setupPieChart()
 //        self.hourlyStoreView.backgroundColor = UIColor.clear
 //        self.hourlyStoreLabel.textColor = UIColor.white
@@ -1285,6 +1199,11 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
             hud.show(in: self.view)
             self.checkNetSales()
         }
+        else {
+            hud.textLabel.text = "Loading"
+            hud.show(in: self.view)
+            self.checkNetSales()
+        }
         //        self.setupPieChart()
         self.netSales2021View.backgroundColor = UIColor.white
         self.netSales2021Label.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
@@ -1301,6 +1220,11 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         self.netSales2022BButton.isSelected = true
         self.netSales2022LEButton.isSelected = false
         if !self.netSalesCiro.Ciro.isEmpty {
+            hud.textLabel.text = "Loading"
+            hud.show(in: self.view)
+            self.checkNetSales()
+        }
+        else {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
             self.checkNetSales()
@@ -1324,6 +1248,11 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
             hud.show(in: self.view)
             self.checkNetSales()
         }
+        else {
+            hud.textLabel.text = "Loading"
+            hud.show(in: self.view)
+            self.checkNetSales()
+        }
         //        self.setupPieChart()
         self.netSales2021View.backgroundColor = UIColor.clear
         self.netSales2021Label.textColor = UIColor.white
@@ -1332,7 +1261,6 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         self.netSales2022LEView.backgroundColor = UIColor.white
         self.netSales2022LELabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
     }
-    
 }
 
 
@@ -1356,49 +1284,147 @@ extension NetSalesViewController: UITableViewDelegate, UITableViewDataSource {
         var cellToReturn = UITableViewCell()
         if tableView == self.storesTableView {
             let storeCell = tableView.dequeueReusableCell(withIdentifier: "netSalesStoresCell", for: indexPath) as! StoresTableViewCell
-            if !self.netSalesStores.Oran.isEmpty {
-                let selectedColor = User.colors[indexPath.item]
+            if !self.netSalesStores.ColorStores.isEmpty {
+                let selectedColor = self.netSalesStores.ColorStores[indexPath.item]
                 let selectedInfo = self.netSalesStores.Aciklama[indexPath.item]
-                let isLast = indexPath.item == (self.netSalesStores.Oran.count - 1)
-                storeCell.prepareCell(info: selectedInfo , color: selectedColor, count: isLast)
+                storeCell.prepareCell(info: selectedInfo , color: selectedColor)
+            } else {
+                let selectedColor = self.netSalesStores.ColorStores[0]
+                let selectedInfo = self.netSalesStores.Aciklama[indexPath.item]
+                storeCell.prepareCell(info: selectedInfo , color: selectedColor)
+            }
+            if !self.netSalesStores.Aciklama.isEmpty {
+                let selectedColor = self.netSalesStores.ColorStores[indexPath.item]
+                let selectedInfo = self.netSalesStores.Aciklama[indexPath.item]
+                storeCell.prepareCell(info: selectedInfo , color: selectedColor)
+            } else {
+                let selectedColor = self.netSalesStores.ColorStores[indexPath.item]
+                let selectedInfo = self.netSalesStores.Aciklama[0]
+                storeCell.prepareCell(info: selectedInfo , color: selectedColor)
             }
             cellToReturn = storeCell
             
             
         }  else if tableView == self.chanelTableView {
             let chanelCell = tableView.dequeueReusableCell(withIdentifier: "netSalesChanelCell", for: indexPath) as! ChanelTableViewCell
-            if !self.netSalesChannel.Oran.isEmpty {
-                let selectedColor = User.colors[indexPath.item]
+            if !self.netSalesChannel.ColorChannels.isEmpty {
+                let selectedColor = self.netSalesChannel.ColorChannels[indexPath.item]
                 let selectedInfo = self.netSalesChannel.Aciklama[indexPath.item]
-                let isLast = indexPath.item == (self.netSalesChannel.Oran.count - 1)
-                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, count: isLast)
+                chanelCell.prepareCell(info: selectedInfo, color: selectedColor)
+            } else {
+                let selectedColor = self.netSalesChannel.ColorChannels[0]
+                let selectedInfo = self.netSalesChannel.Aciklama[indexPath.item]
+                chanelCell.prepareCell(info: selectedInfo, color: selectedColor)
             }
+            if !self.netSalesChannel.Aciklama.isEmpty {
+                let selectedColor = self.netSalesChannel.ColorChannels[indexPath.item]
+                let selectedInfo = self.netSalesChannel.Aciklama[indexPath.item]
+                chanelCell.prepareCell(info: selectedInfo, color: selectedColor)
+            } else {
+                let selectedColor = self.netSalesChannel.ColorChannels[indexPath.item]
+                let selectedInfo = self.netSalesChannel.Aciklama[0]
+                chanelCell.prepareCell(info: selectedInfo, color: selectedColor)
+            }
+            
             cellToReturn = chanelCell
+            
         } else if tableView == self.formatTableView {
             let formatCell = tableView.dequeueReusableCell(withIdentifier: "netSalesFormatCell", for: indexPath) as! FormatTableViewCell
-            if !self.netSalesFormat.Format.isEmpty {
+     
+            if !self.netSalesFormat.ColorFormat.isEmpty {
+                let years = self.years
+                let selectedColor = self.netSalesFormat.ColorFormat[indexPath.item]
+                let selectedFormat = self.netSalesFormat.Format[indexPath.item]
+                let isPrice = self.netSalesFormat.Aciklama2[indexPath.item]
+                let isprogress = self.netSalesFormat.Aciklama1[indexPath.item]
+                let isGelisim = self.netSalesFormat.Gelisim[indexPath.item]
+                formatCell.prepareCell(format: selectedFormat, color: selectedColor, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
                 
-                if self.netSalesFormat.Aciklama1.count != 1 {
-                    let years = self.years
-                    let selectedColor = User.colors[indexPath.item]
-                    let selectedFormat = self.netSalesFormat.Format[indexPath.item]
-                    let isCount = self.netSalesFormat.Format.count
-                    let isPrice = self.netSalesFormat.Aciklama2[indexPath.item]
-                    let isprogress = self.netSalesFormat.Aciklama1[indexPath.item]
-                    let isGelisim = self.netSalesFormat.Gelisim[indexPath.item]
-                    formatCell.prepareCell(format: selectedFormat, color: selectedColor, count: isCount, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
-                    
-                } else {
-                    let years = self.years
-                    let selectedColor = User.colors[indexPath.item]
-                    let selectedFormat = self.netSalesFormat.Format[indexPath.item]
-                    let isCount = self.netSalesFormat.Format.count
-                    let isPrice = self.netSalesFormat.Aciklama2[indexPath.item]
-                    let isprogress = self.netSalesFormat.Aciklama1[0]
-                    let isGelisim = self.netSalesFormat.Gelisim[indexPath.item]
-                    formatCell.prepareCell(format: selectedFormat, color: selectedColor, count: isCount, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
-                    
-                }
+            } else {
+                let years = self.years
+                let selectedColor = self.netSalesFormat.ColorFormat[0]
+                let selectedFormat = self.netSalesFormat.Format[indexPath.item]
+                let isPrice = self.netSalesFormat.Aciklama2[indexPath.item]
+                let isprogress = self.netSalesFormat.Aciklama1[indexPath.item]
+                let isGelisim = self.netSalesFormat.Gelisim[indexPath.item]
+                formatCell.prepareCell(format: selectedFormat, color: selectedColor, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
+                
+            }
+            if !self.netSalesFormat.Format.isEmpty {
+                let years = self.years
+                let selectedColor = self.netSalesFormat.ColorFormat[indexPath.item]
+                let selectedFormat = self.netSalesFormat.Format[indexPath.item]
+                let isPrice = self.netSalesFormat.Aciklama2[indexPath.item]
+                let isprogress = self.netSalesFormat.Aciklama1[indexPath.item]
+                let isGelisim = self.netSalesFormat.Gelisim[indexPath.item]
+                formatCell.prepareCell(format: selectedFormat, color: selectedColor, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
+                
+            } else {
+                let years = self.years
+                let selectedColor = self.netSalesFormat.ColorFormat[indexPath.item]
+                let selectedFormat = self.netSalesFormat.Format[0]
+                let isPrice = self.netSalesFormat.Aciklama2[indexPath.item]
+                let isprogress = self.netSalesFormat.Aciklama1[indexPath.item]
+                let isGelisim = self.netSalesFormat.Gelisim[indexPath.item]
+                formatCell.prepareCell(format: selectedFormat, color: selectedColor, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
+                
+            }
+            if !self.netSalesFormat.Aciklama2.isEmpty {
+                let years = self.years
+                let selectedColor = self.netSalesFormat.ColorFormat[indexPath.item]
+                let selectedFormat = self.netSalesFormat.Format[indexPath.item]
+                let isPrice = self.netSalesFormat.Aciklama2[indexPath.item]
+                let isprogress = self.netSalesFormat.Aciklama1[indexPath.item]
+                let isGelisim = self.netSalesFormat.Gelisim[indexPath.item]
+                formatCell.prepareCell(format: selectedFormat, color: selectedColor, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
+                
+            } else {
+                let years = self.years
+                let selectedColor = self.netSalesFormat.ColorFormat[indexPath.item]
+                let selectedFormat = self.netSalesFormat.Format[indexPath.item]
+                let isPrice = self.netSalesFormat.Aciklama2[0]
+                let isprogress = self.netSalesFormat.Aciklama1[indexPath.item]
+                let isGelisim = self.netSalesFormat.Gelisim[indexPath.item]
+                formatCell.prepareCell(format: selectedFormat, color: selectedColor, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
+                
+            }
+            if !self.netSalesFormat.Aciklama1.isEmpty {
+                let years = self.years
+                let selectedColor = self.netSalesFormat.ColorFormat[indexPath.item]
+                let selectedFormat = self.netSalesFormat.Format[indexPath.item]
+                let isPrice = self.netSalesFormat.Aciklama2[indexPath.item]
+                let isprogress = self.netSalesFormat.Aciklama1[indexPath.item]
+                let isGelisim = self.netSalesFormat.Gelisim[indexPath.item]
+                formatCell.prepareCell(format: selectedFormat, color: selectedColor, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
+                
+            } else {
+                let years = self.years
+                let selectedColor = self.netSalesFormat.ColorFormat[indexPath.item]
+                let selectedFormat = self.netSalesFormat.Format[indexPath.item]
+                let isPrice = self.netSalesFormat.Aciklama2[indexPath.item]
+                let isprogress = self.netSalesFormat.Aciklama1[0]
+                let isGelisim = self.netSalesFormat.Gelisim[indexPath.item]
+                formatCell.prepareCell(format: selectedFormat, color: selectedColor, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
+                
+            }
+            if !self.netSalesFormat.Gelisim.isEmpty {
+                let years = self.years
+                let selectedColor = self.netSalesFormat.ColorFormat[indexPath.item]
+                let selectedFormat = self.netSalesFormat.Format[indexPath.item]
+                let isPrice = self.netSalesFormat.Aciklama2[indexPath.item]
+                let isprogress = self.netSalesFormat.Aciklama1[indexPath.item]
+                let isGelisim = self.netSalesFormat.Gelisim[indexPath.item]
+                formatCell.prepareCell(format: selectedFormat, color: selectedColor, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
+                
+            } else {
+                let years = self.years
+                let selectedColor = self.netSalesFormat.ColorFormat[indexPath.item]
+                let selectedFormat = self.netSalesFormat.Format[indexPath.item]
+                let isPrice = self.netSalesFormat.Aciklama2[indexPath.item]
+                let isprogress = self.netSalesFormat.Aciklama1[indexPath.item]
+                let isGelisim = self.netSalesFormat.Gelisim[0]
+                formatCell.prepareCell(format: selectedFormat, color: selectedColor, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
+                
             }
             cellToReturn = formatCell
         }

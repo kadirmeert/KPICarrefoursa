@@ -82,6 +82,7 @@ class ProductViewController: UIViewController, ChartViewDelegate {
             self.productViewHeight.constant = 1500
         }
     }
+
     @objc func refresh(sender:AnyObject) {
         self.checkChartData()
         refreshControl.endRefreshing()
@@ -215,9 +216,9 @@ class ProductViewController: UIViewController, ChartViewDelegate {
                     
                     DispatchQueue.main.async {
                         self.hud.dismiss()
-                        let removeCharactersLatUpdate: Set<Character> = ["T", ":"]
-                        self.productStores.LastUpdate[0].removeAll(where: { removeCharactersLatUpdate.contains($0) })
-                        self.lastUpdateTime.text = "Last Updated Time \(self.productStores.LastUpdate[0].dropLast(6))"
+//                        let removeCharactersLatUpdate: Set<Character> = ["T", ":"]
+//                        self.productStores.LastUpdate[0].removeAll(where: { removeCharactersLatUpdate.contains($0) })
+                        self.lastUpdateTime.text = "Last Updated Time \(self.productStores.LastUpdate[0])"
                         self.setupPieChart()
                         self.storesTableView.reloadData()
                         self.categoryTableView.reloadData()
@@ -232,7 +233,7 @@ class ProductViewController: UIViewController, ChartViewDelegate {
         storesChartView.chartDescription.enabled = false
         storesChartView.drawHoleEnabled = false
         storesChartView.rotationAngle = 0
-        //        storesChartView.rotationEnabled = false
+        storesChartView.rotationEnabled = false
         //        storesChartView.isUserInteractionEnabled = false
         storesChartView.drawEntryLabelsEnabled = true
         storesChartView.legend.enabled = false
@@ -241,7 +242,7 @@ class ProductViewController: UIViewController, ChartViewDelegate {
         categoryChartView.chartDescription.enabled = false
         categoryChartView.drawHoleEnabled = false
         categoryChartView.rotationAngle = 0
-        //        categoryChartView.rotationEnabled = false
+        categoryChartView.rotationEnabled = false
         //        categoryChartView.isUserInteractionEnabled = false
         categoryChartView.drawEntryLabelsEnabled = true
         categoryChartView.legend.enabled = false
@@ -523,25 +524,85 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource {
         var cellToReturn = UITableViewCell()
         if tableView == self.storesTableView {
             let storeCell = tableView.dequeueReusableCell(withIdentifier: "productStoreCell", for: indexPath) as! ProductStoresTableViewCell
+            
+            if !self.productStores.Product.isEmpty {
+                let selectedProduct = self.productStores.Product[indexPath.item]
+                let selectedColor = self.productStores.ColorStores[indexPath.item]
+                let selectedInfo = self.productStores.Stores[indexPath.item]
+                storeCell.prepareCell(info: selectedInfo , color: selectedColor, product: selectedProduct)
+            }
+            else {
+                let selectedProduct = self.productStores.Product[0]
+                let selectedColor = self.productStores.ColorStores[indexPath.item]
+                let selectedInfo = self.productStores.Stores[indexPath.item]
+                storeCell.prepareCell(info: selectedInfo , color: selectedColor, product: selectedProduct)
+            }
+            if !self.productStores.ColorStores.isEmpty {
+                let selectedProduct = self.productStores.Product[indexPath.item]
+                let selectedColor = self.productStores.ColorStores[indexPath.item]
+                let selectedInfo = self.productStores.Stores[indexPath.item]
+                storeCell.prepareCell(info: selectedInfo , color: selectedColor, product: selectedProduct)
+            }
+            else {
+                let selectedProduct = self.productStores.Product[indexPath.item]
+                let selectedColor = self.productStores.ColorStores[0]
+                let selectedInfo = self.productStores.Stores[indexPath.item]
+                storeCell.prepareCell(info: selectedInfo , color: selectedColor, product: selectedProduct)
+            }
             if !self.productStores.Stores.isEmpty {
                 let selectedProduct = self.productStores.Product[indexPath.item]
                 let selectedColor = self.productStores.ColorStores[indexPath.item]
                 let selectedInfo = self.productStores.Stores[indexPath.item]
-                let isLast = indexPath.item == (self.productStores.Stores.count - 1)
-                storeCell.prepareCell(info: selectedInfo , color: selectedColor, count: isLast, product: selectedProduct)
+                storeCell.prepareCell(info: selectedInfo , color: selectedColor, product: selectedProduct)
             }
+            else {
+                let selectedProduct = self.productStores.Product[indexPath.item]
+                let selectedColor = self.productStores.ColorStores[indexPath.item]
+                let selectedInfo = self.productStores.Stores[0]
+                storeCell.prepareCell(info: selectedInfo , color: selectedColor, product: selectedProduct)
+            }
+            
             cellToReturn = storeCell
             
             
         }  else if tableView == self.categoryTableView {
             let categoryCell = tableView.dequeueReusableCell(withIdentifier: "productCategoryCell", for: indexPath) as! ProductCategoryTableViewCell
-            if !self.productCategory.Category.isEmpty {
-                
+            
+            if !self.productCategory.Product.isEmpty {
                 let selectedProduct = self.productCategory.Product[indexPath.item]
                 let selectedColor = self.productCategory.ColorCategory[indexPath.item]
                 let selectedInfo = self.productCategory.Category[indexPath.item]
-                let isLast = indexPath.item == (self.productCategory.Category.count - 1)
-                categoryCell.prepareCell(info: selectedInfo, color: selectedColor, count: isLast, product: selectedProduct)
+                categoryCell.prepareCell(info: selectedInfo, color: selectedColor, product: selectedProduct)
+                
+            } else {
+                let selectedProduct = self.productCategory.Product[0]
+                let selectedColor = self.productCategory.ColorCategory[indexPath.item]
+                let selectedInfo = self.productCategory.Category[indexPath.item]
+                categoryCell.prepareCell(info: selectedInfo, color: selectedColor, product: selectedProduct)
+            }
+            if !self.productCategory.ColorCategory.isEmpty {
+                let selectedProduct = self.productCategory.Product[indexPath.item]
+                let selectedColor = self.productCategory.ColorCategory[indexPath.item]
+                let selectedInfo = self.productCategory.Category[indexPath.item]
+                categoryCell.prepareCell(info: selectedInfo, color: selectedColor, product: selectedProduct)
+                
+            } else {
+                let selectedProduct = self.productCategory.Product[indexPath.item]
+                let selectedColor = self.productCategory.ColorCategory[0]
+                let selectedInfo = self.productCategory.Category[indexPath.item]
+                categoryCell.prepareCell(info: selectedInfo, color: selectedColor, product: selectedProduct)
+            }
+            if !self.productCategory.Category.isEmpty {
+                let selectedProduct = self.productCategory.Product[indexPath.item]
+                let selectedColor = self.productCategory.ColorCategory[indexPath.item]
+                let selectedInfo = self.productCategory.Category[indexPath.item]
+                categoryCell.prepareCell(info: selectedInfo, color: selectedColor, product: selectedProduct)
+                
+            } else {
+                let selectedProduct = self.productCategory.Product[indexPath.item]
+                let selectedColor = self.productCategory.ColorCategory[indexPath.item]
+                let selectedInfo = self.productCategory.Category[0]
+                categoryCell.prepareCell(info: selectedInfo, color: selectedColor, product: selectedProduct)
             }
             cellToReturn = categoryCell
         }

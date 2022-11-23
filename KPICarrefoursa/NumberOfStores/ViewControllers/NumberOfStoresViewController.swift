@@ -223,9 +223,9 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
                     for index in 0...self.numberOfStores.LastUpdate.count-1 {
                         if self.numberOfStores.Format[index] == "Actual CSA Total" {
                             DispatchQueue.main.async {
-                                let removeCharactersLatUpdate: Set<Character> = ["T", ":"]
-                                self.numberOfStores.LastUpdate[index].removeAll(where: { removeCharactersLatUpdate.contains($0) })
-                                self.lastTimeLabel.text = "Last Updated Time \(self.numberOfStores.LastUpdate[index].dropLast(6))"
+//                                let removeCharactersLatUpdate: Set<Character> = ["T", ":"]
+//                                self.numberOfStores.LastUpdate[index].removeAll(where: { removeCharactersLatUpdate.contains($0) })
+                                self.lastTimeLabel.text = "Last Updated Time \(self.numberOfStores.LastUpdate[index])"
                                 self.actualTotalLabel.text = "\(self.numberOfStores.StoreNumber[index]) Stores (\(self.numberOfStores.Area[index] / 1000)K m2) - \(self.numberOfStores.City[index]) City"
                                 self.numberOfStores.StoreNumber.removeLast()
                                 self.numberOfStores.Format.removeLast()
@@ -267,7 +267,7 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
             colors.append(UIColor(hexString: numberOfStores.Color[i]))
         }
         dataSet.colors = colors
-        dataSet.sliceSpace = 1
+        dataSet.sliceSpace = 2
         dataSet.drawValuesEnabled = false
         pieChartView.data = PieChartData(dataSet: dataSet)
         pieChartView.notifyDataSetChanged()

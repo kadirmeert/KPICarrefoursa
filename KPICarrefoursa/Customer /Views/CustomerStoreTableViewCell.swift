@@ -19,7 +19,7 @@ class CustomerStoreTableViewCell: UITableViewCell {
         self.customerStoresView.dropShadow(cornerRadius: self.customerStoresView.frame.height / 2)
 
     }
-    func prepareCell(info: String, color: String, count: Bool, ciro: Double) {
+    func prepareCell(info: String, color: String, ciro: Double) {
 
         self.customerStoresView.backgroundColor = UIColor(hexString: color)
         self.customerStoresLabel.text = "\(info): \(String(format: "%.2f", ciro / 1000.0 )) K"

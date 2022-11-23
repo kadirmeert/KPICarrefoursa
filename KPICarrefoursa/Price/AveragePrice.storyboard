@@ -342,14 +342,14 @@ October 11, 2022 14:37</string>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eH8-Pv-ak6">
                                                                             <rect key="frame" x="0.0" y="0.0" width="276" height="43.666666666666664"/>
                                                                             <subviews>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3f5-mD-Zpx">
-                                                                                    <rect key="frame" x="31" y="13.333333333333334" width="40" height="17.333333333333329"/>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="3f5-mD-Zpx">
+                                                                                    <rect key="frame" x="23" y="13.333333333333334" width="40" height="17.333333333333329"/>
                                                                                     <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
                                                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iOA-Qa-9jT">
-                                                                                    <rect key="frame" x="8" y="14.333333333333336" width="15" height="15"/>
+                                                                                    <rect key="frame" x="0.0" y="14.333333333333336" width="15" height="15"/>
                                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="15" id="Msu-Ep-Lfu"/>
@@ -361,7 +361,7 @@ October 11, 2022 14:37</string>
                                                                             <constraints>
                                                                                 <constraint firstItem="3f5-mD-Zpx" firstAttribute="leading" secondItem="iOA-Qa-9jT" secondAttribute="trailing" constant="8" id="9aX-KF-3zM"/>
                                                                                 <constraint firstItem="3f5-mD-Zpx" firstAttribute="centerY" secondItem="iOA-Qa-9jT" secondAttribute="centerY" id="9gL-q3-NAh"/>
-                                                                                <constraint firstItem="iOA-Qa-9jT" firstAttribute="leading" secondItem="eH8-Pv-ak6" secondAttribute="leading" constant="8" id="W3u-ke-Ffo"/>
+                                                                                <constraint firstItem="iOA-Qa-9jT" firstAttribute="leading" secondItem="eH8-Pv-ak6" secondAttribute="leading" id="W3u-ke-Ffo"/>
                                                                                 <constraint firstItem="iOA-Qa-9jT" firstAttribute="centerY" secondItem="eH8-Pv-ak6" secondAttribute="centerY" id="oOT-ZE-zcx"/>
                                                                             </constraints>
                                                                         </view>
@@ -437,14 +437,14 @@ October 11, 2022 14:37</string>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4aH-wC-HD6">
                                                                             <rect key="frame" x="0.0" y="0.0" width="276" height="43.666666666666664"/>
                                                                             <subviews>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kf0-ry-lrq">
-                                                                                    <rect key="frame" x="31" y="13.333333333333334" width="40" height="17.333333333333329"/>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="kf0-ry-lrq">
+                                                                                    <rect key="frame" x="23" y="13.333333333333334" width="40" height="17.333333333333329"/>
                                                                                     <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
                                                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LyB-aw-6XW">
-                                                                                    <rect key="frame" x="8" y="14.333333333333336" width="15" height="15"/>
+                                                                                    <rect key="frame" x="0.0" y="14.333333333333336" width="15" height="15"/>
                                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="15" id="2vQ-sx-HHQ"/>
@@ -456,7 +456,7 @@ October 11, 2022 14:37</string>
                                                                             <constraints>
                                                                                 <constraint firstItem="kf0-ry-lrq" firstAttribute="centerY" secondItem="LyB-aw-6XW" secondAttribute="centerY" id="8OH-ET-W4X"/>
                                                                                 <constraint firstItem="LyB-aw-6XW" firstAttribute="centerY" secondItem="4aH-wC-HD6" secondAttribute="centerY" id="ByC-eb-B5s"/>
-                                                                                <constraint firstItem="LyB-aw-6XW" firstAttribute="leading" secondItem="4aH-wC-HD6" secondAttribute="leading" constant="8" id="jLO-lE-Fwr"/>
+                                                                                <constraint firstItem="LyB-aw-6XW" firstAttribute="leading" secondItem="4aH-wC-HD6" secondAttribute="leading" id="jLO-lE-Fwr"/>
                                                                                 <constraint firstItem="kf0-ry-lrq" firstAttribute="leading" secondItem="LyB-aw-6XW" secondAttribute="trailing" constant="8" id="r3a-9j-0iL"/>
                                                                             </constraints>
                                                                         </view>

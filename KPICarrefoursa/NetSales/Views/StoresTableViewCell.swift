@@ -19,7 +19,7 @@ class StoresTableViewCell: UITableViewCell {
         self.storesİmage.dropShadow(cornerRadius: self.storesİmage.frame.height / 2)
         
     }
-    func prepareCell(info: String, color: String, count: Bool) {
+    func prepareCell(info: String, color: String) {
         
         self.storesİmage.backgroundColor = UIColor(hexString: color)
         self.storesLabel.text = "\(info)"

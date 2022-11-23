@@ -12,5 +12,7 @@ struct Stores {
     var Aciklama = [String]()
     var Oran = [Int]()
     var Stores = [String]()
+    var ColorStores = [String]()
+
     
 }

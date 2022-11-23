@@ -78,9 +78,9 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
     
  
     override func viewWillLayoutSubviews() {
-        self.basketStoresTableViewHeight.constant = self.storesTableView.contentSize.height
+        self.basketStoresTableViewHeight.constant = self.storesTableView.contentSize.height 
         self.basketCategoryTableViewHeight.constant = self.categoryTableView.contentSize.height
-        if self.basketStores.Stores.count > 6 {
+        if self.basketStores.Stores.count > 5 {
             self.basketViewHeight.constant = 1500
         }
     }
@@ -214,13 +214,11 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
                     self.basketStores.LastUpdate =  json!["BasketLastUpdate"]?.value(forKey: "LastUpdate") as? [String] ?? [""]
                     self.basketCategory.ColorCategory = json!["AverageBasketByCategory"]?.value(forKey: "ColorCategory") as? [String] ?? ["0"]
 
-                   
-
                     DispatchQueue.main.async {
                         self.hud.dismiss()
-                        let removeCharactersLatUpdate: Set<Character> = ["T", ":"]
-                        self.basketStores.LastUpdate[0].removeAll(where: { removeCharactersLatUpdate.contains($0) })
-                        self.lastUpdateTime.text = "Last Updated Time \(self.basketStores.LastUpdate[0].dropLast(6))"
+//                        let removeCharactersLatUpdate: Set<Character> = ["T", ":"]
+//                        self.basketStores.LastUpdate[0].removeAll(where: { removeCharactersLatUpdate.contains($0) })
+                        self.lastUpdateTime.text = "Last Updated Time \(self.basketStores.LastUpdate[0])"
                         self.setupPieChart()
                         self.storesTableView.reloadData()
                         self.categoryTableView.reloadData()
@@ -236,8 +234,8 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
         storesChartView.chartDescription.enabled = false
         storesChartView.drawHoleEnabled = false
         storesChartView.rotationAngle = 0
-        //        storesChartView.rotationEnabled = false
-        //        storesChartView.isUserInteractionEnabled = false
+        storesChartView.rotationEnabled = false
+        //storesChartView.isUserInteractionEnabled = false
         storesChartView.drawEntryLabelsEnabled = true
         storesChartView.legend.enabled = false
         storesChartView.transparentCircleColor = NSUIColor(white: 1.0, alpha: 105.0/255.0)
@@ -245,8 +243,8 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
         categoryChartView.chartDescription.enabled = false
         categoryChartView.drawHoleEnabled = false
         categoryChartView.rotationAngle = 0
-        //        categoryChartView.rotationEnabled = false
-        //        categoryChartView.isUserInteractionEnabled = false
+        categoryChartView.rotationEnabled = false
+        //categoryChartView.isUserInteractionEnabled = false
         categoryChartView.drawEntryLabelsEnabled = true
         categoryChartView.legend.enabled = false
         categoryChartView.transparentCircleColor = NSUIColor(white: 1.0, alpha: 105.0/255.0)
@@ -524,24 +522,76 @@ extension AverageBasketViewController: UITableViewDelegate, UITableViewDataSourc
         var cellToReturn = UITableViewCell()
         if tableView == self.storesTableView {
             let storeCell = tableView.dequeueReusableCell(withIdentifier: "basketStoreCell", for: indexPath) as! BasketStoresTableViewCell
+            if !self.basketStores.Ciro.isEmpty {
+                let selectedCiro = self.basketStores.Ciro[indexPath.item]
+                let selectedColor = self.basketStores.ColorStores[indexPath.item]
+                let selectedInfo = self.basketStores.Stores[indexPath.item]
+                storeCell.prepareCell(info: selectedInfo , color: selectedColor, ciro: selectedCiro)
+            } else {
+                let selectedCiro = self.basketStores.Ciro[0]
+                let selectedColor = self.basketStores.ColorStores[indexPath.item]
+                let selectedInfo = self.basketStores.Stores[indexPath.item]
+                storeCell.prepareCell(info: selectedInfo , color: selectedColor, ciro: selectedCiro)
+            }
+            if !self.basketStores.ColorStores.isEmpty {
+                let selectedCiro = self.basketStores.Ciro[indexPath.item]
+                let selectedColor = self.basketStores.ColorStores[indexPath.item]
+                let selectedInfo = self.basketStores.Stores[indexPath.item]
+                storeCell.prepareCell(info: selectedInfo , color: selectedColor, ciro: selectedCiro)
+            } else {
+                let selectedCiro = self.basketStores.Ciro[indexPath.item]
+                let selectedColor = self.basketStores.ColorStores[0]
+                let selectedInfo = self.basketStores.Stores[indexPath.item]
+                storeCell.prepareCell(info: selectedInfo , color: selectedColor, ciro: selectedCiro)
+            }
             if !self.basketStores.Stores.isEmpty {
                 let selectedCiro = self.basketStores.Ciro[indexPath.item]
                 let selectedColor = self.basketStores.ColorStores[indexPath.item]
                 let selectedInfo = self.basketStores.Stores[indexPath.item]
-                let isLast = indexPath.item == (self.basketStores.Stores.count - 1)
-                storeCell.prepareCell(info: selectedInfo , color: selectedColor, count: isLast, ciro: selectedCiro)
+                storeCell.prepareCell(info: selectedInfo , color: selectedColor, ciro: selectedCiro)
+            } else {
+                let selectedCiro = self.basketStores.Ciro[indexPath.item]
+                let selectedColor = self.basketStores.ColorStores[indexPath.item]
+                let selectedInfo = self.basketStores.Stores[0]
+                storeCell.prepareCell(info: selectedInfo , color: selectedColor, ciro: selectedCiro)
             }
             cellToReturn = storeCell
             
             
         }  else if tableView == self.categoryTableView {
             let chanelCell = tableView.dequeueReusableCell(withIdentifier: "basketCategoryCell", for: indexPath) as! BasketCategoryTableViewCell
+            if !self.basketCategory.Ciro.isEmpty {
+                let selectedCiro = self.basketCategory.Ciro[indexPath.item]
+                let selectedColor = self.basketCategory.ColorCategory[indexPath.item]
+                let selectedInfo = self.basketCategory.Category[indexPath.item]
+                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+            } else {
+                let selectedCiro = self.basketCategory.Ciro[0]
+                let selectedColor = self.basketCategory.ColorCategory[indexPath.item]
+                let selectedInfo = self.basketCategory.Category[indexPath.item]
+                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+            }
+            if !self.basketCategory.ColorCategory.isEmpty {
+                let selectedCiro = self.basketCategory.Ciro[indexPath.item]
+                let selectedColor = self.basketCategory.ColorCategory[indexPath.item]
+                let selectedInfo = self.basketCategory.Category[indexPath.item]
+                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+            } else {
+                let selectedCiro = self.basketCategory.Ciro[indexPath.item]
+                let selectedColor = self.basketCategory.ColorCategory[0]
+                let selectedInfo = self.basketCategory.Category[indexPath.item]
+                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+            }
             if !self.basketCategory.Category.isEmpty {
                 let selectedCiro = self.basketCategory.Ciro[indexPath.item]
                 let selectedColor = self.basketCategory.ColorCategory[indexPath.item]
                 let selectedInfo = self.basketCategory.Category[indexPath.item]
-                let isLast = indexPath.item == (self.basketCategory.Category.count - 1)
-                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, count: isLast, ciro: selectedCiro)
+                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+            } else {
+                let selectedCiro = self.basketCategory.Ciro[indexPath.item]
+                let selectedColor = self.basketCategory.ColorCategory[indexPath.item]
+                let selectedInfo = self.basketCategory.Category[0]
+                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
             }
             cellToReturn = chanelCell
         }

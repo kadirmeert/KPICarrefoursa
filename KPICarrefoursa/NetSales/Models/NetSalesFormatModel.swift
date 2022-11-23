@@ -13,5 +13,6 @@ struct Format {
     var Aciklama2 = [String]()
     var Format = [String]()
     var Gelisim = [String]()
+    var ColorFormat = [String]()
     
 }
