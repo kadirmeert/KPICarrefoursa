@@ -9,10 +9,10 @@ import Foundation
 
 struct Channel{
     
-    var Aciklama = [String]()
-    var Oran = [Int]()
-    var Channels = [String]()
-    var IsLfl = [Int]()
+    var Ciro = [String]()
+    var FiiliCiro = [String]()
+    var FormatPNL = [String]()
+    var Last_Update = [String]()
     var ColorChannels = [String]()
 
     

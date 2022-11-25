@@ -9,20 +9,19 @@ import Foundation
 
 struct PriceStores {
     
-    var AveragePrice = [Double]()
-    var Ciro = [Double]()
+//    var Ciro = [Double]()
     var Stores = [String]()
-    var LastUpdate = [String]()
-    var Oran = [Double]()
+    var AveragePrice = [Double]()
     var ColorStores = [String]()
+    var Last_Update = [String]()
 
     
 }
 struct PriceCategory{
     
     var AveragePrice = [Double]()
-    var Ciro = [Double]()
-    var Category = [String]()
+//    var AveragePrice = [Double]()
+    var CategoryBreakDown = [String]()
     var ColorCategory = [String]()
 
     

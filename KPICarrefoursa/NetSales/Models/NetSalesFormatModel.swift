@@ -9,10 +9,11 @@ import Foundation
 
 struct Format {
     
-    var Aciklama1 = [String]()
-    var Aciklama2 = [String]()
-    var Format = [String]()
+    var Fark = [String]()
+    var Ciro = [Double]()
+    var RevizeFormat = [String]()
     var Gelisim = [String]()
     var ColorFormat = [String]()
+
     
 }

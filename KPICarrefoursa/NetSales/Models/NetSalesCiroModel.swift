@@ -12,7 +12,7 @@ struct Ciro {
     var Ciro = [String]()
     var Gelisim = [String]()
     var IsLfl = [Int]()
-    var LastUpdate = [String]()
-    var ActualCSA = [Double]()
+    var Last_Update = [String]()
+    var Total = [String]()
     
 }

@@ -50,11 +50,14 @@ class ProductViewController: UIViewController, ChartViewDelegate {
     //MARK: Properties
     var jsonmessage: Int = 1
     var userDC: String = ""
-    var chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 1}"
+    var chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
     var productStores = ProductStores()
     var productCategory = ProductCategory()
     var hud = JGProgressHUD()
     let refreshControl = UIRefreshControl()
+    var selectedProduct = ""
+    var selectedColor = ""
+    var selectedInfo = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,7 +81,7 @@ class ProductViewController: UIViewController, ChartViewDelegate {
     override func viewWillLayoutSubviews() {
         self.productStoresHeight.constant = self.storesTableView.contentSize.height
         self.productCategoryHeight.constant = self.categoryTableView.contentSize.height
-        if self.productCategory.Product.count > 6 {
+        if self.productCategory.CategoryBreakDown.count > 6 {
             self.productViewHeight.constant = 1500
         }
     }
@@ -124,7 +127,7 @@ class ProductViewController: UIViewController, ChartViewDelegate {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1}"
             }
             if yeartodateButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 1}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1}"
             }
         }
         else{
@@ -146,7 +149,7 @@ class ProductViewController: UIViewController, ChartViewDelegate {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0}"
             }
             if yeartodateButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 0}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0}"
             }
         }
         if !self.productStores.Stores.isEmpty {
@@ -203,22 +206,30 @@ class ProductViewController: UIViewController, ChartViewDelegate {
                     print("error")
                 } else if json!["Success"] as? Int ?? 0 == 1 {
                     
-                    self.productStores.Oran = json!["ProductByStores"]?.value(forKey: "Oran") as? [Double] ?? [0.0]
-                    self.productStores.Product = json!["ProductByStores"]?.value(forKey: "Product") as? [Int] ?? [0]
+                    self.productStores.FiiliUrun = json!["ProductByStores"]?.value(forKey: "FiiliUrun") as? [Double] ?? [0.0]
+                    self.productStores.urun = json!["ProductByStores"]?.value(forKey: "urun") as? [String] ?? ["0"]
                     self.productStores.Stores = json!["ProductByStores"]?.value(forKey: "Stores") as? [String] ?? ["0"]
                     self.productStores.ColorStores = json!["ProductByStores"]?.value(forKey: "ColorStores") as? [String] ?? ["0"]
-                    self.productCategory.Oran = json!["ProductByCategory"]?.value(forKey: "Oran") as? [Double] ?? [0.0]
-                    self.productCategory.Product = json!["ProductByCategory"]?.value(forKey: "Product") as? [Int] ?? [0]
-                    self.productCategory.Category = json!["ProductByCategory"]?.value(forKey: "Category") as? [String] ?? ["0"]
-                    self.productStores.LastUpdate =  json!["ProductLastUpdate"]?.value(forKey: "LastUpdate") as? [String] ?? [""]
-                    self.productCategory.ColorCategory = json!["ProductByCategory"]?.value(forKey: "ColorCategory") as? [String] ?? ["0"]
+                    
+                    self.productCategory.FiiliUrun = json!["ProductByCategory"]?.value(forKey: "FiiliUrun") as? [Double] ?? [0.0]
+                    self.productCategory.Urun = json!["ProductByCategory"]?.value(forKey: "Urun") as? [String] ?? ["0"]
+                    self.productCategory.CategoryBreakDown = json!["ProductByCategory"]?.value(forKey: "CategoryBreakDown") as? [String] ?? ["0"]
+                    self.productStores.Last_Update =  json!["ProductByStores"]?.value(forKey: "Last_Update") as? [String] ?? [""]
+                    self.productCategory.ColorCategory = json!["ProductByCategory"]?.value(forKey: "ColorCategory") as? [String] ?? ["000"]
 
                     
                     DispatchQueue.main.async {
                         self.hud.dismiss()
 //                        let removeCharactersLatUpdate: Set<Character> = ["T", ":"]
 //                        self.productStores.LastUpdate[0].removeAll(where: { removeCharactersLatUpdate.contains($0) })
-                        self.lastUpdateTime.text = "Last Updated Time \(self.productStores.LastUpdate[0])"
+                        if self.productStores.Last_Update.isEmpty {
+                            
+                            self.lastUpdateTime.text = "00/00/0000 00:00:00"
+                            
+                        } else {
+                            self.lastUpdateTime.text = "Last Updated Time \(self.productStores.Last_Update[0])"
+                        }
+                    
                         self.setupPieChart()
                         self.storesTableView.reloadData()
                         self.categoryTableView.reloadData()
@@ -251,10 +262,10 @@ class ProductViewController: UIViewController, ChartViewDelegate {
         var entriesStores: [PieChartDataEntry] = Array()
         var entriesChannel: [PieChartDataEntry] = Array()
         for i in 0..<productStores.Stores.count  {
-            entriesStores.append(PieChartDataEntry(value: self.productStores.Oran[i], label: ""))
+            entriesStores.append(PieChartDataEntry(value: self.productStores.FiiliUrun[i], label: ""))
         }
-        for i in 0..<productCategory.Category.count {
-            entriesChannel.append(PieChartDataEntry(value: Double(self.productCategory.Oran[i]), label: ""))
+        for i in 0..<productCategory.CategoryBreakDown.count {
+            entriesChannel.append(PieChartDataEntry(value: Double(self.productCategory.FiiliUrun[i]), label: ""))
         }
         
         let dataSetStores = PieChartDataSet(entries: entriesStores, label: "")
@@ -477,10 +488,10 @@ class ProductViewController: UIViewController, ChartViewDelegate {
         monthlyButton.isSelected = false
         yeartodateButton.isSelected = true
         if productSwitch.isOn == true {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 1}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1}"
             
         } else {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 0}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0}"
         }
         if !self.productStores.Stores.isEmpty {
             hud.textLabel.text = "Loading"
@@ -515,7 +526,7 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource {
             numberOfRow = self.productStores.Stores.count
         }
         else if tableView == categoryTableView {
-            numberOfRow = self.productCategory.Category.count
+            numberOfRow = self.productCategory.CategoryBreakDown.count
         }
         return numberOfRow
     }
@@ -525,42 +536,28 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource {
         if tableView == self.storesTableView {
             let storeCell = tableView.dequeueReusableCell(withIdentifier: "productStoreCell", for: indexPath) as! ProductStoresTableViewCell
             
-            if !self.productStores.Product.isEmpty {
-                let selectedProduct = self.productStores.Product[indexPath.item]
-                let selectedColor = self.productStores.ColorStores[indexPath.item]
-                let selectedInfo = self.productStores.Stores[indexPath.item]
-                storeCell.prepareCell(info: selectedInfo , color: selectedColor, product: selectedProduct)
+            if self.productStores.ColorStores.count <= 1 {
+                self.selectedColor = ""
+                
+            } else {
+                self.selectedColor = self.productStores.ColorStores[indexPath.item]
             }
-            else {
-                let selectedProduct = self.productStores.Product[0]
-                let selectedColor = self.productStores.ColorStores[indexPath.item]
-                let selectedInfo = self.productStores.Stores[indexPath.item]
-                storeCell.prepareCell(info: selectedInfo , color: selectedColor, product: selectedProduct)
+            
+            if self.productStores.urun.count <= 1 {
+                self.selectedProduct = ""
+                
+            } else {
+                self.selectedProduct = self.productStores.urun[indexPath.item]
             }
-            if !self.productStores.ColorStores.isEmpty {
-                let selectedProduct = self.productStores.Product[indexPath.item]
-                let selectedColor = self.productStores.ColorStores[indexPath.item]
-                let selectedInfo = self.productStores.Stores[indexPath.item]
-                storeCell.prepareCell(info: selectedInfo , color: selectedColor, product: selectedProduct)
+            if self.productStores.Stores.count <= 1 {
+                self.selectedInfo = ""
+                
+            } else {
+                self.selectedInfo = self.productStores.Stores[indexPath.item]
             }
-            else {
-                let selectedProduct = self.productStores.Product[indexPath.item]
-                let selectedColor = self.productStores.ColorStores[0]
-                let selectedInfo = self.productStores.Stores[indexPath.item]
-                storeCell.prepareCell(info: selectedInfo , color: selectedColor, product: selectedProduct)
-            }
-            if !self.productStores.Stores.isEmpty {
-                let selectedProduct = self.productStores.Product[indexPath.item]
-                let selectedColor = self.productStores.ColorStores[indexPath.item]
-                let selectedInfo = self.productStores.Stores[indexPath.item]
-                storeCell.prepareCell(info: selectedInfo , color: selectedColor, product: selectedProduct)
-            }
-            else {
-                let selectedProduct = self.productStores.Product[indexPath.item]
-                let selectedColor = self.productStores.ColorStores[indexPath.item]
-                let selectedInfo = self.productStores.Stores[0]
-                storeCell.prepareCell(info: selectedInfo , color: selectedColor, product: selectedProduct)
-            }
+
+
+            storeCell.prepareCell(info: selectedInfo , color: selectedColor, product: selectedProduct)
             
             cellToReturn = storeCell
             
@@ -568,42 +565,30 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource {
         }  else if tableView == self.categoryTableView {
             let categoryCell = tableView.dequeueReusableCell(withIdentifier: "productCategoryCell", for: indexPath) as! ProductCategoryTableViewCell
             
-            if !self.productCategory.Product.isEmpty {
-                let selectedProduct = self.productCategory.Product[indexPath.item]
-                let selectedColor = self.productCategory.ColorCategory[indexPath.item]
-                let selectedInfo = self.productCategory.Category[indexPath.item]
-                categoryCell.prepareCell(info: selectedInfo, color: selectedColor, product: selectedProduct)
+            
+            if self.productCategory.ColorCategory.count <= 1 {
+                self.selectedColor = ""
                 
             } else {
-                let selectedProduct = self.productCategory.Product[0]
-                let selectedColor = self.productCategory.ColorCategory[indexPath.item]
-                let selectedInfo = self.productCategory.Category[indexPath.item]
-                categoryCell.prepareCell(info: selectedInfo, color: selectedColor, product: selectedProduct)
+                self.selectedColor = self.productCategory.ColorCategory[indexPath.item]
             }
-            if !self.productCategory.ColorCategory.isEmpty {
-                let selectedProduct = self.productCategory.Product[indexPath.item]
-                let selectedColor = self.productCategory.ColorCategory[indexPath.item]
-                let selectedInfo = self.productCategory.Category[indexPath.item]
-                categoryCell.prepareCell(info: selectedInfo, color: selectedColor, product: selectedProduct)
+            
+            if self.productCategory.Urun.count <= 1 {
+                self.selectedProduct = ""
                 
             } else {
-                let selectedProduct = self.productCategory.Product[indexPath.item]
-                let selectedColor = self.productCategory.ColorCategory[0]
-                let selectedInfo = self.productCategory.Category[indexPath.item]
-                categoryCell.prepareCell(info: selectedInfo, color: selectedColor, product: selectedProduct)
+                self.selectedProduct = self.productCategory.Urun[indexPath.item]
             }
-            if !self.productCategory.Category.isEmpty {
-                let selectedProduct = self.productCategory.Product[indexPath.item]
-                let selectedColor = self.productCategory.ColorCategory[indexPath.item]
-                let selectedInfo = self.productCategory.Category[indexPath.item]
-                categoryCell.prepareCell(info: selectedInfo, color: selectedColor, product: selectedProduct)
+            if self.productCategory.CategoryBreakDown.count <= 1 {
+                self.selectedInfo = ""
                 
             } else {
-                let selectedProduct = self.productCategory.Product[indexPath.item]
-                let selectedColor = self.productCategory.ColorCategory[indexPath.item]
-                let selectedInfo = self.productCategory.Category[0]
-                categoryCell.prepareCell(info: selectedInfo, color: selectedColor, product: selectedProduct)
+                self.selectedInfo = self.productCategory.CategoryBreakDown[indexPath.item]
+                
             }
+            categoryCell.prepareCell(info: selectedInfo, color: selectedColor, product: selectedProduct)
+                
+           
             cellToReturn = categoryCell
         }
         return cellToReturn

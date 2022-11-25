@@ -21,10 +21,10 @@ class ChanelTableViewCell: UITableViewCell {
 
     }
     
-    func prepareCell(info: String, color: String) {
+    func prepareCell(info: String, color: String, price: String) {
         
         self.chanelİmage.backgroundColor = UIColor(hexString: color)
-        self.chanelLabel.text = "\(info)"
+        self.chanelLabel.text = "\(info): \(price)"
        
     }
     

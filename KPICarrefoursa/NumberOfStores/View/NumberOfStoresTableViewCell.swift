@@ -22,7 +22,7 @@ class NumberOfStoresTableViewCell: UITableViewCell {
         
     }
     
-    func prepareCell(format: String, color: String,count: Bool, area: Int, city: Int) {
+    func prepareCell(format: String, color: String, area: Int, city: Int) {
         
         self.colorView.backgroundColor = UIColor(hexString: color)
         if area > 1000 {

@@ -19,10 +19,10 @@ class ProductCategoryTableViewCell: UITableViewCell {
 
     }
 
-    func prepareCell(info: String, color: String, product: Int) {
+    func prepareCell(info: String, color: String, product: String) {
     
             self.productCategoryİmageView.backgroundColor = UIColor(hexString: color)
-        self.productCategoryLabel.text =  "\(info): \(String(format: "%.2f", Double(product) / 1000.0 )) K"
+        self.productCategoryLabel.text =  "\(info): \(product)"
     
         }
 

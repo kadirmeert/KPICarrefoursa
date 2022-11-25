@@ -18,10 +18,10 @@ class ProductStoresTableViewCell: UITableViewCell {
         self.productStoresİmageView.dropShadow(cornerRadius: self.productStoresİmageView.frame.height / 2)
 
     }
-    func prepareCell(info: String, color: String, product: Int) {
+    func prepareCell(info: String, color: String, product: String) {
     
             self.productStoresİmageView.backgroundColor = UIColor(hexString: color)
-        self.productStoresLabel.text = "\(info): \(String(format: "%.2f", Double(product) / 1000.0 )) K"
+        self.productStoresLabel.text = "\(info): \(product)"
          
     
         }

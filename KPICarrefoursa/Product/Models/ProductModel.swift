@@ -9,18 +9,18 @@ import Foundation
 
 struct ProductStores {
     
-    var Oran = [Double]()
-    var Product = [Int]()
+    var FiiliUrun = [Double]()
+    var urun = [String]()
     var Stores = [String]()
-    var LastUpdate = [String]()
+    var Last_Update = [String]()
     var ColorStores = [String]()
 
 }
 struct ProductCategory{
     
-    var Oran = [Double]()
-    var Product = [Int]()
-    var Category = [String]()
+    var FiiliUrun = [Double]()
+    var Urun = [String]()
+    var CategoryBreakDown = [String]()
     var ColorCategory = [String]()
 
     

@@ -9,7 +9,8 @@ import Foundation
 
 struct Category {
     
-    var Aciklama = [String]()
-    var Category = [String]()
-    var Oran = [String]()
+    var Fark = [String]()
+    var CategoryBreakDown = [String]()
+    var Gelisim = [String]()
+   
 }

@@ -55,6 +55,9 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
     var basketCategory = BasketCategory()
     var hud = JGProgressHUD()
     let refreshControl = UIRefreshControl()
+    var selectedCiro = 0.0
+    var selectedColor = ""
+    var selectedInfo = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,7 +129,7 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1}"
             }
             if yeartodateButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 1}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1}"
             }
         }
         else{
@@ -148,7 +151,7 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0}"
             }
             if yeartodateButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 0}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0}"
             }
         }
         if !self.basketStores.Stores.isEmpty {
@@ -204,12 +207,13 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
                     print("error")
                 } else if json!["Success"] as? Int ?? 0 == 1 {
                     self.basketStores.Ciro = json!["AverageBasketByStores"]?.value(forKey: "Ciro") as? [Double] ?? [0.0]
-                    self.basketStores.AverageBasket = json!["AverageBasketByStores"]?.value(forKey: "AverageBasket") as? [Double] ?? [0.0]
+                    self.basketStores.AverageBasket = json!["AverageBasketByStores"]?.value(forKey: "AverageBasket") as? [String] ?? ["0.0"]
                     self.basketStores.Stores = json!["AverageBasketByStores"]?.value(forKey: "Stores") as? [String] ?? ["0"]
                     self.basketStores.Oran = json!["AverageBasketByStores"]?.value(forKey: "Oran") as? [Double] ?? [0.0]
                     self.basketStores.ColorStores = json!["AverageBasketByStores"]?.value(forKey: "ColorStores") as? [String] ?? ["0"]
+                    
                     self.basketCategory.Ciro = json!["AverageBasketByCategory"]?.value(forKey: "Ciro") as? [Double] ?? [0.0]
-                    self.basketCategory.AverageBasket = json!["AverageBasketByCategory"]?.value(forKey: "AverageBasket") as? [Double] ?? [0.0]
+                    self.basketCategory.AverageBasket = json!["AverageBasketByCategory"]?.value(forKey: "AverageBasket") as? [String] ?? ["0.0"]
                     self.basketCategory.Category = json!["AverageBasketByCategory"]?.value(forKey: "Category") as? [String] ?? ["0"]
                     self.basketStores.LastUpdate =  json!["BasketLastUpdate"]?.value(forKey: "LastUpdate") as? [String] ?? [""]
                     self.basketCategory.ColorCategory = json!["AverageBasketByCategory"]?.value(forKey: "ColorCategory") as? [String] ?? ["0"]
@@ -218,7 +222,14 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
                         self.hud.dismiss()
 //                        let removeCharactersLatUpdate: Set<Character> = ["T", ":"]
 //                        self.basketStores.LastUpdate[0].removeAll(where: { removeCharactersLatUpdate.contains($0) })
-                        self.lastUpdateTime.text = "Last Updated Time \(self.basketStores.LastUpdate[0])"
+                        
+                        if self.basketStores.LastUpdate.isEmpty {
+                            self.lastUpdateTime.text = "00/00/00 00:00:00"
+                            
+                        } else {
+                            self.lastUpdateTime.text = "Last Updated Time \(self.basketStores.LastUpdate[0])"
+                        }
+                        
                         self.setupPieChart()
                         self.storesTableView.reloadData()
                         self.categoryTableView.reloadData()
@@ -252,10 +263,10 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
         var entriesStores: [PieChartDataEntry] = Array()
         var entriesChannel: [PieChartDataEntry] = Array()
         for i in 0..<basketStores.Stores.count {
-            entriesStores.append(PieChartDataEntry(value: Double(self.basketStores.Oran[i]), label: ""))
+            entriesStores.append(PieChartDataEntry(value: Double(self.basketStores.AverageBasket[i]) ?? 0.0, label: ""))
         }
         for i in 0..<basketCategory.Category.count {
-            entriesChannel.append(PieChartDataEntry(value: Double(self.basketCategory.AverageBasket[i]), label: ""))
+            entriesChannel.append(PieChartDataEntry(value: Double(self.basketCategory.AverageBasket[i]) ?? 0.0, label: ""))
         }
         
         let dataSetStores = PieChartDataSet(entries: entriesStores, label: "")
@@ -475,10 +486,10 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
         monthlyButton.isSelected = false
         yeartodateButton.isSelected = true
         if basketSwitch.isOn == true {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 1}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1}"
             
         } else {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 0}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0}"
         }
         if !self.basketStores.Stores.isEmpty {
             hud.textLabel.text = "Loading"
@@ -522,77 +533,59 @@ extension AverageBasketViewController: UITableViewDelegate, UITableViewDataSourc
         var cellToReturn = UITableViewCell()
         if tableView == self.storesTableView {
             let storeCell = tableView.dequeueReusableCell(withIdentifier: "basketStoreCell", for: indexPath) as! BasketStoresTableViewCell
-            if !self.basketStores.Ciro.isEmpty {
-                let selectedCiro = self.basketStores.Ciro[indexPath.item]
-                let selectedColor = self.basketStores.ColorStores[indexPath.item]
-                let selectedInfo = self.basketStores.Stores[indexPath.item]
-                storeCell.prepareCell(info: selectedInfo , color: selectedColor, ciro: selectedCiro)
+            
+            if self.basketStores.ColorStores.count <= 1 {
+                self.selectedColor = ""
+                
             } else {
-                let selectedCiro = self.basketStores.Ciro[0]
-                let selectedColor = self.basketStores.ColorStores[indexPath.item]
-                let selectedInfo = self.basketStores.Stores[indexPath.item]
-                storeCell.prepareCell(info: selectedInfo , color: selectedColor, ciro: selectedCiro)
+                self.selectedColor = self.basketStores.ColorStores[indexPath.item]
             }
-            if !self.basketStores.ColorStores.isEmpty {
-                let selectedCiro = self.basketStores.Ciro[indexPath.item]
-                let selectedColor = self.basketStores.ColorStores[indexPath.item]
-                let selectedInfo = self.basketStores.Stores[indexPath.item]
-                storeCell.prepareCell(info: selectedInfo , color: selectedColor, ciro: selectedCiro)
+            
+            if self.basketStores.Ciro.count <= 1 {
+                self.selectedCiro = 0.0
+                
             } else {
-                let selectedCiro = self.basketStores.Ciro[indexPath.item]
-                let selectedColor = self.basketStores.ColorStores[0]
-                let selectedInfo = self.basketStores.Stores[indexPath.item]
-                storeCell.prepareCell(info: selectedInfo , color: selectedColor, ciro: selectedCiro)
+                self.selectedCiro = self.basketStores.Ciro[indexPath.item]
             }
-            if !self.basketStores.Stores.isEmpty {
-                let selectedCiro = self.basketStores.Ciro[indexPath.item]
-                let selectedColor = self.basketStores.ColorStores[indexPath.item]
-                let selectedInfo = self.basketStores.Stores[indexPath.item]
-                storeCell.prepareCell(info: selectedInfo , color: selectedColor, ciro: selectedCiro)
+            if self.basketStores.Stores.count <= 1 {
+                self.selectedInfo = ""
+                
             } else {
-                let selectedCiro = self.basketStores.Ciro[indexPath.item]
-                let selectedColor = self.basketStores.ColorStores[indexPath.item]
-                let selectedInfo = self.basketStores.Stores[0]
-                storeCell.prepareCell(info: selectedInfo , color: selectedColor, ciro: selectedCiro)
+                self.selectedInfo = self.basketStores.Stores[indexPath.item]
+
             }
+          
+            storeCell.prepareCell(info: selectedInfo , color: selectedColor, ciro: selectedCiro)
+           
             cellToReturn = storeCell
             
             
         }  else if tableView == self.categoryTableView {
             let chanelCell = tableView.dequeueReusableCell(withIdentifier: "basketCategoryCell", for: indexPath) as! BasketCategoryTableViewCell
-            if !self.basketCategory.Ciro.isEmpty {
-                let selectedCiro = self.basketCategory.Ciro[indexPath.item]
-                let selectedColor = self.basketCategory.ColorCategory[indexPath.item]
-                let selectedInfo = self.basketCategory.Category[indexPath.item]
-                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+            
+            if self.basketCategory.ColorCategory.count <= 1 {
+                self.selectedColor = ""
+                
             } else {
-                let selectedCiro = self.basketCategory.Ciro[0]
-                let selectedColor = self.basketCategory.ColorCategory[indexPath.item]
-                let selectedInfo = self.basketCategory.Category[indexPath.item]
-                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+                self.selectedColor = self.basketCategory.ColorCategory[indexPath.item]
             }
-            if !self.basketCategory.ColorCategory.isEmpty {
-                let selectedCiro = self.basketCategory.Ciro[indexPath.item]
-                let selectedColor = self.basketCategory.ColorCategory[indexPath.item]
-                let selectedInfo = self.basketCategory.Category[indexPath.item]
-                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+            
+            if self.basketCategory.Ciro.count <= 1 {
+                self.selectedCiro = 0.0
+                
             } else {
-                let selectedCiro = self.basketCategory.Ciro[indexPath.item]
-                let selectedColor = self.basketCategory.ColorCategory[0]
-                let selectedInfo = self.basketCategory.Category[indexPath.item]
-                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+                self.selectedCiro = self.basketCategory.Ciro[indexPath.item]
             }
-            if !self.basketCategory.Category.isEmpty {
-                let selectedCiro = self.basketCategory.Ciro[indexPath.item]
-                let selectedColor = self.basketCategory.ColorCategory[indexPath.item]
-                let selectedInfo = self.basketCategory.Category[indexPath.item]
-                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+            if self.basketCategory.Category.count <= 1 {
+                self.selectedInfo = ""
+                
             } else {
-                let selectedCiro = self.basketCategory.Ciro[indexPath.item]
-                let selectedColor = self.basketCategory.ColorCategory[indexPath.item]
-                let selectedInfo = self.basketCategory.Category[0]
-                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+                self.selectedInfo = self.basketCategory.Category[indexPath.item]
+
             }
+           
+            chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+         
             cellToReturn = chanelCell
         }
         return cellToReturn

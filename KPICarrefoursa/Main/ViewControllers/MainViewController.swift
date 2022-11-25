@@ -13,9 +13,9 @@ class MainViewController: UIViewController {
     //MARK: Outlets
     @IBOutlet weak var logoutView: UIView!
     @IBOutlet weak var logoutButton: UIButton!
-//    @IBOutlet weak var hourlyView: UIView!
-//    @IBOutlet weak var hourlyLabel: UILabel!
-//    @IBOutlet weak var hourlyButton: UIButton!
+    //    @IBOutlet weak var hourlyView: UIView!
+    //    @IBOutlet weak var hourlyLabel: UILabel!
+    //    @IBOutlet weak var hourlyButton: UIButton!
     @IBOutlet weak var yesterdayView: UIView!
     @IBOutlet weak var yesterdayLabel: UILabel!
     @IBOutlet weak var yesterdayButton: UIButton!
@@ -86,7 +86,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mainRadius()
-       
+        
         if self.dashboardValue.Customer.isEmpty {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
@@ -94,19 +94,19 @@ class MainViewController: UIViewController {
             
         }
         self.refreshControl.tintColor = UIColor.gray
-                self.refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControl.Event.valueChanged)
-                self.scrool.isScrollEnabled = true
-                self.scrool.alwaysBounceVertical = true
-                scrool.addSubview(refreshControl)
+        self.refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControl.Event.valueChanged)
+        self.scrool.isScrollEnabled = true
+        self.scrool.alwaysBounceVertical = true
+        scrool.addSubview(refreshControl)
         
         
     }
-
+    
     
     override func didReceiveMemoryWarning() {
-           super.didReceiveMemoryWarning()
-           // Dispose of any resources that can be recreated.
-       }
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -126,9 +126,9 @@ class MainViewController: UIViewController {
         
         if (sender.isOn == true){
             self.mainLflLabel.text = "LFL"
-//            if hourlyButton.isSelected == true {
-//                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
-//            }
+            //            if hourlyButton.isSelected == true {
+            //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
+            //            }
             if yesterdayButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
             }
@@ -142,14 +142,14 @@ class MainViewController: UIViewController {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1}"
             }
             if yeartodateButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 1}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1}"
             }
         }
         else{
             self.mainLflLabel.text = "ALL"
-//            if hourlyButton.isSelected == true {
-//                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
-//            }
+            //            if hourlyButton.isSelected == true {
+            //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
+            //            }
             if yesterdayButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
             }
@@ -163,7 +163,7 @@ class MainViewController: UIViewController {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0}"
             }
             if yeartodateButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 0}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0}"
             }
         }
         if !self.dashboardValue.Product.isEmpty {
@@ -171,16 +171,16 @@ class MainViewController: UIViewController {
             hud.show(in: self.view)
             self.checkDataDashboard()
         }
-
+        
         
     }
     
     @objc func refresh(sender:AnyObject) {
-            // Code to refresh table view
-            self.checkDataDashboard()
-            refreshControl.endRefreshing()
-
-        }
+        // Code to refresh table view
+        self.checkDataDashboard()
+        refreshControl.endRefreshing()
+        
+    }
     
     
     func mainRadius() {
@@ -191,8 +191,8 @@ class MainViewController: UIViewController {
         homeSwitch.set(width: 40, height: 18)
         logoutButton.layer.cornerRadius = logoutButton.frame.height / 2
         logoutView.layer.cornerRadius = logoutView.frame.height / 2
-//        hourlyView.layer.cornerRadius = 12
-//        hourlyLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
+        //        hourlyView.layer.cornerRadius = 12
+        //        hourlyLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
         yesterdayView.layer.cornerRadius = 12
         daytodayView.layer.cornerRadius = 12
         weeklyView.layer.cornerRadius = 12
@@ -275,80 +275,128 @@ class MainViewController: UIViewController {
                     DispatchQueue.main.async {
                         self.hud.dismiss()
                         
-//                        let removeCharactersLatUpdate: Set<Character> = ["T", ":"]
-//                        self.dashboardValue.LastUpdate[0].removeAll(where: { removeCharactersLatUpdate.contains($0) })
-                        self.lastUpdateTime.text = "Last Updated Time \(self.dashboardValue.last_update[0])"
+                        //                        let removeCharactersLatUpdate: Set<Character> = ["T", ":"]
+                        //                        self.dashboardValue.LastUpdate[0].removeAll(where: { removeCharactersLatUpdate.contains($0) })
+                        if self.dashboardValue.last_update.isEmpty {
+                            self.lastUpdateTime.text = "00/00/0000 00:00:00"
+                        } else {
+                            self.lastUpdateTime.text = "Last Updated Time \(self.dashboardValue.last_update[0])"
+                            
+                        }
+                       
                         self.numberOfStoresLabel.text = "\(self.dashboardValue.StoreNumber[0]) (\(self.dashboardValue.Area[0] / 1000) km2)"
                         
-                        if self.dashboardValue.NetSalesvs2021[0] > 0.0 {
-                            self.netSalesLabel.text = "\(String(format: "%.1f", self.dashboardValue.NetSales[0] / 1000 ))  MTL"
-                            self.salesPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.NetSalesvs2021[0] * 100 ) )"
-                            self.salesİmage.image = UIImage(named: "Up")
-                            self.salesPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                        if self.dashboardValue.NetSales.isEmpty {
                             
-                        }else {
-                            self.netSalesLabel.text = "\( String(format: "%.1f", self.dashboardValue.NetSales[0] / 1000 ))  MTL"
-                            self.salesPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.NetSalesvs2021[0] * 100 ).components(separatedBy: [" ", "-"]).joined() )"
-                            self.salesİmage.image = UIImage(named: "down")
-                            self.salesPercentageLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                            
-                        }
-                        if self.dashboardValue.Customervs2021[0] > 0.0 {
-                            self.customerLabel.text = "\( String(format: "%.f", self.dashboardValue.Customer[0] / 1000 ) ) K"
-                            self.customerPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.Customervs2021[0] * 100 ) )"
-                            self.customerİmage.image = UIImage(named: "Up")
-                            self.customerİmageView.backgroundColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                            self.customerPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                            
-                        }else {
-                            self.customerLabel.text = "\( String(format: "%.f", self.dashboardValue.Customer[0] / 1000 ) ) K"
-                            self.customerPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.Customervs2021[0] * 100 ).components(separatedBy: [" ", "-"]).joined())"
-                            self.customerİmage.image = UIImage(named: "down")
-                            self.customerPercentageLabel.textColor =  UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                            self.customerİmageView.backgroundColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                        }
-                        if self.dashboardValue.Productvs2021[0] > 0.0 {
-                            self.productLabel.text = "\( String(format: "%.f", self.dashboardValue.Product[0] / 1000 )) K"
-                            self.productPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.Productvs2021[0] * 100 ) )"
-                            self.productİmage.image = UIImage(named: "Up")
-                            self.productPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                            self.productİmageView.backgroundColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                            
-                        }else {
-                            self.productLabel.text = "\( String(format: "%.f", self.dashboardValue.Product[0] / 1000 )) K"
-                            self.productPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.Productvs2021[0] * 100 ).components(separatedBy: [" ", "-"]).joined() )"
-                            self.productİmage.image = UIImage(named: "down")
-                            self.productPercentageLabel.textColor =  UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                            self.productİmageView.backgroundColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                        }
-                        if self.dashboardValue.AverageBasketvs2021[0] > 0.0 {
-                            self.averageBasketLabel.text = "\(String(format: "%.2f", (self.dashboardValue.AverageBasket[0] * 100 ) / 100 ))₺"
-                            self.basketPercentageLabel.text =  "%\(String(format: "%.1f", self.dashboardValue.AverageBasketvs2021[0] * 100) )"
-                            self.basketİmage.image = UIImage(named: "Up")
-                            self.basketPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                            self.averageBasketİmageView.backgroundColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                            
-                        }else {
-                            self.averageBasketLabel.text = "\(String(format: "%.2f", (self.dashboardValue.AverageBasket[0] * 100 ) / 100 ))₺"
-                            self.basketİmage.image = UIImage(named: "down")
-                            self.basketPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.AverageBasketvs2021[0] * 100 ).components(separatedBy: [" ", "-"]).joined())"
-                            self.basketPercentageLabel.textColor =  UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                            self.averageBasketİmageView.backgroundColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                            
-                        }
-                        if self.dashboardValue.AveragePricevs2021[0] > 0.0 {
-                            self.averagePriceLabel.text = "\( String(format: "%.2f", (self.dashboardValue.AveragePrice[0] * 100 ) / 100))₺"
-                            self.pricePercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.AveragePricevs2021[0] * 100 ))"
-                            self.priceİmage.image = UIImage(named: "Up")
-                            self.pricePercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                            self.averagePriceİmageView.backgroundColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                            self.netSalesLabel.text = "0.0 MTL"
+                            self.salesPercentageLabel.text = "%0.0"
                             
                         } else {
-                            self.averagePriceLabel.text = "\( String(format: "%.2f", (self.dashboardValue.AveragePrice[0] * 100 ) / 100))₺"
-                            self.pricePercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.AveragePricevs2021[0] * 100 ).components(separatedBy: [" ", "-"]).joined())"
-                            self.priceİmage.image = UIImage(named: "down")
-                            self.pricePercentageLabel.textColor =  UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                            self.averagePriceİmageView.backgroundColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+                            
+                            if self.dashboardValue.NetSalesvs2021[0] > 0.0 {
+                                self.netSalesLabel.text = "\(String(format: "%.1f", self.dashboardValue.NetSales[0] / 1000 ))  MTL"
+                                self.salesPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.NetSalesvs2021[0] * 100 ) )"
+                                self.salesİmage.image = UIImage(named: "Up")
+                                self.salesPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                                
+                            }else {
+                                self.netSalesLabel.text = "\( String(format: "%.1f", self.dashboardValue.NetSales[0] / 1000 ))  MTL"
+                                self.salesPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.NetSalesvs2021[0] * 100 ).components(separatedBy: [" ", "-"]).joined() )"
+                                self.salesİmage.image = UIImage(named: "down")
+                                self.salesPercentageLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+                            }
+                        }
+                        
+                        if self.dashboardValue.Customervs2021.isEmpty {
+                            self.customerLabel.text = "0.0 K"
+                            self.customerPercentageLabel.text = "%0.0"
+                            
+                        } else {
+                            
+                            if self.dashboardValue.Customervs2021[0] > 0.0 {
+                                self.customerLabel.text = "\( String(format: "%.f", self.dashboardValue.Customer[0] / 1000 ) ) K"
+                                self.customerPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.Customervs2021[0] * 100 ) )"
+                                self.customerİmage.image = UIImage(named: "Up")
+                                self.customerİmageView.backgroundColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                                self.customerPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                                
+                            }else {
+                                self.customerLabel.text = "\( String(format: "%.f", self.dashboardValue.Customer[0] / 1000 ) ) K"
+                                self.customerPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.Customervs2021[0] * 100 ).components(separatedBy: [" ", "-"]).joined())"
+                                self.customerİmage.image = UIImage(named: "down")
+                                self.customerPercentageLabel.textColor =  UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+                                self.customerİmageView.backgroundColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+                            }
+                        }
+                        
+                        if self.dashboardValue.Productvs2021.isEmpty {
+                            
+                            self.productLabel.text = "0.0 K"
+                            self.productPercentageLabel.text = "%0.0"
+                            
+                        } else {
+                            
+                            if self.dashboardValue.Productvs2021[0] > 0.0 {
+                                self.productLabel.text = "\( String(format: "%.f", self.dashboardValue.Product[0] / 1000 )) K"
+                                self.productPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.Productvs2021[0] * 100 ) )"
+                                self.productİmage.image = UIImage(named: "Up")
+                                self.productPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                                self.productİmageView.backgroundColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                                
+                            }else {
+                                self.productLabel.text = "\( String(format: "%.f", self.dashboardValue.Product[0] / 1000 )) K"
+                                self.productPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.Productvs2021[0] * 100 ).components(separatedBy: [" ", "-"]).joined() )"
+                                self.productİmage.image = UIImage(named: "down")
+                                self.productPercentageLabel.textColor =  UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+                                self.productİmageView.backgroundColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+                            }
+                        }
+                        
+                        if self.dashboardValue.AveragePricevs2021.isEmpty {
+                            
+                            self.averageBasketLabel.text = "0.0₺"
+                            self.basketPercentageLabel.text =  "%0.0"
+                            
+                        } else {
+                            
+                            if self.dashboardValue.AverageBasketvs2021[0] > 0.0 {
+                                self.averageBasketLabel.text = "\(String(format: "%.2f", (self.dashboardValue.AverageBasket[0] * 100 ) / 100 ))₺"
+                                self.basketPercentageLabel.text =  "%\(String(format: "%.1f", self.dashboardValue.AverageBasketvs2021[0] * 100) )"
+                                self.basketİmage.image = UIImage(named: "Up")
+                                self.basketPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                                self.averageBasketİmageView.backgroundColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                                
+                            }else {
+                                self.averageBasketLabel.text = "\(String(format: "%.2f", (self.dashboardValue.AverageBasket[0] * 100 ) / 100 ))₺"
+                                self.basketİmage.image = UIImage(named: "down")
+                                self.basketPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.AverageBasketvs2021[0] * 100 ).components(separatedBy: [" ", "-"]).joined())"
+                                self.basketPercentageLabel.textColor =  UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+                                self.averageBasketİmageView.backgroundColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+                            }
+                        }
+                        
+                        if self.dashboardValue.AveragePricevs2021.isEmpty {
+                            
+                            self.averagePriceLabel.text = "0.0₺"
+                            self.pricePercentageLabel.text = "%0.0"
+                            
+                        } else {
+                            
+                            if self.dashboardValue.AveragePricevs2021[0] > 0.0 {
+                                self.averagePriceLabel.text = "\( String(format: "%.2f", (self.dashboardValue.AveragePrice[0] * 100 ) / 100))₺"
+                                self.pricePercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.AveragePricevs2021[0] * 100 ))"
+                                self.priceİmage.image = UIImage(named: "Up")
+                                self.pricePercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                                self.averagePriceİmageView.backgroundColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                                
+                            } else {
+                                self.averagePriceLabel.text = "\( String(format: "%.2f", (self.dashboardValue.AveragePrice[0] * 100 ) / 100))₺"
+                                self.pricePercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.AveragePricevs2021[0] * 100 ).components(separatedBy: [" ", "-"]).joined())"
+                                self.priceİmage.image = UIImage(named: "down")
+                                self.pricePercentageLabel.textColor =  UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+                                self.averagePriceİmageView.backgroundColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+                            }
+                            
                         }
                     }
                 }
@@ -405,36 +453,36 @@ class MainViewController: UIViewController {
     }
     
     
-//    @IBAction func hourlyBtnPressed(_ sender: Any) {
-//        hourlyButton.isSelected = true
-//        yesterdayButton.isSelected = false
-//        daytodayButton.isSelected = false
-//        weeklyButton.isSelected = false
-//        monthlyButton.isSelected = false
-//        yeartodateButton.isSelected = false
-//        if homeSwitch.isOn == true {
-//            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
-//
-//        } else {
-//            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
-//        }
-//        self.checkDataDashboard()
-//        self.hourlyView.backgroundColor = UIColor.white
-//        self.hourlyLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
-//        self.yesterdayView.backgroundColor = UIColor.clear
-//        self.yesterdayLabel.textColor = UIColor.white
-//        self.daytodayView.backgroundColor = UIColor.clear
-//        self.daytodayLabel.textColor = UIColor.white
-//        self.weeklyView.backgroundColor = UIColor.clear
-//        self.weeklyLabel.textColor = UIColor.white
-//        self.monthlyView.backgroundColor = UIColor.clear
-//        self.monthlyLabel.textColor = UIColor.white
-//        self.yeartodateView.backgroundColor = UIColor.clear
-//        self.yeartodateLabel.textColor = UIColor.white
-//    }
+    //    @IBAction func hourlyBtnPressed(_ sender: Any) {
+    //        hourlyButton.isSelected = true
+    //        yesterdayButton.isSelected = false
+    //        daytodayButton.isSelected = false
+    //        weeklyButton.isSelected = false
+    //        monthlyButton.isSelected = false
+    //        yeartodateButton.isSelected = false
+    //        if homeSwitch.isOn == true {
+    //            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
+    //
+    //        } else {
+    //            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
+    //        }
+    //        self.checkDataDashboard()
+    //        self.hourlyView.backgroundColor = UIColor.white
+    //        self.hourlyLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
+    //        self.yesterdayView.backgroundColor = UIColor.clear
+    //        self.yesterdayLabel.textColor = UIColor.white
+    //        self.daytodayView.backgroundColor = UIColor.clear
+    //        self.daytodayLabel.textColor = UIColor.white
+    //        self.weeklyView.backgroundColor = UIColor.clear
+    //        self.weeklyLabel.textColor = UIColor.white
+    //        self.monthlyView.backgroundColor = UIColor.clear
+    //        self.monthlyLabel.textColor = UIColor.white
+    //        self.yeartodateView.backgroundColor = UIColor.clear
+    //        self.yeartodateLabel.textColor = UIColor.white
+    //    }
     
     @IBAction func yesterdayBtnPressed(_ sender: Any) {
-//        hourlyButton.isSelected = false
+        //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = true
         daytodayButton.isSelected = false
         weeklyButton.isSelected = false
@@ -447,8 +495,8 @@ class MainViewController: UIViewController {
             self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
         }
         self.checkDataDashboard()
-//        self.hourlyView.backgroundColor = UIColor.clear
-//        self.hourlyLabel.textColor = UIColor.white
+        //        self.hourlyView.backgroundColor = UIColor.clear
+        //        self.hourlyLabel.textColor = UIColor.white
         self.yesterdayView.backgroundColor = UIColor.white
         self.yesterdayLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
         self.daytodayView.backgroundColor = UIColor.clear
@@ -462,7 +510,7 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func daytodayBtnPressed(_ sender: Any) {
-//        hourlyButton.isSelected = false
+        //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
         daytodayButton.isSelected = true
         weeklyButton.isSelected = false
@@ -475,8 +523,8 @@ class MainViewController: UIViewController {
             self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DaytoDay\",\"IsLfl\": 0}"
         }
         self.checkDataDashboard()
-//        self.hourlyView.backgroundColor = UIColor.clear
-//        self.hourlyLabel.textColor = UIColor.white
+        //        self.hourlyView.backgroundColor = UIColor.clear
+        //        self.hourlyLabel.textColor = UIColor.white
         self.yesterdayView.backgroundColor = UIColor.clear
         self.yesterdayLabel.textColor = UIColor.white
         self.daytodayView.backgroundColor = UIColor.white
@@ -490,7 +538,7 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func weeklyBtnPressed(_ sender: Any) {
-//        hourlyButton.isSelected = false
+        //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
         daytodayButton.isSelected = false
         weeklyButton.isSelected = true
@@ -503,8 +551,8 @@ class MainViewController: UIViewController {
             self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0}"
         }
         self.checkDataDashboard()
-//        self.hourlyView.backgroundColor = UIColor.clear
-//        self.hourlyLabel.textColor = UIColor.white
+        //        self.hourlyView.backgroundColor = UIColor.clear
+        //        self.hourlyLabel.textColor = UIColor.white
         self.yesterdayView.backgroundColor = UIColor.clear
         self.yesterdayLabel.textColor = UIColor.white
         self.daytodayView.backgroundColor = UIColor.clear
@@ -518,7 +566,7 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func monthlyBtnPressed(_ sender: Any) {
-//        hourlyButton.isSelected = false
+        //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
         daytodayButton.isSelected = false
         weeklyButton.isSelected = false
@@ -531,8 +579,8 @@ class MainViewController: UIViewController {
             self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0}"
         }
         self.checkDataDashboard()
-//        self.hourlyView.backgroundColor = UIColor.clear
-//        self.hourlyLabel.textColor = UIColor.white
+        //        self.hourlyView.backgroundColor = UIColor.clear
+        //        self.hourlyLabel.textColor = UIColor.white
         self.yesterdayView.backgroundColor = UIColor.clear
         self.yesterdayLabel.textColor = UIColor.white
         self.daytodayView.backgroundColor = UIColor.clear
@@ -546,21 +594,22 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func yeartodateBtnPressed(_ sender: Any) {
-//        hourlyButton.isSelected = false
+        //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
         daytodayButton.isSelected = false
         weeklyButton.isSelected = false
         monthlyButton.isSelected = false
         yeartodateButton.isSelected = true
         if homeSwitch.isOn == true {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 1}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1}"
             
         } else {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 0}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0}"
         }
+        
         self.checkDataDashboard()
-//        self.hourlyView.backgroundColor = UIColor.clear
-//        self.hourlyLabel.textColor = UIColor.white
+        //        self.hourlyView.backgroundColor = UIColor.clear
+        //        self.hourlyLabel.textColor = UIColor.white
         self.yesterdayView.backgroundColor = UIColor.clear
         self.yesterdayLabel.textColor = UIColor.white
         self.daytodayView.backgroundColor = UIColor.clear
@@ -606,16 +655,24 @@ class MainViewController: UIViewController {
         ikibinyirmiikiLEView.backgroundColor = .clear
         ikibinyirmiikiLELabel.textColor = .white
         
-        if dashboardValue.NetSalesvs2021[0] >= 0.0 {
-            self.salesPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.NetSalesvs2021[0] * 100) )"
-            self.salesİmage.image = UIImage(named: "Up")
-            self.salesPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+        if dashboardValue.NetSalesvs2021.isEmpty {
+            
+            self.salesPercentageLabel.text = "%0.0"
+            
         } else {
-            self.salesPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.NetSalesvs2021[0] * 100 ).components(separatedBy: [" ", "-"]).joined())"
-            self.salesİmage.image = UIImage(named: "down")
-            self.salesPercentageLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+            
+            if dashboardValue.NetSalesvs2021[0] >= 0.0 {
+                self.salesPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.NetSalesvs2021[0]) )"
+                self.salesİmage.image = UIImage(named: "Up")
+                self.salesPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                
+            } else {
+                
+                self.salesPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.NetSalesvs2021[0]).components(separatedBy: [" ", "-"]).joined())"
+                self.salesİmage.image = UIImage(named: "down")
+                self.salesPercentageLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+            }
         }
-        
     }
     
     @IBAction func ikibinyirmiikiBBtnPressed(_ sender: Any) {
@@ -627,14 +684,20 @@ class MainViewController: UIViewController {
         ikibinyirmiikiLEView.backgroundColor = .clear
         ikibinyirmiikiLELabel.textColor = .white
         
-        if dashboardValue.NetSalesvs2022B[0] >= 0.0 {
-            self.salesPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-            self.salesPercentageLabel.text =  "%\(String(format: "%.1f", self.dashboardValue.NetSalesvs2022B[0] * 100 ) )"
-            self.salesİmage.image = UIImage(named: "Up")
+        if dashboardValue.NetSalesvs2022B.isEmpty {
+            self.salesPercentageLabel.text =  "%0.0"
+
         } else {
-            self.salesPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.NetSalesvs2022B[0] * 100 ).components(separatedBy: [" ", "-"]).joined())"
-            self.salesİmage.image = UIImage(named: "down")
-            self.salesPercentageLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+            
+            if dashboardValue.NetSalesvs2022B[0] >= 0.0 {
+                self.salesPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                self.salesPercentageLabel.text =  "%\(String(format: "%.1f", self.dashboardValue.NetSalesvs2022B[0]) )"
+                self.salesİmage.image = UIImage(named: "Up")
+            } else {
+                self.salesPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.NetSalesvs2022B[0]).components(separatedBy: [" ", "-"]).joined())"
+                self.salesİmage.image = UIImage(named: "down")
+                self.salesPercentageLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+            }
         }
     }
     
@@ -646,14 +709,21 @@ class MainViewController: UIViewController {
         ikibinyirmibirLabel.textColor = .white
         ikibinyirmiikiBView.backgroundColor = .clear
         ikibinyirmiikiBLabel.textColor = .white
-        if dashboardValue.ButceLE[0] >= 0.0 {
-            self.salesPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-            self.salesPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.ButceLE[0] / 1000 ) )"
-            self.salesİmage.image = UIImage(named: "Up")
+        
+        if dashboardValue.ButceLE.isEmpty {
+            self.salesPercentageLabel.text = "%0.0"
+
         } else {
-            self.salesPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.ButceLE[0] / 1000 ).components(separatedBy: [" ", "-"]).joined())"
-            self.salesİmage.image = UIImage(named: "down")
-            self.salesPercentageLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+            
+            if dashboardValue.ButceLE[0] >= 0.0 {
+                self.salesPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                self.salesPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.ButceLE[0] / 1000 ) )"
+                self.salesİmage.image = UIImage(named: "Up")
+            } else {
+                self.salesPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.ButceLE[0] / 1000 ).components(separatedBy: [" ", "-"]).joined())"
+                self.salesİmage.image = UIImage(named: "down")
+                self.salesPercentageLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+            }
         }
     }
 }

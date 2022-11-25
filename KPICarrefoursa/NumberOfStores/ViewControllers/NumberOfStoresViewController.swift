@@ -43,7 +43,6 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var scrool: UIScrollView!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var numberOfStoresHeight: NSLayoutConstraint!
-    
     @IBOutlet weak var numberOfStoresLflLabel: UILabel!
     //MARK: Properties
     
@@ -53,6 +52,10 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
     var numberOfStores = NumberOfStores()
     let hud = JGProgressHUD()
     let refreshControl = UIRefreshControl()
+    var selectedColor = ""
+    var selectedFormat = ""
+    var selectedArea = 0
+    var selectedCity = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -135,7 +138,7 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1}"
             }
             if yeartodateStoreButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 1}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1}"
             }
         }
         else{
@@ -157,7 +160,7 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0}"
             }
             if yeartodateStoreButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 0}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0}"
             }
         }
         if !self.numberOfStores.Format.isEmpty {
@@ -225,7 +228,13 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
                             DispatchQueue.main.async {
 //                                let removeCharactersLatUpdate: Set<Character> = ["T", ":"]
 //                                self.numberOfStores.LastUpdate[index].removeAll(where: { removeCharactersLatUpdate.contains($0) })
-                                self.lastTimeLabel.text = "Last Updated Time \(self.numberOfStores.LastUpdate[index])"
+                                if self.numberOfStores.LastUpdate.isEmpty {
+                                    self.lastTimeLabel.text = "00/00/00 00:00:00"
+                                    
+                                } else {
+                                    self.lastTimeLabel.text = "Last Updated Time \(self.numberOfStores.LastUpdate[index])"
+
+                                }
                                 self.actualTotalLabel.text = "\(self.numberOfStores.StoreNumber[index]) Stores (\(self.numberOfStores.Area[index] / 1000)K m2) - \(self.numberOfStores.City[index]) City"
                                 self.numberOfStores.StoreNumber.removeLast()
                                 self.numberOfStores.Format.removeLast()
@@ -466,10 +475,10 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
         monthlyStoreButton.isSelected = false
         yesterdayStoreButton.isSelected = true
         if numberOfStoresSwitch.isOn == true {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 1}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1}"
             
         } else {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 0}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0}"
         }
         if !self.numberOfStores.Format.isEmpty {
             hud.textLabel.text = "Loading"
@@ -505,23 +514,35 @@ extension NumberOfStoresViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let storeCell = tableView.dequeueReusableCell(withIdentifier: "numberOfStoresCell", for: indexPath) as! NumberOfStoresTableViewCell
-        if !self.numberOfStores.Color.isEmpty {
-            if self.numberOfStores.Color[0] == "0" {
-                let selectedColor = "0"
-                let selectedFormat = self.numberOfStores.Format[indexPath.item]
-                let selectedArea = self.numberOfStores.Area[indexPath.item]
-                let selectedCity = self.numberOfStores.City[indexPath.item]
-                let isLast = indexPath.item == (self.numberOfStores.Color.count - 1)
-                storeCell.prepareCell(format: selectedFormat, color: selectedColor, count: isLast, area: selectedArea, city: selectedCity)
-            } else {
-                let selectedColor = self.numberOfStores.Color[indexPath.item]
-                let selectedFormat = self.numberOfStores.Format[indexPath.item]
-                let selectedArea = self.numberOfStores.Area[indexPath.item]
-                let selectedCity = self.numberOfStores.City[indexPath.item]
-                let isLast = indexPath.item == (self.numberOfStores.Color.count - 1)
-                storeCell.prepareCell(format: selectedFormat, color: selectedColor, count: isLast, area: selectedArea, city: selectedCity)
-            }
+        
+        if self.numberOfStores.Color.count <= 1 {
+            self.selectedColor = ""
+            
+        } else {
+            self.selectedColor = self.numberOfStores.Color[indexPath.item]
         }
+        
+        if self.numberOfStores.Format.count <= 1 {
+            self.selectedFormat = ""
+            
+        } else {
+            self.selectedFormat = self.numberOfStores.Format[indexPath.item]
+        }
+        if self.numberOfStores.Area.count <= 1 {
+            self.selectedArea = 0
+            
+        } else {
+            self.selectedArea = self.numberOfStores.Area[indexPath.item]
+        }
+        if self.numberOfStores.City.count <= 1 {
+            self.selectedCity = 0
+            
+        } else {
+            self.selectedCity = self.numberOfStores.City[indexPath.item]
+        }
+    
+        storeCell.prepareCell(format: selectedFormat, color: selectedColor, area: selectedArea, city: selectedCity)
+    
         return storeCell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -9,8 +9,8 @@ import Foundation
 
 struct Stores {
     
-    var Aciklama = [String]()
-    var Oran = [Int]()
+    var Ciro = [String]()
+    var FiiliCiro = [String]()
     var Stores = [String]()
     var ColorStores = [String]()
 

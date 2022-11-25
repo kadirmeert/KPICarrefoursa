@@ -9,21 +9,20 @@ import Foundation
 
 struct CustomerStores {
     
-    var Ciro = [Double]()
-    var Ciro2021 = [Double]()
-    var Format = [String]()
-    var Oran = [Double]()
-    var LastUpdate = [String]()
+    var Customer = [String]()
+    var FiiliCustomer = [Double]()
+    var Stores = [String]()
+    var Last_Update = [String]()
     var ColorStores = [String]()
     
     
 }
 struct CustomerCategory{
     
-    var Ciro = [Double]()
-    var Ciro2021 = [Double]()
-    var Category = [String]()
-    var Oran = [Double]()
+    var Customer = [String]()
+    var FiiliCustomer = [Double]()
+    var CategoryBreakDown = [String]()
+    var Last_Update = [String]()
     var ColorCategory = [String]()
 
     

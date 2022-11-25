@@ -55,10 +55,13 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
     var customerCategory = CustomerCategory()
     let hud = JGProgressHUD()
     let refreshControl = UIRefreshControl()
+    var selectedCiro = ""
+    var selectedColor = ""
+    var selectedInfo = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if self.customerStores.Format.isEmpty {
+        if self.customerStores.Stores.isEmpty {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
             
@@ -80,12 +83,12 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
     override func viewWillLayoutSubviews() {
         self.storesTableViewHeight.constant = self.storesTableView.contentSize.height
         self.categoryTableViewHeight.constant = self.chanelTableView.contentSize.height
-        if self.customerStores.Format.count > 6 {
+        if self.customerStores.Stores.count > 6 {
             self.customerViewHeight.constant = 1500
         }
     }
     @objc func refresh(sender:AnyObject) {
-        if !self.customerStores.Format.isEmpty {
+        if !self.customerStores.Stores.isEmpty {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
             self.checkChartData()
@@ -134,7 +137,7 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
             }
             
             if yeartodateButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 1}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1}"
             }
         }
         else{
@@ -161,11 +164,11 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
             }
             
             if yesterdayButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 0}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0}"
             }
         }
         
-        if !self.customerStores.Format.isEmpty {
+        if !self.customerStores.Stores.isEmpty {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
             self.checkChartData()
@@ -219,23 +222,29 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
                     print("error")
                 } else if json!["Success"] as? Int ?? 0 == 1 {
                     
-                    self.customerStores.Ciro = json!["CustomerByStores"]?.value(forKey: "Ciro") as? [Double] ?? [0.0]
-                    self.customerStores.Ciro2021 = json!["CustomerByStores"]?.value(forKey: "Ciro2021") as? [Double] ?? [0.0]
-                    self.customerStores.Format = json!["CustomerByStores"]?.value(forKey: "Format") as? [String] ?? ["0"]
+                    self.customerStores.Customer = json!["CustomerByStores"]?.value(forKey: "Customer") as? [String] ?? ["0"]
+                    self.customerStores.FiiliCustomer = json!["CustomerByStores"]?.value(forKey: "FiiliCustomer") as? [Double] ?? [0.0]
+                    self.customerStores.Stores = json!["CustomerByStores"]?.value(forKey: "Stores") as? [String] ?? ["0"]
                     self.customerStores.ColorStores = json!["CustomerByStores"]?.value(forKey: "ColorStores") as? [String] ?? ["0"]
-                    self.customerStores.Oran = json!["CustomerByStores"]?.value(forKey: "Oran") as? [Double] ?? [0.0]
-                    self.customerCategory.Ciro = json!["CustomerByCategory"]?.value(forKey: "Ciro") as? [Double] ?? [0.0]
-                    self.customerCategory.Ciro2021 = json!["CustomerByCategory"]?.value(forKey: "Ciro2021") as? [Double] ?? [0.0]
-                    self.customerCategory.Category = json!["CustomerByCategory"]?.value(forKey: "Category") as? [String] ?? ["0"]
-                    self.customerStores.LastUpdate =  json!["CustomerLastUpdate"]?.value(forKey: "LastUpdate") as? [String] ?? [""]
+                    self.customerStores.Last_Update =  json!["CustomerByStores"]?.value(forKey: "Last_Update") as? [String] ?? [""]
+
+                    self.customerCategory.Customer = json!["CustomerByCategory"]?.value(forKey: "Customer") as? [String] ?? ["0"]
+                    self.customerCategory.FiiliCustomer = json!["CustomerByCategory"]?.value(forKey: "FiiliCustomer") as? [Double] ?? [0.0]
+                    self.customerCategory.CategoryBreakDown = json!["CustomerByCategory"]?.value(forKey: "CategoryBreakDown") as? [String] ?? ["0"]
                     self.customerCategory.ColorCategory = json!["CustomerByCategory"]?.value(forKey: "ColorCategory") as? [String] ?? ["0"]
-                    self.customerCategory.Oran = json!["CustomerByCategory"]?.value(forKey: "Oran") as? [Double] ?? [0.0]
                     
                     DispatchQueue.main.async {
                         self.hud.dismiss()
 //                        let removeCharactersLatUpdate: Set<Character> = ["T", ":"]
 //                        self.customerStores.LastUpdate[0].removeAll(where: { removeCharactersLatUpdate.contains($0) })
-                        self.lastUpdateTİme.text = "Last Updated Time \(self.customerStores.LastUpdate[0])"
+                        if self.customerStores.Last_Update.isEmpty {
+                            self.lastUpdateTİme.text = "00/00/000 00:00:00"
+                            
+                        } else {
+                            
+                            self.lastUpdateTİme.text = "Last Updated Time \(self.customerStores.Last_Update[0])"
+                        }
+                        
                         self.setupPieChart()
                         self.storesTableView.reloadData()
                         self.chanelTableView.reloadData()
@@ -268,11 +277,22 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
         
         var entriesStores: [PieChartDataEntry] = Array()
         var entriesChannel: [PieChartDataEntry] = Array()
-        for i in 0..<customerStores.Format.count {
-            entriesStores.append(PieChartDataEntry(value: self.customerStores.Oran[i] , label: ""))
+        for i in 0..<customerStores.Stores.count {
+            if self.customerStores.FiiliCustomer.isEmpty {
+                entriesStores.append(PieChartDataEntry(value: 0.0 , label: ""))
+                
+            } else {
+                entriesStores.append(PieChartDataEntry(value: Double(self.customerStores.FiiliCustomer[i]) , label: ""))
+            }
         }
-        for i in 0..<customerCategory.Category.count {
-            entriesChannel.append(PieChartDataEntry(value: self.customerCategory.Oran[i] , label: ""))
+        for i in 0..<customerCategory.CategoryBreakDown.count {
+            if self.customerCategory.FiiliCustomer.isEmpty {
+                entriesChannel.append(PieChartDataEntry(value: 0.0 , label: ""))
+
+            } else {
+                entriesChannel.append(PieChartDataEntry(value: Double(self.customerCategory.FiiliCustomer[i]) , label: ""))
+
+            }
         }
         
         let dataSetStores = PieChartDataSet(entries: entriesStores, label: "")
@@ -351,7 +371,7 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
         } else {
             self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
         }
-        if !self.customerStores.Format.isEmpty {
+        if !self.customerStores.Stores.isEmpty {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
             self.checkChartData()
@@ -388,7 +408,7 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
         } else {
             self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DaytoDay\",\"IsLfl\": 0}"
         }
-        if !self.customerStores.Format.isEmpty {
+        if !self.customerStores.Stores.isEmpty {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
             self.checkChartData()
@@ -425,7 +445,7 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
         } else {
             self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0}"
         }
-        if !self.customerStores.Format.isEmpty {
+        if !self.customerStores.Stores.isEmpty {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
             self.checkChartData()
@@ -462,7 +482,7 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
         } else {
             self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0}"
         }
-        if !self.customerStores.Format.isEmpty {
+        if !self.customerStores.Stores.isEmpty {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
             self.checkChartData()
@@ -493,12 +513,12 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
         monthlyButton.isSelected = false
         yeartodateButton.isSelected = true
         if customerSwitch.isOn == true {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 1}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1}"
             
         } else {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 0}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0}"
         }
-        if !self.customerStores.Format.isEmpty {
+        if !self.customerStores.Stores.isEmpty {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
             self.checkChartData()
@@ -527,10 +547,10 @@ extension CustomerViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfRow = 1
         if tableView == storesTableView {
-            numberOfRow = self.customerStores.Format.count
+            numberOfRow = self.customerStores.Stores.count
         }
         else if tableView == chanelTableView {
-            numberOfRow = self.customerCategory.Category.count
+            numberOfRow = self.customerCategory.CategoryBreakDown.count
         }
         return numberOfRow
     }
@@ -540,82 +560,39 @@ extension CustomerViewController: UITableViewDelegate, UITableViewDataSource {
         if tableView == self.storesTableView {
             let storeCell = tableView.dequeueReusableCell(withIdentifier: "customerStoreCell", for: indexPath) as! CustomerStoreTableViewCell
             
-            if !self.customerStores.Ciro.isEmpty {
-                let selectedCiro = self.customerStores.Ciro[indexPath.item]
-                let selectedColor = self.customerStores.ColorStores[indexPath.item]
-                let selectedInfo = self.customerStores.Format[indexPath.item]
-                storeCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
-            }
-            else {
-                let selectedCiro = self.customerStores.Ciro[0]
-                let selectedColor = self.customerStores.ColorStores[indexPath.item]
-                let selectedInfo = self.customerStores.Format[indexPath.item]
-                storeCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
-            }
-            
-            if !self.customerStores.ColorStores.isEmpty {
-                let selectedCiro = self.customerStores.Ciro[indexPath.item]
-                let selectedColor = self.customerStores.ColorStores[indexPath.item]
-                let selectedInfo = self.customerStores.Format[indexPath.item]
-                storeCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
-            }
-            else {
-                let selectedCiro = self.customerStores.Ciro[indexPath.item]
-                let selectedColor = self.customerStores.ColorStores[0]
-                let selectedInfo = self.customerStores.Format[indexPath.item]
-                storeCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
-            }
-            if !self.customerStores.Format.isEmpty {
-                let selectedCiro = self.customerStores.Ciro[indexPath.item]
-                let selectedColor = self.customerStores.ColorStores[indexPath.item]
-                let selectedInfo = self.customerStores.Format[indexPath.item]
-                storeCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
-            }
-            else {
-                let selectedCiro = self.customerStores.Ciro[indexPath.item]
-                let selectedColor = self.customerStores.ColorStores[indexPath.item]
-                let selectedInfo = self.customerStores.Format[0]
-                storeCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
-            }
+
+            self.selectedCiro = self.customerStores.Customer[indexPath.item]
+            self.selectedColor = self.customerStores.ColorStores[indexPath.item]
+            self.selectedInfo = self.customerStores.Stores[indexPath.item]
+            storeCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+
             cellToReturn = storeCell
             
             
         }  else if tableView == self.chanelTableView {
             let chanelCell = tableView.dequeueReusableCell(withIdentifier: "customerCategoryCell", for: indexPath) as! CustomerCategoryTableViewCell
             
-            if !self.customerCategory.Ciro.isEmpty {
-                let selectedCiro = self.customerCategory.Ciro[indexPath.item]
-                let selectedColor = self.customerCategory.ColorCategory[indexPath.item]
-                let selectedInfo = self.customerCategory.Category[indexPath.item]
-                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+            if self.customerCategory.ColorCategory.count <= 1 {
+                self.selectedColor = ""
+                
             } else {
-                let selectedCiro = self.customerCategory.Ciro[0]
-                let selectedColor = self.customerCategory.ColorCategory[indexPath.item]
-                let selectedInfo = self.customerCategory.Category[indexPath.item]
-                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+                self.selectedColor = self.customerCategory.ColorCategory[indexPath.item]
             }
-            if !self.customerCategory.ColorCategory.isEmpty {
-                let selectedCiro = self.customerCategory.Ciro[indexPath.item]
-                let selectedColor = self.customerCategory.ColorCategory[indexPath.item]
-                let selectedInfo = self.customerCategory.Category[indexPath.item]
-                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+            
+            if self.customerCategory.Customer.count <= 1 {
+                self.selectedCiro = ""
+                
             } else {
-                let selectedCiro = self.customerCategory.Ciro[indexPath.item]
-                let selectedColor = self.customerCategory.ColorCategory[0]
-                let selectedInfo = self.customerCategory.Category[indexPath.item]
-                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+                self.selectedCiro = self.customerCategory.Customer[indexPath.item]
             }
-            if !self.customerCategory.Category.isEmpty {
-                let selectedCiro = self.customerCategory.Ciro[indexPath.item]
-                let selectedColor = self.customerCategory.ColorCategory[indexPath.item]
-                let selectedInfo = self.customerCategory.Category[indexPath.item]
-                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+            if self.customerCategory.CategoryBreakDown.count <= 1 {
+                self.selectedInfo = ""
+                
             } else {
-                let selectedCiro = self.customerCategory.Ciro[indexPath.item]
-                let selectedColor = self.customerCategory.ColorCategory[indexPath.item]
-                let selectedInfo = self.customerCategory.Category[0]
-                chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+                self.selectedInfo = self.customerCategory.CategoryBreakDown[indexPath.item]
             }
+            
+            chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
             
             cellToReturn = chanelCell
         }

@@ -54,9 +54,9 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var netSales2022LEView: UIView!
     @IBOutlet weak var netSales2022LELabel: UILabel!
     @IBOutlet weak var netSales2022LEButton: UIButton!
-//    @IBOutlet weak var hourlyStoreView: UIView!
-//    @IBOutlet weak var hourlyStoreLabel: UILabel!
-//    @IBOutlet weak var hourlyStoreButton: UIButton!
+    //    @IBOutlet weak var hourlyStoreView: UIView!
+    //    @IBOutlet weak var hourlyStoreLabel: UILabel!
+    //    @IBOutlet weak var hourlyStoreButton: UIButton!
     @IBOutlet weak var yesterdayStoreView: UIView!
     @IBOutlet weak var yesterdayStoreLabel: UILabel!
     @IBOutlet weak var yesterdayStoreButton: UIButton!
@@ -105,10 +105,10 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
     
     var jsonmessage: Int = 1
     var userDC: String = ""
-    var chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"DateFormat\": \"2021\"}"
-    var Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"DateFormat\": \"2021\"}"
-    var Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"DateFormat\": \"2022B\"}"
-    var Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"DateFormat\": \"2022LE\"}"
+    var chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+    var Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+    var Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+    var Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
     var netSalesCiro = Ciro()
     var netSalesStores = Stores()
     var netSalesChannel = Channel()
@@ -119,6 +119,13 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
     let str: Array = [String]()
     var years = "2021"
     let removeCharacters: Set<Character> = ["v", "s", "%", "K", "T", "L", " ", "B", "E"]
+    var selectedColor = ""
+    var selectedInfo = ""
+    var selectedPrice = ""
+    var selectedFormat = ""
+    var isPrice = 0.0
+    var isprogress = ""
+    var isGelisim = ""
     
     
     override func viewDidLoad() {
@@ -163,8 +170,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         storesChartView.delegate = self
         chanelChartView.delegate = self
         yesterdayStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
-//        hourlyStoreView.layer.cornerRadius = 12
-//        hourlyStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
+        //        hourlyStoreView.layer.cornerRadius = 12
+        //        hourlyStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
         yesterdayStoreView.layer.cornerRadius = 12
         daytodayStoreView.layer.cornerRadius = 12
         weeklyStoreView.layer.cornerRadius = 12
@@ -188,93 +195,183 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         self.progress2021.layer.cornerRadius = 5
         self.progress2022B.layer.cornerRadius = 5
         self.progress2022LE.layer.cornerRadius = 5
-
+        
     }
     
     @IBAction func switchValueDidChange(_ sender: UISwitch) {
         if (sender.isOn == true){
             self.netSalesLflLabel.text = "LFL"
-//            if hourlyStoreButton.isSelected == true {
-//                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"DateFormat\": \"2021\"}"
-//                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"DateFormat\": \"2021\"}"
-//                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"DateFormat\": \"2022B\"}"
-//                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"DateFormat\": \"2022LE\"}"
-//            }
+            //            if hourlyStoreButton.isSelected == true {
+            //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+            //                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+            //                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+            //                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
+            //            }
             self.yesterdayStoreButton.isSelected = true
+            
             if yesterdayStoreButton.isSelected == true {
                 
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"DateFormat\": \"2021\"}"
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"DateFormat\": \"2021\"}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"DateFormat\": \"2022B\"}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"DateFormat\": \"2022LE\"}"
+                if netSales2021Button.isSelected == true {
+                    self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+                    self.chartParameters = self.Parameters2021
+                }
+                if netSales2022BButton.isSelected == true {
+                    self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+                    self.chartParameters = self.Parameters2022b
+                }
+                if netSales2022LEButton.isSelected == true {
+                    self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
+                    self.chartParameters = self.Parameters2022LE
+                }
             }
+            
             if daytodayStoreButton.isSelected == true {
                 
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"DateFormat\": \"2021\"}"
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"DateFormat\": \"2021\"}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"DateFormat\": \"2022B\"}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"DateFormat\": \"2022LE\"}"
+                if netSales2021Button.isSelected == true {
+                    
+                    self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+                    self.chartParameters = self.Parameters2021
+                }
+                if netSales2022BButton.isSelected == true {
+                    self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+                    self.chartParameters = self.Parameters2022b
+                }
+                if netSales2022LEButton.isSelected == true {
+                    self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
+                    self.chartParameters = self.Parameters2022LE
+                }
+                
             }
+            
             if weeklyStoreButton.isSelected == true {
                 
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"DateFormat\": \"2021\"}"
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"DateFormat\": \"2021\"}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"DateFormat\": \"2022B\"}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"DateFormat\": \"2022LE\"}"
+                if netSales2021Button.isSelected == true {
+                    self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+                    self.chartParameters = self.Parameters2021
+                }
+                if netSales2022BButton.isSelected == true {
+                    self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+                    self.chartParameters = self.Parameters2022b
+                }
+                if netSales2022LEButton.isSelected == true {
+                    self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
+                    self.chartParameters = self.Parameters2022LE
+                }
+                
             }
+            
             if monthlyStoreButton.isSelected == true {
                 
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"DateFormat\": \"2021\"}"
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"DateFormat\": \"2021\"}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"DateFormat\": \"2022B\"}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"DateFormat\": \"2022LE\"}"
+                if netSales2021Button.isSelected == true {
+                    self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+                    self.chartParameters = self.Parameters2021
+                }
+                if netSales2022BButton.isSelected == true {
+                    self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+                    self.chartParameters = self.Parameters2022b
+                }
+                if netSales2022LEButton.isSelected == true {
+                    self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
+                    self.chartParameters = self.Parameters2022LE
+                }
             }
+            
             if yeartodateStoreButton.isSelected == true {
+                if netSales2021Button.isSelected == true {
+                    self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+                    self.chartParameters = self.Parameters2021
+                }
+                if netSales2022BButton.isSelected == true {
+                    self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+                    self.chartParameters = self.Parameters2022b
+                }
+                if netSales2022LEButton.isSelected == true {
+                    self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
+                    self.chartParameters = self.Parameters2022LE
+                }
                 
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 1,\"DateFormat\": \"2021\"}"
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 1,\"DateFormat\": \"2021\"}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 1,\"DateFormat\": \"2022B\"}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 1,\"DateFormat\": \"2022LE\"}"
             }
         }
         else{
             self.netSalesLflLabel.text = "ALL"
-//            if hourlyStoreButton.isSelected == true {
-//                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"DateFormat\": \"2021\"}"
-//                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"DateFormat\": \"2021\"}"
-//                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"DateFormat\": \"2022B\"}"
-//                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"DateFormat\": \"2022LE\"}"
-//            }
+            //            if hourlyStoreButton.isSelected == true {
+            //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+            //                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+            //                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+            //                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
+            //            }
             self.yesterdayStoreButton.isSelected = true
             if yesterdayStoreButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"DateFormat\": \"2021\"}"
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"DateFormat\": \"2021\"}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"DateFormat\": \"2022B\"}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"DateFormat\": \"2022LE\"}"
+                if netSales2021Button.isSelected == true {
+                    self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+                    self.chartParameters = self.Parameters2021
+                }
+                if netSales2022BButton.isSelected == true {
+                    self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+                    self.chartParameters = self.Parameters2022b
+                }
+                if netSales2022LEButton.isSelected == true {
+                    self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
+                    self.chartParameters = self.Parameters2022LE
+                }
             }
             if daytodayStoreButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"DateFormat\": \"2021\"}"
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"DateFormat\": \"2021\"}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"DateFormat\": \"2022B\"}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"DateFormat\": \"2022LE\"}"
+                if netSales2021Button.isSelected == true {
+                    self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+                    self.chartParameters = self.Parameters2021
+                }
+                if netSales2022BButton.isSelected == true {
+                    self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+                    self.chartParameters = self.Parameters2022b
+                }
+                if netSales2022LEButton.isSelected == true {
+                    self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
+                    self.chartParameters = self.Parameters2022LE
+                }
             }
             if weeklyStoreButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"DateFormat\": \"2021\"}"
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"DateFormat\": \"2021\"}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"DateFormat\": \"2022B\"}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"DateFormat\": \"2022LE\"}"
+                if netSales2021Button.isSelected == true {
+                    self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+                    self.chartParameters = self.Parameters2021
+                }
+                if netSales2022BButton.isSelected == true {
+                    self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+                    self.chartParameters = self.Parameters2022b
+                }
+                if netSales2022LEButton.isSelected == true {
+                    self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
+                    self.chartParameters = self.Parameters2022LE
+                }
             }
+            
             if monthlyStoreButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"DateFormat\": \"2021\"}"
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"DateFormat\": \"2021\"}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"DateFormat\": \"2022B\"}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"DateFormat\": \"2022LE\"}"
+                if netSales2021Button.isSelected == true {
+                    self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+                    self.chartParameters = self.Parameters2021
+                }
+                if netSales2022BButton.isSelected == true {
+                    self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+                    self.chartParameters = self.Parameters2022b
+                }
+                if netSales2022LEButton.isSelected == true {
+                    self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
+                    self.chartParameters = self.Parameters2022LE
+                }
             }
-            if yeartodateStoreButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 0,\"DateFormat\": \"2021\"}"
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 0,\"DateFormat\": \"2021\"}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 0,\"DateFormat\": \"2022B\"}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 0,\"DateFormat\": \"2022LE\"}"
+            
+            if yeartodateStoreButton.isSelected == true  {
+                if netSales2021Button.isSelected == true {
+                    self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+                    self.chartParameters = self.Parameters2021
+                }
+                if netSales2022BButton.isSelected == true {
+                    self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+                    self.chartParameters = self.Parameters2022b
+                }
+                if netSales2022LEButton.isSelected == true {
+                    self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
+                    self.chartParameters = self.Parameters2022LE
+                }
             }
         }
         if !self.netSalesCiro.Ciro.isEmpty {
@@ -292,10 +389,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         self.netSalesStoresHeight.constant = self.storesTableView.contentSize.height
         self.netSalesChanelHeight.constant = self.chanelTableView.contentSize.height
         self.netSalesFormatHeight.constant = self.formatTableView.contentSize.height + 10
-        if self.netSalesFormat.Format.count >= 6 {
+        if self.netSalesFormat.RevizeFormat.count >= 6 {
             self.netSalesHeight.constant = 3100
-        } else if self.netSalesFormat.Format.count < 4 {
-            self.netSalesHeight.constant = 2500
         }
     }
     
@@ -307,6 +402,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
     }
     
     func checkNetSales() {
+        print(chartParameters)
         let enUrlParams = try! chartParameters.aesEncrypt(key: LoginConstants.xApiKey, iv: LoginConstants.IV)
         print(enUrlParams)
         let stringRequest = "\"\(enUrlParams)\""
@@ -343,347 +439,432 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                     
                     self.netSalesCiro.Ciro = json!["NetSalesTurnover"]?.value(forKey: "Ciro") as? [String] ?? ["0"]
                     self.netSalesCiro.Gelisim = json!["NetSalesTurnover"]?.value(forKey: "Gelisim") as? [String] ?? ["0"]
-                    self.netSalesCiro.IsLfl = json!["NetSalesTurnover"]?.value(forKey: "IsLfl") as? [Int] ?? [0]
-                    self.netSalesStores.Aciklama = json!["NetSalesByStores"]?.value(forKey: "Aciklama") as? [String] ?? ["0"]
-                    self.netSalesStores.Oran = json!["NetSalesByStores"]?.value(forKey: "Oran") as? [Int] ?? [0]
+                    self.netSalesCiro.Last_Update =  json!["NetSalesTurnover"]?.value(forKey: "Last_Update") as? [String] ?? [""]
+                    self.netSalesCiro.Total =  json!["NetSalesTurnover"]?.value(forKey: "Total") as? [String] ?? ["0"]
+                    
+                    self.netSalesStores.Ciro = json!["NetSalesByStores"]?.value(forKey: "Ciro") as? [String] ?? ["0"]
+                    self.netSalesStores.FiiliCiro = json!["NetSalesByStores"]?.value(forKey: "FiiliCiro") as? [String] ?? ["0"]
                     self.netSalesStores.ColorStores = json!["NetSalesByStores"]?.value(forKey: "ColorStores") as? [String] ?? ["0"]
                     self.netSalesStores.Stores = json!["NetSalesByStores"]?.value(forKey: "Stores") as? [String] ?? ["0"]
-                    self.netSalesChannel.Aciklama = json!["NetSalesByChannel"]?.value(forKey: "Aciklama") as? [String] ?? ["0"]
-                    self.netSalesChannel.Channels = json!["NetSalesByChannel"]?.value(forKey: "Channels") as? [String] ?? ["0"]
+                    
+                    self.netSalesChannel.FormatPNL = json!["NetSalesByChannel"]?.value(forKey: "FormatPNL") as? [String] ?? ["0"]
+                    self.netSalesChannel.FiiliCiro = json!["NetSalesByChannel"]?.value(forKey: "FiiliCiro") as? [String] ?? ["0"]
+                    self.netSalesChannel.Ciro = json!["NetSalesByChannel"]?.value(forKey: "Ciro") as? [String] ?? ["0"]
                     self.netSalesChannel.ColorChannels = json!["NetSalesByChannel"]?.value(forKey: "ColorChannels") as? [String] ?? ["0"]
-                    self.netSalesChannel.IsLfl = json!["NetSalesByChannel"]?.value(forKey: "IsLfl") as? [Int] ?? [0]
-                    self.netSalesChannel.Oran = json!["NetSalesByChannel"]?.value(forKey: "Oran") as? [Int] ?? [0]
-                    self.netSalesFormat.Aciklama1 = json!["NetSalesByFormat"]?.value(forKey: "Aciklama1") as? [String] ?? ["0"]
-                    self.netSalesFormat.Aciklama2 = json!["NetSalesByFormat"]?.value(forKey: "Aciklama2") as? [String] ?? ["0"]
-                    self.netSalesFormat.Format = json!["NetSalesByFormat"]?.value(forKey: "Format") as? [String] ?? ["0"]
+                    self.netSalesChannel.Last_Update =  json!["NetSalesByChannel"]?.value(forKey: "Last_Update") as? [String] ?? [""]
+                    
+                    self.netSalesFormat.Fark = json!["NetSalesByFormat"]?.value(forKey: "Fark") as? [String] ?? ["0"]
+                    self.netSalesFormat.Ciro = json!["NetSalesByFormat"]?.value(forKey: "Ciro") as? [Double] ?? [0.0]
+                    self.netSalesFormat.RevizeFormat = json!["NetSalesByFormat"]?.value(forKey: "RevizeFormat") as? [String] ?? ["0"]
                     self.netSalesFormat.Gelisim = json!["NetSalesByFormat"]?.value(forKey: "Gelisim") as? [String] ?? ["0"]
                     self.netSalesFormat.ColorFormat = json!["NetSalesByFormat"]?.value(forKey: "ColorFormat") as? [String] ?? ["0"]
-                    self.netSalesCategory.Aciklama = json!["NetSalesByCategory"]?.value(forKey: "Aciklama") as? [String] ?? ["0"]
-                    self.netSalesCategory.Category = json!["NetSalesByCategory"]?.value(forKey: "Category") as? [String] ?? ["0"]
-                    self.netSalesCategory.Oran = json!["NetSalesByCategory"]?.value(forKey: "Oran") as? [String] ?? ["0"]
-                    self.netSalesCiro.LastUpdate =  json!["NetSalesLastUpdate"]?.value(forKey: "LastUpdate") as? [String] ?? [""]
-                    self.netSalesCiro.ActualCSA =  json!["ActualCSA"]?.value(forKey: "ActualCSA") as? [Double] ?? [0.0]
+                    
+                    self.netSalesCategory.Fark = json!["NetSalesByCategory"]?.value(forKey: "Fark") as? [String] ?? ["0"]
+                    self.netSalesCategory.CategoryBreakDown = json!["NetSalesByCategory"]?.value(forKey: "CategoryBreakDown") as? [String] ?? ["0"]
+                    self.netSalesCategory.Gelisim = json!["NetSalesByCategory"]?.value(forKey: "Gelisim") as? [String] ?? ["0"]
+                    
                     
                     DispatchQueue.main.async {
                         self.hud.dismiss()
                         
-                        if json!["NetSalesByFormat"]?.value(forKey: "Format") as? [String] ?? ["0"] == ["0"] {
-                            self.netSalesFormat.Format = ["0"]
-                        } else {
-                            self.netSalesFormat.Format = json!["NetSalesByFormat"]?.value(forKey: "Format") as? [String] ?? ["0"]
-                        }
+                        //                        if json!["NetSalesByFormat"]?.value(forKey: "RevizeFormat") as? [String] ?? ["0"] == ["0"] {
+                        //                            self.netSalesFormat.RevizeFormat = ["0"]
+                        //                        } else {
+                        //                            self.netSalesFormat.RevizeFormat = json!["NetSalesByFormat"]?.value(forKey: "RevizeFormat") as? [String] ?? ["0"]
+                        //                        }
                         for i in 0..<self.netSalesCiro.Gelisim.count {
-                            self.totalPrice.text = "\(Int(self.netSalesCiro.ActualCSA[0]))"
                             
-                            if self.totalPrice.text?.count == 6 {
-                                
-                                self.totalPrice.text = "\(Int("\(self.netSalesCiro.ActualCSA[0])".dropLast(5) ) ?? 0) KTL"
-                                
-                            } else if self.totalPrice.text?.count == 7 {
-                                
-                                self.totalPrice.text = "\(Int("\(self.netSalesCiro.ActualCSA[0])".dropLast(8) ) ?? 0) MTL"
-                            }
+                            self.totalPrice.text = self.netSalesCiro.Total[0]
                             
                             let removeCharacters: Set<Character> = ["v", "s", " ", "%", "B"]
                             self.netSalesCiro.Gelisim[i].removeAll(where: { removeCharacters.contains($0) } )
-//                            let removeCharactersLatUpdate: Set<Character> = ["T", ":"]
-//                            self.netSalesCiro.LastUpdate[0].removeAll(where: { removeCharactersLatUpdate.contains($0) })
-                            self.lastUpdateTİme.text = "Last Updated Time \(self.netSalesCiro.LastUpdate[0])"
+                            //                            let removeCharactersLatUpdate: Set<Character> = ["T", ":"]
+                            //                            self.netSalesCiro.LastUpdate[0].removeAll(where: { removeCharactersLatUpdate.contains($0) })
+                            
                             
                             if self.netSalesCiro.Gelisim.count == 1 {
                                 if Int(self.netSalesCiro.Gelisim[0].dropLast(2)) ?? 0 >= 0 {
                                     self.percentage2021.text = "% \(self.netSalesCiro.Gelisim[0].dropLast(2))"
-                                    self.MTL2021.text = "\(self.netSalesCiro.Ciro[0]) MTL"
+                                    self.MTL2021.text = "\(self.netSalesCiro.Ciro[0])"
                                     self.sales2021İmage.image = UIImage(named: "Up")
                                     self.percentage2021.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                                    self.lastUpdateTİme.text = "Last Updated Time \(self.netSalesCiro.Last_Update[0])"
                                     
                                 } else {
                                     self.percentage2021.text = "% \(self.netSalesCiro.Gelisim[0].components(separatedBy: [" ", "-"]).joined().dropLast(2))"
-                                    self.MTL2021.text = "\(self.netSalesCiro.Ciro[0].components(separatedBy: [" ", "-"]).joined()) MTL"
+                                    self.MTL2021.text = "\(self.netSalesCiro.Ciro[0].components(separatedBy: [" ", "-"]).joined())"
                                     self.sales2021İmage.image = UIImage(named: "down")
                                     self.MTL2021.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     self.percentage2021.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+                                    self.lastUpdateTİme.text = "Last Updated Time \(self.netSalesCiro.Last_Update[0])"
                                 } }
                             if self.netSalesCiro.Gelisim.count == 2 {
                                 
                                 if Int(self.netSalesCiro.Gelisim[0].dropLast(2)) ?? 0 >= 0 {
                                     self.percentage2021.text = "% \(self.netSalesCiro.Gelisim[0].dropLast(2))"
-                                    self.MTL2021.text = "\(self.netSalesCiro.Ciro[0]) MTL"
+                                    self.MTL2021.text = "\(self.netSalesCiro.Ciro[0]) "
                                     self.sales2021İmage.image = UIImage(named: "Up")
                                     self.percentage2021.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                                    self.lastUpdateTİme.text = "Last Updated Time \(self.netSalesCiro.Last_Update[0])"
                                     
                                 } else {
                                     self.percentage2021.text = "% \(self.netSalesCiro.Gelisim[0].components(separatedBy: [" ", "-"]).joined().dropLast(2))"
-                                    self.MTL2021.text = "\(self.netSalesCiro.Ciro[0].components(separatedBy: [" ", "-"]).joined()) MTL"
+                                    self.MTL2021.text = "\(self.netSalesCiro.Ciro[0].components(separatedBy: [" ", "-"]).joined())"
                                     self.sales2021İmage.image = UIImage(named: "down")
                                     self.MTL2021.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     self.percentage2021.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+                                    self.lastUpdateTİme.text = "Last Updated Time \(self.netSalesCiro.Last_Update[0])"
                                 }
                                 if Int(self.netSalesCiro.Gelisim[1].dropLast(2)) ?? 0 >= 0 {
                                     self.percentage2022B.text = "% \(self.netSalesCiro.Gelisim[1].trimmingCharacters(in: ["-"]).dropLast(2))"
-                                    self.MTL2022B.text = "\(self.netSalesCiro.Ciro[1]) MTL"
+                                    self.MTL2022B.text = "\(self.netSalesCiro.Ciro[1])"
                                     self.sales2022Bİmage.image = UIImage(named: "Up")
                                     self.percentage2022B.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                                    self.lastUpdateTİme.text = "Last Updated Time \(self.netSalesCiro.Last_Update[0])"
                                     
                                 } else {
                                     self.percentage2022B.text = "% \(self.netSalesCiro.Gelisim[1].components(separatedBy: [" ", "-"]).joined().dropLast(2))"
-                                    self.MTL2022B.text = "\(self.netSalesCiro.Ciro[1].components(separatedBy: [" ", "-"]).joined()) MTL"
+                                    self.MTL2022B.text = "\(self.netSalesCiro.Ciro[1].components(separatedBy: [" ", "-"]).joined())"
                                     self.sales2022Bİmage.image = UIImage(named: "down")
                                     self.MTL2022B.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     self.percentage2022B.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+                                    self.lastUpdateTİme.text = "Last Updated Time \(self.netSalesCiro.Last_Update[0])"
                                 }
                             }
                             if self.netSalesCiro.Gelisim.count == 3 {
                                 if Int(self.netSalesCiro.Gelisim[0].dropLast(2)) ?? 0 >= 0 {
                                     self.percentage2021.text = "% \(self.netSalesCiro.Gelisim[0].dropLast(2))"
-                                    self.MTL2021.text = "\(self.netSalesCiro.Ciro[0]) MTL"
+                                    self.MTL2021.text = "\(self.netSalesCiro.Ciro[0])"
                                     self.sales2021İmage.image = UIImage(named: "Up")
                                     self.percentage2021.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                                    self.lastUpdateTİme.text = "Last Updated Time \(self.netSalesCiro.Last_Update[0])"
                                     
                                 } else {
                                     self.percentage2021.text = "% \(self.netSalesCiro.Gelisim[0].components(separatedBy: [" ", "-"]).joined().dropLast(2))"
-                                    self.MTL2021.text = "\(self.netSalesCiro.Ciro[0].components(separatedBy: [" ", "-"]).joined()) MTL"
+                                    self.MTL2021.text = "\(self.netSalesCiro.Ciro[0].components(separatedBy: [" ", "-"]).joined())"
                                     self.sales2021İmage.image = UIImage(named: "down")
                                     self.MTL2021.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     self.percentage2021.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+                                    self.lastUpdateTİme.text = "Last Updated Time \(self.netSalesCiro.Last_Update[0])"
                                 }
                                 if Int(self.netSalesCiro.Gelisim[1].dropLast(2)) ?? 0 >= 0 {
                                     self.percentage2022B.text = "% \(self.netSalesCiro.Gelisim[1].dropLast(2))"
-                                    self.MTL2022B.text = "\(self.netSalesCiro.Ciro[1]) MTL"
+                                    self.MTL2022B.text = "\(self.netSalesCiro.Ciro[1])"
                                     self.sales2022Bİmage.image = UIImage(named: "Up")
                                     self.percentage2022B.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                                    self.lastUpdateTİme.text = "Last Updated Time \(self.netSalesCiro.Last_Update[0])"
                                     
                                 } else {
                                     self.percentage2022B.text = "% \(self.netSalesCiro.Gelisim[1].components(separatedBy: [" ", "-"]).joined().dropLast(2))"
-                                    self.MTL2022B.text = "\(self.netSalesCiro.Ciro[1].components(separatedBy: [" ", "-"]).joined()) MTL"
+                                    self.MTL2022B.text = "\(self.netSalesCiro.Ciro[1].components(separatedBy: [" ", "-"]).joined())"
                                     self.sales2022Bİmage.image = UIImage(named: "down")
                                     self.MTL2022B.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     self.percentage2022B.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+                                    self.lastUpdateTİme.text = "Last Updated Time \(self.netSalesCiro.Last_Update[0])"
                                 }
                                 if Int(self.netSalesCiro.Gelisim[2].dropLast(2)) ?? 0 >= 0 {
                                     self.percentage2022LE.text = "% \(self.netSalesCiro.Gelisim[2].dropLast(2))"
-                                    self.MTL2022LE.text = "\(self.netSalesCiro.Ciro[2]) MTL"
+                                    self.MTL2022LE.text = "\(self.netSalesCiro.Ciro[2])"
                                     self.sales2022LEimage.image = UIImage(named: "Up")
                                     self.percentage2022LE.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                                    self.lastUpdateTİme.text = "Last Updated Time \(self.netSalesCiro.Last_Update[0])"
                                     
                                 } else {
                                     self.percentage2022LE.text = "% \(self.netSalesCiro.Gelisim[2].components(separatedBy: [" ", "-"]).joined().dropLast(2))"
-                                    self.MTL2022LE.text = "\(self.netSalesCiro.Ciro[2].components(separatedBy: [" ", "-"]).joined()) MTL"
+                                    self.MTL2022LE.text = "\(self.netSalesCiro.Ciro[2].components(separatedBy: [" ", "-"]).joined())"
                                     self.sales2022LEimage.image = UIImage(named: "down")
                                     self.MTL2022LE.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     self.percentage2022LE.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+                                    self.lastUpdateTİme.text = "Last Updated Time \(self.netSalesCiro.Last_Update[0])"
                                 }
                             }
-                            
-                            
-                            
                         }
+                        
                         //MARK: CATEGORY
-                        for index in 0..<self.netSalesCategory.Aciklama.count {
+                        for index in 0..<self.netSalesCategory.Fark.count {
                             
+                            let removeCharactersGelisim: Set<Character> = ["v", "s", "%", "K", "T", "L", " "]
+                            self.netSalesCategory.Gelisim[index].removeAll(where: { removeCharactersGelisim.contains($0) } )
                             
-                            if self.netSalesCategory.Aciklama[index] == "0" {
+                            if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M"]).joined() == "0" {
                                 
-                                if self.netSalesCategory.Category[index] == "FMCG" {
-                                    self.fmcgProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index])"
+                                if self.netSalesCategory.CategoryBreakDown[index] == "FMCG" {
+                                    self.fmcgProgress.percentLabelFormat = "\(self.netSalesCategory.Gelisim[index])"
                                     self.fmcgPercLabel.text = "0"
-                                    self.fmcgProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
+                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
+                                        self.fmcgProgress.setProgress(progress: 1.0, animated: false)
+                                    } else {
+                                        self.fmcgProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
+                                        
+                                    }
                                 }
                                 
-                                if self.netSalesCategory.Category[index] == "Fresh Food" {
-                                    self.freshFoodProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index])"
+                                if self.netSalesCategory.CategoryBreakDown[index] == "Fresh Food" {
+                                    self.freshFoodProgress.percentLabelFormat = "\(self.netSalesCategory.Gelisim[index])"
                                     self.freshFoodPercLabel.text = "0"
-                                    self.freshFoodProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
+                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
+                                        self.freshFoodProgress.setProgress(progress: 1.0, animated: false)
+                                    } else {
+                                        self.freshFoodProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
+                                        
+                                    }
                                 }
                                 
-                                if self.netSalesCategory.Category[index] == "Home" {
-                                    self.homeProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index])"
+                                if self.netSalesCategory.CategoryBreakDown[index] == "Home" {
+                                    self.homeProgress.percentLabelFormat = "\(self.netSalesCategory.Gelisim[index])"
                                     self.homePercLabel.text = "0"
-                                    self.homeProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
+                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
+                                        self.homeProgress.setProgress(progress: 1.0, animated: false)
+                                    } else {
+                                        self.homeProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
+                                        
+                                    }
                                 }
                                 
-                                if self.netSalesCategory.Category[index] == "Textile" {
-                                    self.textileProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index])"
+                                if self.netSalesCategory.CategoryBreakDown[index] == "Textile" {
+                                    self.textileProgress.percentLabelFormat = String(self.netSalesCategory.Gelisim[index].dropLast(2))
                                     self.textfilePercLabel.text = "0"
-                                    self.textileProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
+                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
+                                        self.textileProgress.setProgress(progress: 1.0, animated: false)
+                                    } else {
+                                        self.textileProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
+                                        
+                                    }
                                 }
                                 
-                                if self.netSalesCategory.Category[index] == "Electronics" {
-                                    self.electronicProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index])"
+                                if self.netSalesCategory.CategoryBreakDown[index] == "Electronics" {
+                                    self.electronicProgress.percentLabelFormat = "\(self.netSalesCategory.Gelisim[index])"
                                     self.electronicPercLabel.text = "0"
-                                    self.electronicProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
+                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
+                                        self.electronicProgress.setProgress(progress: 1.0, animated: false)
+                                    } else {
+                                        self.electronicProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
+                                        
+                                    }
                                 }
                                 
-                                if self.netSalesCategory.Category[index] == "Other" {
-                                    self.otherProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index])"
+                                if self.netSalesCategory.CategoryBreakDown[index] == "Other" {
+                                    self.otherProgress.percentLabelFormat = "\(self.netSalesCategory.Gelisim[index].dropLast(2))"
                                     self.otherPercLabel.text = "0.0"
-                                    self.otherProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
+                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
+                                        self.otherProgress.setProgress(progress: 1.0, animated: false)
+                                    } else {
+                                        self.otherProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
+                                        
+                                    }
                                 }
                                 
-                                if self.netSalesCategory.Category[index] == "Food" {
-                                    self.foodProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index])"
+                                if self.netSalesCategory.CategoryBreakDown[index] == "Food" {
+                                    self.foodProgress.percentLabelFormat = "\(self.netSalesCategory.Gelisim[index])"
                                     self.foodPercLabel.text = "0.0"
-                                    self.foodProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
+                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
+                                        self.foodProgress.setProgress(progress: 1.0, animated: false)
+                                    } else {
+                                        self.foodProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
+                                        
+                                    }
                                 }
                                 
-                                if self.netSalesCategory.Category[index] == "Non Food" {
-                                    self.nonFoodProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index])"
+                                if self.netSalesCategory.CategoryBreakDown[index] == "Non-Food" {
+                                    self.nonFoodProgress.percentLabelFormat = "\(self.netSalesCategory.Gelisim[index])"
                                     self.nonFoodPercLabel.text = "0.0"
-                                    self.nonFoodProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
+                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
+                                        self.nonFoodProgress.setProgress(progress: 1.0, animated: false)
+                                    } else {
+                                        self.nonFoodProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
+                                        
+                                    }
                                 }
                                 
                             } else {
                                 
                                 let removeCharactersFormat: Set<Character> = ["v", "s", "%", "K", "T", "L", " "]
-                                self.netSalesCategory.Oran[index].removeAll(where: { removeCharactersFormat.contains($0) } )
-                                self.netSalesCategory.Aciklama[index].removeAll(where: { removeCharactersFormat.contains($0) } )
-
+                                self.netSalesCategory.Gelisim[index].removeAll(where: { removeCharactersFormat.contains($0) } )
                                 
-                                if self.netSalesCategory.Category[index] == "FMCG" {
-                                    if Double(self.netSalesCategory.Aciklama[index]) ?? 0.0 > 0.0 {
+                                
+                                if self.netSalesCategory.CategoryBreakDown[index] == "FMCG" {
+                                    if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M"]).joined().toDouble > 0.0 {
                                         
-                                        self.fmcgPercLabel.text = "\(self.netSalesCategory.Aciklama[index]) KTL"
+                                        self.fmcgPercLabel.text = self.netSalesCategory.Fark[index]
                                         self.fmcgİmage.image = UIImage(named: "Up")
                                         self.fmcgPercLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                     } else {
-                                        self.fmcgPercLabel.text = "\(self.netSalesCategory.Aciklama[index]) KTL"
+                                        self.fmcgPercLabel.text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
                                         self.fmcgİmage.image = UIImage(named: "down")
                                         self.fmcgPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     }
-                                    self.fmcgProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index].toDouble)"
-
-                                    self.fmcgProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
-                                }
-                                
-                                if self.netSalesCategory.Category[index] == "Fresh Food" {
-                                    if Double(self.netSalesCategory.Aciklama[index]) ?? 0.0 > 0.0 {
+                                    self.fmcgProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index])".dropLast(2)) ?? 0.0)"
+                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
+                                        self.fmcgProgress.setProgress(progress: 1.0, animated: false)
+                                    } else {
+                                        self.fmcgProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
                                         
-                                        self.freshFoodPercLabel.text = "\(self.netSalesCategory.Aciklama[index]) KTL"
+                                    }                                }
+                                
+                                if self.netSalesCategory.CategoryBreakDown[index] == "Fresh Food" {
+                                    if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M"]).joined().toDouble > 0.0 {
+                                        
+                                        self.freshFoodPercLabel.text = self.netSalesCategory.Fark[index]
                                         self.freshFoodİmage.image = UIImage(named: "Up")
                                         self.freshFoodPercLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-
+                                        
                                     } else {
-                                        self.freshFoodPercLabel.text = "\(self.netSalesCategory.Aciklama[index]) KTL"
+                                        self.freshFoodPercLabel.text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
                                         self.freshFoodİmage.image = UIImage(named: "down")
                                         self.freshFoodPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     }
-                                    self.freshFoodProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index].toDouble)"
-                                    self.freshFoodProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
-                                    
+                                    self.freshFoodProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index])".dropLast(2)) ?? 0.0)"
+                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
+                                        self.freshFoodProgress.setProgress(progress: 1.0, animated: false)
+                                    } else {
+                                        self.freshFoodProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
+                                        
+                                    }
                                 }
                                 
-                                if self.netSalesCategory.Category[index] == "Home" {
-                                    if Double(self.netSalesCategory.Aciklama[index]) ?? 0.0 > 0.0 {
+                                if self.netSalesCategory.CategoryBreakDown[index] == "Home" {
+                                    if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M"]).joined().toDouble > 0.0 {
                                         
-                                        self.homePercLabel.text = "\(self.netSalesCategory.Aciklama[index]) KTL"
+                                        self.homePercLabel.text = self.netSalesCategory.Fark[index]
                                         self.homeİmage.image = UIImage(named: "Up")
                                         self.homePercLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                         
                                     } else {
-                                        self.homePercLabel.text = "\(self.netSalesCategory.Aciklama[index]) KTL"
+                                        self.homePercLabel.text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
                                         self.homeİmage.image = UIImage(named: "down")
                                         self.homePercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     }
-
-                                    self.homeProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index].toDouble)"
-                                    self.homeProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
-                                }
-                                
-                                if self.netSalesCategory.Category[index] == "Textile" {
-                                    if Double(self.netSalesCategory.Aciklama[index]) ?? 0.0 > 0.0 {
+                                    
+                                    self.homeProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index])".dropLast(2)) ?? 0.0)"
+                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
+                                        self.homeProgress.setProgress(progress: 1.0, animated: false)
+                                    } else {
+                                        self.homeProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
                                         
-                                        self.textfilePercLabel.text = "\(self.netSalesCategory.Aciklama[index]) KTL"
+                                    }                                }
+                                
+                                if self.netSalesCategory.CategoryBreakDown[index] == "Textile" {
+                                    if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M"]).joined().toDouble > 0.0 {
+                                        
+                                        self.textfilePercLabel.text = self.netSalesCategory.Fark[index]
                                         self.textfileİmage.image = UIImage(named: "Up")
                                         self.textfilePercLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                     } else {
-                                        self.textfilePercLabel.text = "\(self.netSalesCategory.Aciklama[index]) KTL"
+                                        self.textfilePercLabel.text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
                                         self.textfileİmage.image = UIImage(named: "down")
                                         self.textfilePercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     }
-
-                                    self.textileProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index].toDouble)"
-                                    self.textileProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
+                                    
+                                    self.textileProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index])".dropLast(2)) ?? 0.0)"
+                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
+                                        self.textileProgress.setProgress(progress: 1.0, animated: false)
+                                    } else {
+                                        self.textileProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
+                                        
+                                    }
                                 }
                                 
-                                if self.netSalesCategory.Category[index] == "Electronics" {
-                                    if Double(self.netSalesCategory.Aciklama[index]) ?? 0.0 > 0.0 {
+                                if self.netSalesCategory.CategoryBreakDown[index] == "Electronics" {
+                                    if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M"]).joined().toDouble > 0.0 {
                                         
-                                        self.electronicPercLabel.text = "\(self.netSalesCategory.Aciklama[index]) KTL"
+                                        self.electronicPercLabel.text = self.netSalesCategory.Fark[index]
                                         self.electronicİmage.image = UIImage(named: "Up")
                                         self.electronicPercLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-
+                                        
                                     } else {
-                                        self.electronicPercLabel.text = "\(self.netSalesCategory.Aciklama[index]) KTL"
+                                        self.electronicPercLabel.text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
                                         self.electronicİmage.image = UIImage(named: "down")
                                         self.electronicPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     }
                                     
-                                    self.electronicProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index].toDouble)"
-                                    self.electronicProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
+                                    self.electronicProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index])".dropLast(2)) ?? 0.0)"
+                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
+                                        self.electronicProgress.setProgress(progress: 1.0, animated: false)
+                                    } else {
+                                        self.electronicProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
+                                        
+                                    }
                                 }
                                 
-                                if self.netSalesCategory.Category[index] == "Other" {
-                                    if Double(self.netSalesCategory.Aciklama[index]) ?? 0.0 > 0.0 {
+                                if self.netSalesCategory.CategoryBreakDown[index] == "Other" {
+                                    if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M"]).joined().toDouble > 0.0 {
                                         
-                                        self.otherPercLabel.text = "\(self.netSalesCategory.Aciklama[index]) KTL"
+                                        self.otherPercLabel.text = self.netSalesCategory.Fark[index]
                                         self.otherİmage.image = UIImage(named: "Up")
                                         self.otherPercLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-
+                                        
                                     } else {
-                                        self.otherPercLabel.text = "\(self.netSalesCategory.Aciklama[index]) KTL"
+                                        self.otherPercLabel.text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
                                         self.otherİmage.image = UIImage(named: "down")
                                         self.otherPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     }
-
-                                    self.otherProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index].toDouble)"
-                                    self.otherProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
-                                }
-                                if self.netSalesCategory.Category[index] == "Food" {
-                                    if Double(self.netSalesCategory.Aciklama[index]) ?? 0.0 > 0.0 {
+                                    
+                                    self.otherProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())".dropLast(2)) ?? 0.0)"
+                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
+                                        self.otherProgress.setProgress(progress: 1.0, animated: false)
+                                    } else {
+                                        self.otherProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
                                         
-                                        self.foodPercLabel.text = "\(self.netSalesCategory.Aciklama[index]) KTL"
+                                    }
+                                }
+                                if self.netSalesCategory.CategoryBreakDown[index] == "\("Food")" {
+                                    if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M"]).joined().toDouble > 0.0 {
+                                        
+                                        self.foodPercLabel.text = self.netSalesCategory.Fark[index]
                                         self.foodİmage.image = UIImage(named: "Up")
                                         self.foodPercLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                     } else {
-                                        self.foodPercLabel.text = "\(self.netSalesCategory.Aciklama[index]) KTL"
+                                        self.foodPercLabel.text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
                                         self.foodİmage.image = UIImage(named: "down")
                                         self.foodPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     }
                                     
-                                    self.foodProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index].toDouble)"
-                                    self.foodProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
+                                    self.foodProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())".dropLast(2)) ?? 0.0)"
+                                    
+                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
+                                        self.foodProgress.setProgress(progress: 1.0, animated: false)
+                                    } else {
+                                        self.foodProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
+                                        
+                                    }
                                 }
                                 
-                                if self.netSalesCategory.Category[index] == "Non Food" {
-                                    if Double(self.netSalesCategory.Aciklama[index]) ?? 0.0 > 0.0 {
+                                if self.netSalesCategory.CategoryBreakDown[index] == "Non-Food" {
+                                    if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M"]).joined().toDouble > 0.0 {
                                         
-                                        self.nonFoodPercLabel.text = "\(self.netSalesCategory.Aciklama[index]) KTL"
+                                        self.nonFoodPercLabel.text = self.netSalesCategory.Fark[index]
                                         self.nonFoodİmage.image = UIImage(named: "Up")
                                         self.nonFoodPercLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                     } else {
-                                        self.nonFoodPercLabel.text = "\(self.netSalesCategory.Aciklama[index]) KTL"
+                                        self.nonFoodPercLabel.text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
                                         self.nonFoodİmage.image = UIImage(named: "down")
                                         self.nonFoodPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                     }
-
-                                    self.nonFoodProgress.percentLabelFormat = "\(self.netSalesCategory.Oran[index].toDouble)"
-                                    self.nonFoodProgress.setProgress(progress: Double((Double(self.netSalesCategory.Oran[index]) ?? 0.0) / 100), animated: true)
+                                    
+                                    self.nonFoodProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())".dropLast(2)) ?? 0.0)"
+                                    
+                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
+                                        self.nonFoodProgress.setProgress(progress: 1.0, animated: false)
+                                    } else {
+                                        self.nonFoodProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
+                                        
+                                    }
                                 }
                             }
                         }
                         
                         //MARK: Format
-                        for i in 0..<self.netSalesFormat.Aciklama1.count {
-                            
-                            self.netSalesFormat.Aciklama1[i].removeAll(where: { self.removeCharacters.contains($0) } )
-                        }
+                        //                        for i in 0..<self.netSalesFormat.Fark.count {
+                        //
+                        //                            self.netSalesFormat.Aciklama1[i].removeAll(where: { self.removeCharacters.contains($0) } )
+                        //                        }
+                        //
+                        //                        for index in 0..<self.netSalesFormat.RevizeFormat.count {
+                        //
+                        //                            self.netSalesFormat.Ciro[index].removeAll(where: { self.removeCharacters.contains($0) } )
+                        //
+                        //                        }
                         
-                        for index in 0..<self.netSalesFormat.Format.count {
-        
-                            self.netSalesFormat.Aciklama2[index].removeAll(where: { self.removeCharacters.contains($0) } )
-                            
-                        }
-     
                         if self.netSalesCiro.Gelisim.count == 1 {
                             self.progress2021.transform = CGAffineTransformMakeScale(1, 1)
                             self.progress2021.setProgress((Float(self.netSalesCiro.Gelisim[0].dropLast(2)) ?? 0.0) / 100, animated: false)
@@ -708,7 +889,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                         self.storesTableView.reloadData()
                         self.chanelTableView.reloadData()
                         self.formatTableView.reloadData()
-
+                        
                     }
                     
                 }
@@ -738,11 +919,11 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         
         var entriesStores: [PieChartDataEntry] = Array()
         var entriesChannel: [PieChartDataEntry] = Array()
-        for i in 0..<netSalesStores.Oran.count {
-            entriesStores.append(PieChartDataEntry(value: Double(netSalesStores.Oran[i]), label: "" ))
+        for i in 0..<netSalesStores.FiiliCiro.count {
+            entriesStores.append(PieChartDataEntry(value: Double(netSalesStores.FiiliCiro[i]) ?? 0.0, label: "" ))
         }
-        for i in 0..<netSalesChannel.Oran.count {
-            entriesChannel.append(PieChartDataEntry(value: Double(netSalesChannel.Oran[i]), label: "" ))
+        for i in 0..<netSalesChannel.FiiliCiro.count {
+            entriesChannel.append(PieChartDataEntry(value: Double(netSalesChannel.FiiliCiro[i]) ?? 0.0, label: "" ))
         }
         
         let dataSetStores = PieChartDataSet(entries: entriesStores, label: "")
@@ -770,80 +951,80 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         chanelChartView.notifyDataSetChanged()
         
     }
-//    @IBAction func hourlyBtnPressed(_ sender: Any) {
-//        hourlyStoreButton.isSelected = true
-//        yesterdayStoreButton.isSelected = false
-//        daytodayStoreButton.isSelected = false
-//        weeklyStoreButton.isSelected = false
-//        monthlyStoreButton.isSelected = false
-//        yeartodateStoreButton.isSelected = false
-//        if netSalesSwitch.isOn == true {
-//            if netSales2021Button.isSelected == true {
-//                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 1,\"DateFormat\": \"2021\"}"
-//                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 1,\"DateFormat\": \"2022B\"}"
-//                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 1,\"DateFormat\": \"2022LE\"}"
-//                self.chartParameters = self.Parameters2021
-//                self.netSales2021Button.isSelected = false
-//
-//            }
-//            if netSales2022BButton.isSelected == true {
-//                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 1,\"DateFormat\": \"2022B\"}"
-//                self.chartParameters = self.Parameters2022b
-//
-//            }
-//            if netSales2022LEButton.isSelected == true {
-//                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 1,\"DateFormat\": \"2022LE\"}"
-//                self.chartParameters = self.Parameters2022LE
-//
-//            }
-//        } else {
-//            if netSales2021Button.isSelected == true {
-//                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 0,\"DateFormat\": \"2021\"}"
-//                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 0,\"DateFormat\": \"2022B\"}"
-//                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 0,\"DateFormat\": \"2022LE\"}"
-//                self.chartParameters = self.Parameters2021
-//                self.netSales2021Button.isSelected = false
-//
-//            }
-//            if netSales2022BButton.isSelected == true {
-//                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 0,\"DateFormat\": \"2022B\"}"
-//                self.chartParameters = self.Parameters2022b
-//
-//            }
-//            if netSales2022LEButton.isSelected == true {
-//                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 0,\"DateFormat\": \"2022LE\"}"
-//                self.chartParameters = self.Parameters2022LE
-//
-//            }
-//
-//        }
-//        if !self.netSalesCiro.Ciro.isEmpty {
-//            hud.textLabel.text = "Loading"
-//            hud.show(in: self.view)
-//            self.checkNetSales()
-//        }
-//    else {
-//        hud.textLabel.text = "Loading"
-//        hud.show(in: self.view)
-//        self.checkNetSales()
-//    }
-//        self.setupPieChart()
-//        self.hourlyStoreView.backgroundColor = UIColor.white
-//        self.hourlyStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
-//        self.yesterdayStoreView.backgroundColor = UIColor.clear
-//        self.yesterdayStoreLabel.textColor = UIColor.white
-//        self.daytodayStoreView.backgroundColor = UIColor.clear
-//        self.daytodayStoreLabel.textColor = UIColor.white
-//        self.weeklyStoreView.backgroundColor = UIColor.clear
-//        self.weeklyStoreLabel.textColor = UIColor.white
-//        self.monthlyStoreView.backgroundColor = UIColor.clear
-//        self.monthlyStoreLabel.textColor = UIColor.white
-//        self.yeartodateStoreView.backgroundColor = UIColor.clear
-//        self.yeartodateStoreLabel.textColor = UIColor.white
-//    }
+    //    @IBAction func hourlyBtnPressed(_ sender: Any) {
+    //        hourlyStoreButton.isSelected = true
+    //        yesterdayStoreButton.isSelected = false
+    //        daytodayStoreButton.isSelected = false
+    //        weeklyStoreButton.isSelected = false
+    //        monthlyStoreButton.isSelected = false
+    //        yeartodateStoreButton.isSelected = false
+    //        if netSalesSwitch.isOn == true {
+    //            if netSales2021Button.isSelected == true {
+    //                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+    //                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+    //                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
+    //                self.chartParameters = self.Parameters2021
+    //                self.netSales2021Button.isSelected = false
+    //
+    //            }
+    //            if netSales2022BButton.isSelected == true {
+    //                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+    //                self.chartParameters = self.Parameters2022b
+    //
+    //            }
+    //            if netSales2022LEButton.isSelected == true {
+    //                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
+    //                self.chartParameters = self.Parameters2022LE
+    //
+    //            }
+    //        } else {
+    //            if netSales2021Button.isSelected == true {
+    //                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+    //                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+    //                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
+    //                self.chartParameters = self.Parameters2021
+    //                self.netSales2021Button.isSelected = false
+    //
+    //            }
+    //            if netSales2022BButton.isSelected == true {
+    //                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+    //                self.chartParameters = self.Parameters2022b
+    //
+    //            }
+    //            if netSales2022LEButton.isSelected == true {
+    //                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
+    //                self.chartParameters = self.Parameters2022LE
+    //
+    //            }
+    //
+    //        }
+    //        if !self.netSalesCiro.Ciro.isEmpty {
+    //            hud.textLabel.text = "Loading"
+    //            hud.show(in: self.view)
+    //            self.checkNetSales()
+    //        }
+    //    else {
+    //        hud.textLabel.text = "Loading"
+    //        hud.show(in: self.view)
+    //        self.checkNetSales()
+    //    }
+    //        self.setupPieChart()
+    //        self.hourlyStoreView.backgroundColor = UIColor.white
+    //        self.hourlyStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
+    //        self.yesterdayStoreView.backgroundColor = UIColor.clear
+    //        self.yesterdayStoreLabel.textColor = UIColor.white
+    //        self.daytodayStoreView.backgroundColor = UIColor.clear
+    //        self.daytodayStoreLabel.textColor = UIColor.white
+    //        self.weeklyStoreView.backgroundColor = UIColor.clear
+    //        self.weeklyStoreLabel.textColor = UIColor.white
+    //        self.monthlyStoreView.backgroundColor = UIColor.clear
+    //        self.monthlyStoreLabel.textColor = UIColor.white
+    //        self.yeartodateStoreView.backgroundColor = UIColor.clear
+    //        self.yeartodateStoreLabel.textColor = UIColor.white
+    //    }
     
     @IBAction func yesterdayBtnPressed(_ sender: Any) {
-//        hourlyStoreButton.isSelected = false
+        //        hourlyStoreButton.isSelected = false
         yesterdayStoreButton.isSelected = true
         daytodayStoreButton.isSelected = false
         weeklyStoreButton.isSelected = false
@@ -851,37 +1032,37 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         yeartodateStoreButton.isSelected = false
         if netSalesSwitch.isOn == true {
             if netSales2021Button.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"DateFormat\": \"2021\"}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"DateFormat\": \"2022B\"}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"DateFormat\": \"2022LE\"}"
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2021
             }
             if netSales2022BButton.isSelected == true {
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"DateFormat\": \"2022B\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
                 self.chartParameters = self.Parameters2022b
                 
             }
             if netSales2022LEButton.isSelected == true {
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"DateFormat\": \"2022LE\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022LE
             }
- 
+            
         } else {
             
             if netSales2021Button.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"DateFormat\": \"2021\"}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"DateFormat\": \"2022B\"}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"DateFormat\": \"2022LE\"}"
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2021
             }
             
             if netSales2022BButton.isSelected == true {
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"DateFormat\": \"2022B\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
                 self.chartParameters = self.Parameters2022b
             }
             
             if netSales2022LEButton.isSelected == true {
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"DateFormat\": \"2022LE\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022LE
             }
         }
@@ -897,8 +1078,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
             self.checkNetSales()
         }
         self.setupPieChart()
-//        self.hourlyStoreView.backgroundColor = UIColor.clear
-//        self.hourlyStoreLabel.textColor = UIColor.white
+        //        self.hourlyStoreView.backgroundColor = UIColor.clear
+        //        self.hourlyStoreLabel.textColor = UIColor.white
         self.yesterdayStoreView.backgroundColor = UIColor.white
         self.yesterdayStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
         self.daytodayStoreView.backgroundColor = UIColor.clear
@@ -912,7 +1093,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
     }
     
     @IBAction func daytodayBtnPressed(_ sender: Any) {
-//        hourlyStoreButton.isSelected = false
+        //        hourlyStoreButton.isSelected = false
         yesterdayStoreButton.isSelected = false
         daytodayStoreButton.isSelected = true
         weeklyStoreButton.isSelected = false
@@ -920,38 +1101,38 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         yeartodateStoreButton.isSelected = false
         if netSalesSwitch.isOn == true {
             if netSales2021Button.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"DateFormat\": \"2021\"}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"DateFormat\": \"2022B\"}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"DateFormat\": \"2022LE\"}"
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2021
                 
             }
             if netSales2022BButton.isSelected == true {
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"DateFormat\": \"2022B\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
                 self.chartParameters = self.Parameters2022b
                 
             }
             if netSales2022LEButton.isSelected == true {
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"DateFormat\": \"2022LE\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022LE
                 
             }
-
+            
         } else {
             if netSales2021Button.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"DateFormat\": \"2021\"}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"DateFormat\": \"2022B\"}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"DateFormat\": \"2022LE\"}"
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2021
                 
             }
             if netSales2022BButton.isSelected == true {
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"DateFormat\": \"2022B\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
                 self.chartParameters = self.Parameters2022b
                 
             }
             if netSales2022LEButton.isSelected == true {
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"DateFormat\": \"2022LE\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022LE
             }
         }
@@ -967,8 +1148,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
             self.checkNetSales()
         }
         self.setupPieChart()
-//        self.hourlyStoreView.backgroundColor = UIColor.clear
-//        self.hourlyStoreLabel.textColor = UIColor.white
+        //        self.hourlyStoreView.backgroundColor = UIColor.clear
+        //        self.hourlyStoreLabel.textColor = UIColor.white
         self.yesterdayStoreView.backgroundColor = UIColor.clear
         self.yesterdayStoreLabel.textColor = UIColor.white
         self.daytodayStoreView.backgroundColor = UIColor.white
@@ -982,7 +1163,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
     }
     
     @IBAction func weeklyBtnPressed(_ sender: Any) {
-//        hourlyStoreButton.isSelected = false
+        //        hourlyStoreButton.isSelected = false
         yesterdayStoreButton.isSelected = false
         daytodayStoreButton.isSelected = false
         weeklyStoreButton.isSelected = true
@@ -990,37 +1171,37 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         yeartodateStoreButton.isSelected = false
         if netSalesSwitch.isOn == true {
             if netSales2021Button.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"DateFormat\": \"2021\"}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"DateFormat\": \"2022B\"}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"DateFormat\": \"2022LE\"}"
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2021
                 
             }
             if netSales2022BButton.isSelected == true {
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"DateFormat\": \"2022B\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
                 self.chartParameters = self.Parameters2022b
                 
             }
             if netSales2022LEButton.isSelected == true {
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"DateFormat\": \"2022LE\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022LE
             }
-
+            
         } else {
             if netSales2021Button.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"DateFormat\": \"2021\"}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"DateFormat\": \"2022B\"}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"DateFormat\": \"2022LE\"}"
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2021
                 
             }
             if netSales2022BButton.isSelected == true {
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"DateFormat\": \"2022B\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
                 self.chartParameters = self.Parameters2022b
                 
             }
             if netSales2022LEButton.isSelected == true {
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"DateFormat\": \"2022LE\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022LE
             }
         }
@@ -1037,8 +1218,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         }
         
         self.setupPieChart()
-//        self.hourlyStoreView.backgroundColor = UIColor.clear
-//        self.hourlyStoreLabel.textColor = UIColor.white
+        //        self.hourlyStoreView.backgroundColor = UIColor.clear
+        //        self.hourlyStoreLabel.textColor = UIColor.white
         self.yesterdayStoreView.backgroundColor = UIColor.clear
         self.yesterdayStoreLabel.textColor = UIColor.white
         self.daytodayStoreView.backgroundColor = UIColor.clear
@@ -1052,7 +1233,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
     }
     
     @IBAction func monthlyBtnPressed(_ sender: Any) {
-//        hourlyStoreButton.isSelected = false
+        //        hourlyStoreButton.isSelected = false
         yesterdayStoreButton.isSelected = false
         daytodayStoreButton.isSelected = false
         weeklyStoreButton.isSelected = false
@@ -1060,36 +1241,36 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         yeartodateStoreButton.isSelected = false
         if netSalesSwitch.isOn == true {
             if netSales2021Button.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"DateFormat\": \"2021\"}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"DateFormat\": \"2022B\"}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"DateFormat\": \"2022LE\"}"
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2021
                 
             }
             if netSales2022BButton.isSelected == true {
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"DateFormat\": \"2022B\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
                 self.chartParameters = self.Parameters2022b
                 
             }
             if netSales2022LEButton.isSelected == true {
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"DateFormat\": \"2022LE\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022LE
             }
         } else {
             if netSales2021Button.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"DateFormat\": \"2021\"}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"DateFormat\": \"2022B\"}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"DateFormat\": \"2022LE\"}"
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2021
                 
             }
             if netSales2022BButton.isSelected == true {
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"DateFormat\": \"2022B\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
                 self.chartParameters = self.Parameters2022b
                 
             }
             if netSales2022LEButton.isSelected == true {
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"DateFormat\": \"2022LE\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022LE
             }
             
@@ -1106,8 +1287,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
             self.checkNetSales()
         }
         self.setupPieChart()
-//        self.hourlyStoreView.backgroundColor = UIColor.clear
-//        self.hourlyStoreLabel.textColor = UIColor.white
+        //        self.hourlyStoreView.backgroundColor = UIColor.clear
+        //        self.hourlyStoreLabel.textColor = UIColor.white
         self.yesterdayStoreView.backgroundColor = UIColor.clear
         self.yesterdayStoreLabel.textColor = UIColor.white
         self.daytodayStoreView.backgroundColor = UIColor.clear
@@ -1121,7 +1302,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
     }
     
     @IBAction func yeartodateBtnPressed(_ sender: Any) {
-//        hourlyStoreButton.isSelected = false
+        //        hourlyStoreButton.isSelected = false
         yesterdayStoreButton.isSelected = false
         daytodayStoreButton.isSelected = false
         weeklyStoreButton.isSelected = false
@@ -1129,36 +1310,36 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         yeartodateStoreButton.isSelected = true
         if netSalesSwitch.isOn == true {
             if netSales2021Button.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 1,\"DateFormat\": \"2021\"}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 1,\"DateFormat\": \"2022B\"}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 1,\"DateFormat\": \"2022LE\"}"
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2021
                 
             }
             if netSales2022BButton.isSelected == true {
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 1,\"DateFormat\": \"2022B\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
                 self.chartParameters = self.Parameters2022b
                 
             }
             if netSales2022LEButton.isSelected == true {
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 1,\"DateFormat\": \"2022LE\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022LE
             }
         } else {
             if netSales2021Button.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 0,\"DateFormat\": \"2021\"}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 0,\"DateFormat\": \"2022B\"}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 0,\"DateFormat\": \"2022LE\"}"
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2021
                 
             }
             if netSales2022BButton.isSelected == true {
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 0,\"DateFormat\": \"2022B\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
                 self.chartParameters = self.Parameters2022b
                 
             }
             if netSales2022LEButton.isSelected == true {
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YearToDate\",\"IsLfl\": 0,\"DateFormat\": \"2022LE\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022LE
             }
         }
@@ -1173,8 +1354,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
             self.checkNetSales()
         }
         self.setupPieChart()
-//        self.hourlyStoreView.backgroundColor = UIColor.clear
-//        self.hourlyStoreLabel.textColor = UIColor.white
+        //        self.hourlyStoreView.backgroundColor = UIColor.clear
+        //        self.hourlyStoreLabel.textColor = UIColor.white
         self.yesterdayStoreView.backgroundColor = UIColor.clear
         self.yesterdayStoreLabel.textColor = UIColor.white
         self.daytodayStoreView.backgroundColor = UIColor.clear
@@ -1269,163 +1450,120 @@ extension NetSalesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfRow = 1
         if tableView == storesTableView {
-            numberOfRow = self.netSalesStores.Oran.count
+            numberOfRow = self.netSalesStores.FiiliCiro.count
         }
         else if tableView == chanelTableView {
-            numberOfRow = self.netSalesChannel.Oran.count
+            numberOfRow = self.netSalesChannel.FiiliCiro.count
         }
         else if tableView == formatTableView {
-            numberOfRow = self.netSalesFormat.Format.count
+            numberOfRow = self.netSalesFormat.Ciro.count
         }
         return numberOfRow
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cellToReturn = UITableViewCell()
+        
         if tableView == self.storesTableView {
             let storeCell = tableView.dequeueReusableCell(withIdentifier: "netSalesStoresCell", for: indexPath) as! StoresTableViewCell
-            if !self.netSalesStores.ColorStores.isEmpty {
-                let selectedColor = self.netSalesStores.ColorStores[indexPath.item]
-                let selectedInfo = self.netSalesStores.Aciklama[indexPath.item]
-                storeCell.prepareCell(info: selectedInfo , color: selectedColor)
+            
+            if self.netSalesStores.ColorStores.count <= 1 {
+                self.selectedColor = ""
+                
             } else {
-                let selectedColor = self.netSalesStores.ColorStores[0]
-                let selectedInfo = self.netSalesStores.Aciklama[indexPath.item]
-                storeCell.prepareCell(info: selectedInfo , color: selectedColor)
+                self.selectedColor = self.netSalesStores.ColorStores[indexPath.item]
             }
-            if !self.netSalesStores.Aciklama.isEmpty {
-                let selectedColor = self.netSalesStores.ColorStores[indexPath.item]
-                let selectedInfo = self.netSalesStores.Aciklama[indexPath.item]
-                storeCell.prepareCell(info: selectedInfo , color: selectedColor)
+            
+            if self.netSalesStores.Ciro.count <= 1 {
+                self.selectedPrice = ""
+                
             } else {
-                let selectedColor = self.netSalesStores.ColorStores[indexPath.item]
-                let selectedInfo = self.netSalesStores.Aciklama[0]
-                storeCell.prepareCell(info: selectedInfo , color: selectedColor)
+                self.selectedPrice = self.netSalesStores.Ciro[indexPath.item]
             }
+            
+            if self.netSalesStores.Stores.count <= 1 {
+                self.selectedInfo = ""
+                
+            } else {
+                self.selectedInfo = self.netSalesStores.Stores[indexPath.item]
+            }
+            storeCell.prepareCell(info: selectedInfo , color: selectedColor, price: selectedPrice)
+         
             cellToReturn = storeCell
             
             
         }  else if tableView == self.chanelTableView {
             let chanelCell = tableView.dequeueReusableCell(withIdentifier: "netSalesChanelCell", for: indexPath) as! ChanelTableViewCell
-            if !self.netSalesChannel.ColorChannels.isEmpty {
-                let selectedColor = self.netSalesChannel.ColorChannels[indexPath.item]
-                let selectedInfo = self.netSalesChannel.Aciklama[indexPath.item]
-                chanelCell.prepareCell(info: selectedInfo, color: selectedColor)
+            
+            if self.netSalesChannel.ColorChannels.count <= 1 {
+                self.selectedColor = ""
+                
             } else {
-                let selectedColor = self.netSalesChannel.ColorChannels[0]
-                let selectedInfo = self.netSalesChannel.Aciklama[indexPath.item]
-                chanelCell.prepareCell(info: selectedInfo, color: selectedColor)
+                self.selectedColor = self.netSalesChannel.ColorChannels[indexPath.item]
             }
-            if !self.netSalesChannel.Aciklama.isEmpty {
-                let selectedColor = self.netSalesChannel.ColorChannels[indexPath.item]
-                let selectedInfo = self.netSalesChannel.Aciklama[indexPath.item]
-                chanelCell.prepareCell(info: selectedInfo, color: selectedColor)
+            
+            if self.netSalesChannel.Ciro.count <= 1 {
+                self.selectedPrice = ""
+                
             } else {
-                let selectedColor = self.netSalesChannel.ColorChannels[indexPath.item]
-                let selectedInfo = self.netSalesChannel.Aciklama[0]
-                chanelCell.prepareCell(info: selectedInfo, color: selectedColor)
+                self.selectedPrice = self.netSalesChannel.Ciro[indexPath.item]
             }
+            
+            if self.netSalesChannel.FormatPNL.count <= 1 {
+                self.selectedInfo = ""
+                
+            } else {
+                self.selectedInfo = self.netSalesChannel.FormatPNL[indexPath.item]
+            }
+            
+            chanelCell.prepareCell(info: selectedInfo, color: selectedColor, price: selectedPrice)
             
             cellToReturn = chanelCell
             
         } else if tableView == self.formatTableView {
             let formatCell = tableView.dequeueReusableCell(withIdentifier: "netSalesFormatCell", for: indexPath) as! FormatTableViewCell
-     
-            if !self.netSalesFormat.ColorFormat.isEmpty {
-                let years = self.years
-                let selectedColor = self.netSalesFormat.ColorFormat[indexPath.item]
-                let selectedFormat = self.netSalesFormat.Format[indexPath.item]
-                let isPrice = self.netSalesFormat.Aciklama2[indexPath.item]
-                let isprogress = self.netSalesFormat.Aciklama1[indexPath.item]
-                let isGelisim = self.netSalesFormat.Gelisim[indexPath.item]
-                formatCell.prepareCell(format: selectedFormat, color: selectedColor, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
+            
+            if self.netSalesFormat.ColorFormat.count == 1 {
+                self.selectedColor = ""
+            } else {
+                self.selectedColor = self.netSalesFormat.ColorFormat[indexPath.item]
+            }
+            
+            if  self.netSalesFormat.RevizeFormat.count == 1 {
+                self.selectedFormat = ""
                 
             } else {
-                let years = self.years
-                let selectedColor = self.netSalesFormat.ColorFormat[0]
-                let selectedFormat = self.netSalesFormat.Format[indexPath.item]
-                let isPrice = self.netSalesFormat.Aciklama2[indexPath.item]
-                let isprogress = self.netSalesFormat.Aciklama1[indexPath.item]
-                let isGelisim = self.netSalesFormat.Gelisim[indexPath.item]
-                formatCell.prepareCell(format: selectedFormat, color: selectedColor, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
-                
+                self.selectedFormat = self.netSalesFormat.RevizeFormat[indexPath.item]
             }
-            if !self.netSalesFormat.Format.isEmpty {
-                let years = self.years
-                let selectedColor = self.netSalesFormat.ColorFormat[indexPath.item]
-                let selectedFormat = self.netSalesFormat.Format[indexPath.item]
-                let isPrice = self.netSalesFormat.Aciklama2[indexPath.item]
-                let isprogress = self.netSalesFormat.Aciklama1[indexPath.item]
-                let isGelisim = self.netSalesFormat.Gelisim[indexPath.item]
-                formatCell.prepareCell(format: selectedFormat, color: selectedColor, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
+            
+            if self.netSalesFormat.Ciro.count == 1 {
+                self.isPrice = 0.0
                 
             } else {
-                let years = self.years
-                let selectedColor = self.netSalesFormat.ColorFormat[indexPath.item]
-                let selectedFormat = self.netSalesFormat.Format[0]
-                let isPrice = self.netSalesFormat.Aciklama2[indexPath.item]
-                let isprogress = self.netSalesFormat.Aciklama1[indexPath.item]
-                let isGelisim = self.netSalesFormat.Gelisim[indexPath.item]
-                formatCell.prepareCell(format: selectedFormat, color: selectedColor, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
+                self.isPrice = self.netSalesFormat.Ciro[indexPath.item]
                 
             }
-            if !self.netSalesFormat.Aciklama2.isEmpty {
-                let years = self.years
-                let selectedColor = self.netSalesFormat.ColorFormat[indexPath.item]
-                let selectedFormat = self.netSalesFormat.Format[indexPath.item]
-                let isPrice = self.netSalesFormat.Aciklama2[indexPath.item]
-                let isprogress = self.netSalesFormat.Aciklama1[indexPath.item]
-                let isGelisim = self.netSalesFormat.Gelisim[indexPath.item]
-                formatCell.prepareCell(format: selectedFormat, color: selectedColor, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
+            
+            if self.netSalesFormat.Fark.count == 1 {
+                self.isprogress = ""
                 
             } else {
-                let years = self.years
-                let selectedColor = self.netSalesFormat.ColorFormat[indexPath.item]
-                let selectedFormat = self.netSalesFormat.Format[indexPath.item]
-                let isPrice = self.netSalesFormat.Aciklama2[0]
-                let isprogress = self.netSalesFormat.Aciklama1[indexPath.item]
-                let isGelisim = self.netSalesFormat.Gelisim[indexPath.item]
-                formatCell.prepareCell(format: selectedFormat, color: selectedColor, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
+                self.isprogress = self.netSalesFormat.Fark[indexPath.item]
                 
             }
-            if !self.netSalesFormat.Aciklama1.isEmpty {
-                let years = self.years
-                let selectedColor = self.netSalesFormat.ColorFormat[indexPath.item]
-                let selectedFormat = self.netSalesFormat.Format[indexPath.item]
-                let isPrice = self.netSalesFormat.Aciklama2[indexPath.item]
-                let isprogress = self.netSalesFormat.Aciklama1[indexPath.item]
-                let isGelisim = self.netSalesFormat.Gelisim[indexPath.item]
-                formatCell.prepareCell(format: selectedFormat, color: selectedColor, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
+            
+            if self.netSalesFormat.Gelisim.count == 1 {
+                self.isGelisim = ""
                 
             } else {
-                let years = self.years
-                let selectedColor = self.netSalesFormat.ColorFormat[indexPath.item]
-                let selectedFormat = self.netSalesFormat.Format[indexPath.item]
-                let isPrice = self.netSalesFormat.Aciklama2[indexPath.item]
-                let isprogress = self.netSalesFormat.Aciklama1[0]
-                let isGelisim = self.netSalesFormat.Gelisim[indexPath.item]
-                formatCell.prepareCell(format: selectedFormat, color: selectedColor, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
+                self.isGelisim = self.netSalesFormat.Gelisim[indexPath.item]
                 
             }
-            if !self.netSalesFormat.Gelisim.isEmpty {
-                let years = self.years
-                let selectedColor = self.netSalesFormat.ColorFormat[indexPath.item]
-                let selectedFormat = self.netSalesFormat.Format[indexPath.item]
-                let isPrice = self.netSalesFormat.Aciklama2[indexPath.item]
-                let isprogress = self.netSalesFormat.Aciklama1[indexPath.item]
-                let isGelisim = self.netSalesFormat.Gelisim[indexPath.item]
-                formatCell.prepareCell(format: selectedFormat, color: selectedColor, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
-                
-            } else {
-                let years = self.years
-                let selectedColor = self.netSalesFormat.ColorFormat[indexPath.item]
-                let selectedFormat = self.netSalesFormat.Format[indexPath.item]
-                let isPrice = self.netSalesFormat.Aciklama2[indexPath.item]
-                let isprogress = self.netSalesFormat.Aciklama1[indexPath.item]
-                let isGelisim = self.netSalesFormat.Gelisim[0]
-                formatCell.prepareCell(format: selectedFormat, color: selectedColor, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
-                
-            }
+            
+            let years = self.years
+            formatCell.prepareCell(format: selectedFormat, color: selectedColor, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
+            
+    
             cellToReturn = formatCell
         }
         
