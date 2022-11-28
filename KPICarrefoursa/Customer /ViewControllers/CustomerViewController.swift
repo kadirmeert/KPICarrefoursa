@@ -112,6 +112,8 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
         weeklyView.layer.cornerRadius = 12
         monthlyView.layer.cornerRadius = 12
         yeartodateView.layer.cornerRadius = 12
+        self.yesterdayButton.isSelected = true
+
     }
     @IBAction func DidValueChanged(_ sender: UISwitch) {
         if (sender.isOn == true){
@@ -119,7 +121,6 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
             //            if hourlyButton.isSelected == true {
             //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
             //            }
-            self.yesterdayButton.isSelected = true
             if yesterdayButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
             }
@@ -146,7 +147,7 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
             //            if hourlyButton.isSelected == true {
             //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
             //            }
-            self.yesterdayButton.isSelected = true
+
             if yesterdayButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
             }
@@ -163,7 +164,7 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0}"
             }
             
-            if yesterdayButton.isSelected == true {
+            if yeartodateButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0}"
             }
         }
@@ -189,6 +190,7 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
     }
     
     func checkChartData() {
+        print(chartParameters)
         let enUrlParams = try! chartParameters.aesEncrypt(key: LoginConstants.xApiKey, iv: LoginConstants.IV)
         print(enUrlParams)
         let stringRequest = "\"\(enUrlParams)\""

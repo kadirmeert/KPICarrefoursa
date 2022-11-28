@@ -7,7 +7,7 @@
 
 import UIKit
 import CryptoSwift
-
+import JGProgressHUD
 class AuthViewController: UIViewController {
     
     //MARK: Outlets
@@ -32,6 +32,8 @@ class AuthViewController: UIViewController {
     let password = ""
     var isActive: Bool = true
     var isGradientAdded: Bool = false
+    let hud = JGProgressHUD()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,9 +55,9 @@ class AuthViewController: UIViewController {
             loginButton.isEnabled = true
             
         }
-  
+        
     }
-
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -77,7 +79,7 @@ class AuthViewController: UIViewController {
         self.passwordView.layer.cornerRadius = 12
         self.loginButtonView.dropShadow(cornerRadius: 12)
         self.loginButtonView.applyGradient(colors: [UIColor(red:0/255, green:71/255, blue:151/255, alpha: 1),  UIColor(red:0/255, green:120/255, blue:255/255, alpha: 1), UIColor(red:0/255, green:71/255, blue:151/255, alpha: 1)] )
-
+        
         
         self.rememberButton.layer.cornerRadius = 4
         self.rememberButton.layer.borderWidth = 1
@@ -149,7 +151,7 @@ class AuthViewController: UIViewController {
                 if json!["Success"] as? Int ?? 0 ==  0 {
                     
                     DispatchQueue.main.async {
-                        
+                        self.hud.dismiss()
                         let story = UIStoryboard(name: "Alert", bundle: nil)
                         let controller = story.instantiateViewController(identifier: "CustomAlertView") as! CustomAlertView
                         self.addChild(controller)
@@ -159,14 +161,19 @@ class AuthViewController: UIViewController {
                     
                 } else if json!["Success"] as? Int ?? 0 == 1 && json!["isOtp"] as? Int ?? 0 == 0 && json!["isConfirm"] as? Int ?? 0 == 0 {
                     DispatchQueue.main.async {
+                        self.hud.dismiss()
                         self.performSegue(withIdentifier: "sendMain", sender: self)
                     }
                 }else if json!["Success"] as? Int ?? 0 == 1 && json!["isOtp"] as? Int ?? 0 == 1 && json!["isConfirm"] as? Int ?? 0 == 0 {
+                    DispatchQueue.main.async {
+                        self.hud.dismiss()
+                    }
                     self.login()
                     
                     
                 } else if json!["Success"] as? Int ?? 0 == 1 && json!["isConfirm"] as? Int ?? 0 == 1 && json!["isOtp"] as? Int ?? 0 == 0 {
                     DispatchQueue.main.async {
+                        self.hud.dismiss()
                         self.performSegue(withIdentifier: "sendConfirm", sender: self)
                     }
                 }
@@ -202,7 +209,13 @@ class AuthViewController: UIViewController {
     
     
     @IBAction func loginBtnPressed(_ sender: Any) {
+        
+        hud.textLabel.text = "Loading"
+        hud.show(in: self.view)
         self.checkPassword()
+        
+        
+        
     }
     
     @IBAction func rememberBtnPressed(_ sender: UIButton) {
@@ -218,27 +231,27 @@ class AuthViewController: UIViewController {
             UserDefaults.standard.set("", forKey: "account")
             UserDefaults.standard.set("", forKey: "password")
             rememberİmage.image = UIImage(systemName: "")
-    }
-}
-
-@IBAction func LoginTextFieldPressed(_ sender: Any) {
-    self.accountTextField.becomeFirstResponder()
-}
-@IBAction func passwordTextFieldPressed(_ sender: Any) {
-    self.passwordTextField.becomeFirstResponder()
-}
-@IBAction func passwordBtnPressed(_ sender: UIButton) {
-    if self.passwordİmage.image == UIImage(systemName: "eye.slash") {
-        self.passwordTextField.isSecureTextEntry = false
-        self.passwordİmage.image = UIImage(systemName: "eye")
-        
-    } else if self.passwordİmage.image == UIImage(systemName: "eye") {
-        self.passwordİmage.image = UIImage(systemName: "eye.slash")
-        self.passwordTextField.isSecureTextEntry = true
-        
+        }
     }
     
-}
+    @IBAction func LoginTextFieldPressed(_ sender: Any) {
+        self.accountTextField.becomeFirstResponder()
+    }
+    @IBAction func passwordTextFieldPressed(_ sender: Any) {
+        self.passwordTextField.becomeFirstResponder()
+    }
+    @IBAction func passwordBtnPressed(_ sender: UIButton) {
+        if self.passwordİmage.image == UIImage(systemName: "eye.slash") {
+            self.passwordTextField.isSecureTextEntry = false
+            self.passwordİmage.image = UIImage(systemName: "eye")
+            
+        } else if self.passwordİmage.image == UIImage(systemName: "eye") {
+            self.passwordİmage.image = UIImage(systemName: "eye.slash")
+            self.passwordTextField.isSecureTextEntry = true
+            
+        }
+        
+    }
 }
 
 

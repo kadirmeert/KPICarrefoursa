@@ -14,6 +14,7 @@ struct User {
     static var password = ""
     static var jsonmessage = 1
     static var JWT = ""
+    static var mobilJWT = ""
     static var SmsCode = ""
     static var CodeId = 0
     static var phoneNumber = ""

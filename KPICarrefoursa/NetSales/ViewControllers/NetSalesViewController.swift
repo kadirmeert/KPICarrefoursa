@@ -195,7 +195,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         self.progress2021.layer.cornerRadius = 5
         self.progress2022B.layer.cornerRadius = 5
         self.progress2022LE.layer.cornerRadius = 5
-        
+
     }
     
     @IBAction func switchValueDidChange(_ sender: UISwitch) {
@@ -207,7 +207,6 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
             //                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
             //                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
             //            }
-            self.yesterdayStoreButton.isSelected = true
             
             if yesterdayStoreButton.isSelected == true {
                 
@@ -300,7 +299,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
             //                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
             //                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
             //            }
-            self.yesterdayStoreButton.isSelected = true
+            
             if yesterdayStoreButton.isSelected == true {
                 if netSales2021Button.isSelected == true {
                     self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
@@ -314,6 +313,9 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                     self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
                     self.chartParameters = self.Parameters2022LE
                 }
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
             }
             if daytodayStoreButton.isSelected == true {
                 if netSales2021Button.isSelected == true {
@@ -328,6 +330,9 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                     self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
                     self.chartParameters = self.Parameters2022LE
                 }
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
             }
             if weeklyStoreButton.isSelected == true {
                 if netSales2021Button.isSelected == true {
@@ -342,6 +347,9 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                     self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
                     self.chartParameters = self.Parameters2022LE
                 }
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
             }
             
             if monthlyStoreButton.isSelected == true {
@@ -357,6 +365,9 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                     self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
                     self.chartParameters = self.Parameters2022LE
                 }
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
             }
             
             if yeartodateStoreButton.isSelected == true  {
@@ -372,8 +383,12 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                     self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
                     self.chartParameters = self.Parameters2022LE
                 }
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
             }
         }
+        
         if !self.netSalesCiro.Ciro.isEmpty {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
@@ -385,12 +400,13 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
             self.checkNetSales()
         }
     }
+    
     override func viewWillLayoutSubviews() {
         self.netSalesStoresHeight.constant = self.storesTableView.contentSize.height
         self.netSalesChanelHeight.constant = self.chanelTableView.contentSize.height
         self.netSalesFormatHeight.constant = self.formatTableView.contentSize.height + 10
-        if self.netSalesFormat.RevizeFormat.count >= 6 {
-            self.netSalesHeight.constant = 3100
+        if self.netSalesFormat.Gelisim.count >= 6 {
+            self.netSalesHeight.constant = 4000
         }
     }
     

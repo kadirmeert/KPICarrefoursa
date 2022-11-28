@@ -45,6 +45,7 @@
 		414C9BDC29028ABC00935541 /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414C9BDB29028ABB00935541 /* MainModel.swift */; };
 		4161586D28EDB5DF009A1C0C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4161586C28EDB5DF009A1C0C /* User.swift */; };
 		41627AE8291CD377002502AC /* FormatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41627AE7291CD377002502AC /* FormatTableViewCell.swift */; };
+		416C5D8929349EDC00C088E2 /* splashModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416C5D8829349EDC00C088E2 /* splashModel.swift */; };
 		416D313D290FFD68001187F9 /* Alert.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 416D313C290FFD68001187F9 /* Alert.storyboard */; };
 		416D313F290FFD84001187F9 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416D313E290FFD84001187F9 /* CustomAlertView.swift */; };
 		417406DB291944EC008223EA /* ConfirmTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417406DA291944EC008223EA /* ConfirmTextField.swift */; };
@@ -145,6 +146,7 @@
 		4161586C28EDB5DF009A1C0C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		41627AE7291CD377002502AC /* FormatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatTableViewCell.swift; sourceTree = "<group>"; };
 		4169FFE128F7D94000FBE3B3 /* ios_distribution.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = ios_distribution.cer; sourceTree = "<group>"; };
+		416C5D8829349EDC00C088E2 /* splashModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = splashModel.swift; sourceTree = "<group>"; };
 		416D313C290FFD68001187F9 /* Alert.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Alert.storyboard; sourceTree = "<group>"; };
 		416D313E290FFD84001187F9 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		417406DA291944EC008223EA /* ConfirmTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmTextField.swift; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 		4122E79928EB0AEA0031931E /* Splash */ = {
 			isa = PBXGroup;
 			children = (
+				416C5D8729349EB900C088E2 /* Model */,
 				4182576D290685D6005CF04B /* ViewControllers */,
 				412F1A3A28F82AA7007F1A52 /* Splash.storyboard */,
 			);
@@ -416,6 +419,14 @@
 				41142DBE2931077C00E437AA /* Montserrat-SemiBold.ttf */,
 			);
 			path = fonts;
+			sourceTree = "<group>";
+		};
+		416C5D8729349EB900C088E2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				416C5D8829349EDC00C088E2 /* splashModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		416D313B290FFCEA001187F9 /* CustomAlert */ = {
@@ -995,6 +1006,7 @@
 				41D4686D291396FB0003C0CC /* OtpAlertViewController.swift in Sources */,
 				41BF9F9D28F5815B002A9BAE /* NumberOfStoresViewController.swift in Sources */,
 				417C06662905456F000CD45C /* StoresTableViewCell.swift in Sources */,
+				416C5D8929349EDC00C088E2 /* splashModel.swift in Sources */,
 				416D313F290FFD84001187F9 /* CustomAlertView.swift in Sources */,
 				417C067B29059FFE000CD45C /* ProductStoresTableViewCell.swift in Sources */,
 				41741D92290802750048CB00 /* NetSalesCategoryModel.swift in Sources */,

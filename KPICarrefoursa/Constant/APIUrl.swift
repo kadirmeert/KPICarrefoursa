@@ -21,6 +21,7 @@ let CustomerUrl = "\(BaseUrl)/api/Dashboard/Customer"
 let ProductUrl = "\(BaseUrl)/api/Dashboard/Product"
 let BasketUrl = "\(BaseUrl)/api/Dashboard/AverageBasket"
 let PriceUrl = "\(BaseUrl)/api/Dashboard/AveragePrice"
+let AuthenticaUrl = "\(BaseUrl)/api/Account/AuthenticateDevice"
 
 
 

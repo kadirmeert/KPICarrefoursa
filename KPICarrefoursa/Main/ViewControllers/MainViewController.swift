@@ -224,6 +224,7 @@ class MainViewController: UIViewController {
         return String(bytes: decryptedData.bytes, encoding: .utf8) ?? "Could not decrypt"
     }
     func checkDataDashboard() {
+        print(chartParameters)
         let enUrlParams = try! chartParameters.aesEncrypt(key: LoginConstants.xApiKey, iv: LoginConstants.IV)
         print(enUrlParams)
         let stringRequest = "\"\(enUrlParams)\""
@@ -256,18 +257,18 @@ class MainViewController: UIViewController {
                 if json!["Success"] as? Int ?? 0 ==  0{
                     print("error")
                 } else if json!["Success"] as? Int ?? 0 == 1 {
-                    self.dashboardValue.NetSales = json!["DashboardCards"]?.value(forKeyPath: "NetSales") as? [Double] ?? [0.0]
-                    self.dashboardValue.AverageBasket = json!["DashboardCards"]?.value(forKey: "AverageBasket") as? [Double] ?? [0.0]
-                    self.dashboardValue.AveragePrice = json!["DashboardCards"]?.value(forKey: "AveragePrice") as? [Double] ?? [0.0]
-                    self.dashboardValue.Customer = json!["DashboardCards"]?.value(forKey: "Customer") as? [Double] ?? [0.0]
-                    self.dashboardValue.Product = json!["DashboardCards"]?.value(forKey: "Product") as? [Double] ?? [0.0]
-                    self.dashboardValue.AverageBasketvs2021 = json!["DashboardCards"]?.value(forKey: "AverageBasketvs2021") as? [Double] ?? [0.0]
-                    self.dashboardValue.AveragePricevs2021 = json!["DashboardCards"]?.value(forKey: "AveragePricevs2021") as? [Double] ?? [0.0]
-                    self.dashboardValue.ButceLE = json!["DashboardCards"]?.value(forKey: "ButceLE") as? [Double] ?? [0.0]
-                    self.dashboardValue.Customervs2021 =  json!["DashboardCards"]?.value(forKey: "Customervs2021") as? [Double] ?? [0.0]
-                    self.dashboardValue.NetSalesvs2021 =  json!["DashboardCards"]?.value(forKey: "NetSalesvs2021") as? [Double] ?? [0.0]
-                    self.dashboardValue.NetSalesvs2022B =  json!["DashboardCards"]?.value(forKey: "NetSalesvs2022B") as? [Double] ?? [0.0]
-                    self.dashboardValue.Productvs2021 =  json!["DashboardCards"]?.value(forKey: "Productvs2021") as? [Double] ?? [0.0]
+                    self.dashboardValue.NetSales = json!["DashboardCards"]?.value(forKeyPath: "NetSales") as? [String] ?? ["0.0"]
+                    self.dashboardValue.AverageBasket = json!["DashboardCards"]?.value(forKey: "AverageBasket") as? [String] ?? ["0.0"]
+                    self.dashboardValue.AveragePrice = json!["DashboardCards"]?.value(forKey: "AveragePrice") as? [String] ?? ["0.0"]
+                    self.dashboardValue.Customer = json!["DashboardCards"]?.value(forKey: "Customer") as? [String] ?? ["0.0"]
+                    self.dashboardValue.Product = json!["DashboardCards"]?.value(forKey: "Product") as? [String] ?? ["0.0"]
+                    self.dashboardValue.AverageBasketVs2021 = json!["DashboardCards"]?.value(forKey: "AverageBasketVs2021") as? [String] ?? ["0.0"]
+                    self.dashboardValue.AveragePriceVs2021 = json!["DashboardCards"]?.value(forKey: "AveragePriceVs2021") as? [String] ?? ["0.0"]
+                    self.dashboardValue.NetSalesvsButceLE = json!["DashboardCards"]?.value(forKey: "NetSalesvsButceLE") as? [String] ?? ["0.0"]
+                    self.dashboardValue.Customervs2021 =  json!["DashboardCards"]?.value(forKey: "Customervs2021") as? [String] ?? ["0.0"]
+                    self.dashboardValue.NetSalesvs2021 =  json!["DashboardCards"]?.value(forKey: "NetSalesvs2021") as? [String] ?? ["0.0"]
+                    self.dashboardValue.NetSalesvs2022B =  json!["DashboardCards"]?.value(forKey: "NetSalesvs2022B") as? [String] ?? ["0.0"]
+                    self.dashboardValue.Productvs2021 =  json!["DashboardCards"]?.value(forKey: "Productvs2021") as? [String] ?? ["0.0"]
                     self.dashboardValue.Area =  json!["NumberOfStores"]?.value(forKey: "Area") as? [Int] ?? [0]
                     self.dashboardValue.StoreNumber =  json!["NumberOfStores"]?.value(forKey: "StoreNumber") as? [Int] ?? [0]
                     self.dashboardValue.last_update =  json!["DashboardCards"]?.value(forKey: "last_update") as? [String] ?? [""]
@@ -275,8 +276,6 @@ class MainViewController: UIViewController {
                     DispatchQueue.main.async {
                         self.hud.dismiss()
                         
-                        //                        let removeCharactersLatUpdate: Set<Character> = ["T", ":"]
-                        //                        self.dashboardValue.LastUpdate[0].removeAll(where: { removeCharactersLatUpdate.contains($0) })
                         if self.dashboardValue.last_update.isEmpty {
                             self.lastUpdateTime.text = "00/00/0000 00:00:00"
                         } else {
@@ -293,15 +292,15 @@ class MainViewController: UIViewController {
                             
                         } else {
                             
-                            if self.dashboardValue.NetSalesvs2021[0] > 0.0 {
-                                self.netSalesLabel.text = "\(String(format: "%.1f", self.dashboardValue.NetSales[0] / 1000 ))  MTL"
-                                self.salesPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.NetSalesvs2021[0] * 100 ) )"
+                            if "\(self.dashboardValue.NetSalesvs2021[0].components(separatedBy: ["%"," "]).joined())".toDouble > 0.0 {
+                                self.netSalesLabel.text = self.dashboardValue.NetSales[0]
+                                self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2021[0]
                                 self.salesİmage.image = UIImage(named: "Up")
                                 self.salesPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                 
                             }else {
-                                self.netSalesLabel.text = "\( String(format: "%.1f", self.dashboardValue.NetSales[0] / 1000 ))  MTL"
-                                self.salesPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.NetSalesvs2021[0] * 100 ).components(separatedBy: [" ", "-"]).joined() )"
+                                self.netSalesLabel.text = self.dashboardValue.NetSales[0]
+                                self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2021[0].components(separatedBy: [" ", "-"]).joined()
                                 self.salesİmage.image = UIImage(named: "down")
                                 self.salesPercentageLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                             }
@@ -313,16 +312,16 @@ class MainViewController: UIViewController {
                             
                         } else {
                             
-                            if self.dashboardValue.Customervs2021[0] > 0.0 {
-                                self.customerLabel.text = "\( String(format: "%.f", self.dashboardValue.Customer[0] / 1000 ) ) K"
-                                self.customerPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.Customervs2021[0] * 100 ) )"
+                            if "\(self.dashboardValue.Customervs2021[0].components(separatedBy: ["%"," "]).joined())".toDouble > 0.0 {
+                                self.customerLabel.text = self.dashboardValue.Customer[0]
+                                self.customerPercentageLabel.text = self.dashboardValue.Customervs2021[0]
                                 self.customerİmage.image = UIImage(named: "Up")
                                 self.customerİmageView.backgroundColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                 self.customerPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                 
                             }else {
-                                self.customerLabel.text = "\( String(format: "%.f", self.dashboardValue.Customer[0] / 1000 ) ) K"
-                                self.customerPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.Customervs2021[0] * 100 ).components(separatedBy: [" ", "-"]).joined())"
+                                self.customerLabel.text = self.dashboardValue.Customer[0]
+                                self.customerPercentageLabel.text = self.dashboardValue.Customervs2021[0].components(separatedBy: [" ", "-"]).joined()
                                 self.customerİmage.image = UIImage(named: "down")
                                 self.customerPercentageLabel.textColor =  UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                 self.customerİmageView.backgroundColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
@@ -336,62 +335,62 @@ class MainViewController: UIViewController {
                             
                         } else {
                             
-                            if self.dashboardValue.Productvs2021[0] > 0.0 {
-                                self.productLabel.text = "\( String(format: "%.f", self.dashboardValue.Product[0] / 1000 )) K"
-                                self.productPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.Productvs2021[0] * 100 ) )"
+                            if "\(self.dashboardValue.Productvs2021[0].components(separatedBy: ["%"," "]).joined())".toDouble > 0.0 {
+                                self.productLabel.text = self.dashboardValue.Product[0]
+                                self.productPercentageLabel.text = self.dashboardValue.Productvs2021[0]
                                 self.productİmage.image = UIImage(named: "Up")
                                 self.productPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                 self.productİmageView.backgroundColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                 
                             }else {
-                                self.productLabel.text = "\( String(format: "%.f", self.dashboardValue.Product[0] / 1000 )) K"
-                                self.productPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.Productvs2021[0] * 100 ).components(separatedBy: [" ", "-"]).joined() )"
+                                self.productLabel.text = self.dashboardValue.Product[0]
+                                self.productPercentageLabel.text = self.dashboardValue.Productvs2021[0].components(separatedBy: [" ", "-"]).joined()
                                 self.productİmage.image = UIImage(named: "down")
                                 self.productPercentageLabel.textColor =  UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                 self.productİmageView.backgroundColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                             }
                         }
                         
-                        if self.dashboardValue.AveragePricevs2021.isEmpty {
+                        if self.dashboardValue.AveragePriceVs2021.isEmpty {
                             
                             self.averageBasketLabel.text = "0.0₺"
                             self.basketPercentageLabel.text =  "%0.0"
                             
                         } else {
                             
-                            if self.dashboardValue.AverageBasketvs2021[0] > 0.0 {
-                                self.averageBasketLabel.text = "\(String(format: "%.2f", (self.dashboardValue.AverageBasket[0] * 100 ) / 100 ))₺"
-                                self.basketPercentageLabel.text =  "%\(String(format: "%.1f", self.dashboardValue.AverageBasketvs2021[0] * 100) )"
+                            if "\(self.dashboardValue.AverageBasketVs2021[0].components(separatedBy: ["%"," "]).joined())".toDouble > 0.0 {
+                                self.averageBasketLabel.text = "\(self.dashboardValue.AverageBasket[0])₺"
+                                self.basketPercentageLabel.text = self.dashboardValue.AverageBasketVs2021[0]
                                 self.basketİmage.image = UIImage(named: "Up")
                                 self.basketPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                 self.averageBasketİmageView.backgroundColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                 
                             }else {
-                                self.averageBasketLabel.text = "\(String(format: "%.2f", (self.dashboardValue.AverageBasket[0] * 100 ) / 100 ))₺"
+                                self.averageBasketLabel.text = "\(self.dashboardValue.AverageBasket[0])₺"
                                 self.basketİmage.image = UIImage(named: "down")
-                                self.basketPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.AverageBasketvs2021[0] * 100 ).components(separatedBy: [" ", "-"]).joined())"
+                                self.basketPercentageLabel.text = self.dashboardValue.AverageBasketVs2021[0].components(separatedBy: [" ", "-"]).joined()
                                 self.basketPercentageLabel.textColor =  UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                 self.averageBasketİmageView.backgroundColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                             }
                         }
                         
-                        if self.dashboardValue.AveragePricevs2021.isEmpty {
+                        if self.dashboardValue.AveragePriceVs2021.isEmpty {
                             
                             self.averagePriceLabel.text = "0.0₺"
                             self.pricePercentageLabel.text = "%0.0"
                             
                         } else {
                             
-                            if self.dashboardValue.AveragePricevs2021[0] > 0.0 {
-                                self.averagePriceLabel.text = "\( String(format: "%.2f", (self.dashboardValue.AveragePrice[0] * 100 ) / 100))₺"
-                                self.pricePercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.AveragePricevs2021[0] * 100 ))"
+                            if "\(self.dashboardValue.AveragePriceVs2021[0].components(separatedBy: ["%"," "]).joined())".toDouble > 0.0 {
+                                self.averagePriceLabel.text = "\(self.dashboardValue.AveragePrice[0])₺"
+                                self.pricePercentageLabel.text = self.dashboardValue.AveragePriceVs2021[0]
                                 self.priceİmage.image = UIImage(named: "Up")
                                 self.pricePercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                 self.averagePriceİmageView.backgroundColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                 
                             } else {
-                                self.averagePriceLabel.text = "\( String(format: "%.2f", (self.dashboardValue.AveragePrice[0] * 100 ) / 100))₺"
-                                self.pricePercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.AveragePricevs2021[0] * 100 ).components(separatedBy: [" ", "-"]).joined())"
+                                self.averagePriceLabel.text = "\(self.dashboardValue.AveragePrice[0])₺"
+                                self.pricePercentageLabel.text = self.dashboardValue.AveragePriceVs2021[0].components(separatedBy: [" ", "-"]).joined()
                                 self.priceİmage.image = UIImage(named: "down")
                                 self.pricePercentageLabel.textColor =  UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                 self.averagePriceİmageView.backgroundColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
@@ -661,14 +660,14 @@ class MainViewController: UIViewController {
             
         } else {
             
-            if dashboardValue.NetSalesvs2021[0] >= 0.0 {
-                self.salesPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.NetSalesvs2021[0]) )"
+            if "\(dashboardValue.NetSalesvs2021[0].components(separatedBy: ["%"," "]).joined())".toDouble >= 0.0 {
+                self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2021[0]
                 self.salesİmage.image = UIImage(named: "Up")
                 self.salesPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                 
             } else {
                 
-                self.salesPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.NetSalesvs2021[0]).components(separatedBy: [" ", "-"]).joined())"
+                self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2021[0].components(separatedBy: [" ", "-"]).joined()
                 self.salesİmage.image = UIImage(named: "down")
                 self.salesPercentageLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
             }
@@ -689,12 +688,12 @@ class MainViewController: UIViewController {
 
         } else {
             
-            if dashboardValue.NetSalesvs2022B[0] >= 0.0 {
+            if "\(dashboardValue.NetSalesvs2022B[0].components(separatedBy: ["%"," "]).joined())".toDouble >= 0.0 {
                 self.salesPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                self.salesPercentageLabel.text =  "%\(String(format: "%.1f", self.dashboardValue.NetSalesvs2022B[0]) )"
+                self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2022B[0]
                 self.salesİmage.image = UIImage(named: "Up")
             } else {
-                self.salesPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.NetSalesvs2022B[0]).components(separatedBy: [" ", "-"]).joined())"
+                self.salesPercentageLabel.text =  self.dashboardValue.NetSalesvs2022B[0].components(separatedBy: [" ", "-"]).joined()
                 self.salesİmage.image = UIImage(named: "down")
                 self.salesPercentageLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
             }
@@ -710,17 +709,17 @@ class MainViewController: UIViewController {
         ikibinyirmiikiBView.backgroundColor = .clear
         ikibinyirmiikiBLabel.textColor = .white
         
-        if dashboardValue.ButceLE.isEmpty {
+        if dashboardValue.NetSalesvsButceLE.isEmpty {
             self.salesPercentageLabel.text = "%0.0"
 
         } else {
             
-            if dashboardValue.ButceLE[0] >= 0.0 {
+            if "\(dashboardValue.NetSalesvsButceLE[0].components(separatedBy: ["%"," "]).joined())".toDouble >= 0.0 {
                 self.salesPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                self.salesPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.ButceLE[0] / 1000 ) )"
+                self.salesPercentageLabel.text = self.dashboardValue.NetSalesvsButceLE[0]
                 self.salesİmage.image = UIImage(named: "Up")
             } else {
-                self.salesPercentageLabel.text = "%\(String(format: "%.1f", self.dashboardValue.ButceLE[0] / 1000 ).components(separatedBy: [" ", "-"]).joined())"
+                self.salesPercentageLabel.text = self.dashboardValue.NetSalesvsButceLE[0].components(separatedBy: ["-"]).joined()
                 self.salesİmage.image = UIImage(named: "down")
                 self.salesPercentageLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
             }

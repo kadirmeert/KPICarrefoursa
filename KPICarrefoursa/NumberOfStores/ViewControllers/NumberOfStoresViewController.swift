@@ -69,11 +69,12 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
         self.scrool.isScrollEnabled = true
         self.scrool.alwaysBounceVertical = true
         scrool.addSubview(refreshControl)
+        prepareUI()
+        self.setupPieChart()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        prepareUI()
-        self.setupPieChart()
+       
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -116,6 +117,8 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
         yeartodateStoreView.layer.cornerRadius = 12
         storesView.layer.cornerRadius = 12
         actualTotalView.dropShadow(cornerRadius: 12)
+        self.yesterdayStoreButton.isSelected = true
+
     }
     
     @IBAction func didNumberOfStoresValueChanged(_ sender: UISwitch) {
@@ -124,7 +127,6 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
 //            if hourlyStoreButton.isSelected == true {
 //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
 //            }
-            self.yesterdayStoreButton.isSelected = true
             if yesterdayStoreButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
             }
@@ -146,7 +148,6 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
 //            if hourlyStoreButton.isSelected == true {
 //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
 //            }
-            self.yesterdayStoreButton.isSelected = true
             if yesterdayStoreButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
             }
@@ -183,6 +184,7 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
     }
     
     func checkChartData() {
+        print(chartParameters)
         let enUrlParams = try! chartParameters.aesEncrypt(key: LoginConstants.xApiKey, iv: LoginConstants.IV)
         print(enUrlParams)
         let stringRequest = "\"\(enUrlParams)\""
@@ -224,23 +226,28 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
                     self.numberOfStores.StoreNumber = json!["Stores"]?.value(forKey: "StoreNumber") as? [Int] ?? [0]
                     
                     for index in 0...self.numberOfStores.LastUpdate.count-1 {
-                        if self.numberOfStores.Format[index] == "Actual CSA Total" {
-                            DispatchQueue.main.async {
-//                                let removeCharactersLatUpdate: Set<Character> = ["T", ":"]
-//                                self.numberOfStores.LastUpdate[index].removeAll(where: { removeCharactersLatUpdate.contains($0) })
-                                if self.numberOfStores.LastUpdate.isEmpty {
-                                    self.lastTimeLabel.text = "00/00/00 00:00:00"
+                        DispatchQueue.main.async {
+                            if self.numberOfStores.Format.count <= 1 {
+                                self.actualTotalLabel.text = " 0 Stores (0K m2) - 0 City"
+                            } else {
+                                if self.numberOfStores.Format[index] == "Actual CSA Total" {
                                     
-                                } else {
-                                    self.lastTimeLabel.text = "Last Updated Time \(self.numberOfStores.LastUpdate[index])"
-
+                                    if self.numberOfStores.LastUpdate.isEmpty {
+                                        self.lastTimeLabel.text = "00/00/00 00:00:00"
+                                        
+                                    } else {
+                                        self.lastTimeLabel.text = "Last Updated Time \(self.numberOfStores.LastUpdate[index])"
+                                        
+                                    }
+                                    self.actualTotalLabel.text = "\(self.numberOfStores.StoreNumber[index]) Stores (\(self.numberOfStores.Area[index] / 1000)K m2) - \(self.numberOfStores.City[index]) City"
+                                    self.numberOfStores.StoreNumber.removeLast()
+                                    self.numberOfStores.Format.removeLast()
+                                    
                                 }
-                                self.actualTotalLabel.text = "\(self.numberOfStores.StoreNumber[index]) Stores (\(self.numberOfStores.Area[index] / 1000)K m2) - \(self.numberOfStores.City[index]) City"
-                                self.numberOfStores.StoreNumber.removeLast()
-                                self.numberOfStores.Format.removeLast()
                             }
                         }
                     }
+                    
                     
                     DispatchQueue.main.async {
                         self.hud.dismiss()

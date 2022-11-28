@@ -106,6 +106,8 @@ class ProductViewController: UIViewController, ChartViewDelegate {
         weeklyView.layer.cornerRadius = 12
         monthlyView.layer.cornerRadius = 12
         yeartodateView.layer.cornerRadius = 12
+        self.yesterdayButton.isSelected = true
+
     }
     @IBAction func DidChangeProductValue(_ sender: UISwitch) {
         if (sender.isOn == true){
@@ -113,7 +115,6 @@ class ProductViewController: UIViewController, ChartViewDelegate {
 //            if hourlyButton.isSelected == true {
 //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
 //            }
-            self.yesterdayButton.isSelected = true
             if yesterdayButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
             }
@@ -135,7 +136,7 @@ class ProductViewController: UIViewController, ChartViewDelegate {
 //            if hourlyButton.isSelected == true {
 //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
 //            }
-            self.yesterdayButton.isSelected = true
+
             if yesterdayButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
             }
@@ -173,6 +174,7 @@ class ProductViewController: UIViewController, ChartViewDelegate {
     }
     
     func checkChartData() {
+        print(chartParameters)
         let enUrlParams = try! chartParameters.aesEncrypt(key: LoginConstants.xApiKey, iv: LoginConstants.IV)
         print(enUrlParams)
         let stringRequest = "\"\(enUrlParams)\""
