@@ -20,7 +20,7 @@ class PriceStoresTableViewCell: UITableViewCell {
     }
     func prepareCell(info: String, color: String, ciro: Double) {
         self.priceStoresİmageView.backgroundColor = UIColor(hexString: color)
-        self.priceStoresLabel.text = "\(info): \(String(format: "%.2f", ciro / 1000.0 )) K"
+        self.priceStoresLabel.text = "\(info): \(ciro)₺"
 
     }
 

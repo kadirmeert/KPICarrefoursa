@@ -12,7 +12,7 @@ struct BasketStores {
     var AverageBasket = [String]()
     var Ciro = [Double]()
     var Stores = [String]()
-    var LastUpdate = [String]()
+    var Last_Update = [String]()
     var Oran = [Double]()
     var ColorStores = [String]()
 }
@@ -20,7 +20,7 @@ struct BasketCategory{
     
     var AverageBasket = [String]()
     var Ciro = [Double]()
-    var Category = [String]()
+    var CategoryBreakDown = [String]()
     var ColorCategory = [String]()
     
     

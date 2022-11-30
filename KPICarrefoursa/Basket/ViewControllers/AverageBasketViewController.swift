@@ -26,9 +26,9 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
     @IBOutlet weak var yesterdayView: UIView!
     @IBOutlet weak var yesterdayLabel: UILabel!
     @IBOutlet weak var yesterdayButton: UIButton!
-    @IBOutlet weak var daytodayView: UIView!
-    @IBOutlet weak var daytodayLabel: UILabel!
-    @IBOutlet weak var daytodayButton: UIButton!
+//    @IBOutlet weak var daytodayView: UIView!
+//    @IBOutlet weak var daytodayLabel: UILabel!
+//    @IBOutlet weak var daytodayButton: UIButton!
     @IBOutlet weak var weeklyView: UIView!
     @IBOutlet weak var weeklyLabel: UILabel!
     @IBOutlet weak var weeklyButton: UIButton!
@@ -55,7 +55,7 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
     var basketCategory = BasketCategory()
     var hud = JGProgressHUD()
     let refreshControl = UIRefreshControl()
-    var selectedCiro = 0.0
+    var selectedCiro = ""
     var selectedColor = ""
     var selectedInfo = ""
     
@@ -103,7 +103,7 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
 //        hourlyLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
         yesterdayLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
         yesterdayView.layer.cornerRadius = 12
-        daytodayView.layer.cornerRadius = 12
+//        daytodayView.layer.cornerRadius = 12
         weeklyView.layer.cornerRadius = 12
         monthlyView.layer.cornerRadius = 12
         yeartodateView.layer.cornerRadius = 12
@@ -120,9 +120,9 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
             if yesterdayButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
             }
-            if daytodayButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1}"
-            }
+//            if daytodayButton.isSelected == true {
+//                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1}"
+//            }
             if weeklyButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1}"
             }
@@ -142,9 +142,9 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
             if yesterdayButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
             }
-            if daytodayButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0}"
-            }
+//            if daytodayButton.isSelected == true {
+//                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0}"
+//            }
             if weeklyButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0}"
             }
@@ -216,20 +216,18 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
                     
                     self.basketCategory.Ciro = json!["AverageBasketByCategory"]?.value(forKey: "Ciro") as? [Double] ?? [0.0]
                     self.basketCategory.AverageBasket = json!["AverageBasketByCategory"]?.value(forKey: "AverageBasket") as? [String] ?? ["0.0"]
-                    self.basketCategory.Category = json!["AverageBasketByCategory"]?.value(forKey: "Category") as? [String] ?? ["0"]
-                    self.basketStores.LastUpdate =  json!["BasketLastUpdate"]?.value(forKey: "LastUpdate") as? [String] ?? [""]
+                    self.basketCategory.CategoryBreakDown = json!["AverageBasketByCategory"]?.value(forKey: "CategoryBreakDown") as? [String] ?? ["0"]
+                    self.basketStores.Last_Update =  json!["AverageBasketByCategory"]?.value(forKey: "Last_Update") as? [String] ?? [""]
                     self.basketCategory.ColorCategory = json!["AverageBasketByCategory"]?.value(forKey: "ColorCategory") as? [String] ?? ["0"]
 
                     DispatchQueue.main.async {
                         self.hud.dismiss()
-//                        let removeCharactersLatUpdate: Set<Character> = ["T", ":"]
-//                        self.basketStores.LastUpdate[0].removeAll(where: { removeCharactersLatUpdate.contains($0) })
                         
-                        if self.basketStores.LastUpdate.isEmpty {
+                        if self.basketStores.Last_Update.isEmpty {
                             self.lastUpdateTime.text = "00/00/00 00:00:00"
                             
                         } else {
-                            self.lastUpdateTime.text = "Last Updated Time \(self.basketStores.LastUpdate[0])"
+                            self.lastUpdateTime.text = "Last Updated Time \(self.basketStores.Last_Update[0])"
                         }
                         
                         self.setupPieChart()
@@ -267,7 +265,7 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
         for i in 0..<basketStores.Stores.count {
             entriesStores.append(PieChartDataEntry(value: Double(self.basketStores.AverageBasket[i]) ?? 0.0, label: ""))
         }
-        for i in 0..<basketCategory.Category.count {
+        for i in 0..<basketCategory.CategoryBreakDown.count {
             entriesChannel.append(PieChartDataEntry(value: Double(self.basketCategory.AverageBasket[i]) ?? 0.0, label: ""))
         }
         
@@ -286,9 +284,9 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
         dataSetStores.colors = colorsStore
         dataSetChannel.colors = colorsCategory
         
-        dataSetStores.sliceSpace = 1
+        dataSetStores.sliceSpace = 2
         dataSetStores.drawValuesEnabled = false
-        dataSetChannel.sliceSpace = 1
+        dataSetChannel.sliceSpace = 2
         dataSetChannel.drawValuesEnabled = false
         storesChartView.data = PieChartData(dataSet: dataSetStores)
         storesChartView.notifyDataSetChanged()
@@ -335,7 +333,7 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
     @IBAction func yesterdayBtnPressed(_ sender: UIButton) {
 //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = true
-        daytodayButton.isSelected = false
+//        daytodayButton.isSelected = false
         weeklyButton.isSelected = false
         monthlyButton.isSelected = false
         yeartodateButton.isSelected = false
@@ -359,8 +357,8 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
 //        self.hourlyLabel.textColor = UIColor.white
         self.yesterdayView.backgroundColor = UIColor.white
         self.yesterdayLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
-        self.daytodayView.backgroundColor = UIColor.clear
-        self.daytodayLabel.textColor = UIColor.white
+//        self.daytodayView.backgroundColor = UIColor.clear
+//        self.daytodayLabel.textColor = UIColor.white
         self.weeklyView.backgroundColor = UIColor.clear
         self.weeklyLabel.textColor = UIColor.white
         self.monthlyView.backgroundColor = UIColor.clear
@@ -369,47 +367,47 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
         self.yeartodateLabel.textColor = UIColor.white
     }
     
-    @IBAction func daytodayBtnPressed(_ sender: UIButton) {
-//        hourlyButton.isSelected = false
-        yesterdayButton.isSelected = false
-        daytodayButton.isSelected = true
-        weeklyButton.isSelected = false
-        monthlyButton.isSelected = false
-        yeartodateButton.isSelected = false
-        if basketSwitch.isOn == true {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DaytoDay\",\"IsLfl\": 1}"
-            
-        } else {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DaytoDay\",\"IsLfl\": 0}"
-        }
-        if !self.basketStores.Stores.isEmpty {
-            hud.textLabel.text = "Loading"
-            hud.show(in: self.view)
-            self.checkChartData()
-        }
-        else {
-            hud.textLabel.text = "Loading"
-            hud.show(in: self.view)
-            self.checkChartData()
-        }
-//        self.hourlyView.backgroundColor = UIColor.clear
-//        self.hourlyLabel.textColor = UIColor.white
-        self.yesterdayView.backgroundColor = UIColor.clear
-        self.yesterdayLabel.textColor = UIColor.white
-        self.daytodayView.backgroundColor = UIColor.white
-        self.daytodayLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
-        self.weeklyView.backgroundColor = UIColor.clear
-        self.weeklyLabel.textColor = UIColor.white
-        self.monthlyView.backgroundColor = UIColor.clear
-        self.monthlyLabel.textColor = UIColor.white
-        self.yeartodateView.backgroundColor = UIColor.clear
-        self.yeartodateLabel.textColor = UIColor.white
-    }
+//    @IBAction func daytodayBtnPressed(_ sender: UIButton) {
+////        hourlyButton.isSelected = false
+//        yesterdayButton.isSelected = false
+//        daytodayButton.isSelected = true
+//        weeklyButton.isSelected = false
+//        monthlyButton.isSelected = false
+//        yeartodateButton.isSelected = false
+//        if basketSwitch.isOn == true {
+//            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DaytoDay\",\"IsLfl\": 1}"
+//
+//        } else {
+//            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DaytoDay\",\"IsLfl\": 0}"
+//        }
+//        if !self.basketStores.Stores.isEmpty {
+//            hud.textLabel.text = "Loading"
+//            hud.show(in: self.view)
+//            self.checkChartData()
+//        }
+//        else {
+//            hud.textLabel.text = "Loading"
+//            hud.show(in: self.view)
+//            self.checkChartData()
+//        }
+////        self.hourlyView.backgroundColor = UIColor.clear
+////        self.hourlyLabel.textColor = UIColor.white
+//        self.yesterdayView.backgroundColor = UIColor.clear
+//        self.yesterdayLabel.textColor = UIColor.white
+//        self.daytodayView.backgroundColor = UIColor.white
+//        self.daytodayLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
+//        self.weeklyView.backgroundColor = UIColor.clear
+//        self.weeklyLabel.textColor = UIColor.white
+//        self.monthlyView.backgroundColor = UIColor.clear
+//        self.monthlyLabel.textColor = UIColor.white
+//        self.yeartodateView.backgroundColor = UIColor.clear
+//        self.yeartodateLabel.textColor = UIColor.white
+//    }
     
     @IBAction func weeklyBtnPressed(_ sender: Any) {
 //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
-        daytodayButton.isSelected = false
+//        daytodayButton.isSelected = false
         weeklyButton.isSelected = true
         monthlyButton.isSelected = false
         yeartodateButton.isSelected = false
@@ -433,8 +431,8 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
 //        self.hourlyLabel.textColor = UIColor.white
         self.yesterdayView.backgroundColor = UIColor.clear
         self.yesterdayLabel.textColor = UIColor.white
-        self.daytodayView.backgroundColor = UIColor.clear
-        self.daytodayLabel.textColor = UIColor.white
+//        self.daytodayView.backgroundColor = UIColor.clear
+//        self.daytodayLabel.textColor = UIColor.white
         self.weeklyView.backgroundColor = UIColor.white
         self.weeklyLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
         self.monthlyView.backgroundColor = UIColor.clear
@@ -446,7 +444,7 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
     @IBAction func monthlyBtnPressed(_ sender: Any) {
 //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
-        daytodayButton.isSelected = false
+//        daytodayButton.isSelected = false
         weeklyButton.isSelected = false
         monthlyButton.isSelected = true
         yeartodateButton.isSelected = false
@@ -470,8 +468,8 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
 //        self.hourlyLabel.textColor = UIColor.white
         self.yesterdayView.backgroundColor = UIColor.clear
         self.yesterdayLabel.textColor = UIColor.white
-        self.daytodayView.backgroundColor = UIColor.clear
-        self.daytodayLabel.textColor = UIColor.white
+//        self.daytodayView.backgroundColor = UIColor.clear
+//        self.daytodayLabel.textColor = UIColor.white
         self.weeklyView.backgroundColor = UIColor.clear
         self.weeklyLabel.textColor = UIColor.white
         self.monthlyView.backgroundColor = UIColor.white
@@ -483,7 +481,7 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
     @IBAction func yeartodateBtnPressed(_ sender: Any) {
 //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
-        daytodayButton.isSelected = false
+//        daytodayButton.isSelected = false
         weeklyButton.isSelected = false
         monthlyButton.isSelected = false
         yeartodateButton.isSelected = true
@@ -507,8 +505,8 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
 //        self.hourlyLabel.textColor = UIColor.white
         self.yesterdayView.backgroundColor = UIColor.clear
         self.yesterdayLabel.textColor = UIColor.white
-        self.daytodayView.backgroundColor = UIColor.clear
-        self.daytodayLabel.textColor = UIColor.white
+//        self.daytodayView.backgroundColor = UIColor.clear
+//        self.daytodayLabel.textColor = UIColor.white
         self.weeklyView.backgroundColor = UIColor.clear
         self.weeklyLabel.textColor = UIColor.white
         self.monthlyView.backgroundColor = UIColor.clear
@@ -526,7 +524,7 @@ extension AverageBasketViewController: UITableViewDelegate, UITableViewDataSourc
             numberOfRow = self.basketStores.Stores.count
         }
         else if tableView == categoryTableView {
-            numberOfRow = self.basketCategory.Category.count
+            numberOfRow = self.basketCategory.CategoryBreakDown.count
         }
         return numberOfRow
     }
@@ -543,11 +541,11 @@ extension AverageBasketViewController: UITableViewDelegate, UITableViewDataSourc
                 self.selectedColor = self.basketStores.ColorStores[indexPath.item]
             }
             
-            if self.basketStores.Ciro.count <= 1 {
-                self.selectedCiro = 0.0
+            if self.basketStores.AverageBasket.count <= 1 {
+                self.selectedCiro = "0.0"
                 
             } else {
-                self.selectedCiro = self.basketStores.Ciro[indexPath.item]
+                self.selectedCiro = self.basketStores.AverageBasket[indexPath.item]
             }
             if self.basketStores.Stores.count <= 1 {
                 self.selectedInfo = ""
@@ -572,17 +570,17 @@ extension AverageBasketViewController: UITableViewDelegate, UITableViewDataSourc
                 self.selectedColor = self.basketCategory.ColorCategory[indexPath.item]
             }
             
-            if self.basketCategory.Ciro.count <= 1 {
-                self.selectedCiro = 0.0
+            if self.basketCategory.AverageBasket.count <= 1 {
+                self.selectedCiro = "0.0"
                 
             } else {
-                self.selectedCiro = self.basketCategory.Ciro[indexPath.item]
+                self.selectedCiro = self.basketCategory.AverageBasket[indexPath.item]
             }
-            if self.basketCategory.Category.count <= 1 {
+            if self.basketCategory.CategoryBreakDown.count <= 1 {
                 self.selectedInfo = ""
                 
             } else {
-                self.selectedInfo = self.basketCategory.Category[indexPath.item]
+                self.selectedInfo = self.basketCategory.CategoryBreakDown[indexPath.item]
 
             }
            

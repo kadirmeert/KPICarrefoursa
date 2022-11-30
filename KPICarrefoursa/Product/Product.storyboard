@@ -117,29 +117,26 @@
                                                     <constraint firstItem="RMR-0o-4GI" firstAttribute="centerY" secondItem="gvr-qb-vz1" secondAttribute="centerY" id="vhU-aA-ChL"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cd4-bR-kEA">
-                                                <rect key="frame" x="109" y="12.666666666666657" width="75" height="35"/>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cd4-bR-kEA">
+                                                <rect key="frame" x="91" y="12.666666666666657" width="0.0" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day to Day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j07-CX-Aug">
-                                                        <rect key="frame" x="1.3333333333333286" y="9" width="72.666666666666671" height="17"/>
+                                                        <rect key="frame" x="-36.333333333333336" y="9" width="72.666666666666671" height="17"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQN-di-cFF">
-                                                        <rect key="frame" x="0.0" y="0.0" width="75" height="35"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="35"/>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title=" "/>
-                                                        <connections>
-                                                            <action selector="daytodayBtnPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="gaV-BW-MJt"/>
-                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="7hU-RK-wn4"/>
-                                                    <constraint firstAttribute="width" constant="75" id="FVq-hY-33t"/>
+                                                    <constraint firstAttribute="width" id="FVq-hY-33t"/>
                                                     <constraint firstAttribute="bottom" secondItem="VQN-di-cFF" secondAttribute="bottom" id="aWH-zc-MMB"/>
                                                     <constraint firstItem="j07-CX-Aug" firstAttribute="centerY" secondItem="cd4-bR-kEA" secondAttribute="centerY" id="b3x-NU-SgI"/>
                                                     <constraint firstItem="VQN-di-cFF" firstAttribute="leading" secondItem="cd4-bR-kEA" secondAttribute="leading" id="gGA-a7-ROn"/>
@@ -149,10 +146,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S74-cc-Nl0">
-                                                <rect key="frame" x="202" y="12.666666666666657" width="75" height="35"/>
+                                                <rect key="frame" x="109" y="12.666666666666657" width="75" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weekly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I3o-Ii-IX3">
-                                                        <rect key="frame" x="11.666666666666657" y="8.3333333333333428" width="52" height="18"/>
+                                                        <rect key="frame" x="11.666666666666671" y="8.3333333333333428" width="52" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -180,10 +177,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5C2-lM-rqE">
-                                                <rect key="frame" x="295" y="12.666666666666657" width="75" height="35"/>
+                                                <rect key="frame" x="202" y="12.666666666666657" width="75" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monthly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hmz-8g-Kbr">
-                                                        <rect key="frame" x="8.3333333333333179" y="8.3333333333333428" width="58.333333333333343" height="18"/>
+                                                        <rect key="frame" x="8.3333333333333464" y="8.3333333333333428" width="58.333333333333343" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -211,7 +208,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KEk-kI-wg5">
-                                                <rect key="frame" x="388" y="12.666666666666657" width="75" height="35"/>
+                                                <rect key="frame" x="295" y="12.666666666666657" width="75" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Year to Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xry-gJ-llw">
                                                         <rect key="frame" x="-1" y="9.6666666666666856" width="77.333333333333329" height="15.666666666666664"/>
@@ -252,7 +249,7 @@
                                             <constraint firstItem="MfS-fY-bbh" firstAttribute="centerY" secondItem="Fdm-pI-LPY" secondAttribute="centerY" id="OLj-s7-cqW"/>
                                             <constraint firstItem="5C2-lM-rqE" firstAttribute="centerY" secondItem="S74-cc-Nl0" secondAttribute="centerY" id="WQx-lC-3B7"/>
                                             <constraint firstItem="gvr-qb-vz1" firstAttribute="leading" secondItem="MfS-fY-bbh" secondAttribute="trailing" constant="16" id="YKj-bZ-ShV"/>
-                                            <constraint firstItem="cd4-bR-kEA" firstAttribute="leading" secondItem="gvr-qb-vz1" secondAttribute="trailing" constant="18" id="Z3A-5j-LZx"/>
+                                            <constraint firstItem="cd4-bR-kEA" firstAttribute="leading" secondItem="gvr-qb-vz1" secondAttribute="trailing" id="Z3A-5j-LZx"/>
                                             <constraint firstItem="S74-cc-Nl0" firstAttribute="leading" secondItem="cd4-bR-kEA" secondAttribute="trailing" constant="18" id="crT-XF-E4D"/>
                                             <constraint firstItem="gvr-qb-vz1" firstAttribute="centerY" secondItem="MfS-fY-bbh" secondAttribute="centerY" id="hg3-fJ-lIH"/>
                                             <constraint firstItem="KEk-kI-wg5" firstAttribute="centerY" secondItem="5C2-lM-rqE" secondAttribute="centerY" id="hjb-Ch-mIQ"/>
@@ -308,7 +305,7 @@ October 11, 2022 14:37</string>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iBW-hQ-Yvl">
                                                 <rect key="frame" x="32" y="24" width="326" height="440.66666666666669"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product Breakdown by Stores" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xKZ-Wn-9eF">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product Breakdown by Stores" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="xKZ-Wn-9eF">
                                                         <rect key="frame" x="37.666666666666671" y="24" width="250.66666666666663" height="18.666666666666671"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="16"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -340,7 +337,7 @@ October 11, 2022 14:37</string>
                                                                             <rect key="frame" x="0.0" y="0.0" width="276" height="43.666666666666664"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="mcD-Un-eug">
-                                                                                    <rect key="frame" x="23" y="13.333333333333334" width="40" height="17.333333333333329"/>
+                                                                                    <rect key="frame" x="23" y="13.333333333333334" width="253" height="17.333333333333329"/>
                                                                                     <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
                                                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <nil key="highlightedColor"/>
@@ -356,6 +353,7 @@ October 11, 2022 14:37</string>
                                                                             </subviews>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
+                                                                                <constraint firstAttribute="trailing" secondItem="mcD-Un-eug" secondAttribute="trailing" id="5E8-kg-ads"/>
                                                                                 <constraint firstItem="mcD-Un-eug" firstAttribute="centerY" secondItem="DXp-xl-HlK" secondAttribute="centerY" id="JXB-rE-QxX"/>
                                                                                 <constraint firstItem="DXp-xl-HlK" firstAttribute="centerY" secondItem="4ZD-HL-Bfl" secondAttribute="centerY" id="TzD-8y-s7z"/>
                                                                                 <constraint firstItem="DXp-xl-HlK" firstAttribute="leading" secondItem="4ZD-HL-Bfl" secondAttribute="leading" id="dSE-xE-TVe"/>
@@ -384,6 +382,15 @@ October 11, 2022 14:37</string>
                                                             <outlet property="delegate" destination="Y6W-OH-hqX" id="9pl-7K-3Gc"/>
                                                         </connections>
                                                     </tableView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="vs 2021" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="avc-kc-cJU">
+                                                        <rect key="frame" x="258.66666666666669" y="417.33333333333337" width="51.333333333333314" height="17.333333333333314"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="17.329999999999998" id="Q2u-Wz-Vgy"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="Montserrat-BoldItalic" family="Montserrat" pointSize="14"/>
+                                                        <color key="textColor" red="0.37490493060000002" green="0.43590149280000001" blue="0.51466578249999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
@@ -392,7 +399,9 @@ October 11, 2022 14:37</string>
                                                     <constraint firstItem="xKZ-Wn-9eF" firstAttribute="centerX" secondItem="iBW-hQ-Yvl" secondAttribute="centerX" id="ELG-Nz-zCm"/>
                                                     <constraint firstAttribute="trailing" secondItem="OnY-WX-Mau" secondAttribute="trailing" constant="25" id="GZz-5W-0nk"/>
                                                     <constraint firstItem="OnY-WX-Mau" firstAttribute="top" secondItem="xNy-b8-8ma" secondAttribute="bottom" constant="16" id="MhL-kQ-EhM"/>
+                                                    <constraint firstAttribute="trailing" secondItem="avc-kc-cJU" secondAttribute="trailing" constant="16" id="PUc-1T-bJM"/>
                                                     <constraint firstItem="xKZ-Wn-9eF" firstAttribute="top" secondItem="iBW-hQ-Yvl" secondAttribute="top" constant="24" id="Rch-IR-TDV"/>
+                                                    <constraint firstAttribute="bottom" secondItem="avc-kc-cJU" secondAttribute="bottom" constant="6" id="UUl-uQ-brf"/>
                                                     <constraint firstAttribute="bottom" secondItem="OnY-WX-Mau" secondAttribute="bottom" constant="24" id="Vrb-X8-11N"/>
                                                     <constraint firstItem="xNy-b8-8ma" firstAttribute="leading" secondItem="iBW-hQ-Yvl" secondAttribute="leading" constant="25" id="r8i-Lg-8FQ"/>
                                                     <constraint firstItem="xNy-b8-8ma" firstAttribute="top" secondItem="xKZ-Wn-9eF" secondAttribute="bottom" constant="8" id="xRs-4t-RbY"/>
@@ -401,7 +410,7 @@ October 11, 2022 14:37</string>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ea3-IZ-WfC">
                                                 <rect key="frame" x="32" y="496.66666666666663" width="326" height="440.66666666666663"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product Breakdown by Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9vD-s3-eGs">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product Breakdown by Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="9vD-s3-eGs">
                                                         <rect key="frame" x="26" y="24" width="274.33333333333331" height="18.666666666666671"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="16"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -433,7 +442,7 @@ October 11, 2022 14:37</string>
                                                                             <rect key="frame" x="0.0" y="0.0" width="276" height="43.666666666666664"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="I9h-Yl-w0H">
-                                                                                    <rect key="frame" x="23" y="13.333333333333334" width="40" height="17.333333333333329"/>
+                                                                                    <rect key="frame" x="23" y="13.333333333333334" width="253" height="17.333333333333329"/>
                                                                                     <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
                                                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <nil key="highlightedColor"/>
@@ -450,6 +459,7 @@ October 11, 2022 14:37</string>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
                                                                                 <constraint firstItem="npD-XN-QLN" firstAttribute="centerY" secondItem="As0-5T-myA" secondAttribute="centerY" id="930-qM-t1K"/>
+                                                                                <constraint firstAttribute="trailing" secondItem="I9h-Yl-w0H" secondAttribute="trailing" id="DcS-ly-biZ"/>
                                                                                 <constraint firstItem="npD-XN-QLN" firstAttribute="leading" secondItem="As0-5T-myA" secondAttribute="leading" id="EkI-hh-CtE"/>
                                                                                 <constraint firstItem="I9h-Yl-w0H" firstAttribute="leading" secondItem="npD-XN-QLN" secondAttribute="trailing" constant="8" id="pF4-aG-4nZ"/>
                                                                                 <constraint firstItem="I9h-Yl-w0H" firstAttribute="centerY" secondItem="npD-XN-QLN" secondAttribute="centerY" id="w72-Cj-5tR"/>
@@ -477,16 +487,27 @@ October 11, 2022 14:37</string>
                                                             <outlet property="delegate" destination="Y6W-OH-hqX" id="7s9-db-6b4"/>
                                                         </connections>
                                                     </tableView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="vs 2021" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fmn-hd-KSY">
+                                                        <rect key="frame" x="258.66666666666669" y="417.33333333333337" width="51.333333333333314" height="17.333333333333314"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="17.329999999999998" id="T1t-6q-rsJ"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="Montserrat-BoldItalic" family="Montserrat" pointSize="14"/>
+                                                        <color key="textColor" red="0.37490493060000002" green="0.43590149280000001" blue="0.51466578249999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstItem="cVh-Cm-Ygd" firstAttribute="top" secondItem="9vD-s3-eGs" secondAttribute="bottom" constant="8" id="0Bh-o0-n8o"/>
                                                     <constraint firstItem="9vD-s3-eGs" firstAttribute="top" secondItem="ea3-IZ-WfC" secondAttribute="top" constant="24" id="4FN-mQ-spW"/>
                                                     <constraint firstItem="cVh-Cm-Ygd" firstAttribute="leading" secondItem="ea3-IZ-WfC" secondAttribute="leading" constant="25" id="4pk-J5-82N"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Fmn-hd-KSY" secondAttribute="bottom" constant="6" id="GSM-hy-tKd"/>
                                                     <constraint firstAttribute="trailing" secondItem="kb8-ED-siC" secondAttribute="trailing" constant="25" id="Hbh-tS-rtM"/>
                                                     <constraint firstAttribute="trailing" secondItem="cVh-Cm-Ygd" secondAttribute="trailing" constant="25" id="IBU-P9-47P"/>
                                                     <constraint firstItem="kb8-ED-siC" firstAttribute="top" secondItem="cVh-Cm-Ygd" secondAttribute="bottom" constant="16" id="KlZ-BW-BUr"/>
                                                     <constraint firstAttribute="bottom" secondItem="kb8-ED-siC" secondAttribute="bottom" constant="24" id="VjS-aV-KBa"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Fmn-hd-KSY" secondAttribute="trailing" constant="16" id="heu-go-gFi"/>
                                                     <constraint firstItem="kb8-ED-siC" firstAttribute="leading" secondItem="ea3-IZ-WfC" secondAttribute="leading" constant="25" id="rbs-A6-hbi"/>
                                                     <constraint firstItem="9vD-s3-eGs" firstAttribute="centerX" secondItem="ea3-IZ-WfC" secondAttribute="centerX" id="sTu-3y-ikv"/>
                                                 </constraints>
@@ -541,9 +562,6 @@ October 11, 2022 14:37</string>
                         <outlet property="categoryChartView" destination="cVh-Cm-Ygd" id="mGp-jn-A2J"/>
                         <outlet property="categoryTableView" destination="kb8-ED-siC" id="NIy-oj-Aat"/>
                         <outlet property="categoryView" destination="ea3-IZ-WfC" id="51W-ak-qTc"/>
-                        <outlet property="daytodayButton" destination="VQN-di-cFF" id="d7M-s3-SCQ"/>
-                        <outlet property="daytodayLabel" destination="j07-CX-Aug" id="WWt-1e-Vd4"/>
-                        <outlet property="daytodayView" destination="cd4-bR-kEA" id="0eh-XJ-KbC"/>
                         <outlet property="lastUpdateTime" destination="NEq-RE-xIS" id="mDY-NV-86P"/>
                         <outlet property="monthlyButton" destination="Ivk-b8-crS" id="CHC-2F-POQ"/>
                         <outlet property="monthlyLabel" destination="hmz-8g-Kbr" id="5M4-fn-WyJ"/>

@@ -13,6 +13,6 @@ struct Stores {
     var FiiliCiro = [String]()
     var Stores = [String]()
     var ColorStores = [String]()
-
+    var Last_Update = [String]()
     
 }

@@ -21,7 +21,7 @@ class PriceCategoryTableViewCell: UITableViewCell {
     func prepareCell(info: String, color: String, ciro: Double) {
 
         self.priceCategoryİmageView.backgroundColor = UIColor(hexString: color)
-        self.priceCategoryLabel.text = "\(info): \(String(format: "%.2f", ciro / 1000.0 )) K"
+        self.priceCategoryLabel.text = "\(info): \(ciro)₺"
 
     }
 

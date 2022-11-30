@@ -19,10 +19,10 @@ class CustomerStoreTableViewCell: UITableViewCell {
         self.customerStoresView.dropShadow(cornerRadius: self.customerStoresView.frame.height / 2)
 
     }
-    func prepareCell(info: String, color: String, ciro: String) {
+    func prepareCell(info: String, color: String, ciro: String, gelisim: String) {
 
         self.customerStoresView.backgroundColor = UIColor(hexString: color)
-        self.customerStoresLabel.text = "\(info): \(ciro)"
+        self.customerStoresLabel.text = "\(info): \(ciro) # \(gelisim)"
        
     }
 

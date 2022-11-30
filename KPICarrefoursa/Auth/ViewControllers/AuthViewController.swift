@@ -80,7 +80,6 @@ class AuthViewController: UIViewController {
         self.loginButtonView.dropShadow(cornerRadius: 12)
         self.loginButtonView.applyGradient(colors: [UIColor(red:0/255, green:71/255, blue:151/255, alpha: 1),  UIColor(red:0/255, green:120/255, blue:255/255, alpha: 1), UIColor(red:0/255, green:71/255, blue:151/255, alpha: 1)] )
         
-        
         self.rememberButton.layer.cornerRadius = 4
         self.rememberButton.layer.borderWidth = 1
         self.rememberButton.layer.borderColor = UIColor.gray.cgColor

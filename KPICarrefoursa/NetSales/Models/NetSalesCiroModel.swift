@@ -14,5 +14,6 @@ struct Ciro {
     var IsLfl = [Int]()
     var Last_Update = [String]()
     var Total = [String]()
+    var Fark = [String]()
     
 }

@@ -43,7 +43,7 @@ class ConfirmToOtpViewController: UIViewController, UITextFieldDelegate, Confirm
         self.otpButtonViewDetail.applyGradient(colors: [UIColor(red:0/255, green:71/255, blue:151/255, alpha: 1),  UIColor(red:0/255, green:120/255, blue:255/255, alpha: 1), UIColor(red:0/255, green:71/255, blue:151/255, alpha: 1)] )
         self.loginViewDetail.layer.cornerRadius = 12
 
-        self.phoneLabelDetail.text = User.phoneNumber
+//        self.phoneLabelDetail.text = User.phoneNumber
         resendtimer()
     }
     

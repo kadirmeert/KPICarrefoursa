@@ -14,9 +14,11 @@ class ConfirmTextField: UITextField {
     weak var nextTextField: ConfirmTextField?
     
     override public func deleteBackward(){
-        text = ""
-        previousTextField?.becomeFirstResponder()
-        previousTextField?.text = ""
+        if text == "" {
+            previousTextField?.text = ""
+            previousTextField?.becomeFirstResponder()
+        } else {
+            text = ""
+        }
     }
-    
 }
