@@ -314,13 +314,36 @@ class MainViewController: UIViewController {
                             
                             if "\(self.dashboardValue.NetSalesvs2021[0].components(separatedBy: ["%"," "]).joined())".toDouble > 0.0 {
                                 self.netSalesLabel.text = self.dashboardValue.NetSales[0]
-                                self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2021[0]
+                                self.sales2021.isSelected = true
+                                if self.sales2021.isSelected == true {
+                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2021[0]
+                                    self.sales2021.isSelected = false
+                                }
+                                if self.sales2022B.isSelected == true {
+                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2022B[0]
+
+                                }
+                                if self.sales2022LE.isSelected == true {
+                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvsButceLE[0]
+                                }
+                                
                                 self.salesİmage.image = UIImage(named: "Up")
                                 self.salesPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                 
                             }else {
                                 self.netSalesLabel.text = self.dashboardValue.NetSales[0]
-                                self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2021[0].components(separatedBy: [" ", "-"]).joined()
+                                self.sales2021.isSelected = true
+                                if self.sales2021.isSelected == true {
+                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2021[0].components(separatedBy: [" ", "-"]).joined()
+                                    self.sales2021.isSelected = false
+                                }
+                                if self.sales2022B.isSelected == true {
+                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2022B[0].components(separatedBy: [" ", "-"]).joined()
+
+                                }
+                                if self.sales2022LE.isSelected == true {
+                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvsButceLE[0].components(separatedBy: [" ", "-"]).joined()
+                                }
                                 self.salesİmage.image = UIImage(named: "down")
                                 self.salesPercentageLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                             }
@@ -513,6 +536,7 @@ class MainViewController: UIViewController {
         } else {
             self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
         }
+        
         if !self.dashboardValue.NetSales.isEmpty {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
@@ -587,6 +611,7 @@ class MainViewController: UIViewController {
         } else {
             self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0}"
         }
+
         if !self.dashboardValue.NetSales.isEmpty {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
@@ -624,6 +649,7 @@ class MainViewController: UIViewController {
         } else {
             self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0}"
         }
+
         if !self.dashboardValue.NetSales.isEmpty {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
@@ -661,7 +687,8 @@ class MainViewController: UIViewController {
         } else {
             self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0}"
         }
-        
+//
+
         if !self.dashboardValue.NetSales.isEmpty {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
@@ -711,6 +738,9 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func ikibinyirmibirBtnPressed(_ sender: Any) {
+        self.sales2021.isSelected = true
+        self.sales2022B.isSelected = false
+        self.sales2022LE.isSelected = false
         ikibinyirmibirView.roundCorners(corners: [.topRight, .topLeft], radius: 12)
         ikibinyirmibirView.backgroundColor = .white
         ikibinyirmibirLabel.textColor = UIColor(red:1/255, green:80/255, blue:161/255, alpha: 1)
@@ -740,6 +770,9 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func ikibinyirmiikiBBtnPressed(_ sender: Any) {
+        self.sales2021.isSelected = false
+        self.sales2022B.isSelected = true
+        self.sales2022LE.isSelected = false
         ikibinyirmiikiBView.roundCorners(corners: [.topRight, .topLeft], radius: 12)
         ikibinyirmiikiBView.backgroundColor = .white
         ikibinyirmiikiBLabel.textColor = UIColor(red:1/255, green:80/255, blue:161/255, alpha: 1)
@@ -766,6 +799,9 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func ikibinyirmiikiLEBtnPressed(_ sender: Any) {
+        self.sales2021.isSelected = false
+        self.sales2022B.isSelected = false
+        self.sales2022LE.isSelected = true
         ikibinyirmiikiLEView.roundCorners(corners: [.topRight, .topLeft], radius: 12)
         ikibinyirmiikiLEView.backgroundColor = .white
         ikibinyirmiikiLELabel.textColor = UIColor(red:1/255, green:80/255, blue:161/255, alpha: 1)

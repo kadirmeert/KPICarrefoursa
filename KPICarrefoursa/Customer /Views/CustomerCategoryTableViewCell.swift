@@ -26,11 +26,9 @@ class CustomerCategoryTableViewCell: UITableViewCell {
         
         self.customerCategoryİmageView.backgroundColor = UIColor(hexString: color)
         if gelisim.components(separatedBy: ["v","s"," ","%"]).dropLast(4).joined().toDouble > 0.0 {
-            self.customerCategoryLabel.text = "\(info): \(ciro) # \(gelisim.components(separatedBy: ["v"," ","s"]).dropLast(4).joined())"
-            self.customerCategoryLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+            self.customerCategoryLabel.text = "\(info): \(ciro)    \(gelisim.components(separatedBy: ["v"," ","s"]).dropLast(4).joined())"
         } else {
-            self.customerCategoryLabel.text = "\(info): \(ciro) # \(gelisim.components(separatedBy: ["-"," ","v","s"]).dropLast(4).joined())"
-            self.customerCategoryLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+            self.customerCategoryLabel.text = "\(info): \(ciro)    \(gelisim.components(separatedBy: ["-"," ","v","s"]).dropLast(4).joined())"
         }
        
     }

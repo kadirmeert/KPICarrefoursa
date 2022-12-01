@@ -246,7 +246,6 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
                         }
                     }
                     
-                    
                     DispatchQueue.main.async {
                         self.hud.dismiss()
                         self.setupPieChart()
@@ -271,7 +270,7 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
         
         var entriesData: [PieChartDataEntry] = Array()
         for i in 0..<numberOfStores.StoreNumber.count {
-            entriesData.append(PieChartDataEntry(value: Double(numberOfStores.StoreNumber[i]), label: "" ))
+            entriesData.append(PieChartDataEntry(value: Double(numberOfStores.StoreNumber[i]), label:   "\(self.numberOfStores.StoreNumber[i])"))
             
         }
         let dataSet = PieChartDataSet(entries: entriesData, label: "")

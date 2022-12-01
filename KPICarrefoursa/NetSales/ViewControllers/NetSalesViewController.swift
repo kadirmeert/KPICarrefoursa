@@ -222,6 +222,9 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                     self.chartParameters = self.Parameters2022LE
                 }
                 self.yesterdayStoreButton.isSelected = false
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
             }
             
 //            if daytodayStoreButton.isSelected == true {
@@ -239,6 +242,9 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
 //                    self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
 //                    self.chartParameters = self.Parameters2022LE
 //                }
+//            self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+//            self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+//            self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
 //
 //            }
             
@@ -256,6 +262,9 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                     self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
                     self.chartParameters = self.Parameters2022LE
                 }
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
                 
             }
             
@@ -273,6 +282,9 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                     self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
                     self.chartParameters = self.Parameters2022LE
                 }
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
             }
             
             if yeartodateStoreButton.isSelected == true {
@@ -288,7 +300,9 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                     self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
                     self.chartParameters = self.Parameters2022LE
                 }
-                
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
             }
         }
         else{
@@ -451,7 +465,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                 let data: Data? = self.userDC.data(using: .utf8)
                 let json = (try? JSONSerialization.jsonObject(with: data ?? Data(), options: [])) as? [String:AnyObject]
                 print(json ?? "Empty Data")
-                if json!["Success"] as? Int ?? 0 ==  0{
+                if json!["Success"] as? Int ?? 0 ==  0 {
                     print("error")
                 } else if json!["Success"] as? Int ?? 0 == 1 {
                     
@@ -1317,11 +1331,15 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                 self.chartParameters = self.Parameters2021
             }
             if netSales2022BButton.isSelected == true {
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
                 self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022b
                 
             }
             if netSales2022LEButton.isSelected == true {
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
                 self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022LE
             }
@@ -1336,11 +1354,15 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
             }
             
             if netSales2022BButton.isSelected == true {
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
                 self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022b
             }
             
             if netSales2022LEButton.isSelected == true {
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
                 self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022LE
             }
@@ -1457,11 +1479,15 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                 
             }
             if netSales2022BButton.isSelected == true {
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
                 self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022b
                 
             }
             if netSales2022LEButton.isSelected == true {
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
                 self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022LE
             }
@@ -1475,11 +1501,15 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                 
             }
             if netSales2022BButton.isSelected == true {
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
                 self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022b
                 
             }
             if netSales2022LEButton.isSelected == true {
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
                 self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022LE
             }
@@ -1527,11 +1557,15 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                 
             }
             if netSales2022BButton.isSelected == true {
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
                 self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022b
                 
             }
             if netSales2022LEButton.isSelected == true {
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
                 self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022LE
             }
@@ -1544,11 +1578,15 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                 
             }
             if netSales2022BButton.isSelected == true {
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
                 self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022b
                 
             }
             if netSales2022LEButton.isSelected == true {
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
                 self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022LE
             }
@@ -1596,11 +1634,15 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                 
             }
             if netSales2022BButton.isSelected == true {
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
                 self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022b
                 
             }
             if netSales2022LEButton.isSelected == true {
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
                 self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022LE
             }
@@ -1613,11 +1655,15 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                 
             }
             if netSales2022BButton.isSelected == true {
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
                 self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022b
                 
             }
             if netSales2022LEButton.isSelected == true {
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
                 self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
                 self.chartParameters = self.Parameters2022LE
             }
