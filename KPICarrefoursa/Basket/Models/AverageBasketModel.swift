@@ -9,12 +9,14 @@ import Foundation
 
 struct BasketStores {
     
-    var AverageBasket = [String]()
+    var AverageBasket = [Double]()
     var Ciro = [Double]()
     var Stores = [String]()
     var Last_Update = [String]()
     var Oran = [Double]()
     var ColorStores = [String]()
+    var Gelisim = [String]()
+
 }
 struct BasketCategory{
     
@@ -22,6 +24,8 @@ struct BasketCategory{
     var Ciro = [Double]()
     var CategoryBreakDown = [String]()
     var ColorCategory = [String]()
+    var Gelisim = [String]()
+
     
     
 }

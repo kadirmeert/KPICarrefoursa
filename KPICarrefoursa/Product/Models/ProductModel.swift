@@ -14,6 +14,7 @@ struct ProductStores {
     var Stores = [String]()
     var Last_Update = [String]()
     var ColorStores = [String]()
+    var Gelisim = [String]()
 
 }
 struct ProductCategory{
@@ -22,6 +23,7 @@ struct ProductCategory{
     var Urun = [String]()
     var CategoryBreakDown = [String]()
     var ColorCategory = [String]()
+    var Gelisim = [String]()
 
     
 }

@@ -25,11 +25,9 @@ class CustomerCategoryTableViewCell: UITableViewCell {
     func prepareCell(info: String, color: String, ciro: String, gelisim: String) {
         
         self.customerCategoryİmageView.backgroundColor = UIColor(hexString: color)
-        if gelisim.components(separatedBy: ["v","s"," ","%"]).dropLast(4).joined().toDouble > 0.0 {
-            self.customerCategoryLabel.text = "\(info): \(ciro)    \(gelisim.components(separatedBy: ["v"," ","s"]).dropLast(4).joined())"
-        } else {
-            self.customerCategoryLabel.text = "\(info): \(ciro)    \(gelisim.components(separatedBy: ["-"," ","v","s"]).dropLast(4).joined())"
-        }
+   
+        self.customerCategoryLabel.text = "\(info): \(ciro)   \(gelisim.components(separatedBy: [" "]).joined())"
+        
        
     }
 

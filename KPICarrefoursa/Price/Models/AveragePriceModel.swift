@@ -14,15 +14,18 @@ struct PriceStores {
     var AveragePrice = [Double]()
     var ColorStores = [String]()
     var Last_Update = [String]()
-
+    var Gelisim = [String]()
     
 }
+
 struct PriceCategory{
     
     var AveragePrice = [Double]()
 //    var AveragePrice = [Double]()
     var CategoryBreakDown = [String]()
     var ColorCategory = [String]()
+    var Gelisim = [String]()
+
 
     
 }

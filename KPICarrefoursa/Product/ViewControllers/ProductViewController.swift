@@ -45,8 +45,8 @@ class ProductViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var productCategoryHeight: NSLayoutConstraint!
     @IBOutlet weak var productViewHeight: NSLayoutConstraint!
     @IBOutlet weak var productSwitch: UISwitch!
-    
     @IBOutlet weak var productLflLabel: UILabel!
+    
     //MARK: Properties
     var jsonmessage: Int = 1
     var userDC: String = ""
@@ -58,6 +58,9 @@ class ProductViewController: UIViewController, ChartViewDelegate {
     var selectedProduct = ""
     var selectedColor = ""
     var selectedInfo = ""
+    var selectedCategoryGelisim = ""
+    var selectedStoresGelisim = ""
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -212,12 +215,16 @@ class ProductViewController: UIViewController, ChartViewDelegate {
                     self.productStores.urun = json!["ProductByStores"]?.value(forKey: "urun") as? [String] ?? ["0"]
                     self.productStores.Stores = json!["ProductByStores"]?.value(forKey: "Stores") as? [String] ?? ["0"]
                     self.productStores.ColorStores = json!["ProductByStores"]?.value(forKey: "ColorStores") as? [String] ?? ["0"]
+                    self.productStores.Gelisim = json!["ProductByStores"]?.value(forKey: "Gelisim") as? [String] ?? ["0"]
+
                     
                     self.productCategory.FiiliUrun = json!["ProductByCategory"]?.value(forKey: "FiiliUrun") as? [Double] ?? [0.0]
                     self.productCategory.Urun = json!["ProductByCategory"]?.value(forKey: "Urun") as? [String] ?? ["0"]
                     self.productCategory.CategoryBreakDown = json!["ProductByCategory"]?.value(forKey: "CategoryBreakDown") as? [String] ?? ["0"]
                     self.productStores.Last_Update =  json!["ProductByStores"]?.value(forKey: "Last_Update") as? [String] ?? [""]
                     self.productCategory.ColorCategory = json!["ProductByCategory"]?.value(forKey: "ColorCategory") as? [String] ?? ["000"]
+                    self.productCategory.Gelisim = json!["ProductByCategory"]?.value(forKey: "Gelisim") as? [String] ?? ["0"]
+
 
                     
                     DispatchQueue.main.async {
@@ -557,9 +564,15 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource {
             } else {
                 self.selectedInfo = self.productStores.Stores[indexPath.item]
             }
+            if self.productStores.Gelisim.count <= 1 {
+                self.selectedStoresGelisim = ""
+                
+            } else {
+                self.selectedStoresGelisim = self.productStores.Gelisim[indexPath.item]
+            }
 
 
-            storeCell.prepareCell(info: selectedInfo , color: selectedColor, product: selectedProduct)
+            storeCell.prepareCell(info: selectedInfo , color: selectedColor, product: selectedProduct,gelisim: selectedStoresGelisim)
             
             cellToReturn = storeCell
             
@@ -588,7 +601,13 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource {
                 self.selectedInfo = self.productCategory.CategoryBreakDown[indexPath.item]
                 
             }
-            categoryCell.prepareCell(info: selectedInfo, color: selectedColor, product: selectedProduct)
+            if self.productCategory.Gelisim.count <= 1 {
+                self.selectedCategoryGelisim = ""
+                
+            } else {
+                self.selectedCategoryGelisim = self.productCategory.Gelisim[indexPath.item]
+            }
+            categoryCell.prepareCell(info: selectedInfo, color: selectedColor, product: selectedProduct, gelisim: selectedCategoryGelisim)
                 
            
             cellToReturn = categoryCell

@@ -59,7 +59,7 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
     var selectedColor = ""
     var selectedInfo = ""
     var selectedStoresGelisim = ""
-    var selecrefCategoryGelisim = ""
+    var selectedCategoryGelisim = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -567,20 +567,20 @@ extension CustomerViewController: UITableViewDelegate, UITableViewDataSource {
         var cellToReturn = UITableViewCell()
         if tableView == self.storesTableView {
             let storeCell = tableView.dequeueReusableCell(withIdentifier: "customerStoreCell", for: indexPath) as! CustomerStoreTableViewCell
-            if self.customerCategory.ColorCategory.count <= 1 {
+            if self.customerStores.ColorStores.count <= 1 {
                 self.selectedColor = ""
                 
             } else {
                 self.selectedColor = self.customerStores.ColorStores[indexPath.item]
             }
             
-            if self.customerCategory.Customer.count <= 1 {
+            if self.customerStores.Customer.count <= 1 {
                 self.selectedCiro = ""
                 
             } else {
                 self.selectedCiro = self.customerStores.Customer[indexPath.item]
             }
-            if self.customerCategory.CategoryBreakDown.count <= 1 {
+            if self.customerStores.Stores.count <= 1 {
                 self.selectedInfo = ""
                 
             } else {
@@ -621,13 +621,13 @@ extension CustomerViewController: UITableViewDelegate, UITableViewDataSource {
                 self.selectedInfo = self.customerCategory.CategoryBreakDown[indexPath.item]
             }
             if self.customerCategory.Gelisim.count <= 1 {
-                self.selecrefCategoryGelisim = ""
+                self.selectedCategoryGelisim = ""
                 
             } else {
-                self.selecrefCategoryGelisim = self.customerCategory.Gelisim[indexPath.item]
+                self.selectedCategoryGelisim = self.customerCategory.Gelisim[indexPath.item]
             }
             
-            chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro, gelisim: selecrefCategoryGelisim)
+            chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro, gelisim: selectedCategoryGelisim)
             
             cellToReturn = chanelCell
         }

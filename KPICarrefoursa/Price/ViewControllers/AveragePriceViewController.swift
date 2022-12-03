@@ -58,6 +58,9 @@ class AveragePriceViewController: UIViewController, ChartViewDelegate {
     var selectedCiro = 0.0
     var selectedColor = ""
     var selectedInfo = ""
+    var selectedCategoryGelisim = ""
+    var selectedStoresGelisim = ""
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -209,11 +212,15 @@ class AveragePriceViewController: UIViewController, ChartViewDelegate {
                     self.priceStores.AveragePrice = json!["AveragePriceByStores"]?.value(forKey: "AveragePrice") as? [Double] ?? [0.0]
                     self.priceStores.ColorStores = json!["AveragePriceByStores"]?.value(forKey: "ColorStores") as? [String] ?? ["0"]
                     self.priceStores.Last_Update =  json!["AveragePriceByStores"]?.value(forKey: "Last_Update") as? [String] ?? [""]
+                    self.priceStores.Gelisim = json!["AveragePriceByStores"]?.value(forKey: "Gelisim") as? [String] ?? ["0"]
+
 
 //                    self.priceCategory.Ciro = json!["AveragePriceByCategory"]?.value(forKey: "Ciro") as? [Double] ?? [0.0]
                     self.priceCategory.AveragePrice = json!["AveragePriceByCategory"]?.value(forKey: "AveragePrice") as? [Double] ?? [0.0]
                     self.priceCategory.CategoryBreakDown = json!["AveragePriceByCategory"]?.value(forKey: "CategoryBreakDown") as? [String] ?? ["0"]
                     self.priceCategory.ColorCategory = json!["AveragePriceByCategory"]?.value(forKey: "ColorCategory") as? [String] ?? ["0"]
+                    self.priceCategory.Gelisim = json!["AveragePriceByCategory"]?.value(forKey: "Gelisim") as? [String] ?? ["0"]
+
 
                     
                     DispatchQueue.main.async {
@@ -557,8 +564,14 @@ extension AveragePriceViewController: UITableViewDelegate, UITableViewDataSource
                 self.selectedInfo = self.priceStores.Stores[indexPath.item]
 
             }
+            if self.priceStores.Gelisim.count <= 1 {
+                self.selectedStoresGelisim = ""
+                
+            } else {
+                self.selectedStoresGelisim = self.priceStores.Gelisim[indexPath.item]
+            }
             
-            storeCell.prepareCell(info: selectedInfo , color: selectedColor, ciro: selectedCiro)
+            storeCell.prepareCell(info: selectedInfo , color: selectedColor, ciro: selectedCiro, gelisim: selectedStoresGelisim)
         
             cellToReturn = storeCell
             
@@ -586,7 +599,13 @@ extension AveragePriceViewController: UITableViewDelegate, UITableViewDataSource
                 self.selectedInfo = self.priceCategory.CategoryBreakDown[indexPath.item]
 
             }
-            chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+            if self.priceCategory.Gelisim.count <= 1 {
+                self.selectedCategoryGelisim = ""
+                
+            } else {
+                self.selectedCategoryGelisim = self.priceCategory.Gelisim[indexPath.item]
+            }
+            chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro, gelisim: selectedCategoryGelisim)
         
             cellToReturn = chanelCell
         }

@@ -29,13 +29,13 @@ class FormatTableViewCell: UITableViewCell {
     func prepareCell(format: String, color: String, percentage: String, price: Double, gelisim: String, years: String) {
         
         
-        if Double(gelisim.components(separatedBy: ["%"," ", "v", "s"]).dropLast(2).joined()) ?? 0.0 > 0.0 {
-            self.formatPercView.text = gelisim.components(separatedBy: [" ", "v", "s"]).dropLast(2).joined()
+        if Double(gelisim.components(separatedBy: ["%"," "]).joined()) ?? 0.0 > 0.0 {
+            self.formatPercView.text = gelisim.components(separatedBy: [" "]).joined()
             self.formatİmageView.image = UIImage(named: "Up")
             self.priceLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
             self.formatPercView.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
         } else {
-            self.formatPercView.text = gelisim.components(separatedBy: [" ", "v", "s", "-"]).dropLast(2).joined()
+            self.formatPercView.text = gelisim.components(separatedBy: [" ", "-"]).joined()
             self.formatİmageView.image = UIImage(named: "down")
             self.priceLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
             self.formatPercView.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
@@ -43,10 +43,10 @@ class FormatTableViewCell: UITableViewCell {
         self.yearLabel.text = years
         self.formatLabel.text = format
         
-        self.priceLabel.text = "\(percentage)"
+        self.priceLabel.text = "\(percentage)".components(separatedBy: [" ", "-"]).joined()
         
     
-        self.progressView.setProgress((Float(gelisim.components(separatedBy: ["%"," ","v","s"]).dropLast(2).joined()) ?? 0.0) / 100, animated: false)
+        self.progressView.setProgress((Float(gelisim.components(separatedBy: ["%"," "]).joined()) ?? 0.0) / 100, animated: false)
         self.progressView.progressTintColor = UIColor(hexString: color)
         self.progressView.backgroundColor = UIColor(hexString: color).withAlphaComponent(0.2)
         

@@ -19,10 +19,10 @@ class ProductCategoryTableViewCell: UITableViewCell {
 
     }
 
-    func prepareCell(info: String, color: String, product: String) {
+    func prepareCell(info: String, color: String, product: String, gelisim: String) {
     
             self.productCategoryİmageView.backgroundColor = UIColor(hexString: color)
-        self.productCategoryLabel.text =  "\(info): \(product)"
+        self.productCategoryLabel.text =  "\(info): \(product)   \(gelisim.components(separatedBy: [" "]).joined())"
     
         }
 

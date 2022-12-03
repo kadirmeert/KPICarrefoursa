@@ -18,11 +18,10 @@ class BasketStoresTableViewCell: UITableViewCell {
         self.basketStoresİmageView.dropShadow(cornerRadius: self.basketStoresİmageView.frame.height / 2)
 
     }
-    func prepareCell(info: String, color: String, ciro: String) {
+    func prepareCell(info: String, color: String, ciro: Double, gelisim: String) {
     
         self.basketStoresİmageView.backgroundColor = UIColor(hexString: color)
-        self.basketStoresLabel.text = "\(info): \(ciro)₺"
-    
+        self.basketStoresLabel.text = "\(info): \(ciro)₺   \(gelisim.components(separatedBy: [" "]).joined())"
         }
     
 }

@@ -14,6 +14,6 @@ struct Channel{
     var FormatPNL = [String]()
     var Last_Update = [String]()
     var ColorChannels = [String]()
+    var Gelisim = [String]()
 
-    
 }

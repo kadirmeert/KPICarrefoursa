@@ -87,6 +87,7 @@ class ConfirmToOtpViewController: UIViewController, UITextFieldDelegate, Confirm
         request.httpMethod = "POST"
         request.httpBody = stringRequest.data(using: String.Encoding.utf8)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue( "Bearer \(User.mobilJWT)", forHTTPHeaderField: "Authorization")
         let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
             guard let data = data, error == nil else {
                 print("error=\(String(describing: error))")

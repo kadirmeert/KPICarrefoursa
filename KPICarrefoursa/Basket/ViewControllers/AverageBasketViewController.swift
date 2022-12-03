@@ -55,9 +55,13 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
     var basketCategory = BasketCategory()
     var hud = JGProgressHUD()
     let refreshControl = UIRefreshControl()
-    var selectedCiro = ""
+    var selectedCiro = 0.0
+    var selectedCategoryCiro = ""
     var selectedColor = ""
     var selectedInfo = ""
+    var selectedCategoryGelisim = ""
+    var selectedStoresGelisim = ""
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -208,17 +212,20 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
                 if json!["Success"] as? Int ?? 0 ==  0{
                     print("error")
                 } else if json!["Success"] as? Int ?? 0 == 1 {
-                    self.basketStores.Ciro = json!["AverageBasketByStores"]?.value(forKey: "Ciro") as? [Double] ?? [0.0]
-                    self.basketStores.AverageBasket = json!["AverageBasketByStores"]?.value(forKey: "AverageBasket") as? [String] ?? ["0.0"]
+//                    self.basketStores.Ciro = json!["AverageBasketByStores"]?.value(forKey: "Ciro") as? [Double] ?? [0.0]
+                    self.basketStores.AverageBasket = json!["AverageBasketByStores"]?.value(forKey: "AverageBasket") as? [Double] ?? [0.0]
                     self.basketStores.Stores = json!["AverageBasketByStores"]?.value(forKey: "Stores") as? [String] ?? ["0"]
                     self.basketStores.Oran = json!["AverageBasketByStores"]?.value(forKey: "Oran") as? [Double] ?? [0.0]
                     self.basketStores.ColorStores = json!["AverageBasketByStores"]?.value(forKey: "ColorStores") as? [String] ?? ["0"]
+                    self.basketStores.Gelisim = json!["AverageBasketByStores"]?.value(forKey: "Gelisim") as? [String] ?? ["0"]
+
                     
                     self.basketCategory.Ciro = json!["AverageBasketByCategory"]?.value(forKey: "Ciro") as? [Double] ?? [0.0]
                     self.basketCategory.AverageBasket = json!["AverageBasketByCategory"]?.value(forKey: "AverageBasket") as? [String] ?? ["0.0"]
                     self.basketCategory.CategoryBreakDown = json!["AverageBasketByCategory"]?.value(forKey: "CategoryBreakDown") as? [String] ?? ["0"]
                     self.basketStores.Last_Update =  json!["AverageBasketByCategory"]?.value(forKey: "Last_Update") as? [String] ?? [""]
                     self.basketCategory.ColorCategory = json!["AverageBasketByCategory"]?.value(forKey: "ColorCategory") as? [String] ?? ["0"]
+                    self.basketCategory.Gelisim = json!["AverageBasketByCategory"]?.value(forKey: "Gelisim") as? [String] ?? ["0"]
 
                     DispatchQueue.main.async {
                         self.hud.dismiss()
@@ -263,7 +270,7 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
         var entriesStores: [PieChartDataEntry] = Array()
         var entriesChannel: [PieChartDataEntry] = Array()
         for i in 0..<basketStores.Stores.count {
-            entriesStores.append(PieChartDataEntry(value: Double(self.basketStores.AverageBasket[i]) ?? 0.0, label: ""))
+            entriesStores.append(PieChartDataEntry(value: Double(self.basketStores.AverageBasket[i]), label: ""))
         }
         for i in 0..<basketCategory.CategoryBreakDown.count {
             entriesChannel.append(PieChartDataEntry(value: Double(self.basketCategory.AverageBasket[i]) ?? 0.0, label: ""))
@@ -542,7 +549,7 @@ extension AverageBasketViewController: UITableViewDelegate, UITableViewDataSourc
             }
             
             if self.basketStores.AverageBasket.count <= 1 {
-                self.selectedCiro = "0.0"
+                self.selectedCiro = 0.0
                 
             } else {
                 self.selectedCiro = self.basketStores.AverageBasket[indexPath.item]
@@ -552,10 +559,15 @@ extension AverageBasketViewController: UITableViewDelegate, UITableViewDataSourc
                 
             } else {
                 self.selectedInfo = self.basketStores.Stores[indexPath.item]
-
+            }
+            if self.basketStores.Gelisim.count <= 1 {
+                self.selectedStoresGelisim = ""
+                
+            } else {
+                self.selectedStoresGelisim = self.basketStores.Gelisim[indexPath.item]
             }
           
-            storeCell.prepareCell(info: selectedInfo , color: selectedColor, ciro: selectedCiro)
+            storeCell.prepareCell(info: selectedInfo , color: selectedColor, ciro: selectedCiro, gelisim: selectedStoresGelisim)
            
             cellToReturn = storeCell
             
@@ -571,20 +583,25 @@ extension AverageBasketViewController: UITableViewDelegate, UITableViewDataSourc
             }
             
             if self.basketCategory.AverageBasket.count <= 1 {
-                self.selectedCiro = "0.0"
+                self.selectedCategoryCiro = "0.0"
                 
             } else {
-                self.selectedCiro = self.basketCategory.AverageBasket[indexPath.item]
+                self.selectedCategoryCiro = self.basketCategory.AverageBasket[indexPath.item]
             }
             if self.basketCategory.CategoryBreakDown.count <= 1 {
                 self.selectedInfo = ""
                 
             } else {
                 self.selectedInfo = self.basketCategory.CategoryBreakDown[indexPath.item]
-
+            }
+            if self.basketCategory.Gelisim.count <= 1 {
+                self.selectedCategoryGelisim = ""
+                
+            } else {
+                self.selectedCategoryGelisim = self.basketCategory.Gelisim[indexPath.item]
             }
            
-            chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCiro)
+            chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCategoryCiro, gelisim: selectedCategoryGelisim)
          
             cellToReturn = chanelCell
         }

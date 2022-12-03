@@ -60,9 +60,9 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var yesterdayStoreView: UIView!
     @IBOutlet weak var yesterdayStoreLabel: UILabel!
     @IBOutlet weak var yesterdayStoreButton: UIButton!
-//    @IBOutlet weak var daytodayStoreView: UIView!
-//    @IBOutlet weak var daytodayStoreLabel: UILabel!
-//    @IBOutlet weak var daytodayStoreButton: UIButton!
+    //    @IBOutlet weak var daytodayStoreView: UIView!
+    //    @IBOutlet weak var daytodayStoreLabel: UILabel!
+    //    @IBOutlet weak var daytodayStoreButton: UIButton!
     @IBOutlet weak var weeklyStoreView: UIView!
     @IBOutlet weak var weeklyStoreLabel: UILabel!
     @IBOutlet weak var weeklyStoreButton: UIButton!
@@ -116,7 +116,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
     var netSalesCategory = Category()
     var hud = JGProgressHUD()
     let refreshControl = UIRefreshControl()
-//    let str: Array = [String]()
+    //    let str: Array = [String]()
     var years = "2021"
     let removeCharacters: Set<Character> = ["v", "s", "%", "K", "T", "L", " ", "B", "E"]
     var selectedColor = ""
@@ -126,7 +126,9 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
     var isPrice = 0.0
     var isprogress = ""
     var isGelisim = ""
-    
+    var selectedStoresGelisim = ""
+    var selectedChanelGelisim = ""
+
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareUI()
@@ -172,7 +174,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         //        hourlyStoreView.layer.cornerRadius = 12
         //        hourlyStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
         yesterdayStoreView.layer.cornerRadius = 12
-//        daytodayStoreView.layer.cornerRadius = 12
+        //        daytodayStoreView.layer.cornerRadius = 12
         weeklyStoreView.layer.cornerRadius = 12
         monthlyStoreView.layer.cornerRadius = 12
         yeartodateStoreView.layer.cornerRadius = 12
@@ -194,7 +196,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         self.progress2021.layer.cornerRadius = 5
         self.progress2022B.layer.cornerRadius = 5
         self.progress2022LE.layer.cornerRadius = 5
-
+        
     }
     
     @IBAction func switchValueDidChange(_ sender: UISwitch) {
@@ -227,26 +229,26 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                 self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
             }
             
-//            if daytodayStoreButton.isSelected == true {
-//
-//                if netSales2021Button.isSelected == true {
-//
-//                    self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
-//                    self.chartParameters = self.Parameters2021
-//                }
-//                if netSales2022BButton.isSelected == true {
-//                    self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
-//                    self.chartParameters = self.Parameters2022b
-//                }
-//                if netSales2022LEButton.isSelected == true {
-//                    self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
-//                    self.chartParameters = self.Parameters2022LE
-//                }
-//            self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
-//            self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
-//            self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
-//
-//            }
+            //            if daytodayStoreButton.isSelected == true {
+            //
+            //                if netSales2021Button.isSelected == true {
+            //
+            //                    self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+            //                    self.chartParameters = self.Parameters2021
+            //                }
+            //                if netSales2022BButton.isSelected == true {
+            //                    self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+            //                    self.chartParameters = self.Parameters2022b
+            //                }
+            //                if netSales2022LEButton.isSelected == true {
+            //                    self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
+            //                    self.chartParameters = self.Parameters2022LE
+            //                }
+            //            self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+            //            self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+            //            self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
+            //
+            //            }
             
             if weeklyStoreButton.isSelected == true {
                 
@@ -331,25 +333,25 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                 self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
                 self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
                 self.yesterdayStoreButton.isSelected = false
-
+                
             }
-//            if daytodayStoreButton.isSelected == true {
-//                if netSales2021Button.isSelected == true {
-//                    self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
-//                    self.chartParameters = self.Parameters2021
-//                }
-//                if netSales2022BButton.isSelected == true {
-//                    self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
-//                    self.chartParameters = self.Parameters2022b
-//                }
-//                if netSales2022LEButton.isSelected == true {
-//                    self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
-//                    self.chartParameters = self.Parameters2022LE
-//                }
-//                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
-//                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
-//                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
-//            }
+            //            if daytodayStoreButton.isSelected == true {
+            //                if netSales2021Button.isSelected == true {
+            //                    self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+            //                    self.chartParameters = self.Parameters2021
+            //                }
+            //                if netSales2022BButton.isSelected == true {
+            //                    self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+            //                    self.chartParameters = self.Parameters2022b
+            //                }
+            //                if netSales2022LEButton.isSelected == true {
+            //                    self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
+            //                    self.chartParameters = self.Parameters2022LE
+            //                }
+            //                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+            //                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+            //                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
+            //            }
             if weeklyStoreButton.isSelected == true {
                 if netSales2021Button.isSelected == true {
                     self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
@@ -469,23 +471,28 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                     print("error")
                 } else if json!["Success"] as? Int ?? 0 == 1 {
                     
-//                    self.netSalesCiro.Ciro = json!["NetSalesTurnover"]?.value(forKey: "Ciro") as? [String] ?? ["0"]
+                    //                    self.netSalesCiro.Ciro = json!["NetSalesTurnover"]?.value(forKey: "Ciro") as? [String] ?? ["0"]
                     self.netSalesCiro.Gelisim = json!["NetSalesTurnover"]?.value(forKey: "Gelisim") as? [String] ?? ["0"]
                     self.netSalesCiro.Last_Update =  json!["NetSalesTurnover"]?.value(forKey: "Last_Update") as? [String] ?? ["0"]
                     self.netSalesCiro.Total =  json!["NetSalesTurnover"]?.value(forKey: "Total") as? [String] ?? ["0"]
                     self.netSalesCiro.Fark =  json!["NetSalesTurnover"]?.value(forKey: "Fark") as? [String] ?? ["0"]
+                    self.netSalesCiro.ChartType = json!["NetSalesTurnover"]?.value(forKey: "ChartType") as? [String] ?? ["0"]
                     
                     self.netSalesStores.Ciro = json!["NetSalesByStores"]?.value(forKey: "Ciro") as? [String] ?? ["0"]
-                    self.netSalesStores.FiiliCiro = json!["NetSalesByStores"]?.value(forKey: "FiiliCiro") as? [String] ?? ["0"]
+                    self.netSalesStores.FiiliCiro = json!["NetSalesByStores"]?.value(forKey: "FiiliCiro") as? [Double] ?? [0.0]
                     self.netSalesStores.ColorStores = json!["NetSalesByStores"]?.value(forKey: "ColorStores") as? [String] ?? ["0"]
                     self.netSalesStores.Stores = json!["NetSalesByStores"]?.value(forKey: "Stores") as? [String] ?? ["0"]
                     self.netSalesStores.Last_Update = json!["NetSalesByStores"]?.value(forKey: "Last_Update") as? [String] ?? ["0"]
+                    self.netSalesStores.Gelisim = json!["NetSalesByStores"]?.value(forKey: "Gelisim") as? [String] ?? ["0"]
+
                     
                     self.netSalesChannel.FormatPNL = json!["NetSalesByChannel"]?.value(forKey: "FormatPNL") as? [String] ?? ["0"]
                     self.netSalesChannel.FiiliCiro = json!["NetSalesByChannel"]?.value(forKey: "FiiliCiro") as? [String] ?? ["0"]
                     self.netSalesChannel.Ciro = json!["NetSalesByChannel"]?.value(forKey: "Ciro") as? [String] ?? ["0"]
                     self.netSalesChannel.ColorChannels = json!["NetSalesByChannel"]?.value(forKey: "ColorChannels") as? [String] ?? ["0"]
                     self.netSalesChannel.Last_Update =  json!["NetSalesByChannel"]?.value(forKey: "Last_Update") as? [String] ?? ["0"]
+                    self.netSalesChannel.Gelisim =  json!["NetSalesByChannel"]?.value(forKey: "Gelisim") as? [String] ?? ["0"]
+
                     
                     self.netSalesFormat.Fark = json!["NetSalesByFormat"]?.value(forKey: "Fark") as? [String] ?? ["0"]
                     self.netSalesFormat.Ciro = json!["NetSalesByFormat"]?.value(forKey: "Ciro") as? [Double] ?? [0.0]
@@ -501,116 +508,156 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                     DispatchQueue.main.async {
                         self.hud.dismiss()
                         
-    
-                        for i in 0..<self.netSalesCiro.Gelisim.count {
+                        if self.netSalesCiro.Total.isEmpty {
+                            self.totalPrice.text = "Actual CSA Total 0 MTL"
                             
-                            if self.netSalesCiro.Total.isEmpty {
-                                self.totalPrice.text = "Actual CSA Total 0 MTL"
+                        } else {
+                            self.totalPrice.text = self.netSalesCiro.Total[0]
+                        }
+                        
+                        if self.netSalesStores.Last_Update.isEmpty {
+                            self.lastUpdateTİme.text = "00/00/000 00:00:00"
+                            
+                        } else {
+                            self.lastUpdateTİme.text = "Last Updated Time \(self.netSalesStores.Last_Update[0])"
+                        }
+                        
+                        
+                        
+                        if self.netSalesCiro.ChartType.count < 1 {
+                            self.MTL2021.text = "0"
+                            self.MTL2022B.text = "0"
+                            self.MTL2022LE.text = "0"
+                            self.percentage2021.text = "0"
+                            self.percentage2022B.text = "0"
+                            self.percentage2022LE.text = "0"
+                            self.progress2021.transform = CGAffineTransformMakeScale(1, 1)
+                            self.progress2021.setProgress(0.0, animated: false)
+                            self.progress2022B.transform = CGAffineTransformMakeScale(1, 1)
+                            self.progress2022B.setProgress(0.0, animated: false)
+                            self.progress2022LE.transform = CGAffineTransformMakeScale(1, 1)
+                            self.progress2022LE.setProgress(0.0, animated: false)
+                            
+                        } else {
+                            for i in 0..<self.netSalesCiro.Fark.count {
                                 
-                            } else {
-                                self.totalPrice.text = self.netSalesCiro.Total[0]
+                                let removeCharacters: Set<Character> = ["v", "s", " ", "%", "B"]
+                                self.netSalesCiro.Gelisim[i].removeAll(where: { removeCharacters.contains($0) } )
+                                if self.netSalesCiro.ChartType[i] == "2021" {
+                                    
+                                    if self.netSalesCiro.Gelisim.count < 1 {
+                                        self.percentage2021.text = "0"
+                                        self.progress2021.transform = CGAffineTransformMakeScale(1, 1)
+                                        self.progress2021.setProgress(0.0, animated: false)
+                                        
+                                    }
+                                    if self.netSalesCiro.Fark.count < 1 {
+                                        self.MTL2021.text = "0"
+                                        
+                                    } else {
+                                        if Double(self.netSalesCiro.Gelisim[i].dropLast(2)) ?? 0 >= 0.0 {
+                                            
+                                            self.percentage2021.text = "% \(self.netSalesCiro.Gelisim[i].dropLast(2))"
+                                            self.MTL2021.text = "\(self.netSalesCiro.Fark[i])"
+                                            
+                                            
+                                            self.sales2021İmage.image = UIImage(named: "Up")
+                                            self.MTL2021.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                                            self.percentage2021.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                                            
+                                        } else {
+                                            self.percentage2021.text = "% \(self.netSalesCiro.Gelisim[i].components(separatedBy: [" ", "-"]).joined().dropLast(2))"
+                                            self.MTL2021.text = "\(self.netSalesCiro.Fark[i].components(separatedBy: [" ", "-"]).joined())"
+                                            self.sales2021İmage.image = UIImage(named: "down")
+                                            self.MTL2021.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+                                            self.percentage2021.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+                                        }
+                                        self.progress2021.transform = CGAffineTransformMakeScale(1, 1)
+                                        self.progress2021.setProgress((Float(self.netSalesCiro.Gelisim[i].dropLast(2)) ?? 0.0) / 100, animated: false)
+                                    }
+                                }
+                                
+                                if self.netSalesCiro.ChartType[i] == "2022B" {
+                                    if self.netSalesCiro.Gelisim.count < 1 {
+                                        self.percentage2022B.text = "0"
+                                        self.progress2022B.transform = CGAffineTransformMakeScale(1, 1)
+                                        self.progress2022B.setProgress(0.0, animated: false)
+                                        
+                                    }
+                                    if self.netSalesCiro.Fark.count < 1 {
+                                        self.MTL2022B.text = "0"
+                                        
+                                    } else {
+                                        if Double(self.netSalesCiro.Gelisim[i].dropLast(2)) ?? 0 >= 0.0 {
+                                            self.percentage2022B.text = "% \(self.netSalesCiro.Gelisim[i].dropLast(2))"
+                                            
+                                            
+                                            self.MTL2022B.text = "\(self.netSalesCiro.Fark[i])"
+                                            
+                                            
+                                            self.sales2022Bİmage.image = UIImage(named: "Up")
+                                            self.MTL2022B.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                                            self.percentage2022B.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                                            
+                                        } else {
+                                            self.percentage2022B.text = "% \(self.netSalesCiro.Gelisim[i].components(separatedBy: [" ", "-"]).joined().dropLast(2))"
+                                            self.MTL2022B.text = "\(self.netSalesCiro.Fark[i].components(separatedBy: [" ", "-"]).joined())"
+                                            self.sales2022Bİmage.image = UIImage(named: "down")
+                                            self.MTL2022B.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+                                            self.percentage2022B.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+                                        }
+                                        self.progress2022B.transform = CGAffineTransformMakeScale(1, 1)
+                                        self.progress2022B.setProgress((Float(self.netSalesCiro.Gelisim[i].dropLast(2)) ?? 0.0) / 100, animated: false)
+                                    }
+                                }
+                                if self.netSalesCiro.ChartType[i] == "2022L" {
+                                    if self.netSalesCiro.Gelisim.count <= 1 {
+                                        self.percentage2022LE.text = "0"
+                                        self.progress2022LE.transform = CGAffineTransformMakeScale(1, 1)
+                                        self.progress2022LE.setProgress(0.0, animated: false)
+                                    }
+                                    if self.netSalesCiro.Fark.count < 1 {
+                                        self.MTL2022LE.text = "0"
+                                        
+                                    } else {
+                                        if Double(self.netSalesCiro.Gelisim[i].dropLast(2)) ?? 0 >= 0.0 {
+                                            
+                                            self.percentage2022LE.text = "% \(self.netSalesCiro.Gelisim[i].dropLast(2))"
+                                            
+                                            
+                                            self.MTL2022LE.text = "\(self.netSalesCiro.Fark[i])"
+                                            
+                                            self.sales2022LEimage.image = UIImage(named: "Up")
+                                            self.MTL2022LE.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                                            self.percentage2022LE.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                                            
+                                        } else {
+                                            if self.netSalesCiro.Gelisim.count <= 1 {
+                                                self.percentage2022LE.text = "0.0"
+                                            } else {
+                                                self.percentage2022LE.text = "% \(self.netSalesCiro.Gelisim[i].components(separatedBy: [" ", "-"]).joined().dropLast(2))"
+                                                
+                                            }
+                                            if self.netSalesCiro.Fark.count <= 1 {
+                                                self.MTL2022LE.text = "0"
+                                            } else {
+                                                self.MTL2022LE.text = "\(self.netSalesCiro.Fark[i].components(separatedBy: [" ", "-"]).joined())"
+                                                
+                                            }
+                                            self.sales2022LEimage.image = UIImage(named: "down")
+                                            self.MTL2022LE.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+                                            self.percentage2022LE.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+                                            
+                                        }
+                                        self.progress2022LE.transform = CGAffineTransformMakeScale(1, 1)
+                                        self.progress2022LE.setProgress((Float(self.netSalesCiro.Gelisim[i].dropLast(2)) ?? 0.0) / 100, animated: false)
+                                        
+                                    }
+                                }
+                                
                             }
                             
-                            if self.netSalesStores.Last_Update.isEmpty {
-                                self.lastUpdateTİme.text = "00/00/000 00:00:00"
-                                
-                            } else {
-                                self.lastUpdateTİme.text = "Last Updated Time \(self.netSalesStores.Last_Update[0])"
-                            }
-
-                            let removeCharacters: Set<Character> = ["v", "s", " ", "%", "B"]
-                            self.netSalesCiro.Gelisim[i].removeAll(where: { removeCharacters.contains($0) } )
                             
-                            if self.netSalesCiro.Gelisim.count == 1 {
-                                if Int(self.netSalesCiro.Gelisim[0].dropLast(2)) ?? 0 >= 0 {
-                                    self.percentage2021.text = "% \(self.netSalesCiro.Gelisim[0].dropLast(2))"
-                                    self.MTL2021.text = "\(self.netSalesCiro.Fark[0])"
-                                    self.sales2021İmage.image = UIImage(named: "Up")
-                                    self.MTL2021.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                                    self.percentage2021.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                                    
-                                } else {
-                                    self.percentage2021.text = "% \(self.netSalesCiro.Gelisim[0].components(separatedBy: [" ", "-"]).joined().dropLast(2))"
-                                    self.MTL2021.text = "\(self.netSalesCiro.Fark[0].components(separatedBy: [" ", "-"]).joined())"
-                                    self.sales2021İmage.image = UIImage(named: "down")
-                                    self.MTL2021.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                                    self.percentage2021.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                                } }
-                            if self.netSalesCiro.Gelisim.count == 2 {
-                                
-                                if Int(self.netSalesCiro.Gelisim[0].dropLast(2)) ?? 0 >= 0 {
-                                    self.percentage2021.text = "% \(self.netSalesCiro.Gelisim[0].dropLast(2))"
-                                    self.MTL2021.text = "\(self.netSalesCiro.Fark[0]) "
-                                    self.sales2021İmage.image = UIImage(named: "Up")
-                                    self.MTL2021.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                                    self.percentage2021.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                                    
-                                } else {
-                                    self.percentage2021.text = "% \(self.netSalesCiro.Gelisim[0].components(separatedBy: [" ", "-"]).joined().dropLast(2))"
-                                    self.MTL2021.text = "\(self.netSalesCiro.Fark[0].components(separatedBy: [" ", "-"]).joined())"
-                                    self.sales2021İmage.image = UIImage(named: "down")
-                                    self.MTL2021.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                                    self.percentage2021.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                                }
-                                if Int(self.netSalesCiro.Gelisim[1].dropLast(2)) ?? 0 >= 0 {
-                                    self.percentage2022B.text = "% \(self.netSalesCiro.Gelisim[1].trimmingCharacters(in: ["-"]).dropLast(2))"
-                                    self.MTL2022B.text = "\(self.netSalesCiro.Fark[1])"
-                                    self.sales2022Bİmage.image = UIImage(named: "Up")
-                                    self.MTL2022B.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                                    self.percentage2022B.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                                    
-                                } else {
-                                    self.percentage2022B.text = "% \(self.netSalesCiro.Gelisim[1].components(separatedBy: [" ", "-"]).joined().dropLast(2))"
-                                    self.MTL2022B.text = "\(self.netSalesCiro.Fark[1].components(separatedBy: [" ", "-"]).joined())"
-                                    self.sales2022Bİmage.image = UIImage(named: "down")
-                                    self.MTL2022B.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                                    self.percentage2022B.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                                }
-                            }
-                            if self.netSalesCiro.Gelisim.count == 3 {
-                                if Int(self.netSalesCiro.Gelisim[0].dropLast(2)) ?? 0 >= 0 {
-                                    self.percentage2021.text = "% \(self.netSalesCiro.Gelisim[0].dropLast(2))"
-                                    self.MTL2021.text = "\(self.netSalesCiro.Fark[0])"
-                                    self.sales2021İmage.image = UIImage(named: "Up")
-                                    self.MTL2021.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                                    self.percentage2021.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                                    
-                                } else {
-                                    self.percentage2021.text = "% \(self.netSalesCiro.Gelisim[0].components(separatedBy: [" ", "-"]).joined().dropLast(2))"
-                                    self.MTL2021.text = "\(self.netSalesCiro.Fark[0].components(separatedBy: [" ", "-"]).joined())"
-                                    self.sales2021İmage.image = UIImage(named: "down")
-                                    self.MTL2021.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                                    self.percentage2021.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                                }
-                                if Int(self.netSalesCiro.Gelisim[1].dropLast(2)) ?? 0 >= 0 {
-                                    self.percentage2022B.text = "% \(self.netSalesCiro.Gelisim[1].dropLast(2))"
-                                    self.MTL2022B.text = "\(self.netSalesCiro.Fark[1])"
-                                    self.sales2022Bİmage.image = UIImage(named: "Up")
-                                    self.MTL2022B.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                                    self.percentage2022B.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                                    
-                                } else {
-                                    self.percentage2022B.text = "% \(self.netSalesCiro.Gelisim[1].components(separatedBy: [" ", "-"]).joined().dropLast(2))"
-                                    self.MTL2022B.text = "\(self.netSalesCiro.Fark[1].components(separatedBy: [" ", "-"]).joined())"
-                                    self.sales2022Bİmage.image = UIImage(named: "down")
-                                    self.MTL2022B.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                                    self.percentage2022B.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                                }
-                                if Int(self.netSalesCiro.Gelisim[2].dropLast(2)) ?? 0 >= 0 {
-                                    self.percentage2022LE.text = "% \(self.netSalesCiro.Gelisim[2].dropLast(2))"
-                                    self.MTL2022LE.text = "\(self.netSalesCiro.Fark[2])"
-                                    self.sales2022LEimage.image = UIImage(named: "Up")
-                                    self.MTL2022LE.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                                    self.percentage2022LE.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                                    
-                                } else {
-                                    self.percentage2022LE.text = "% \(self.netSalesCiro.Gelisim[2].components(separatedBy: [" ", "-"]).joined().dropLast(2))"
-                                    self.MTL2022LE.text = "\(self.netSalesCiro.Fark[2].components(separatedBy: [" ", "-"]).joined())"
-                                    self.sales2022LEimage.image = UIImage(named: "down")
-                                    self.MTL2022LE.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                                    self.percentage2022LE.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                                }
-                            }
                         }
                         
                         //MARK: CATEGORY
@@ -635,9 +682,9 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                             
                         } else {
                             for index in 0..<self.netSalesCategory.CategoryBreakDown.count {
-                                let removeCharactersGelisim: Set<Character> = ["v", "s", "%", "K", "T", "L", " ", "M", "B"]
+                                let removeCharactersGelisim: Set<Character> = ["%", "K", "T", "L", " ", "M", "B"]
                                 self.netSalesCategory.Gelisim[index].removeAll(where: { removeCharactersGelisim.contains($0) } )
-//                                self.netSalesCategory.Fark[index].removeAll(where: { removeCharactersGelisim.contains($0) } )
+                                //                                self.netSalesCategory.Fark[index].removeAll(where: { removeCharactersGelisim.contains($0) } )
                                 
                                 if self.netSalesCategory.CategoryBreakDown[index] == "FMCG" {
                                     if self.netSalesCategory.Fark.count <= 1 {
@@ -659,11 +706,11 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                                 self.fmcgİmage.image = UIImage(named: "down")
                                                 self.fmcgPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                             }
-                                            self.fmcgProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())".dropLast(2)) ?? 0.0)"
-                                            if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
+                                            self.fmcgProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())") ?? 0.0)"
+                                            if CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0 > 1.0 {
                                                 self.fmcgProgress.setProgress(progress: 1.0, animated: false)
                                             } else {
-                                                self.fmcgProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
+                                                self.fmcgProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0, animated: false)
                                                 
                                             }
                                         }
@@ -690,11 +737,11 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                                 self.freshFoodİmage.image = UIImage(named: "down")
                                                 self.freshFoodPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                             }
-                                            self.freshFoodProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())".dropLast(2)) ?? 0.0)"
-                                            if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
+                                            self.freshFoodProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())") ?? 0.0)"
+                                            if CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0 > 1.0 {
                                                 self.freshFoodProgress.setProgress(progress: 1.0, animated: false)
                                             } else {
-                                                self.freshFoodProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
+                                                self.freshFoodProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0, animated: false)
                                                 
                                             }
                                         }
@@ -721,11 +768,11 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                                 self.homeİmage.image = UIImage(named: "down")
                                                 self.homePercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                             }
-                                            self.homeProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())".dropLast(2)) ?? 0.0)"
-                                            if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
+                                            self.homeProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())") ?? 0.0)"
+                                            if CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0 > 1.0 {
                                                 self.homeProgress.setProgress(progress: 1.0, animated: false)
                                             } else {
-                                                self.homeProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
+                                                self.homeProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0, animated: false)
                                                 
                                             }
                                         }
@@ -751,11 +798,11 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                                 self.textfileİmage.image = UIImage(named: "down")
                                                 self.textfilePercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                             }
-                                            self.textileProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())".dropLast(2)) ?? 0.0)"
-                                            if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
+                                            self.textileProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())") ?? 0.0)"
+                                            if CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0 > 1.0 {
                                                 self.textileProgress.setProgress(progress: 1.0, animated: false)
                                             } else {
-                                                self.textileProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
+                                                self.textileProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0, animated: false)
                                                 
                                             }
                                         }
@@ -781,11 +828,11 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                                 self.electronicİmage.image = UIImage(named: "down")
                                                 self.electronicPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                             }
-                                            self.electronicProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())".dropLast(2)) ?? 0.0)"
-                                            if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
+                                            self.electronicProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())") ?? 0.0)"
+                                            if CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0 > 1.0 {
                                                 self.electronicProgress.setProgress(progress: 1.0, animated: false)
                                             } else {
-                                                self.electronicProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
+                                                self.electronicProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0, animated: false)
                                                 
                                             }
                                         }
@@ -811,11 +858,11 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                                 self.otherİmage.image = UIImage(named: "down")
                                                 self.otherPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                             }
-                                            self.otherProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())".dropLast(2)) ?? 0.0)"
-                                            if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
+                                            self.otherProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())") ?? 0.0)"
+                                            if CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0 > 1.0 {
                                                 self.otherProgress.setProgress(progress: 1.0, animated: false)
                                             } else {
-                                                self.otherProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
+                                                self.otherProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0, animated: false)
                                                 
                                             }
                                         }
@@ -841,11 +888,11 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                                 self.foodİmage.image = UIImage(named: "down")
                                                 self.foodPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                             }
-                                            self.foodProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())".dropLast(2)) ?? 0.0)"
-                                            if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
+                                            self.foodProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())") ?? 0.0)"
+                                            if CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0 > 1.0 {
                                                 self.foodProgress.setProgress(progress: 1.0, animated: false)
                                             } else {
-                                                self.foodProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
+                                                self.foodProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0, animated: false)
                                                 
                                             }
                                         }
@@ -871,11 +918,11 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                                 self.nonFoodİmage.image = UIImage(named: "down")
                                                 self.nonFoodPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                             }
-                                            self.nonFoodProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())".dropLast(2)) ?? 0.0)"
-                                            if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
+                                            self.nonFoodProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())") ?? 0.0)"
+                                            if CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0 > 1.0 {
                                                 self.nonFoodProgress.setProgress(progress: 1.0, animated: false)
                                             } else {
-                                                self.nonFoodProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
+                                                self.nonFoodProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0, animated: false)
                                                 
                                             }
                                         }
@@ -885,298 +932,6 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                         }
                         
                         
-//                        for index in 0..<self.netSalesCategory.Fark.count {
-//
-//                            let removeCharactersGelisim: Set<Character> = ["v", "s", "%", "K", "T", "L", " ", "M"]
-//                            self.netSalesCategory.Gelisim[index].removeAll(where: { removeCharactersGelisim.contains($0) } )
-//                            self.netSalesCategory.Fark[index].removeAll(where: { removeCharactersGelisim.contains($0) } )
-//
-//                            if self.netSalesCategory.Fark[index] == "0" {
-//
-//                                if self.netSalesCategory.CategoryBreakDown[index] == "FMCG" {
-//                                    self.fmcgProgress.percentLabelFormat = "\(self.netSalesCategory.Gelisim[index])"
-//                                    self.fmcgPercLabel.text = "0"
-//                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
-//                                        self.fmcgProgress.setProgress(progress: 1.0, animated: false)
-//                                    } else {
-//                                        self.fmcgProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
-//
-//                                    }
-//                                }
-//
-//                                if self.netSalesCategory.CategoryBreakDown[index] == "Fresh Food" {
-//                                    self.freshFoodProgress.percentLabelFormat = "\(self.netSalesCategory.Gelisim[index])"
-//                                    self.freshFoodPercLabel.text = "0"
-//                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
-//                                        self.freshFoodProgress.setProgress(progress: 1.0, animated: false)
-//                                    } else {
-//                                        self.freshFoodProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
-//
-//                                    }
-//                                }
-//
-//                                if self.netSalesCategory.CategoryBreakDown[index] == "Home" {
-//                                    self.homeProgress.percentLabelFormat = "\(self.netSalesCategory.Gelisim[index])"
-//                                    self.homePercLabel.text = "0"
-//                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
-//                                        self.homeProgress.setProgress(progress: 1.0, animated: false)
-//                                    } else {
-//                                        self.homeProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
-//
-//                                    }
-//                                }
-//
-//                                if self.netSalesCategory.CategoryBreakDown[index] == "Textile" {
-//                                    self.textileProgress.percentLabelFormat = String(self.netSalesCategory.Gelisim[index].dropLast(2))
-//                                    self.textfilePercLabel.text = "0"
-//                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
-//                                        self.textileProgress.setProgress(progress: 1.0, animated: false)
-//                                    } else {
-//                                        self.textileProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
-//
-//                                    }
-//                                }
-//
-//                                if self.netSalesCategory.CategoryBreakDown[index] == "Electronics" {
-//                                    self.electronicProgress.percentLabelFormat = "\(self.netSalesCategory.Gelisim[index])"
-//                                    self.electronicPercLabel.text = "0"
-//                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
-//                                        self.electronicProgress.setProgress(progress: 1.0, animated: false)
-//                                    } else {
-//                                        self.electronicProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
-//
-//                                    }
-//                                }
-//
-//                                if self.netSalesCategory.CategoryBreakDown[index] == "Other" {
-//                                    self.otherProgress.percentLabelFormat = "\(self.netSalesCategory.Gelisim[index].dropLast(2))"
-//                                    self.otherPercLabel.text = "0.0"
-//                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
-//                                        self.otherProgress.setProgress(progress: 1.0, animated: false)
-//                                    } else {
-//                                        self.otherProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
-//
-//                                    }
-//                                }
-//
-//                                if self.netSalesCategory.CategoryBreakDown[index] == "Food" {
-//                                    self.foodProgress.percentLabelFormat = "\(self.netSalesCategory.Gelisim[index])"
-//                                    self.foodPercLabel.text = "0.0"
-//                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
-//                                        self.foodProgress.setProgress(progress: 1.0, animated: false)
-//                                    } else {
-//                                        self.foodProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
-//
-//                                    }
-//                                }
-//
-//                                if self.netSalesCategory.CategoryBreakDown[index] == "Non-Food" {
-//                                    self.nonFoodProgress.percentLabelFormat = "\(self.netSalesCategory.Gelisim[index])"
-//                                    self.nonFoodPercLabel.text = "0.0"
-//                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
-//                                        self.nonFoodProgress.setProgress(progress: 1.0, animated: false)
-//                                    } else {
-//                                        self.nonFoodProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
-//
-//                                    }
-//                                }
-//
-//                            } else {
-//
-//                                let removeCharactersFormat: Set<Character> = ["v", "s", "%", "K", "T", "L", " "]
-//                                self.netSalesCategory.Gelisim[index].removeAll(where: { removeCharactersFormat.contains($0) } )
-//
-//                                if self.netSalesCategory.CategoryBreakDown[index] == "FMCG" {
-//                                    if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M"]).joined().toDouble > 0.0 {
-//
-//                                        self.fmcgPercLabel.text = self.netSalesCategory.Fark[index]
-//                                        self.fmcgİmage.image = UIImage(named: "Up")
-//                                        self.fmcgPercLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-//                                    } else {
-//                                        self.fmcgPercLabel.text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
-//                                        self.fmcgİmage.image = UIImage(named: "down")
-//                                        self.fmcgPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-//                                    }
-//                                    self.fmcgProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())".dropLast(2)) ?? 0.0)"
-//                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
-//                                        self.fmcgProgress.setProgress(progress: 1.0, animated: false)
-//                                    } else {
-//                                        self.fmcgProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
-//
-//                                    }                                }
-//
-//                                if self.netSalesCategory.CategoryBreakDown[index] == "Fresh Food" {
-//                                    if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M"]).joined().toDouble > 0.0 {
-//
-//                                        self.freshFoodPercLabel.text = self.netSalesCategory.Fark[index]
-//                                        self.freshFoodİmage.image = UIImage(named: "Up")
-//                                        self.freshFoodPercLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-//
-//                                    } else {
-//                                        self.freshFoodPercLabel.text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
-//                                        self.freshFoodİmage.image = UIImage(named: "down")
-//                                        self.freshFoodPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-//                                    }
-//                                    self.freshFoodProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())".dropLast(2)) ?? 0.0)"
-//                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
-//                                        self.freshFoodProgress.setProgress(progress: 1.0, animated: false)
-//                                    } else {
-//                                        self.freshFoodProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
-//
-//                                    }
-//                                }
-//
-//                                if self.netSalesCategory.CategoryBreakDown[index] == "Home" {
-//                                    if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M"]).joined().toDouble > 0.0 {
-//
-//                                        self.homePercLabel.text = self.netSalesCategory.Fark[index]
-//                                        self.homeİmage.image = UIImage(named: "Up")
-//                                        self.homePercLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-//
-//                                    } else {
-//                                        self.homePercLabel.text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
-//                                        self.homeİmage.image = UIImage(named: "down")
-//                                        self.homePercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-//                                    }
-//
-//                                    self.homeProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())".dropLast(2)) ?? 0.0)"
-//                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
-//                                        self.homeProgress.setProgress(progress: 1.0, animated: false)
-//                                    } else {
-//                                        self.homeProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
-//
-//                                    }                                }
-//
-//                                if self.netSalesCategory.CategoryBreakDown[index] == "Textile" {
-//                                    if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M"]).joined().toDouble > 0.0 {
-//
-//                                        self.textfilePercLabel.text = self.netSalesCategory.Fark[index]
-//                                        self.textfileİmage.image = UIImage(named: "Up")
-//                                        self.textfilePercLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-//                                    } else {
-//                                        self.textfilePercLabel.text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
-//                                        self.textfileİmage.image = UIImage(named: "down")
-//                                        self.textfilePercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-//                                    }
-//
-//                                    self.textileProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())".dropLast(2)) ?? 0.0)"
-//                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
-//                                        self.textileProgress.setProgress(progress: 1.0, animated: false)
-//                                    } else {
-//                                        self.textileProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
-//
-//                                    }
-//                                }
-//
-//                                if self.netSalesCategory.CategoryBreakDown[index] == "Electronic" {
-//                                    if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M"]).joined().toDouble > 0.0 {
-//
-//                                        self.electronicPercLabel.text = self.netSalesCategory.Fark[index]
-//                                        self.electronicİmage.image = UIImage(named: "Up")
-//                                        self.electronicPercLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-//
-//                                    } else {
-//                                        self.electronicPercLabel.text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
-//                                        self.electronicİmage.image = UIImage(named: "down")
-//                                        self.electronicPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-//                                    }
-//
-//                                    self.electronicProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())".dropLast(2)) ?? 0.0)"
-//                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
-//                                        self.electronicProgress.setProgress(progress: 1.0, animated: false)
-//                                    } else {
-//                                        self.electronicProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
-//
-//                                    }
-//                                }
-//
-//                                if self.netSalesCategory.CategoryBreakDown[index] == "Other" {
-//                                    if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M"]).joined().toDouble > 0.0 {
-//
-//                                        self.otherPercLabel.text = self.netSalesCategory.Fark[index]
-//                                        self.otherİmage.image = UIImage(named: "Up")
-//                                        self.otherPercLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-//
-//                                    } else {
-//                                        self.otherPercLabel.text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
-//                                        self.otherİmage.image = UIImage(named: "down")
-//                                        self.otherPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-//                                    }
-//
-//                                    self.otherProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())".dropLast(2)) ?? 0.0)"
-//                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
-//                                        self.otherProgress.setProgress(progress: 1.0, animated: false)
-//                                    } else {
-//                                        self.otherProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
-//
-//                                    }
-//                                }
-//                                if self.netSalesCategory.CategoryBreakDown[index] == "\("Food")" {
-//                                    if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M"]).joined().toDouble > 0.0 {
-//
-//                                        self.foodPercLabel.text = self.netSalesCategory.Fark[index]
-//                                        self.foodİmage.image = UIImage(named: "Up")
-//                                        self.foodPercLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-//                                    } else {
-//                                        self.foodPercLabel.text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
-//                                        self.foodİmage.image = UIImage(named: "down")
-//                                        self.foodPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-//                                    }
-//
-//                                    self.foodProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())".dropLast(2)) ?? 0.0)"
-//
-//                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
-//                                        self.foodProgress.setProgress(progress: 1.0, animated: false)
-//                                    } else {
-//                                        self.foodProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
-//
-//                                    }
-//                                }
-//
-//                                if self.netSalesCategory.CategoryBreakDown[index] == "Non-Food" {
-//                                    if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M"]).joined().toDouble > 0.0 {
-//
-//                                        self.nonFoodPercLabel.text = self.netSalesCategory.Fark[index]
-//                                        self.nonFoodİmage.image = UIImage(named: "Up")
-//                                        self.nonFoodPercLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-//                                    } else {
-//                                        self.nonFoodPercLabel.text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
-//                                        self.nonFoodİmage.image = UIImage(named: "down")
-//                                        self.nonFoodPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-//                                    }
-//
-//                                    self.nonFoodProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())".dropLast(2)) ?? 0.0)"
-//
-//                                    if CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0 > 1.0 {
-//                                        self.nonFoodProgress.setProgress(progress: 1.0, animated: false)
-//                                    } else {
-//                                        self.nonFoodProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index].dropLast(2)) ?? 0.0)) / 100.0, animated: false)
-//
-//                                    }
-//                                }
-//                            }
-//                        }
-                        
-                        
-                        if self.netSalesCiro.Gelisim.count == 1 {
-                            self.progress2021.transform = CGAffineTransformMakeScale(1, 1)
-                            self.progress2021.setProgress((Float(self.netSalesCiro.Gelisim[0].dropLast(2)) ?? 0.0) / 100, animated: false)
-                            
-                        }
-                        else if self.netSalesCiro.Gelisim.count == 2 {
-                            self.progress2021.transform = CGAffineTransformMakeScale(1, 1)
-                            self.progress2021.setProgress((Float(self.netSalesCiro.Gelisim[0].dropLast(2)) ?? 0.0) / 100, animated: false)
-                            self.progress2022B.transform = CGAffineTransformMakeScale(1, 1)
-                            self.progress2022B.setProgress((Float(self.netSalesCiro.Gelisim[1].dropLast(2)) ?? 0.0) / 100 , animated: false)
-                        }
-                        else if self.netSalesCiro.Gelisim.count == 3 {
-                            self.progress2021.transform = CGAffineTransformMakeScale(1, 1)
-                            self.progress2021.setProgress((Float(self.netSalesCiro.Gelisim[0].dropLast(2)) ?? 0.0) / 100, animated: false)
-                            self.progress2022B.transform = CGAffineTransformMakeScale(1, 1)
-                            self.progress2022B.setProgress((Float(self.netSalesCiro.Gelisim[1].dropLast(2)) ?? 0.0) / 100 , animated: false)
-                            self.progress2022LE.transform = CGAffineTransformMakeScale(1, 1)
-                            self.progress2022LE.setProgress((Float(self.netSalesCiro.Gelisim[2].dropLast(2)) ?? 0.0) / 100 , animated: false)
-                        }
                         
                         self.setupPieChart()
                         self.storesTableView.reloadData()
@@ -1213,7 +968,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         var entriesStores: [PieChartDataEntry] = Array()
         var entriesChannel: [PieChartDataEntry] = Array()
         for i in 0..<netSalesStores.FiiliCiro.count {
-            entriesStores.append(PieChartDataEntry(value: Double(netSalesStores.FiiliCiro[i]) ?? 0.0, label: "" ))
+            entriesStores.append(PieChartDataEntry(value: Double(netSalesStores.FiiliCiro[i]), label: "" ))
         }
         for i in 0..<netSalesChannel.FiiliCiro.count {
             entriesChannel.append(PieChartDataEntry(value: Double(netSalesChannel.FiiliCiro[i]) ?? 0.0, label: "" ))
@@ -1319,7 +1074,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
     @IBAction func yesterdayBtnPressed(_ sender: Any) {
         //        hourlyStoreButton.isSelected = false
         yesterdayStoreButton.isSelected = true
-//        daytodayStoreButton.isSelected = false
+        //        daytodayStoreButton.isSelected = false
         weeklyStoreButton.isSelected = false
         monthlyStoreButton.isSelected = false
         yeartodateStoreButton.isSelected = false
@@ -1383,8 +1138,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         //        self.hourlyStoreLabel.textColor = UIColor.white
         self.yesterdayStoreView.backgroundColor = UIColor.white
         self.yesterdayStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
-//        self.daytodayStoreView.backgroundColor = UIColor.clear
-//        self.daytodayStoreLabel.textColor = UIColor.white
+        //        self.daytodayStoreView.backgroundColor = UIColor.clear
+        //        self.daytodayStoreLabel.textColor = UIColor.white
         self.weeklyStoreView.backgroundColor = UIColor.clear
         self.weeklyStoreLabel.textColor = UIColor.white
         self.monthlyStoreView.backgroundColor = UIColor.clear
@@ -1393,80 +1148,80 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         self.yeartodateStoreLabel.textColor = UIColor.white
     }
     
-//    @IBAction func daytodayBtnPressed(_ sender: Any) {
-//        //        hourlyStoreButton.isSelected = false
-//        yesterdayStoreButton.isSelected = false
-//        daytodayStoreButton.isSelected = true
-//        weeklyStoreButton.isSelected = false
-//        monthlyStoreButton.isSelected = false
-//        yeartodateStoreButton.isSelected = false
-//        if netSalesSwitch.isOn == true {
-//            if netSales2021Button.isSelected == true {
-//                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
-//                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
-//                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
-//                self.chartParameters = self.Parameters2021
-//
-//            }
-//            if netSales2022BButton.isSelected == true {
-//                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
-//                self.chartParameters = self.Parameters2022b
-//
-//            }
-//            if netSales2022LEButton.isSelected == true {
-//                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
-//                self.chartParameters = self.Parameters2022LE
-//
-//            }
-//
-//        } else {
-//            if netSales2021Button.isSelected == true {
-//                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
-//                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
-//                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
-//                self.chartParameters = self.Parameters2021
-//
-//            }
-//            if netSales2022BButton.isSelected == true {
-//                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
-//                self.chartParameters = self.Parameters2022b
-//
-//            }
-//            if netSales2022LEButton.isSelected == true {
-//                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
-//                self.chartParameters = self.Parameters2022LE
-//            }
-//        }
-//
-//        if !self.netSalesCiro.Ciro.isEmpty {
-//            hud.textLabel.text = "Loading"
-//            hud.show(in: self.view)
-//            self.checkNetSales()
-//        }
-//        else {
-//            hud.textLabel.text = "Loading"
-//            hud.show(in: self.view)
-//            self.checkNetSales()
-//        }
-//        self.setupPieChart()
-//        //        self.hourlyStoreView.backgroundColor = UIColor.clear
-//        //        self.hourlyStoreLabel.textColor = UIColor.white
-//        self.yesterdayStoreView.backgroundColor = UIColor.clear
-//        self.yesterdayStoreLabel.textColor = UIColor.white
-//        self.daytodayStoreView.backgroundColor = UIColor.white
-//        self.daytodayStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
-//        self.weeklyStoreView.backgroundColor = UIColor.clear
-//        self.weeklyStoreLabel.textColor = UIColor.white
-//        self.monthlyStoreView.backgroundColor = UIColor.clear
-//        self.monthlyStoreLabel.textColor = UIColor.white
-//        self.yeartodateStoreView.backgroundColor = UIColor.clear
-//        self.yeartodateStoreLabel.textColor = UIColor.white
-//    }
+    //    @IBAction func daytodayBtnPressed(_ sender: Any) {
+    //        //        hourlyStoreButton.isSelected = false
+    //        yesterdayStoreButton.isSelected = false
+    //        daytodayStoreButton.isSelected = true
+    //        weeklyStoreButton.isSelected = false
+    //        monthlyStoreButton.isSelected = false
+    //        yeartodateStoreButton.isSelected = false
+    //        if netSalesSwitch.isOn == true {
+    //            if netSales2021Button.isSelected == true {
+    //                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+    //                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+    //                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
+    //                self.chartParameters = self.Parameters2021
+    //
+    //            }
+    //            if netSales2022BButton.isSelected == true {
+    //                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+    //                self.chartParameters = self.Parameters2022b
+    //
+    //            }
+    //            if netSales2022LEButton.isSelected == true {
+    //                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
+    //                self.chartParameters = self.Parameters2022LE
+    //
+    //            }
+    //
+    //        } else {
+    //            if netSales2021Button.isSelected == true {
+    //                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+    //                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+    //                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
+    //                self.chartParameters = self.Parameters2021
+    //
+    //            }
+    //            if netSales2022BButton.isSelected == true {
+    //                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+    //                self.chartParameters = self.Parameters2022b
+    //
+    //            }
+    //            if netSales2022LEButton.isSelected == true {
+    //                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
+    //                self.chartParameters = self.Parameters2022LE
+    //            }
+    //        }
+    //
+    //        if !self.netSalesCiro.Ciro.isEmpty {
+    //            hud.textLabel.text = "Loading"
+    //            hud.show(in: self.view)
+    //            self.checkNetSales()
+    //        }
+    //        else {
+    //            hud.textLabel.text = "Loading"
+    //            hud.show(in: self.view)
+    //            self.checkNetSales()
+    //        }
+    //        self.setupPieChart()
+    //        //        self.hourlyStoreView.backgroundColor = UIColor.clear
+    //        //        self.hourlyStoreLabel.textColor = UIColor.white
+    //        self.yesterdayStoreView.backgroundColor = UIColor.clear
+    //        self.yesterdayStoreLabel.textColor = UIColor.white
+    //        self.daytodayStoreView.backgroundColor = UIColor.white
+    //        self.daytodayStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
+    //        self.weeklyStoreView.backgroundColor = UIColor.clear
+    //        self.weeklyStoreLabel.textColor = UIColor.white
+    //        self.monthlyStoreView.backgroundColor = UIColor.clear
+    //        self.monthlyStoreLabel.textColor = UIColor.white
+    //        self.yeartodateStoreView.backgroundColor = UIColor.clear
+    //        self.yeartodateStoreLabel.textColor = UIColor.white
+    //    }
     
     @IBAction func weeklyBtnPressed(_ sender: Any) {
         //        hourlyStoreButton.isSelected = false
         yesterdayStoreButton.isSelected = false
-//        daytodayStoreButton.isSelected = false
+        //        daytodayStoreButton.isSelected = false
         weeklyStoreButton.isSelected = true
         monthlyStoreButton.isSelected = false
         yeartodateStoreButton.isSelected = false
@@ -1531,8 +1286,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         //        self.hourlyStoreLabel.textColor = UIColor.white
         self.yesterdayStoreView.backgroundColor = UIColor.clear
         self.yesterdayStoreLabel.textColor = UIColor.white
-//        self.daytodayStoreView.backgroundColor = UIColor.clear
-//        self.daytodayStoreLabel.textColor = UIColor.white
+        //        self.daytodayStoreView.backgroundColor = UIColor.clear
+        //        self.daytodayStoreLabel.textColor = UIColor.white
         self.weeklyStoreView.backgroundColor = UIColor.white
         self.weeklyStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
         self.monthlyStoreView.backgroundColor = UIColor.clear
@@ -1544,7 +1299,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
     @IBAction func monthlyBtnPressed(_ sender: Any) {
         //        hourlyStoreButton.isSelected = false
         yesterdayStoreButton.isSelected = false
-//        daytodayStoreButton.isSelected = false
+        //        daytodayStoreButton.isSelected = false
         weeklyStoreButton.isSelected = false
         monthlyStoreButton.isSelected = true
         yeartodateStoreButton.isSelected = false
@@ -1608,8 +1363,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         //        self.hourlyStoreLabel.textColor = UIColor.white
         self.yesterdayStoreView.backgroundColor = UIColor.clear
         self.yesterdayStoreLabel.textColor = UIColor.white
-//        self.daytodayStoreView.backgroundColor = UIColor.clear
-//        self.daytodayStoreLabel.textColor = UIColor.white
+        //        self.daytodayStoreView.backgroundColor = UIColor.clear
+        //        self.daytodayStoreLabel.textColor = UIColor.white
         self.weeklyStoreView.backgroundColor = UIColor.clear
         self.weeklyStoreLabel.textColor = UIColor.white
         self.monthlyStoreView.backgroundColor = UIColor.white
@@ -1621,7 +1376,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
     @IBAction func yeartodateBtnPressed(_ sender: Any) {
         //        hourlyStoreButton.isSelected = false
         yesterdayStoreButton.isSelected = false
-//        daytodayStoreButton.isSelected = false
+        //        daytodayStoreButton.isSelected = false
         weeklyStoreButton.isSelected = false
         monthlyStoreButton.isSelected = false
         yeartodateStoreButton.isSelected = true
@@ -1683,8 +1438,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         //        self.hourlyStoreLabel.textColor = UIColor.white
         self.yesterdayStoreView.backgroundColor = UIColor.clear
         self.yesterdayStoreLabel.textColor = UIColor.white
-//        self.daytodayStoreView.backgroundColor = UIColor.clear
-//        self.daytodayStoreLabel.textColor = UIColor.white
+        //        self.daytodayStoreView.backgroundColor = UIColor.clear
+        //        self.daytodayStoreLabel.textColor = UIColor.white
         self.weeklyStoreView.backgroundColor = UIColor.clear
         self.weeklyStoreLabel.textColor = UIColor.white
         self.monthlyStoreView.backgroundColor = UIColor.clear
@@ -1812,8 +1567,14 @@ extension NetSalesViewController: UITableViewDelegate, UITableViewDataSource {
             } else {
                 self.selectedInfo = self.netSalesStores.Stores[indexPath.item]
             }
-            storeCell.prepareCell(info: selectedInfo , color: selectedColor, price: selectedPrice)
-         
+            if self.netSalesStores.Gelisim.count <= 1 {
+                self.selectedStoresGelisim = ""
+                
+            } else {
+                self.selectedStoresGelisim = self.netSalesStores.Gelisim[indexPath.item]
+            }
+            storeCell.prepareCell(info: selectedInfo , color: selectedColor, price: selectedPrice, gelisim: selectedStoresGelisim)
+            
             cellToReturn = storeCell
             
             
@@ -1840,8 +1601,14 @@ extension NetSalesViewController: UITableViewDelegate, UITableViewDataSource {
             } else {
                 self.selectedInfo = self.netSalesChannel.FormatPNL[indexPath.item]
             }
-            
-            chanelCell.prepareCell(info: selectedInfo, color: selectedColor, price: selectedPrice)
+            if self.netSalesChannel.Gelisim.count <= 1 {
+                self.selectedChanelGelisim = ""
+                
+            } else {
+                self.selectedChanelGelisim = self.netSalesChannel.Gelisim[indexPath.item]
+            }
+
+            chanelCell.prepareCell(info: selectedInfo, color: selectedColor, price: selectedPrice, gelisim: selectedChanelGelisim)
             
             cellToReturn = chanelCell
             
@@ -1888,7 +1655,7 @@ extension NetSalesViewController: UITableViewDelegate, UITableViewDataSource {
             let years = self.years
             formatCell.prepareCell(format: selectedFormat, color: selectedColor, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
             
-    
+            
             cellToReturn = formatCell
         }
         

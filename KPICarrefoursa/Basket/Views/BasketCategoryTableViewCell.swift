@@ -18,11 +18,11 @@ class BasketCategoryTableViewCell: UITableViewCell {
         self.basketCategoryİmageView.dropShadow(cornerRadius: self.basketCategoryİmageView.frame.height / 2)
 
     }
-    func prepareCell(info: String, color: String, ciro: String) {
+    func prepareCell(info: String, color: String, ciro: String, gelisim: String) {
         
     
         self.basketCategoryİmageView.backgroundColor = UIColor(hexString: color)
-        self.basketCategoryLabel.text = "\(info): \(ciro)₺"
+        self.basketCategoryLabel.text = "\(info): \(ciro)₺   \(gelisim.components(separatedBy: [" "]).joined())"
     
         }
 

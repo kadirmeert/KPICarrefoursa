@@ -18,10 +18,9 @@ class PriceStoresTableViewCell: UITableViewCell {
         self.priceStoresİmageView.dropShadow(cornerRadius: self.priceStoresİmageView.frame.height / 2)
 
     }
-    func prepareCell(info: String, color: String, ciro: Double) {
+    func prepareCell(info: String, color: String, ciro: Double, gelisim: String) {
         self.priceStoresİmageView.backgroundColor = UIColor(hexString: color)
-        self.priceStoresLabel.text = "\(info): \(ciro)₺"
-
+        self.priceStoresLabel.text = "\(info): \(ciro)₺   \(gelisim.components(separatedBy: [" "]).joined())"
     }
 
 }

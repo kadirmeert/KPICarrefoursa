@@ -18,10 +18,10 @@ class ProductStoresTableViewCell: UITableViewCell {
         self.productStoresİmageView.dropShadow(cornerRadius: self.productStoresİmageView.frame.height / 2)
 
     }
-    func prepareCell(info: String, color: String, product: String) {
+    func prepareCell(info: String, color: String, product: String, gelisim: String) {
     
             self.productStoresİmageView.backgroundColor = UIColor(hexString: color)
-        self.productStoresLabel.text = "\(info): \(product)"
+        self.productStoresLabel.text = "\(info): \(product)   \(gelisim.components(separatedBy: [" "]).joined())"
          
     
         }

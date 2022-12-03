@@ -10,9 +10,9 @@ import Foundation
 struct Stores {
     
     var Ciro = [String]()
-    var FiiliCiro = [String]()
+    var FiiliCiro = [Double]()
     var Stores = [String]()
     var ColorStores = [String]()
     var Last_Update = [String]()
-    
+    var Gelisim = [String]()
 }

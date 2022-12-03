@@ -15,5 +15,6 @@ struct Ciro {
     var Last_Update = [String]()
     var Total = [String]()
     var Fark = [String]()
+    var ChartType = [String]()
     
 }
