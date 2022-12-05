@@ -10,7 +10,6 @@ import Foundation
 struct Format {
     
     var Fark = [String]()
-    var Ciro = [Double]()
     var RevizeFormat = [String]()
     var Gelisim = [String]()
     var ColorFormat = [String]()

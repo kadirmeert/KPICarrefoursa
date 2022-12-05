@@ -26,10 +26,10 @@ class FormatTableViewCell: UITableViewCell {
         self.formatView.layer.cornerRadius = 4
         
     }
-    func prepareCell(format: String, color: String, percentage: String, price: Double, gelisim: String, years: String) {
+    func prepareCell(format: String, color: String, percentage: String, gelisim: String, years: String) {
         
         
-        if Double(gelisim.components(separatedBy: ["%"," "]).joined()) ?? 0.0 > 0.0 {
+        if Double(gelisim.components(separatedBy: ["%"," "]).joined()) ?? 0.0 >= 0.0 {
             self.formatPercView.text = gelisim.components(separatedBy: [" "]).joined()
             self.formatİmageView.image = UIImage(named: "Up")
             self.priceLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)

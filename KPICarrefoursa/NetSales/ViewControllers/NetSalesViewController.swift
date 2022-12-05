@@ -495,7 +495,6 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
 
                     
                     self.netSalesFormat.Fark = json!["NetSalesByFormat"]?.value(forKey: "Fark") as? [String] ?? ["0"]
-                    self.netSalesFormat.Ciro = json!["NetSalesByFormat"]?.value(forKey: "Ciro") as? [Double] ?? [0.0]
                     self.netSalesFormat.RevizeFormat = json!["NetSalesByFormat"]?.value(forKey: "RevizeFormat") as? [String] ?? ["0"]
                     self.netSalesFormat.Gelisim = json!["NetSalesByFormat"]?.value(forKey: "Gelisim") as? [String] ?? ["0"]
                     self.netSalesFormat.ColorFormat = json!["NetSalesByFormat"]?.value(forKey: "ColorFormat") as? [String] ?? ["0"]
@@ -696,7 +695,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                         
                                     } else {
                                         if self.netSalesCategory.CategoryBreakDown[index] == "FMCG" {
-                                            if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M","B"]).joined().toDouble > 0.0 {
+                                            if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M","B"]).joined().toDouble >= 0.0 {
                                                 
                                                 self.fmcgPercLabel.text = self.netSalesCategory.Fark[index]
                                                 self.fmcgİmage.image = UIImage(named: "Up")
@@ -727,7 +726,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                         
                                     } else {
                                         if self.netSalesCategory.CategoryBreakDown[index] == "Fresh Food" {
-                                            if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M", "B"]).joined().toDouble > 0.0 {
+                                            if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M", "B"]).joined().toDouble >= 0.0 {
                                                 
                                                 self.freshFoodPercLabel.text = self.netSalesCategory.Fark[index]
                                                 self.freshFoodİmage.image = UIImage(named: "Up")
@@ -758,7 +757,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                         
                                     } else {
                                         if self.netSalesCategory.CategoryBreakDown[index] == "Home" {
-                                            if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M", "B"]).joined().toDouble > 0.0 {
+                                            if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M", "B"]).joined().toDouble >= 0.0 {
                                                 
                                                 self.homePercLabel.text = self.netSalesCategory.Fark[index]
                                                 self.homeİmage.image = UIImage(named: "Up")
@@ -788,7 +787,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                         
                                     } else {
                                         if self.netSalesCategory.CategoryBreakDown[index] == "Textile" {
-                                            if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M", "B"]).joined().toDouble > 0.0 {
+                                            if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M", "B"]).joined().toDouble >= 0.0 {
                                                 
                                                 self.textfilePercLabel.text = self.netSalesCategory.Fark[index]
                                                 self.textfileİmage.image = UIImage(named: "Up")
@@ -818,7 +817,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                         
                                     } else {
                                         if self.netSalesCategory.CategoryBreakDown[index] == "Electronic" {
-                                            if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M", "B"]).joined().toDouble > 0.0 {
+                                            if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M", "B"]).joined().toDouble >= 0.0 {
                                                 
                                                 self.electronicPercLabel.text = self.netSalesCategory.Fark[index]
                                                 self.electronicİmage.image = UIImage(named: "Up")
@@ -848,7 +847,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                         
                                     } else {
                                         if self.netSalesCategory.CategoryBreakDown[index] == "Other" {
-                                            if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M", "B"]).joined().toDouble > 0.0 {
+                                            if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M", "B"]).joined().toDouble >= 0.0 {
                                                 
                                                 self.otherPercLabel.text = self.netSalesCategory.Fark[index]
                                                 self.otherİmage.image = UIImage(named: "Up")
@@ -878,7 +877,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                         
                                     } else {
                                         if self.netSalesCategory.CategoryBreakDown[index] == "Food" {
-                                            if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M", "B"]).joined().toDouble > 0.0 {
+                                            if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M", "B"]).joined().toDouble >= 0.0 {
                                                 
                                                 self.foodPercLabel.text = self.netSalesCategory.Fark[index]
                                                 self.foodİmage.image = UIImage(named: "Up")
@@ -908,7 +907,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                         
                                     } else {
                                         if self.netSalesCategory.CategoryBreakDown[index] == "Non-Food" {
-                                            if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M", "B"]).joined().toDouble > 0.0 {
+                                            if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M", "B"]).joined().toDouble >= 0.0 {
                                                 
                                                 self.nonFoodPercLabel.text = self.netSalesCategory.Fark[index]
                                                 self.nonFoodİmage.image = UIImage(named: "Up")
@@ -1628,14 +1627,6 @@ extension NetSalesViewController: UITableViewDelegate, UITableViewDataSource {
                 self.selectedFormat = self.netSalesFormat.RevizeFormat[indexPath.item]
             }
             
-            if self.netSalesFormat.Ciro.count <= 1 {
-                self.isPrice = 0.0
-                
-            } else {
-                self.isPrice = self.netSalesFormat.Ciro[indexPath.item]
-                
-            }
-            
             if self.netSalesFormat.Fark.count <= 1 {
                 self.isprogress = ""
                 
@@ -1653,7 +1644,7 @@ extension NetSalesViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             let years = self.years
-            formatCell.prepareCell(format: selectedFormat, color: selectedColor, percentage: isprogress, price: isPrice, gelisim: isGelisim, years: years)
+            formatCell.prepareCell(format: selectedFormat, color: selectedColor, percentage: isprogress, gelisim: isGelisim, years: years)
             
             
             cellToReturn = formatCell
