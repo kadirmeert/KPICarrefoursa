@@ -556,7 +556,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                     } else {
                                         if Double(self.netSalesCiro.Gelisim[i].dropLast(2)) ?? 0 >= 0.0 {
                                             
-                                            self.percentage2021.text = "% \(self.netSalesCiro.Gelisim[i].dropLast(2))"
+                                            self.percentage2021.text = "% \(self.netSalesCiro.Gelisim[i])"
                                             self.MTL2021.text = "\(self.netSalesCiro.Fark[i])"
                                             
                                             
@@ -565,7 +565,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                             self.percentage2021.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                             
                                         } else {
-                                            self.percentage2021.text = "% \(self.netSalesCiro.Gelisim[i].components(separatedBy: [" ", "-"]).joined().dropLast(2))"
+                                            self.percentage2021.text = "% \(self.netSalesCiro.Gelisim[i].components(separatedBy: [" ", "-"]).joined())"
                                             self.MTL2021.text = "\(self.netSalesCiro.Fark[i].components(separatedBy: [" ", "-"]).joined())"
                                             self.sales2021İmage.image = UIImage(named: "down")
                                             self.MTL2021.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
@@ -588,7 +588,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                         
                                     } else {
                                         if Double(self.netSalesCiro.Gelisim[i].dropLast(2)) ?? 0 >= 0.0 {
-                                            self.percentage2022B.text = "% \(self.netSalesCiro.Gelisim[i].dropLast(2))"
+                                            self.percentage2022B.text = "% \(self.netSalesCiro.Gelisim[i])"
                                             
                                             
                                             self.MTL2022B.text = "\(self.netSalesCiro.Fark[i])"
@@ -599,7 +599,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                             self.percentage2022B.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                             
                                         } else {
-                                            self.percentage2022B.text = "% \(self.netSalesCiro.Gelisim[i].components(separatedBy: [" ", "-"]).joined().dropLast(2))"
+                                            self.percentage2022B.text = "% \(self.netSalesCiro.Gelisim[i].components(separatedBy: [" ", "-"]).joined())"
                                             self.MTL2022B.text = "\(self.netSalesCiro.Fark[i].components(separatedBy: [" ", "-"]).joined())"
                                             self.sales2022Bİmage.image = UIImage(named: "down")
                                             self.MTL2022B.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
@@ -621,7 +621,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                     } else {
                                         if Double(self.netSalesCiro.Gelisim[i].dropLast(2)) ?? 0 >= 0.0 {
                                             
-                                            self.percentage2022LE.text = "% \(self.netSalesCiro.Gelisim[i].dropLast(2))"
+                                            self.percentage2022LE.text = "% \(self.netSalesCiro.Gelisim[i])"
                                             
                                             
                                             self.MTL2022LE.text = "\(self.netSalesCiro.Fark[i])"
@@ -634,7 +634,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                             if self.netSalesCiro.Gelisim.count <= 1 {
                                                 self.percentage2022LE.text = "0.0"
                                             } else {
-                                                self.percentage2022LE.text = "% \(self.netSalesCiro.Gelisim[i].components(separatedBy: [" ", "-"]).joined().dropLast(2))"
+                                                self.percentage2022LE.text = "% \(self.netSalesCiro.Gelisim[i].components(separatedBy: [" ", "-"]).joined())"
                                                 
                                             }
                                             if self.netSalesCiro.Fark.count <= 1 {

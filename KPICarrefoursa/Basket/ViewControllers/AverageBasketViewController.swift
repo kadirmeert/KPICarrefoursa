@@ -61,7 +61,11 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
     var selectedInfo = ""
     var selectedCategoryGelisim = ""
     var selectedStoresGelisim = ""
-
+    var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat =  "MM-dd-yyyy HH:mm:ss"
+        return formatter
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -230,11 +234,17 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate {
                     DispatchQueue.main.async {
                         self.hud.dismiss()
                         
-                        if self.basketStores.Last_Update.isEmpty {
-                            self.lastUpdateTime.text = "00/00/00 00:00:00"
+                        if !self.basketStores.Last_Update.isEmpty {
+                            let dateFormatter1 = DateFormatter()
+                            dateFormatter1.dateFormat = "dd/MM/yyyy HH:mm:ss"
+                            if let recordDate = self.dateFormatter.date(from: self.basketStores.Last_Update[0]){
+                                let dateText = dateFormatter1.string(from: recordDate)
+                                self.lastUpdateTime.text = "Last Updated Time \(dateText)"
+                            }
                             
                         } else {
-                            self.lastUpdateTime.text = "Last Updated Time \(self.basketStores.Last_Update[0])"
+                            self.lastUpdateTime.text = "00/00/00 00:00:00"
+
                         }
                         
                         self.setupPieChart()

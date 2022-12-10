@@ -83,6 +83,12 @@ class MainViewController: UIViewController {
     var hud = JGProgressHUD()
     let refreshControl = UIRefreshControl()
     
+    var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat =  "MM-dd-yyyy HH:mm:ss"
+        return formatter
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mainRadius()
@@ -281,11 +287,16 @@ class MainViewController: UIViewController {
                     DispatchQueue.main.async {
                         self.hud.dismiss()
                         
-                        if self.dashboardValue.Last_Update.isEmpty {
-                            self.lastUpdateTime.text = "00/00/0000 00:00:00"
+                        if !self.dashboardValue.Last_Update.isEmpty {
+                            let dateFormatter1 = DateFormatter()
+                            dateFormatter1.dateFormat = "dd/MM/yyyy HH:mm:ss"
+                            if let recordDate = self.dateFormatter.date(from: self.dashboardValue.Last_Update[0]){
+                                let dateText = dateFormatter1.string(from: recordDate)
+                                self.lastUpdateTime.text = "Last Updated Time \(dateText)"
+                            }
                             
                         } else {
-                            self.lastUpdateTime.text = "Last Updated Time \(self.dashboardValue.Last_Update[0])"
+                            self.lastUpdateTime.text = "00/00/0000 00:00:00"
                             
                         }
                         
@@ -820,7 +831,7 @@ class MainViewController: UIViewController {
                 self.salesPercentageLabel.text = self.dashboardValue.NetSalesvsButceLE[0]
                 self.salesİmage.image = UIImage(named: "Up")
             } else {
-                self.salesPercentageLabel.text = self.dashboardValue.NetSalesvsButceLE[0].components(separatedBy: ["-"]).joined()
+                self.salesPercentageLabel.text = self.dashboardValue.NetSalesvsButceLE[0].components(separatedBy: ["-"," "]).joined()
                 self.salesİmage.image = UIImage(named: "down")
                 self.salesPercentageLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
             }

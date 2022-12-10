@@ -56,6 +56,11 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
     var selectedFormat = ""
     var selectedArea = 0
     var selectedCity = 0
+    var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat =  "MM-dd-yyyy HH:mm:ss"
+        return formatter
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -233,7 +238,12 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
                         } else {
                             
                             for index in 0...self.numberOfStores.LastUpdate.count-1 {
-                                self.lastTimeLabel.text = "Last Updated Time \(self.numberOfStores.LastUpdate[index])"
+                                let dateFormatter1 = DateFormatter()
+                                dateFormatter1.dateFormat = "dd/MM/yyyy HH:mm:ss"
+                                if let recordDate = self.dateFormatter.date(from: self.numberOfStores.LastUpdate[index]){
+                                    let dateText = dateFormatter1.string(from: recordDate)
+                                    self.lastTimeLabel.text = "Last Updated Time \(dateText)"
+                                }
                                 
                                 if self.numberOfStores.Format[index] == "Actual CSA Total" {
                                     
