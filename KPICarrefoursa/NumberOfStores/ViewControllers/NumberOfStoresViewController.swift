@@ -26,9 +26,9 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var yesterdayStoreView: UIView!
     @IBOutlet weak var yesterdayStoreLabel: UILabel!
     @IBOutlet weak var yesterdayStoreButton: UIButton!
-//    @IBOutlet weak var daytodayStoreView: UIView!
-//    @IBOutlet weak var daytodayStoreLabel: UILabel!
-//    @IBOutlet weak var daytodayStoreButton: UIButton!
+    @IBOutlet weak var daytodayStoreView: UIView!
+    @IBOutlet weak var daytodayStoreLabel: UILabel!
+    @IBOutlet weak var daytodayStoreButton: UIButton!
     @IBOutlet weak var weeklyStoreView: UIView!
     @IBOutlet weak var weeklyStoreLabel: UILabel!
     @IBOutlet weak var weeklyStoreButton: UIButton!
@@ -116,7 +116,7 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
 //        hourlyStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
         yesterdayStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
         yesterdayStoreView.layer.cornerRadius = 12
-//        daytodayStoreView.layer.cornerRadius = 12
+        daytodayStoreView.layer.cornerRadius = 12
         weeklyStoreView.layer.cornerRadius = 12
         monthlyStoreView.layer.cornerRadius = 12
         yeartodateStoreView.layer.cornerRadius = 12
@@ -135,9 +135,9 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
             if yesterdayStoreButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
             }
-//            if daytodayStoreButton.isSelected == true {
-//                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1}"
-//            }
+            if daytodayStoreButton.isSelected == true {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1}"
+            }
             if weeklyStoreButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1}"
             }
@@ -156,9 +156,9 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
             if yesterdayStoreButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
             }
-//            if daytodayStoreButton.isSelected == true {
-//                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0}"
-//            }
+            if daytodayStoreButton.isSelected == true {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0}"
+            }
             if weeklyStoreButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0}"
             }
@@ -336,7 +336,7 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
     @IBAction func yesterdayBtnPressed(_ sender: Any) {
 //        hourlyStoreButton.isSelected = false
         yesterdayStoreButton.isSelected = true
-//        daytodayStoreButton.isSelected = false
+        daytodayStoreButton.isSelected = false
         weeklyStoreButton.isSelected = false
         monthlyStoreButton.isSelected = false
         yeartodateStoreButton.isSelected = false
@@ -360,8 +360,8 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
 //        self.hourlyStoreLabel.textColor = UIColor.white
         self.yesterdayStoreView.backgroundColor = UIColor.white
         self.yesterdayStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
-//        self.daytodayStoreView.backgroundColor = UIColor.clear
-//        self.daytodayStoreLabel.textColor = UIColor.white
+        self.daytodayStoreView.backgroundColor = UIColor.clear
+        self.daytodayStoreLabel.textColor = UIColor.white
         self.weeklyStoreView.backgroundColor = UIColor.clear
         self.weeklyStoreLabel.textColor = UIColor.white
         self.monthlyStoreView.backgroundColor = UIColor.clear
@@ -370,47 +370,47 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
         self.yeartodateStoreLabel.textColor = UIColor.white
     }
     
-//    @IBAction func daytodayBtnPressed(_ sender: Any) {
-////        hourlyStoreButton.isSelected = false
-//        yesterdayStoreButton.isSelected = false
-////        daytodayStoreButton.isSelected = true
-//        weeklyStoreButton.isSelected = false
-//        monthlyStoreButton.isSelected = false
-//        yesterdayStoreButton.isSelected = false
-//        if numberOfStoresSwitch.isOn == true {
-//            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1}"
-//            
-//        } else {
-//            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0}"
-//        }
-//        if !self.numberOfStores.Format.isEmpty {
-//            hud.textLabel.text = "Loading"
-//            hud.show(in: self.view)
-//            self.checkChartData()
-//        }
-//        else {
-//            hud.textLabel.text = "Loading"
-//            hud.show(in: self.view)
-//            self.checkChartData()
-//        }
-////        self.hourlyStoreView.backgroundColor = UIColor.clear
-////        self.hourlyStoreLabel.textColor = UIColor.white
-//        self.yesterdayStoreView.backgroundColor = UIColor.clear
-//        self.yesterdayStoreLabel.textColor = UIColor.white
-////        self.daytodayStoreView.backgroundColor = UIColor.white
-////        self.daytodayStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
-//        self.weeklyStoreView.backgroundColor = UIColor.clear
-//        self.weeklyStoreLabel.textColor = UIColor.white
-//        self.monthlyStoreView.backgroundColor = UIColor.clear
-//        self.monthlyStoreLabel.textColor = UIColor.white
-//        self.yeartodateStoreView.backgroundColor = UIColor.clear
-//        self.yeartodateStoreLabel.textColor = UIColor.white
-//    }
+    @IBAction func daytodayBtnPressed(_ sender: Any) {
+        //        hourlyStoreButton.isSelected = false
+        yesterdayStoreButton.isSelected = false
+        daytodayStoreButton.isSelected = true
+        weeklyStoreButton.isSelected = false
+        monthlyStoreButton.isSelected = false
+        yesterdayStoreButton.isSelected = false
+        if numberOfStoresSwitch.isOn == true {
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1}"
+            
+        } else {
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0}"
+        }
+        if !self.numberOfStores.Format.isEmpty {
+            hud.textLabel.text = "Loading"
+            hud.show(in: self.view)
+            self.checkChartData()
+        }
+        else {
+            hud.textLabel.text = "Loading"
+            hud.show(in: self.view)
+            self.checkChartData()
+        }
+        //        self.hourlyStoreView.backgroundColor = UIColor.clear
+        //        self.hourlyStoreLabel.textColor = UIColor.white
+        self.yesterdayStoreView.backgroundColor = UIColor.clear
+        self.yesterdayStoreLabel.textColor = UIColor.white
+        self.daytodayStoreView.backgroundColor = UIColor.white
+        self.daytodayStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
+        self.weeklyStoreView.backgroundColor = UIColor.clear
+        self.weeklyStoreLabel.textColor = UIColor.white
+        self.monthlyStoreView.backgroundColor = UIColor.clear
+        self.monthlyStoreLabel.textColor = UIColor.white
+        self.yeartodateStoreView.backgroundColor = UIColor.clear
+        self.yeartodateStoreLabel.textColor = UIColor.white
+    }
     
     @IBAction func weeklyBtnPressed(_ sender: Any) {
 //        hourlyStoreButton.isSelected = false
         yesterdayStoreButton.isSelected = false
-//        daytodayStoreButton.isSelected = false
+        daytodayStoreButton.isSelected = false
         weeklyStoreButton.isSelected = true
         monthlyStoreButton.isSelected = false
         yesterdayStoreButton.isSelected = false
@@ -434,8 +434,8 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
 //        self.hourlyStoreLabel.textColor = UIColor.white
         self.yesterdayStoreView.backgroundColor = UIColor.clear
         self.yesterdayStoreLabel.textColor = UIColor.white
-//        self.daytodayStoreView.backgroundColor = UIColor.clear
-//        self.daytodayStoreLabel.textColor = UIColor.white
+        self.daytodayStoreView.backgroundColor = UIColor.clear
+        self.daytodayStoreLabel.textColor = UIColor.white
         self.weeklyStoreView.backgroundColor = UIColor.white
         self.weeklyStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
         self.monthlyStoreView.backgroundColor = UIColor.clear
@@ -447,7 +447,7 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
     @IBAction func monthlyBtnPressed(_ sender: Any) {
 //        hourlyStoreButton.isSelected = false
         yesterdayStoreButton.isSelected = false
-//        daytodayStoreButton.isSelected = false
+        daytodayStoreButton.isSelected = false
         weeklyStoreButton.isSelected = false
         monthlyStoreButton.isSelected = true
         yesterdayStoreButton.isSelected = false
@@ -471,8 +471,8 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
 //        self.hourlyStoreLabel.textColor = UIColor.white
         self.yesterdayStoreView.backgroundColor = UIColor.clear
         self.yesterdayStoreLabel.textColor = UIColor.white
-//        self.daytodayStoreView.backgroundColor = UIColor.clear
-//        self.daytodayStoreLabel.textColor = UIColor.white
+        self.daytodayStoreView.backgroundColor = UIColor.clear
+        self.daytodayStoreLabel.textColor = UIColor.white
         self.weeklyStoreView.backgroundColor = UIColor.clear
         self.weeklyStoreLabel.textColor = UIColor.white
         self.monthlyStoreView.backgroundColor = UIColor.white
@@ -484,7 +484,7 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
     @IBAction func yeartodateBtnPressed(_ sender: Any) {
 //        hourlyStoreButton.isSelected = false
         yesterdayStoreButton.isSelected = false
-//        daytodayStoreButton.isSelected = false
+        daytodayStoreButton.isSelected = false
         weeklyStoreButton.isSelected = false
         monthlyStoreButton.isSelected = false
         yesterdayStoreButton.isSelected = true
@@ -508,8 +508,8 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
 //        self.hourlyStoreLabel.textColor = UIColor.white
         self.yesterdayStoreView.backgroundColor = UIColor.clear
         self.yesterdayStoreLabel.textColor = UIColor.white
-//        self.daytodayStoreView.backgroundColor = UIColor.clear
-//        self.daytodayStoreLabel.textColor = UIColor.white
+        self.daytodayStoreView.backgroundColor = UIColor.clear
+        self.daytodayStoreLabel.textColor = UIColor.white
         self.weeklyStoreView.backgroundColor = UIColor.clear
         self.weeklyStoreLabel.textColor = UIColor.white
         self.monthlyStoreView.backgroundColor = UIColor.clear

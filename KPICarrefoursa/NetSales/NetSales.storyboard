@@ -121,26 +121,29 @@
                                                     <constraint firstItem="ppu-qH-9Ve" firstAttribute="leading" secondItem="KKS-Ei-A9u" secondAttribute="leading" id="ver-o2-gac"/>
                                                 </constraints>
                                             </view>
-                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nXh-Jz-YAZ">
-                                                <rect key="frame" x="91" y="12.666666666666657" width="0.0" height="35"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nXh-Jz-YAZ">
+                                                <rect key="frame" x="109" y="12.666666666666657" width="75" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day to Day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UIw-Qy-RRu">
-                                                        <rect key="frame" x="-36.333333333333336" y="9" width="72.666666666666671" height="17"/>
+                                                        <rect key="frame" x="1.3333333333333286" y="9" width="72.666666666666671" height="17"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WPo-oj-wnR">
-                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="35"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="75" height="35"/>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title=" "/>
+                                                        <connections>
+                                                            <action selector="daytodayBtnPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="JyP-jX-eD9"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="WPo-oj-wnR" secondAttribute="bottom" id="3IQ-nM-3SV"/>
-                                                    <constraint firstAttribute="width" id="86Z-YM-6cK"/>
+                                                    <constraint firstAttribute="width" constant="75" id="86Z-YM-6cK"/>
                                                     <constraint firstAttribute="trailing" secondItem="WPo-oj-wnR" secondAttribute="trailing" id="8E7-IB-rvt"/>
                                                     <constraint firstItem="WPo-oj-wnR" firstAttribute="leading" secondItem="nXh-Jz-YAZ" secondAttribute="leading" id="F1X-k9-X2C"/>
                                                     <constraint firstItem="UIw-Qy-RRu" firstAttribute="centerX" secondItem="nXh-Jz-YAZ" secondAttribute="centerX" id="SKR-Pq-iwD"/>
@@ -150,10 +153,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e1y-Zy-TyK">
-                                                <rect key="frame" x="109" y="12.666666666666657" width="75" height="35"/>
+                                                <rect key="frame" x="202" y="12.666666666666657" width="75" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weekly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1TA-ky-BtA">
-                                                        <rect key="frame" x="11.666666666666671" y="8.3333333333333428" width="52" height="18"/>
+                                                        <rect key="frame" x="11.666666666666657" y="8.3333333333333428" width="52" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -181,10 +184,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w8v-Bk-yfH">
-                                                <rect key="frame" x="202" y="12.666666666666657" width="75" height="35"/>
+                                                <rect key="frame" x="295" y="12.666666666666657" width="75" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monthly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h9M-4J-c4u">
-                                                        <rect key="frame" x="8.3333333333333464" y="8.3333333333333428" width="58.333333333333343" height="18"/>
+                                                        <rect key="frame" x="8.3333333333333179" y="8.3333333333333428" width="58.333333333333343" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -212,7 +215,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xFk-DX-bi2">
-                                                <rect key="frame" x="295" y="12.666666666666657" width="75" height="35"/>
+                                                <rect key="frame" x="388" y="12.666666666666657" width="75" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Year to Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="blb-O9-mmk">
                                                         <rect key="frame" x="-1" y="9.6666666666666856" width="77.333333333333329" height="15.666666666666664"/>
@@ -245,7 +248,7 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.018043307590000002" green="0.27759099009999999" blue="0.60158270599999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstItem="nXh-Jz-YAZ" firstAttribute="leading" secondItem="KKS-Ei-A9u" secondAttribute="trailing" id="5go-do-ug0"/>
+                                            <constraint firstItem="nXh-Jz-YAZ" firstAttribute="leading" secondItem="KKS-Ei-A9u" secondAttribute="trailing" constant="18" id="5go-do-ug0"/>
                                             <constraint firstItem="KKS-Ei-A9u" firstAttribute="centerY" secondItem="jH2-le-iIC" secondAttribute="centerY" id="AY3-oS-u0J"/>
                                             <constraint firstItem="e1y-Zy-TyK" firstAttribute="centerY" secondItem="nXh-Jz-YAZ" secondAttribute="centerY" id="CHh-B6-Brk"/>
                                             <constraint firstItem="jH2-le-iIC" firstAttribute="centerY" secondItem="NUw-pK-g5s" secondAttribute="centerY" id="EgD-Mi-GZ2"/>
@@ -1775,6 +1778,9 @@ October 11, 2022 14:37</string>
                         <outlet property="chanelTableView" destination="KIi-p6-DZe" id="tq4-uP-U2e"/>
                         <outlet property="chanelView" destination="ujm-Kz-Mbr" id="NZx-YJ-Md6"/>
                         <outlet property="ciroView" destination="ixz-gR-Tbw" id="cqL-sP-r1d"/>
+                        <outlet property="daytodayStoreButton" destination="WPo-oj-wnR" id="Q4t-MI-AVT"/>
+                        <outlet property="daytodayStoreLabel" destination="UIw-Qy-RRu" id="hCy-es-Tn7"/>
+                        <outlet property="daytodayStoreView" destination="nXh-Jz-YAZ" id="YId-bQ-Jdi"/>
                         <outlet property="electronicİmage" destination="BH0-nd-1Yt" id="gDk-X4-8fl"/>
                         <outlet property="electronicPercLabel" destination="Tha-vJ-gel" id="U7O-fb-SmG"/>
                         <outlet property="electronicProgress" destination="Udb-3q-3T7" id="jwq-43-bqF"/>

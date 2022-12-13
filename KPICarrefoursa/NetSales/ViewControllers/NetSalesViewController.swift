@@ -60,9 +60,9 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var yesterdayStoreView: UIView!
     @IBOutlet weak var yesterdayStoreLabel: UILabel!
     @IBOutlet weak var yesterdayStoreButton: UIButton!
-    //    @IBOutlet weak var daytodayStoreView: UIView!
-    //    @IBOutlet weak var daytodayStoreLabel: UILabel!
-    //    @IBOutlet weak var daytodayStoreButton: UIButton!
+    @IBOutlet weak var daytodayStoreView: UIView!
+    @IBOutlet weak var daytodayStoreLabel: UILabel!
+    @IBOutlet weak var daytodayStoreButton: UIButton!
     @IBOutlet weak var weeklyStoreView: UIView!
     @IBOutlet weak var weeklyStoreLabel: UILabel!
     @IBOutlet weak var weeklyStoreButton: UIButton!
@@ -116,7 +116,6 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
     var netSalesCategory = Category()
     var hud = JGProgressHUD()
     let refreshControl = UIRefreshControl()
-    //    let str: Array = [String]()
     var years = "2021"
     let removeCharacters: Set<Character> = ["v", "s", "%", "K", "T", "L", " ", "B", "E"]
     var selectedColor = ""
@@ -174,7 +173,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         //        hourlyStoreView.layer.cornerRadius = 12
         //        hourlyStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
         yesterdayStoreView.layer.cornerRadius = 12
-        //        daytodayStoreView.layer.cornerRadius = 12
+        daytodayStoreView.layer.cornerRadius = 12
         weeklyStoreView.layer.cornerRadius = 12
         monthlyStoreView.layer.cornerRadius = 12
         yeartodateStoreView.layer.cornerRadius = 12
@@ -229,26 +228,25 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                 self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
             }
             
-            //            if daytodayStoreButton.isSelected == true {
-            //
-            //                if netSales2021Button.isSelected == true {
-            //
-            //                    self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
-            //                    self.chartParameters = self.Parameters2021
-            //                }
-            //                if netSales2022BButton.isSelected == true {
-            //                    self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
-            //                    self.chartParameters = self.Parameters2022b
-            //                }
-            //                if netSales2022LEButton.isSelected == true {
-            //                    self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
-            //                    self.chartParameters = self.Parameters2022LE
-            //                }
-            //            self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
-            //            self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
-            //            self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
-            //
-            //            }
+            if daytodayStoreButton.isSelected == true {
+                
+                if netSales2021Button.isSelected == true {
+                    self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+                    self.chartParameters = self.Parameters2021
+                }
+                if netSales2022BButton.isSelected == true {
+                    self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+                    self.chartParameters = self.Parameters2022b
+                }
+                if netSales2022LEButton.isSelected == true {
+                    self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
+                    self.chartParameters = self.Parameters2022LE
+                }
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
+                
+            }
             
             if weeklyStoreButton.isSelected == true {
                 
@@ -335,23 +333,23 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                 self.yesterdayStoreButton.isSelected = false
                 
             }
-            //            if daytodayStoreButton.isSelected == true {
-            //                if netSales2021Button.isSelected == true {
-            //                    self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
-            //                    self.chartParameters = self.Parameters2021
-            //                }
-            //                if netSales2022BButton.isSelected == true {
-            //                    self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
-            //                    self.chartParameters = self.Parameters2022b
-            //                }
-            //                if netSales2022LEButton.isSelected == true {
-            //                    self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
-            //                    self.chartParameters = self.Parameters2022LE
-            //                }
-            //                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
-            //                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
-            //                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
-            //            }
+            if daytodayStoreButton.isSelected == true {
+                if netSales2021Button.isSelected == true {
+                    self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+                    self.chartParameters = self.Parameters2021
+                }
+                if netSales2022BButton.isSelected == true {
+                    self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+                    self.chartParameters = self.Parameters2022b
+                }
+                if netSales2022LEButton.isSelected == true {
+                    self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
+                    self.chartParameters = self.Parameters2022LE
+                }
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
+            }
             if weeklyStoreButton.isSelected == true {
                 if netSales2021Button.isSelected == true {
                     self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
@@ -1073,7 +1071,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
     @IBAction func yesterdayBtnPressed(_ sender: Any) {
         //        hourlyStoreButton.isSelected = false
         yesterdayStoreButton.isSelected = true
-        //        daytodayStoreButton.isSelected = false
+        daytodayStoreButton.isSelected = false
         weeklyStoreButton.isSelected = false
         monthlyStoreButton.isSelected = false
         yeartodateStoreButton.isSelected = false
@@ -1137,8 +1135,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         //        self.hourlyStoreLabel.textColor = UIColor.white
         self.yesterdayStoreView.backgroundColor = UIColor.white
         self.yesterdayStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
-        //        self.daytodayStoreView.backgroundColor = UIColor.clear
-        //        self.daytodayStoreLabel.textColor = UIColor.white
+        self.daytodayStoreView.backgroundColor = UIColor.clear
+        self.daytodayStoreLabel.textColor = UIColor.white
         self.weeklyStoreView.backgroundColor = UIColor.clear
         self.weeklyStoreLabel.textColor = UIColor.white
         self.monthlyStoreView.backgroundColor = UIColor.clear
@@ -1147,80 +1145,88 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         self.yeartodateStoreLabel.textColor = UIColor.white
     }
     
-    //    @IBAction func daytodayBtnPressed(_ sender: Any) {
-    //        //        hourlyStoreButton.isSelected = false
-    //        yesterdayStoreButton.isSelected = false
-    //        daytodayStoreButton.isSelected = true
-    //        weeklyStoreButton.isSelected = false
-    //        monthlyStoreButton.isSelected = false
-    //        yeartodateStoreButton.isSelected = false
-    //        if netSalesSwitch.isOn == true {
-    //            if netSales2021Button.isSelected == true {
-    //                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
-    //                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
-    //                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
-    //                self.chartParameters = self.Parameters2021
-    //
-    //            }
-    //            if netSales2022BButton.isSelected == true {
-    //                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
-    //                self.chartParameters = self.Parameters2022b
-    //
-    //            }
-    //            if netSales2022LEButton.isSelected == true {
-    //                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
-    //                self.chartParameters = self.Parameters2022LE
-    //
-    //            }
-    //
-    //        } else {
-    //            if netSales2021Button.isSelected == true {
-    //                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
-    //                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
-    //                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
-    //                self.chartParameters = self.Parameters2021
-    //
-    //            }
-    //            if netSales2022BButton.isSelected == true {
-    //                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
-    //                self.chartParameters = self.Parameters2022b
-    //
-    //            }
-    //            if netSales2022LEButton.isSelected == true {
-    //                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
-    //                self.chartParameters = self.Parameters2022LE
-    //            }
-    //        }
-    //
-    //        if !self.netSalesCiro.Ciro.isEmpty {
-    //            hud.textLabel.text = "Loading"
-    //            hud.show(in: self.view)
-    //            self.checkNetSales()
-    //        }
-    //        else {
-    //            hud.textLabel.text = "Loading"
-    //            hud.show(in: self.view)
-    //            self.checkNetSales()
-    //        }
-    //        self.setupPieChart()
-    //        //        self.hourlyStoreView.backgroundColor = UIColor.clear
-    //        //        self.hourlyStoreLabel.textColor = UIColor.white
-    //        self.yesterdayStoreView.backgroundColor = UIColor.clear
-    //        self.yesterdayStoreLabel.textColor = UIColor.white
-    //        self.daytodayStoreView.backgroundColor = UIColor.white
-    //        self.daytodayStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
-    //        self.weeklyStoreView.backgroundColor = UIColor.clear
-    //        self.weeklyStoreLabel.textColor = UIColor.white
-    //        self.monthlyStoreView.backgroundColor = UIColor.clear
-    //        self.monthlyStoreLabel.textColor = UIColor.white
-    //        self.yeartodateStoreView.backgroundColor = UIColor.clear
-    //        self.yeartodateStoreLabel.textColor = UIColor.white
-    //    }
+    @IBAction func daytodayBtnPressed(_ sender: Any) {
+        //        hourlyStoreButton.isSelected = false
+        yesterdayStoreButton.isSelected = false
+        daytodayStoreButton.isSelected = true
+        weeklyStoreButton.isSelected = false
+        monthlyStoreButton.isSelected = false
+        yeartodateStoreButton.isSelected = false
+        if netSalesSwitch.isOn == true {
+            if netSales2021Button.isSelected == true {
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
+                self.chartParameters = self.Parameters2021
+                
+            }
+            if netSales2022BButton.isSelected == true {
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
+                self.chartParameters = self.Parameters2022b
+                
+            }
+            if netSales2022LEButton.isSelected == true {
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022LE\"}"
+                self.chartParameters = self.Parameters2022LE
+                
+            }
+            
+        } else {
+            if netSales2021Button.isSelected == true {
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
+                self.chartParameters = self.Parameters2021
+                
+            }
+            if netSales2022BButton.isSelected == true {
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
+                self.chartParameters = self.Parameters2022b
+                
+            }
+            if netSales2022LEButton.isSelected == true {
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2021\"}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022B\"}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022LE\"}"
+                self.chartParameters = self.Parameters2022LE
+            }
+        }
+        
+        if !self.netSalesCiro.Ciro.isEmpty {
+            hud.textLabel.text = "Loading"
+            hud.show(in: self.view)
+            self.checkNetSales()
+        }
+        else {
+            hud.textLabel.text = "Loading"
+            hud.show(in: self.view)
+            self.checkNetSales()
+        }
+        self.setupPieChart()
+        //        self.hourlyStoreView.backgroundColor = UIColor.clear
+        //        self.hourlyStoreLabel.textColor = UIColor.white
+        self.yesterdayStoreView.backgroundColor = UIColor.clear
+        self.yesterdayStoreLabel.textColor = UIColor.white
+        self.daytodayStoreView.backgroundColor = UIColor.white
+        self.daytodayStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
+        self.weeklyStoreView.backgroundColor = UIColor.clear
+        self.weeklyStoreLabel.textColor = UIColor.white
+        self.monthlyStoreView.backgroundColor = UIColor.clear
+        self.monthlyStoreLabel.textColor = UIColor.white
+        self.yeartodateStoreView.backgroundColor = UIColor.clear
+        self.yeartodateStoreLabel.textColor = UIColor.white
+    }
     
     @IBAction func weeklyBtnPressed(_ sender: Any) {
         //        hourlyStoreButton.isSelected = false
         yesterdayStoreButton.isSelected = false
-        //        daytodayStoreButton.isSelected = false
+        daytodayStoreButton.isSelected = false
         weeklyStoreButton.isSelected = true
         monthlyStoreButton.isSelected = false
         yeartodateStoreButton.isSelected = false
@@ -1285,8 +1291,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         //        self.hourlyStoreLabel.textColor = UIColor.white
         self.yesterdayStoreView.backgroundColor = UIColor.clear
         self.yesterdayStoreLabel.textColor = UIColor.white
-        //        self.daytodayStoreView.backgroundColor = UIColor.clear
-        //        self.daytodayStoreLabel.textColor = UIColor.white
+        self.daytodayStoreView.backgroundColor = UIColor.clear
+        self.daytodayStoreLabel.textColor = UIColor.white
         self.weeklyStoreView.backgroundColor = UIColor.white
         self.weeklyStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
         self.monthlyStoreView.backgroundColor = UIColor.clear
@@ -1298,7 +1304,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
     @IBAction func monthlyBtnPressed(_ sender: Any) {
         //        hourlyStoreButton.isSelected = false
         yesterdayStoreButton.isSelected = false
-        //        daytodayStoreButton.isSelected = false
+        daytodayStoreButton.isSelected = false
         weeklyStoreButton.isSelected = false
         monthlyStoreButton.isSelected = true
         yeartodateStoreButton.isSelected = false
@@ -1362,8 +1368,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         //        self.hourlyStoreLabel.textColor = UIColor.white
         self.yesterdayStoreView.backgroundColor = UIColor.clear
         self.yesterdayStoreLabel.textColor = UIColor.white
-        //        self.daytodayStoreView.backgroundColor = UIColor.clear
-        //        self.daytodayStoreLabel.textColor = UIColor.white
+        self.daytodayStoreView.backgroundColor = UIColor.clear
+        self.daytodayStoreLabel.textColor = UIColor.white
         self.weeklyStoreView.backgroundColor = UIColor.clear
         self.weeklyStoreLabel.textColor = UIColor.white
         self.monthlyStoreView.backgroundColor = UIColor.white
@@ -1375,7 +1381,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
     @IBAction func yeartodateBtnPressed(_ sender: Any) {
         //        hourlyStoreButton.isSelected = false
         yesterdayStoreButton.isSelected = false
-        //        daytodayStoreButton.isSelected = false
+        daytodayStoreButton.isSelected = false
         weeklyStoreButton.isSelected = false
         monthlyStoreButton.isSelected = false
         yeartodateStoreButton.isSelected = true
@@ -1437,8 +1443,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
         //        self.hourlyStoreLabel.textColor = UIColor.white
         self.yesterdayStoreView.backgroundColor = UIColor.clear
         self.yesterdayStoreLabel.textColor = UIColor.white
-        //        self.daytodayStoreView.backgroundColor = UIColor.clear
-        //        self.daytodayStoreLabel.textColor = UIColor.white
+        self.daytodayStoreView.backgroundColor = UIColor.clear
+        self.daytodayStoreLabel.textColor = UIColor.white
         self.weeklyStoreView.backgroundColor = UIColor.clear
         self.weeklyStoreLabel.textColor = UIColor.white
         self.monthlyStoreView.backgroundColor = UIColor.clear
@@ -1464,7 +1470,6 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
             hud.show(in: self.view)
             self.checkNetSales()
         }
-        //        self.setupPieChart()
         self.netSales2021View.backgroundColor = UIColor.white
         self.netSales2021Label.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
         self.netSales2022BView.backgroundColor = UIColor.clear
@@ -1513,7 +1518,6 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
             hud.show(in: self.view)
             self.checkNetSales()
         }
-        //        self.setupPieChart()
         self.netSales2021View.backgroundColor = UIColor.clear
         self.netSales2021Label.textColor = UIColor.white
         self.netSales2022BView.backgroundColor = UIColor.clear

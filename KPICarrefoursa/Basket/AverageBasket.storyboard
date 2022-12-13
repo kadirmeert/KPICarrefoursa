@@ -58,8 +58,8 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QfV-Me-xR5">
                                 <rect key="frame" x="0.0" y="161" width="390" height="60"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MXZ-Ti-CNN">
-                                        <rect key="frame" x="80" y="39" width="520" height="60"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MXZ-Ti-CNN">
+                                        <rect key="frame" x="0.0" y="0.0" width="520" height="60"/>
                                         <subviews>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WDL-3p-UIp">
                                                 <rect key="frame" x="0.0" y="12.666666666666657" width="0.0" height="35"/>
@@ -120,20 +120,23 @@
                                                     <constraint firstItem="7tt-PN-z3y" firstAttribute="leading" secondItem="Kds-Ln-kbl" secondAttribute="leading" id="xsb-eu-wup"/>
                                                 </constraints>
                                             </view>
-                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DEX-Nc-rPe">
-                                                <rect key="frame" x="91" y="12.666666666666657" width="0.0" height="35"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DEX-Nc-rPe">
+                                                <rect key="frame" x="109" y="12.666666666666657" width="75" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day to Day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CNV-Wi-BDn">
-                                                        <rect key="frame" x="-36.333333333333336" y="9" width="72.666666666666671" height="17"/>
+                                                        <rect key="frame" x="1.3333333333333286" y="9" width="72.666666666666671" height="17"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="njL-ju-dku">
-                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="35"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="75" height="35"/>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title=" "/>
+                                                        <connections>
+                                                            <action selector="daytodayBtnPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Pka-sm-fDf"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -141,7 +144,7 @@
                                                     <constraint firstAttribute="trailing" secondItem="njL-ju-dku" secondAttribute="trailing" id="4uN-us-dJd"/>
                                                     <constraint firstItem="njL-ju-dku" firstAttribute="top" secondItem="DEX-Nc-rPe" secondAttribute="top" id="DBg-Pk-fxG"/>
                                                     <constraint firstItem="CNV-Wi-BDn" firstAttribute="centerY" secondItem="DEX-Nc-rPe" secondAttribute="centerY" id="d3w-VY-YHw"/>
-                                                    <constraint firstAttribute="width" id="f1S-4Y-2lT"/>
+                                                    <constraint firstAttribute="width" constant="75" id="f1S-4Y-2lT"/>
                                                     <constraint firstItem="CNV-Wi-BDn" firstAttribute="centerX" secondItem="DEX-Nc-rPe" secondAttribute="centerX" id="kWE-2A-xnd"/>
                                                     <constraint firstItem="njL-ju-dku" firstAttribute="leading" secondItem="DEX-Nc-rPe" secondAttribute="leading" id="o8I-Sc-04r"/>
                                                     <constraint firstAttribute="bottom" secondItem="njL-ju-dku" secondAttribute="bottom" id="whz-qr-F6a"/>
@@ -149,10 +152,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KPh-1v-6b6">
-                                                <rect key="frame" x="109" y="12.666666666666657" width="75" height="35"/>
+                                                <rect key="frame" x="202" y="12.666666666666657" width="75" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weekly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ifp-Ub-8Wx">
-                                                        <rect key="frame" x="11.666666666666671" y="8.3333333333333428" width="52" height="18"/>
+                                                        <rect key="frame" x="11.666666666666657" y="8.3333333333333428" width="52" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -180,10 +183,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="143-W1-hqf">
-                                                <rect key="frame" x="202" y="12.666666666666657" width="75" height="35"/>
+                                                <rect key="frame" x="295" y="12.666666666666657" width="75" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monthly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z0t-Gf-zm1">
-                                                        <rect key="frame" x="8.3333333333333464" y="8.3333333333333428" width="58.333333333333343" height="18"/>
+                                                        <rect key="frame" x="8.3333333333333179" y="8.3333333333333428" width="58.333333333333343" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -211,7 +214,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gbv-BP-Wdn">
-                                                <rect key="frame" x="295" y="12.666666666666657" width="75" height="35"/>
+                                                <rect key="frame" x="388" y="12.666666666666657" width="75" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Year to Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xpx-jo-ZrS">
                                                         <rect key="frame" x="-1" y="9.6666666666666856" width="77.333333333333329" height="15.666666666666664"/>
@@ -251,7 +254,7 @@
                                             <constraint firstItem="gbv-BP-Wdn" firstAttribute="centerY" secondItem="143-W1-hqf" secondAttribute="centerY" id="RxF-mK-bMq"/>
                                             <constraint firstItem="KPh-1v-6b6" firstAttribute="centerY" secondItem="DEX-Nc-rPe" secondAttribute="centerY" id="XfA-pZ-GR5"/>
                                             <constraint firstItem="Kds-Ln-kbl" firstAttribute="centerY" secondItem="WDL-3p-UIp" secondAttribute="centerY" id="aHu-HX-eOf"/>
-                                            <constraint firstItem="DEX-Nc-rPe" firstAttribute="leading" secondItem="Kds-Ln-kbl" secondAttribute="trailing" id="aka-oQ-CBl"/>
+                                            <constraint firstItem="DEX-Nc-rPe" firstAttribute="leading" secondItem="Kds-Ln-kbl" secondAttribute="trailing" constant="18" id="aka-oQ-CBl"/>
                                             <constraint firstAttribute="height" constant="60" id="c6U-dt-30Y"/>
                                             <constraint firstAttribute="width" constant="520" id="ele-OX-hZI"/>
                                             <constraint firstItem="WDL-3p-UIp" firstAttribute="centerY" secondItem="MXZ-Ti-CNN" secondAttribute="centerY" id="j2e-i7-Xtd"/>
@@ -574,6 +577,9 @@ October 11, 2022 14:37</string>
                         <outlet property="categoryChartView" destination="Ta7-mu-aRE" id="IVh-og-Vso"/>
                         <outlet property="categoryTableView" destination="iuq-zU-jrf" id="1hL-bo-9Lw"/>
                         <outlet property="categoryView" destination="Iu8-GN-Lrw" id="AlU-Eg-mur"/>
+                        <outlet property="daytodayButton" destination="njL-ju-dku" id="Jl4-Mf-cEb"/>
+                        <outlet property="daytodayLabel" destination="CNV-Wi-BDn" id="8EP-2m-NhY"/>
+                        <outlet property="daytodayView" destination="DEX-Nc-rPe" id="YQi-X6-0kA"/>
                         <outlet property="lastUpdateTime" destination="0oE-hJ-gDA" id="7h5-Sz-BAv"/>
                         <outlet property="monthlyButton" destination="br7-0s-NWY" id="UM7-h2-Rot"/>
                         <outlet property="monthlyLabel" destination="z0t-Gf-zm1" id="MLB-F7-iMN"/>
