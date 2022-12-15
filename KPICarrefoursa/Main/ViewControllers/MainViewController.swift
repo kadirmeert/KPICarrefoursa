@@ -93,14 +93,12 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         self.mainRadius()
         
-        if !self.dashboardValue.Customer.isEmpty {
+        if self.dashboardValue.Customer.isEmpty {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
             self.checkDataDashboard()
         } else {
-            hud.textLabel.text = "Loading"
-            hud.show(in: self.view)
-            self.checkDataDashboard()
+            hud.dismiss(animated: true)
         }
         
         self.refreshControl.tintColor = UIColor.gray

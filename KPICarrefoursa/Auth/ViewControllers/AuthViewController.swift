@@ -34,7 +34,6 @@ class AuthViewController: UIViewController {
     var isGradientAdded: Bool = false
     let hud = JGProgressHUD()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.accountTextField.addDoneButtonOnKeyboard()
@@ -44,8 +43,6 @@ class AuthViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
-        //        self.accountTextField.text = "mert.yildiz@bilmsoft.com"
-        //        self.passwordTextField.text = "BilmSoft2209"
         
         if UserDefaults.standard.bool(forKey: "ISUSERLOGGEDIN") == true {
             rememberİmage.image = UIImage(systemName: "checkmark.square.fill")
@@ -55,13 +52,30 @@ class AuthViewController: UIViewController {
             loginButton.isEnabled = true
             
         }
-        
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.authRadius()
+        
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            if version == User.labelVersion {
+                self.authRadius()
+            } else {
+                let alert = UIAlertController(title: "UPDATE!!", message: "Please update the app from Testflight", preferredStyle: .alert)
+                let ok = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+                     UIAlertAction in
+                        UIApplication.shared.open(URL(string: "https://testflight.apple.com/join/LzUwYP0N")!)
+                    
+                 }
+                alert.addAction(ok)
+                self.present(alert, animated: true, completion: nil)
+                User.labelVersion = version
+                
+                self.authRadius()
+            }
+       }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
