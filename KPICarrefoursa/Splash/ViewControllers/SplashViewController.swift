@@ -68,6 +68,7 @@ class SplashViewController: UIViewController {
         })
         task.resume()
     }
+
 }
 
 

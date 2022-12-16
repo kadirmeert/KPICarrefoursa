@@ -52,29 +52,31 @@ class AuthViewController: UIViewController {
             loginButton.isEnabled = true
             
         }
+       
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-            if version == User.labelVersion {
-                self.authRadius()
-            } else {
-                let alert = UIAlertController(title: "UPDATE!!", message: "Please update the app from Testflight", preferredStyle: .alert)
-                let ok = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
-                     UIAlertAction in
-                        UIApplication.shared.open(URL(string: "https://testflight.apple.com/join/LzUwYP0N")!)
-                    
-                 }
-                alert.addAction(ok)
-                self.present(alert, animated: true, completion: nil)
-                User.labelVersion = version
-                
-                self.authRadius()
-            }
-       }
+        self.authRadius()
+        self.getVersion()
+//        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+//            if version == User.labelVersion {
+//
+//            } else {
+//                let alert = UIAlertController(title: "UPDATE!!", message: "Please update the app from Testflight", preferredStyle: .alert)
+//                let ok = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+//                     UIAlertAction in
+//                        UIApplication.shared.open(URL(string: "https://testflight.apple.com/join/LzUwYP0N")!)
+//
+//                 }
+//                alert.addAction(ok)
+//                self.present(alert, animated: true, completion: nil)
+//                User.labelVersion = version
+//
+//                self.authRadius()
+//            }
+//       }
         
     }
     
@@ -127,6 +129,57 @@ class AuthViewController: UIViewController {
         let decryptedData = Data(decrypted)
         return String(bytes: decryptedData.bytes, encoding: .utf8) ?? "Could not decrypt"
     }
+    func getVersion() {
+        let versionParameters = "{\"Language\": \"tr\",\"ProcessType\": 2}"
+       
+        let enUrlParams = try! versionParameters.aesEncrypt(key: LoginConstants.xApiKey, iv: LoginConstants.IV)
+        print(enUrlParams)
+        let stringRequest = "\"\(enUrlParams)\""
+        let url = URL(string: GetVersionUrl)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = stringRequest.data(using: String.Encoding.utf8)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue( "Bearer \(User.mobilJWT)", forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+            guard let data = data, error == nil else {
+                print("error=\(String(describing: error))")
+                return
+            }
+            
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                print("response = \(String(describing: response))")
+                
+            }
+            if let responseString = String(data: data, encoding: .utf8) {
+                self.userDC = responseString
+                self.userDC = try! self.aesDecrypt(key: LoginConstants.xApiKey, iv: LoginConstants.IV)
+                let data: Data? = self.userDC.data(using: .utf8)
+                let json = (try? JSONSerialization.jsonObject(with: data ?? Data(), options: [])) as? [String:AnyObject]
+                print(json ?? "Empty Data")
+                if json!["Success"] as? Int ?? 0 ==  1 {
+                    if json!["Version"] as? Int ?? 0 != Int(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "") {
+                        
+                        let alert = UIAlertController(title: "UPDATE!!", message: "Please update the app from Testflight", preferredStyle: .alert)
+                        let ok = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+                            UIAlertAction in
+                            UIApplication.shared.open(URL(string: "https://testflight.apple.com/join/LzUwYP0N")!)
+                        }
+                        
+                        alert.addAction(ok)
+                        self.present(alert, animated: true, completion: nil)
+                        
+                        
+                    }
+                    
+                }
+                
+            }
+        })
+        task.resume()
+    }
+    
     
     func checkPassword() {
         self.loginButton.isEnabled = false
