@@ -703,7 +703,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                                 self.fmcgİmage.image = UIImage(named: "down")
                                                 self.fmcgPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                             }
-                                            self.fmcgProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())") ?? 0.0)"
+                                            self.fmcgProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: [" "]).joined())") ?? 0.0)"
                                             if CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0 > 1.0 {
                                                 self.fmcgProgress.setProgress(progress: 1.0, animated: false)
                                             } else {
@@ -734,7 +734,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                                 self.freshFoodİmage.image = UIImage(named: "down")
                                                 self.freshFoodPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                             }
-                                            self.freshFoodProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())") ?? 0.0)"
+                                            self.freshFoodProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: [" "]).joined())") ?? 0.0)"
                                             if CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0 > 1.0 {
                                                 self.freshFoodProgress.setProgress(progress: 1.0, animated: false)
                                             } else {
@@ -765,7 +765,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                                 self.homeİmage.image = UIImage(named: "down")
                                                 self.homePercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                             }
-                                            self.homeProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())") ?? 0.0)"
+                                            self.homeProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: [" "]).joined())") ?? 0.0)"
                                             if CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0 > 1.0 {
                                                 self.homeProgress.setProgress(progress: 1.0, animated: false)
                                             } else {
@@ -795,7 +795,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                                 self.textfileİmage.image = UIImage(named: "down")
                                                 self.textfilePercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                             }
-                                            self.textileProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())") ?? 0.0)"
+                                            self.textileProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: [" "]).joined())") ?? 0.0)"
                                             if CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0 > 1.0 {
                                                 self.textileProgress.setProgress(progress: 1.0, animated: false)
                                             } else {
@@ -825,7 +825,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                                 self.electronicİmage.image = UIImage(named: "down")
                                                 self.electronicPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                             }
-                                            self.electronicProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())") ?? 0.0)"
+                                            self.electronicProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: [" "]).joined())") ?? 0.0)"
                                             if CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0 > 1.0 {
                                                 self.electronicProgress.setProgress(progress: 1.0, animated: false)
                                             } else {
@@ -855,7 +855,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                                 self.otherİmage.image = UIImage(named: "down")
                                                 self.otherPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                             }
-                                            self.otherProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())") ?? 0.0)"
+                                            self.otherProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: [" "]).joined())") ?? 0.0)"
                                             if CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0 > 1.0 {
                                                 self.otherProgress.setProgress(progress: 1.0, animated: false)
                                             } else {
@@ -885,7 +885,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                                 self.foodİmage.image = UIImage(named: "down")
                                                 self.foodPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                             }
-                                            self.foodProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())") ?? 0.0)"
+                                            self.foodProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: [" "]).joined())") ?? 0.0)"
                                             if CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0 > 1.0 {
                                                 self.foodProgress.setProgress(progress: 1.0, animated: false)
                                             } else {
@@ -915,7 +915,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                                                 self.nonFoodİmage.image = UIImage(named: "down")
                                                 self.nonFoodPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                             }
-                                            self.nonFoodProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: ["-"," "]).joined())") ?? 0.0)"
+                                            self.nonFoodProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: [" "]).joined())") ?? 0.0)"
                                             if CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0 > 1.0 {
                                                 self.nonFoodProgress.setProgress(progress: 1.0, animated: false)
                                             } else {

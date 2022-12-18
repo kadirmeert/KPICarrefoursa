@@ -135,6 +135,7 @@ class AuthViewController: UIViewController {
         let enUrlParams = try! versionParameters.aesEncrypt(key: LoginConstants.xApiKey, iv: LoginConstants.IV)
         print(enUrlParams)
         let stringRequest = "\"\(enUrlParams)\""
+        print(stringRequest)
         let url = URL(string: GetVersionUrl)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -159,27 +160,24 @@ class AuthViewController: UIViewController {
                 let json = (try? JSONSerialization.jsonObject(with: data ?? Data(), options: [])) as? [String:AnyObject]
                 print(json ?? "Empty Data")
                 if json!["Success"] as? Int ?? 0 ==  1 {
-                    if json!["Version"] as? Int ?? 0 != Int(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "") {
-                        
-                        let alert = UIAlertController(title: "UPDATE!!", message: "Please update the app from Testflight", preferredStyle: .alert)
-                        let ok = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
-                            UIAlertAction in
-                            UIApplication.shared.open(URL(string: "https://testflight.apple.com/join/LzUwYP0N")!)
+                    DispatchQueue.main.async {
+                        if json!["Version"] as? String ?? "" != Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "" {
+                            
+                            let alert = UIAlertController(title: "UPDATE!!", message: "Please update the app from Testflight", preferredStyle: .alert)
+                            let ok = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+                                UIAlertAction in
+                                UIApplication.shared.open(URL(string: "https://testflight.apple.com/join/LzUwYP0N")!)
+                            }
+                            
+                            alert.addAction(ok)
+                            self.present(alert, animated: true, completion: nil)
                         }
-                        
-                        alert.addAction(ok)
-                        self.present(alert, animated: true, completion: nil)
-                        
-                        
                     }
-                    
                 }
-                
             }
         })
         task.resume()
     }
-    
     
     func checkPassword() {
         self.loginButton.isEnabled = false
