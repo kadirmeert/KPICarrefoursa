@@ -388,8 +388,8 @@ October 11, 2022 14:37</string>
                                                             <outlet property="delegate" destination="Y6W-OH-hqX" id="o4X-0L-2ZV"/>
                                                         </connections>
                                                     </tableView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="vs 2021" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nky-cm-Vjg">
-                                                        <rect key="frame" x="258.66666666666669" y="417.33333333333337" width="51.333333333333314" height="17.333333333333314"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="vs 2022" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nky-cm-Vjg">
+                                                        <rect key="frame" x="256" y="417.33333333333337" width="54" height="17.333333333333314"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="17.329999999999998" id="cPE-ab-NHa"/>
                                                         </constraints>
@@ -495,8 +495,8 @@ October 11, 2022 14:37</string>
                                                             <outlet property="delegate" destination="Y6W-OH-hqX" id="mmd-2b-nUq"/>
                                                         </connections>
                                                     </tableView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="vs 2021" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mmX-El-mgG">
-                                                        <rect key="frame" x="258.66666666666669" y="417.33333333333337" width="51.333333333333314" height="17.333333333333314"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="vs 2022" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mmX-El-mgG">
+                                                        <rect key="frame" x="256" y="417.33333333333337" width="54" height="17.333333333333314"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="17.329999999999998" id="PUh-69-Pgh"/>
                                                         </constraints>

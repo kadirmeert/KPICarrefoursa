@@ -145,7 +145,6 @@
 		414C9BDB29028ABB00935541 /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		4161586C28EDB5DF009A1C0C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		41627AE7291CD377002502AC /* FormatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatTableViewCell.swift; sourceTree = "<group>"; };
-		4169FFE128F7D94000FBE3B3 /* ios_distribution.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = ios_distribution.cer; sourceTree = "<group>"; };
 		416C5D8829349EDC00C088E2 /* splashModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = splashModel.swift; sourceTree = "<group>"; };
 		416D313C290FFD68001187F9 /* Alert.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Alert.storyboard; sourceTree = "<group>"; };
 		416D313E290FFD84001187F9 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
@@ -299,7 +298,6 @@
 		4122E76728EB0A8A0031931E /* KPICarrefoursa */ = {
 			isa = PBXGroup;
 			children = (
-				4169FFE128F7D94000FBE3B3 /* ios_distribution.cer */,
 				4122E79F28EB0B880031931E /* Constant */,
 				416D313B290FFCEA001187F9 /* CustomAlert */,
 				417C06902905A7F5000CD45C /* Price */,
@@ -1206,7 +1204,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = bicerbaris.KPICarrefoursa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1239,7 +1237,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = bicerbaris.KPICarrefoursa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

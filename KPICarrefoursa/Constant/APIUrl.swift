@@ -23,5 +23,5 @@ let BasketUrl = "\(PublicUrl)/api/Dashboard/AverageBasket"
 let PriceUrl = "\(PublicUrl)/api/Dashboard/AveragePrice"
 let AuthenticaUrl = "\(PublicUrl)/api/Account/AuthenticateDevice"
 let GetVersionUrl = "\(PublicUrl)/api/Account/GetVersion"
-
+let UpdateVersionUrl = "\(PublicUrl)/api/Account/UpdateVersion"
 

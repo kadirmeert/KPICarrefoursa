@@ -131,7 +131,7 @@ class AuthViewController: UIViewController {
     }
     func getVersion() {
         let versionParameters = "{\"Language\": \"tr\",\"ProcessType\": 2}"
-       
+        print(versionParameters)
         let enUrlParams = try! versionParameters.aesEncrypt(key: LoginConstants.xApiKey, iv: LoginConstants.IV)
         print(enUrlParams)
         let stringRequest = "\"\(enUrlParams)\""
@@ -167,6 +167,7 @@ class AuthViewController: UIViewController {
                             let ok = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
                                 UIAlertAction in
                                 UIApplication.shared.open(URL(string: "https://testflight.apple.com/join/LzUwYP0N")!)
+                                self.updateVersion()
                             }
                             
                             alert.addAction(ok)
@@ -174,6 +175,55 @@ class AuthViewController: UIViewController {
                         }
                     }
                 }
+            }
+        })
+        task.resume()
+    }
+    func updateVersion() {
+        let versionParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"Version\": \"\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")\"}"
+        print(versionParameters)
+        let enUrlParams = try! versionParameters.aesEncrypt(key: LoginConstants.xApiKey, iv: LoginConstants.IV)
+        print(enUrlParams)
+        let stringRequest = "\"\(enUrlParams)\""
+        print(stringRequest)
+        let url = URL(string: UpdateVersionUrl)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = stringRequest.data(using: String.Encoding.utf8)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue( "Bearer \(User.mobilJWT)", forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+            guard let data = data, error == nil else {
+                print("error=\(String(describing: error))")
+                return
+            }
+            
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                print("response = \(String(describing: response))")
+                
+            }
+            if let responseString = String(data: data, encoding: .utf8) {
+                self.userDC = responseString
+                self.userDC = try! self.aesDecrypt(key: LoginConstants.xApiKey, iv: LoginConstants.IV)
+                let data: Data? = self.userDC.data(using: .utf8)
+                let json = (try? JSONSerialization.jsonObject(with: data ?? Data(), options: [])) as? [String:AnyObject]
+                print(json ?? "Empty Data")
+//                if json!["Success"] as? Int ?? 0 ==  1 {
+//                    DispatchQueue.main.async {
+//                        if json!["Version"] as? String ?? "" != Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "" {
+//
+//                            let alert = UIAlertController(title: "UPDATE!!", message: "Please update the app from Testflight", preferredStyle: .alert)
+//                            let ok = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+//                                UIAlertAction in
+//                                UIApplication.shared.open(URL(string: "https://testflight.apple.com/join/LzUwYP0N")!)
+//                            }
+//
+//                            alert.addAction(ok)
+//                            self.present(alert, animated: true, completion: nil)
+//                        }
+//                    }
+//                }
             }
         })
         task.resume()

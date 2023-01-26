@@ -24,6 +24,8 @@ class SplashViewController: UIViewController {
         let decryptedData = Data(decrypted)
         return String(bytes: decryptedData.bytes, encoding: .utf8) ?? "Could not decrypt"
     }
+
+    
     func checkMobilTokenData() {
         let splashParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"Username\": \"ios\",\"Password\": \"P%(&FI6%(G1V4MtloM8$\"}"
         let enUrlParams = try! splashParameters.aesEncrypt(key: LoginConstants.xApiKey, iv: LoginConstants.IV)

@@ -98,7 +98,9 @@ class MainViewController: UIViewController {
             hud.show(in: self.view)
             self.checkDataDashboard()
         } else {
-            hud.dismiss(animated: true)
+            hud.textLabel.text = "Loading"
+            hud.show(in: self.view)
+            self.checkDataDashboard()
         }
         
         self.refreshControl.tintColor = UIColor.gray
@@ -336,9 +338,9 @@ class MainViewController: UIViewController {
                                     self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2022B[0]
 
                                 }
-                                if self.sales2022LE.isSelected == true {
-                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvsButceLE[0]
-                                }
+//                                if self.sales2022LE.isSelected == true {
+//                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvsButceLE[0]
+//                                }
                                 
                                 self.salesİmage.image = UIImage(named: "Up")
                                 self.salesPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
@@ -354,9 +356,9 @@ class MainViewController: UIViewController {
                                     self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2022B[0].components(separatedBy: [" ", "-"]).joined()
 
                                 }
-                                if self.sales2022LE.isSelected == true {
-                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvsButceLE[0].components(separatedBy: [" ", "-"]).joined()
-                                }
+//                                if self.sales2022LE.isSelected == true {
+//                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvsButceLE[0].components(separatedBy: [" ", "-"]).joined()
+//                                }
                                 self.salesİmage.image = UIImage(named: "down")
                                 self.salesPercentageLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                             }
@@ -822,12 +824,12 @@ class MainViewController: UIViewController {
         ikibinyirmibirLabel.textColor = .white
         ikibinyirmiikiBView.backgroundColor = .clear
         ikibinyirmiikiBLabel.textColor = .white
-        
+
         if dashboardValue.NetSalesvsButceLE.isEmpty {
             self.salesPercentageLabel.text = "%0.0"
 
         } else {
-            
+
             if "\(dashboardValue.NetSalesvsButceLE[0].components(separatedBy: ["%"," "]).joined())".toDouble >= 0.0 {
                 self.salesPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                 self.salesPercentageLabel.text = self.dashboardValue.NetSalesvsButceLE[0]

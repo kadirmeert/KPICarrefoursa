@@ -420,8 +420,8 @@ October 11, 2022 14:37</string>
                                                             <constraint firstItem="Neu-9Y-T4N" firstAttribute="top" secondItem="ITJ-KW-73p" secondAttribute="bottom" constant="4" id="kJW-eQ-QzX"/>
                                                         </constraints>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="vs 2021" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="03F-oF-coz">
-                                                        <rect key="frame" x="258.66666666666669" y="516.66666666666663" width="51.333333333333314" height="17.333333333333371"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="vs 2022" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="03F-oF-coz">
+                                                        <rect key="frame" x="256" y="516.66666666666663" width="54" height="17.333333333333371"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="17.329999999999998" id="Fw6-F7-UP6"/>
                                                         </constraints>
