@@ -238,12 +238,13 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
                         } else {
                             
                             for index in 0...self.numberOfStores.LastUpdate.count-1 {
-                                let dateFormatter1 = DateFormatter()
-                                dateFormatter1.dateFormat = "dd/MM/yyyy HH:mm:ss"
-                                if let recordDate = self.dateFormatter.date(from: self.numberOfStores.LastUpdate[index]){
-                                    let dateText = dateFormatter1.string(from: recordDate)
-                                    self.lastTimeLabel.text = "Last Updated Time \(dateText)"
-                                }
+                                self.lastTimeLabel.text = "Last Updated Time \(self.numberOfStores.LastUpdate[index])"
+//                                let dateFormatter1 = DateFormatter()
+//                                dateFormatter1.dateFormat = "dd/MM/yyyy HH:mm:ss"
+//                                if let recordDate = self.dateFormatter.date(from: self.numberOfStores.LastUpdate[index]){
+//                                    let dateText = dateFormatter1.string(from: recordDate)
+//                                    self.lastTimeLabel.text = "Last Updated Time \(dateText)"
+//                                }
                                 
                                 if self.numberOfStores.Format[index] == "Actual CSA Total" {
                                     

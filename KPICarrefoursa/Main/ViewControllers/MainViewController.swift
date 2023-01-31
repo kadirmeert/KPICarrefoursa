@@ -292,12 +292,13 @@ class MainViewController: UIViewController {
                         self.hud.dismiss()
                         
                         if !self.dashboardValue.Last_Update.isEmpty {
-                            let dateFormatter1 = DateFormatter()
-                            dateFormatter1.dateFormat = "dd/MM/yyyy HH:mm:ss"
-                            if let recordDate = self.dateFormatter.date(from: self.dashboardValue.Last_Update[0]){
-                                let dateText = dateFormatter1.string(from: recordDate)
-                                self.lastUpdateTime.text = "Last Updated Time \(dateText)"
-                            }
+                            self.lastUpdateTime.text = "Last Updated Time \(self.dashboardValue.Last_Update[0])"
+//                            let dateFormatter1 = DateFormatter()
+//                            dateFormatter1.dateFormat = "dd/MM/yyyy"
+//                            if let recordDate = self.dateFormatter.date(from: self.dashboardValue.Last_Update[0]){
+//                                let dateText = dateFormatter1.string(from: recordDate)
+//                                self.lastUpdateTime.text = "Last Updated Time \(dateText)"
+//                            }
                             
                         } else {
                             self.lastUpdateTime.text = "00/00/0000 00:00:00"
@@ -333,35 +334,72 @@ class MainViewController: UIViewController {
                                 if self.sales2021.isSelected == true {
                                     self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2021[0]
                                     self.sales2021.isSelected = false
+                                    self.salesİmage.image = UIImage(named: "Up")
+                                    self.salesPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                 }
-                                if self.sales2022B.isSelected == true {
-                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2022B[0]
-
-                                }
-//                                if self.sales2022LE.isSelected == true {
-//                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvsButceLE[0]
-//                                }
+              
+                               
                                 
-                                self.salesİmage.image = UIImage(named: "Up")
-                                self.salesPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                                
-                            }else {
+                            } else {
                                 self.netSalesLabel.text = self.dashboardValue.NetSales[0]
                                 self.sales2021.isSelected = true
                                 if self.sales2021.isSelected == true {
                                     self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2021[0].components(separatedBy: [" ", "-"]).joined()
                                     self.sales2021.isSelected = false
+                                    self.salesİmage.image = UIImage(named: "down")
+                                    self.salesPercentageLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                 }
+                               
+                            }
+                            
+                            if "\(self.dashboardValue.NetSalesvs2022B[0].components(separatedBy: ["%"," "]).joined())".toDouble > 0.0 {
+                                self.netSalesLabel.text = self.dashboardValue.NetSales[0]
+                       
+                                if self.sales2022B.isSelected == true {
+                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2022B[0]
+                                    self.salesİmage.image = UIImage(named: "Up")
+                                    self.salesPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                                }
+
+                            } else {
+                                self.netSalesLabel.text = self.dashboardValue.NetSales[0]
+                               
                                 if self.sales2022B.isSelected == true {
                                     self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2022B[0].components(separatedBy: [" ", "-"]).joined()
-
+                                    self.salesİmage.image = UIImage(named: "down")
+                                    self.salesPercentageLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                 }
-//                                if self.sales2022LE.isSelected == true {
-//                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvsButceLE[0].components(separatedBy: [" ", "-"]).joined()
-//                                }
-                                self.salesİmage.image = UIImage(named: "down")
-                                self.salesPercentageLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+
+                                
                             }
+//                            if "\(self.dashboardValue.NetSalesvsButceLE[0].components(separatedBy: ["%"," "]).joined())".toDouble > 0.0 {
+//                                self.netSalesLabel.text = self.dashboardValue.NetSales[0]
+//
+////                                if self.sales2022LE.isSelected == true {
+////                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvsButceLE[0]
+////                                }
+//
+//                                self.salesİmage.image = UIImage(named: "Up")
+//                                self.salesPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+//
+//                            }
+//                            else {
+//                                self.netSalesLabel.text = self.dashboardValue.NetSales[0]
+//                                self.sales2021.isSelected = true
+//                                if self.sales2021.isSelected == true {
+//                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2021[0].components(separatedBy: [" ", "-"]).joined()
+//                                    self.sales2021.isSelected = false
+//                                }
+//                                if self.sales2022B.isSelected == true {
+//                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2022B[0].components(separatedBy: [" ", "-"]).joined()
+//
+//                                }
+////                                if self.sales2022LE.isSelected == true {
+////                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvsButceLE[0].components(separatedBy: [" ", "-"]).joined()
+////                                }
+//                                self.salesİmage.image = UIImage(named: "down")
+//                                self.salesPercentageLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+//                            }
                         }
                         
                         if self.dashboardValue.Customervs2021.isEmpty {
@@ -574,6 +612,12 @@ class MainViewController: UIViewController {
         self.monthlyLabel.textColor = UIColor.white
         self.yeartodateView.backgroundColor = UIColor.clear
         self.yeartodateLabel.textColor = UIColor.white
+        if sales2021.isSelected == true {
+            ikibinyirmibirBtnPressed(sales2021 as Any)
+        }
+        if sales2022B.isSelected == true {
+            ikibinyirmiikiBBtnPressed(sales2022B as Any)
+        }
     }
     
     @IBAction func daytodayBtnPressed(_ sender: Any) {
