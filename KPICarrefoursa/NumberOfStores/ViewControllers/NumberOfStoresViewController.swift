@@ -255,13 +255,14 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
                                 }
                             }
                         }
-                    }
-                    
-                    DispatchQueue.main.async {
                         self.hud.dismiss()
                         self.setupPieChart()
                         self.tableView.reloadData()
                     }
+                    
+//                    DispatchQueue.main.async {
+//
+//                    }
                 }
             }
         })

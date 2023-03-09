@@ -20,6 +20,7 @@
 		41142DC32931077C00E437AA /* Montserrat-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41142DBD2931077C00E437AA /* Montserrat-Black.ttf */; };
 		41142DC42931077C00E437AA /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41142DBE2931077C00E437AA /* Montserrat-SemiBold.ttf */; };
 		4114E7BB28FE95FB0042BD19 /* NumberOfStoresModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4114E7BA28FE95FB0042BD19 /* NumberOfStoresModel.swift */; };
+		412109FE29B87BBB001D6EB0 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 412109FD29B87BBB001D6EB0 /* FSCalendar */; };
 		4122E76928EB0A8A0031931E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4122E76828EB0A8A0031931E /* AppDelegate.swift */; };
 		4122E76B28EB0A8A0031931E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4122E76A28EB0A8A0031931E /* SceneDelegate.swift */; };
 		4122E76D28EB0A8A0031931E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4122E76C28EB0A8A0031931E /* MainViewController.swift */; };
@@ -42,6 +43,8 @@
 		412C843C292CA57300D80BCC /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 412C843B292CA57300D80BCC /* FirebaseFirestore */; };
 		412F1A3B28F82AA7007F1A52 /* Splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 412F1A3A28F82AA7007F1A52 /* Splash.storyboard */; };
 		412F1A3D28F82AB7007F1A52 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412F1A3C28F82AB7007F1A52 /* SplashViewController.swift */; };
+		413A11A429BA173D0029C5FD /* ReportsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413A11A329BA173D0029C5FD /* ReportsViewController.swift */; };
+		413A11A629BA17A90029C5FD /* Reports.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 413A11A529BA17A90029C5FD /* Reports.storyboard */; };
 		414C9BDC29028ABC00935541 /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414C9BDB29028ABB00935541 /* MainModel.swift */; };
 		4161586D28EDB5DF009A1C0C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4161586C28EDB5DF009A1C0C /* User.swift */; };
 		41627AE8291CD377002502AC /* FormatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41627AE7291CD377002502AC /* FormatTableViewCell.swift */; };
@@ -142,6 +145,8 @@
 		412A28E428F2092800F232D3 /* Confirm.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Confirm.storyboard; sourceTree = "<group>"; };
 		412F1A3A28F82AA7007F1A52 /* Splash.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Splash.storyboard; sourceTree = "<group>"; };
 		412F1A3C28F82AB7007F1A52 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		413A11A329BA173D0029C5FD /* ReportsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsViewController.swift; sourceTree = "<group>"; };
+		413A11A529BA17A90029C5FD /* Reports.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Reports.storyboard; sourceTree = "<group>"; };
 		414C9BDB29028ABB00935541 /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		4161586C28EDB5DF009A1C0C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		41627AE7291CD377002502AC /* FormatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatTableViewCell.swift; sourceTree = "<group>"; };
@@ -201,6 +206,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A43F278659F09D6C0495257 /* Pods_KPICarrefoursa.framework in Frameworks */,
+				412109FE29B87BBB001D6EB0 /* FSCalendar in Frameworks */,
 				412C843A292CA57300D80BCC /* FirebaseCrashlytics in Frameworks */,
 				412C843C292CA57300D80BCC /* FirebaseFirestore in Frameworks */,
 			);
@@ -298,6 +304,7 @@
 		4122E76728EB0A8A0031931E /* KPICarrefoursa */ = {
 			isa = PBXGroup;
 			children = (
+				413A11A229BA17270029C5FD /* Reports */,
 				4122E79F28EB0B880031931E /* Constant */,
 				416D313B290FFCEA001187F9 /* CustomAlert */,
 				417C06902905A7F5000CD45C /* Price */,
@@ -396,6 +403,15 @@
 				4122E76C28EB0A8A0031931E /* MainViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		413A11A229BA17270029C5FD /* Reports */ = {
+			isa = PBXGroup;
+			children = (
+				413A11A329BA173D0029C5FD /* ReportsViewController.swift */,
+				413A11A529BA17A90029C5FD /* Reports.storyboard */,
+			);
+			path = Reports;
 			sourceTree = "<group>";
 		};
 		414C9BDA29028AAB00935541 /* Models */ = {
@@ -700,6 +716,7 @@
 			packageProductDependencies = (
 				412C8439292CA57300D80BCC /* FirebaseCrashlytics */,
 				412C843B292CA57300D80BCC /* FirebaseFirestore */,
+				412109FD29B87BBB001D6EB0 /* FSCalendar */,
 			);
 			productName = KPICarrefoursa;
 			productReference = 4122E76528EB0A8A0031931E /* KPICarrefoursa.app */;
@@ -778,6 +795,7 @@
 			mainGroup = 4122E75C28EB0A8A0031931E;
 			packageReferences = (
 				412C8438292CA57300D80BCC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				412109FC29B87BBB001D6EB0 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 4122E76628EB0A8A0031931E /* Products */;
 			projectDirPath = "";
@@ -808,6 +826,7 @@
 				417C06922905A821000CD45C /* AveragePrice.storyboard in Resources */,
 				416D313D290FFD68001187F9 /* Alert.storyboard in Resources */,
 				41142DC42931077C00E437AA /* Montserrat-SemiBold.ttf in Resources */,
+				413A11A629BA17A90029C5FD /* Reports.storyboard in Resources */,
 				4122E77228EB0A920031931E /* Assets.xcassets in Resources */,
 				412F1A3B28F82AA7007F1A52 /* Splash.storyboard in Resources */,
 				410DB29A2903C0E7007E264C /* NetSales.storyboard in Resources */,
@@ -1005,6 +1024,7 @@
 				41BF9F9D28F5815B002A9BAE /* NumberOfStoresViewController.swift in Sources */,
 				417C06662905456F000CD45C /* StoresTableViewCell.swift in Sources */,
 				416C5D8929349EDC00C088E2 /* splashModel.swift in Sources */,
+				413A11A429BA173D0029C5FD /* ReportsViewController.swift in Sources */,
 				416D313F290FFD84001187F9 /* CustomAlertView.swift in Sources */,
 				417C067B29059FFE000CD45C /* ProductStoresTableViewCell.swift in Sources */,
 				41741D92290802750048CB00 /* NetSalesCategoryModel.swift in Sources */,
@@ -1369,6 +1389,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		412109FC29B87BBB001D6EB0 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		412C8438292CA57300D80BCC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -1380,6 +1408,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		412109FD29B87BBB001D6EB0 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 412109FC29B87BBB001D6EB0 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
+		};
 		412C8439292CA57300D80BCC /* FirebaseCrashlytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 412C8438292CA57300D80BCC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

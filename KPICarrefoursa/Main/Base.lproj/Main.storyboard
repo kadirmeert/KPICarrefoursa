@@ -964,53 +964,75 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="rm4-VT-pmb"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="LQD-aL-vVU"/>
                             </scrollView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qq0-gL-lCz" userLabel="Last Updated Time October 11, 2022 14:37">
-                                <rect key="frame" x="233.33333333333334" y="281" width="111.66666666666666" height="24.666666666666686"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="111.67" id="9lM-3g-w5d"/>
-                                </constraints>
-                                <string key="text">Last Updated Time
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ykr-KG-1CY">
+                                <rect key="frame" x="0.0" y="265" width="390" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qq0-gL-lCz" userLabel="Last Updated Time October 11, 2022 14:37">
+                                        <rect key="frame" x="258.33333333333331" y="12.666666666666687" width="111.66666666666669" height="24.666666666666671"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="111.67" id="9lM-3g-w5d"/>
+                                        </constraints>
+                                        <string key="text">Last Updated Time
 October 11, 2022 14:37</string>
-                                <fontDescription key="fontDescription" name="Montserrat-BoldItalic" family="Montserrat" pointSize="10"/>
-                                <color key="textColor" red="0.89531916379999998" green="0.2085605562" blue="0.2214163542" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LFL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pqr-Kp-c1K">
-                                <rect key="frame" x="45" y="281" width="33.333333333333343" height="22"/>
-                                <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="18"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BIT-xt-5ek">
-                                <rect key="frame" x="86.333333333333329" y="276.66666666666669" width="50.999999999999986" height="31"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="tintColor" red="0.0" green="0.58430582279999999" blue="0.19683906440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="onTintColor" red="0.0" green="0.58430582279999999" blue="0.19683906440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <action selector="homeDidValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="6jO-Dc-b0l"/>
-                                </connections>
-                            </switch>
+                                        <fontDescription key="fontDescription" name="Montserrat-BoldItalic" family="Montserrat" pointSize="10"/>
+                                        <color key="textColor" red="0.89531916379999998" green="0.2085605562" blue="0.2214163542" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LFL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pqr-Kp-c1K">
+                                        <rect key="frame" x="44" y="14" width="33.333333333333343" height="22"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="18"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BIT-xt-5ek">
+                                        <rect key="frame" x="85.333333333333329" y="9.6666666666666856" width="50.999999999999986" height="31"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" red="0.0" green="0.58430582279999999" blue="0.19683906440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="onTintColor" red="0.0" green="0.58430582279999999" blue="0.19683906440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <action selector="homeDidValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="6jO-Dc-b0l"/>
+                                        </connections>
+                                    </switch>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="BIT-xt-5ek" firstAttribute="centerY" secondItem="pqr-Kp-c1K" secondAttribute="centerY" id="1zf-Dk-o93"/>
+                                    <constraint firstItem="BIT-xt-5ek" firstAttribute="leading" secondItem="pqr-Kp-c1K" secondAttribute="trailing" constant="8" id="5bT-Bb-914"/>
+                                    <constraint firstItem="qq0-gL-lCz" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="BIT-xt-5ek" secondAttribute="trailing" constant="8" symbolic="YES" id="6wB-Pw-bo3"/>
+                                    <constraint firstAttribute="height" constant="50" id="99Y-l7-suw"/>
+                                    <constraint firstItem="pqr-Kp-c1K" firstAttribute="leading" secondItem="ykr-KG-1CY" secondAttribute="leading" constant="44" id="A1D-vH-gyW"/>
+                                    <constraint firstItem="qq0-gL-lCz" firstAttribute="centerY" secondItem="ykr-KG-1CY" secondAttribute="centerY" id="Kos-PH-bFL"/>
+                                    <constraint firstAttribute="trailing" secondItem="qq0-gL-lCz" secondAttribute="trailing" constant="20" symbolic="YES" id="gau-81-VmQ"/>
+                                    <constraint firstItem="pqr-Kp-c1K" firstAttribute="centerY" secondItem="ykr-KG-1CY" secondAttribute="centerY" id="xmv-W8-Vu8"/>
+                                </constraints>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S9b-se-8dh">
+                                <rect key="frame" x="50" y="265" width="290" height="300"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="l1g-QO-WaW"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.89831835029999996" green="0.91762584449999995" blue="0.92992633579999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="OOc-5D-XsO" firstAttribute="top" secondItem="Jft-yK-9Z7" secondAttribute="bottom" constant="132" id="1XL-no-rrJ"/>
-                            <constraint firstItem="qq0-gL-lCz" firstAttribute="top" secondItem="OWK-i6-sK9" secondAttribute="bottom" constant="16" id="240-DA-QH3"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qq0-gL-lCz" secondAttribute="trailing" constant="45" id="62t-MK-41B"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="S9b-se-8dh" secondAttribute="trailing" constant="50" id="3Ad-S7-0Fh"/>
+                            <constraint firstItem="S9b-se-8dh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="3Pz-zM-FeN"/>
                             <constraint firstItem="OWK-i6-sK9" firstAttribute="top" secondItem="Jft-yK-9Z7" secondAttribute="bottom" constant="24" id="6oW-3g-vWh"/>
-                            <constraint firstItem="BIT-xt-5ek" firstAttribute="leading" secondItem="pqr-Kp-c1K" secondAttribute="trailing" constant="8" id="7rO-kw-pgv"/>
                             <constraint firstItem="OOc-5D-XsO" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="BQN-aO-MVX"/>
                             <constraint firstItem="OWK-i6-sK9" firstAttribute="leading" secondItem="Jft-yK-9Z7" secondAttribute="leading" id="Fv1-I2-LU2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Jft-yK-9Z7" secondAttribute="trailing" id="LND-bu-C8p"/>
                             <constraint firstAttribute="bottom" secondItem="OOc-5D-XsO" secondAttribute="bottom" id="MJf-5X-eSZ"/>
-                            <constraint firstItem="pqr-Kp-c1K" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="45" id="PRR-P4-U53"/>
+                            <constraint firstItem="ykr-KG-1CY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="PJx-Kf-w9a"/>
                             <constraint firstItem="OOc-5D-XsO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="VzY-x0-igM"/>
                             <constraint firstItem="Jft-yK-9Z7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Wjc-zb-4qr"/>
-                            <constraint firstItem="pqr-Kp-c1K" firstAttribute="top" secondItem="OWK-i6-sK9" secondAttribute="bottom" constant="16" id="dhv-7X-RUX"/>
-                            <constraint firstItem="BIT-xt-5ek" firstAttribute="centerY" secondItem="pqr-Kp-c1K" secondAttribute="centerY" id="kCG-ib-dMQ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ykr-KG-1CY" secondAttribute="trailing" id="Yxk-a0-Ak5"/>
+                            <constraint firstItem="ykr-KG-1CY" firstAttribute="top" secondItem="OWK-i6-sK9" secondAttribute="bottom" id="cuO-1R-5dP"/>
+                            <constraint firstItem="S9b-se-8dh" firstAttribute="top" secondItem="OWK-i6-sK9" secondAttribute="bottom" id="h0n-qz-aEh"/>
                             <constraint firstItem="Jft-yK-9Z7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="kNd-Yv-uXQ"/>
                             <constraint firstItem="OWK-i6-sK9" firstAttribute="trailing" secondItem="Jft-yK-9Z7" secondAttribute="trailing" id="lrC-Oi-Yml"/>
-                            <constraint firstItem="qq0-gL-lCz" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="BIT-xt-5ek" secondAttribute="trailing" constant="8" symbolic="YES" id="m4R-Hd-yeF"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="MU3-7i-bCP"/>
@@ -1023,6 +1045,7 @@ October 11, 2022 14:37</string>
                         <outlet property="averagePriceView" destination="iz2-Ta-8Og" id="Inx-wu-LUa"/>
                         <outlet property="basketİmage" destination="QlH-iD-uPx" id="WUM-tE-XQt"/>
                         <outlet property="basketPercentageLabel" destination="LC6-3R-uht" id="PKi-XR-I3z"/>
+                        <outlet property="calendarView" destination="S9b-se-8dh" id="v84-rK-0Lo"/>
                         <outlet property="customerİmage" destination="2wo-sB-ZPo" id="NBB-ua-UjI"/>
                         <outlet property="customerİmageView" destination="vYT-Ey-tqV" id="FTJ-gx-qUr"/>
                         <outlet property="customerLabel" destination="nAG-6Q-FVR" id="KB7-Y9-mxg"/>
@@ -1086,10 +1109,10 @@ October 11, 2022 14:37</string>
             </objects>
             <point key="canvasLocation" x="1046.1538461538462" y="3.5545023696682461"/>
         </scene>
-        <!--NumberOfStores-->
+        <!--Reports-->
         <scene sceneID="bCa-R5-82K">
             <objects>
-                <viewControllerPlaceholder storyboardName="NumberOfStores" id="DZ3-K5-kDC" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Reports" id="DZ3-K5-kDC" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="hJm-3O-Tto"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2TY-Mu-3VJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

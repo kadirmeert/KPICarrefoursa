@@ -8,6 +8,8 @@
 import UIKit
 import CryptoSwift
 import JGProgressHUD
+import FSCalendar
+
 class MainViewController: UIViewController {
     
     //MARK: Outlets
@@ -73,7 +75,10 @@ class MainViewController: UIViewController {
     @IBOutlet weak var lastUpdateTime: UILabel!
     @IBOutlet weak var mainLflLabel: UILabel!
     
+    @IBOutlet weak var calendarView: UIView!
+    
     //MARK: Properties
+    var calendar: FSCalendar!
     var isMenuSelected = true
     var userDC: String = ""
     var otpCheckViewController = OtpCheckViewController()
@@ -238,6 +243,7 @@ class MainViewController: UIViewController {
         let decryptedData = Data(decrypted)
         return String(bytes: decryptedData.bytes, encoding: .utf8) ?? "Could not decrypt"
     }
+    
     func checkDataDashboard() {
         print(chartParameters)
         let enUrlParams = try! chartParameters.aesEncrypt(key: LoginConstants.xApiKey, iv: LoginConstants.IV)
@@ -547,7 +553,6 @@ class MainViewController: UIViewController {
         self.checkLogOut()
     }
     
-    
     //    @IBAction func hourlyBtnPressed(_ sender: Any) {
     //        hourlyButton.isSelected = true
     //        yesterdayButton.isSelected = false
@@ -658,6 +663,12 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func weeklyBtnPressed(_ sender: Any) {
+//        calendar = FSCalendar(frame: CGRect(x: 0.0, y: 0.0, width: self.calendarView.frame.size.width, height:self.calendarView.frame.size.height))
+//        calendar.scrollDirection = .vertical
+//        calendar.scope = .week
+//        self.calendarView.isHidden.toggle()
+//        self.calendarView.addSubview(calendar)
+        
         //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
         daytodayButton.isSelected = false

@@ -13,7 +13,8 @@ import JGProgressHUD
 
 class NetSalesViewController: UIViewController, ChartViewDelegate {
     
-    //MARK: Outlets
+    //MARK: -Outlets
+    
     @IBOutlet weak var ciroView: UIView!
     @IBOutlet weak var netSales2021BackView: UIView!
     @IBOutlet weak var netSales2022BBackView: UIView!
@@ -101,7 +102,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var sales2022Bİmage: UIImageView!
     @IBOutlet weak var sales2022LEimage: UIImageView!
     
-    //MARK: Properties
+    //MARK: -Properties
     
     var jsonmessage: Int = 1
     var userDC: String = ""
@@ -657,7 +658,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate {
                             
                         }
                         
-                        //MARK: CATEGORY
+                        //MARK: -CATEGORY
                         
                         if self.netSalesCategory.CategoryBreakDown.count <= 1 {
                             self.fmcgPercLabel.text = "0.0 KTL"
