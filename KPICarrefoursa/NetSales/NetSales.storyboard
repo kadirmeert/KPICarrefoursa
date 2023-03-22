@@ -1747,6 +1747,9 @@
                                                                                 <real key="value" value="12"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="MonthsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="6ZV-y5-OHd"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rKS-9Q-CJm" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
                                                                         <rect key="frame" x="24" y="0.0" width="0.0" height="50"/>
@@ -1764,6 +1767,9 @@
                                                                                 <real key="value" value="12"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="MonthsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="R5W-DT-hyk"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TbT-HB-zSf" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
                                                                         <rect key="frame" x="48" y="0.0" width="0.0" height="50"/>
@@ -1781,6 +1787,9 @@
                                                                                 <real key="value" value="12"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="MonthsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="mxj-IT-bbq"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <constraints>
@@ -1806,6 +1815,9 @@
                                                                                 <real key="value" value="12"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="MonthsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="ISF-7u-fm2"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LAG-QN-wVw" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
                                                                         <rect key="frame" x="22" y="0.0" width="4" height="50"/>
@@ -1823,6 +1835,9 @@
                                                                                 <real key="value" value="12"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="MonthsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="3P1-Vl-evW"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bJC-dP-sfN" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
                                                                         <rect key="frame" x="44" y="0.0" width="4" height="50"/>
@@ -1840,6 +1855,9 @@
                                                                                 <real key="value" value="12"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="MonthsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="hP6-oW-JnD"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <constraints>
@@ -1865,6 +1883,9 @@
                                                                                 <real key="value" value="12"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="MonthsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="kaW-0g-DkA"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jua-bt-phy" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
                                                                         <rect key="frame" x="22" y="0.0" width="4" height="50"/>
@@ -1882,6 +1903,9 @@
                                                                                 <real key="value" value="12"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="MonthsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="i9A-hR-ThG"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RF6-Dh-nDr" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
                                                                         <rect key="frame" x="44" y="0.0" width="4" height="50"/>
@@ -1899,6 +1923,9 @@
                                                                                 <real key="value" value="12"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="MonthsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="tuI-F1-hE9"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <constraints>
@@ -1924,6 +1951,9 @@
                                                                                 <real key="value" value="12"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="MonthsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Gs4-eU-sfg"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcJ-Xu-5WI" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
                                                                         <rect key="frame" x="22" y="0.0" width="4" height="50"/>
@@ -1941,6 +1971,9 @@
                                                                                 <real key="value" value="12"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="MonthsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="l7i-xf-0jm"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OO9-bm-Wda" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
                                                                         <rect key="frame" x="44" y="0.0" width="4" height="50"/>
@@ -1958,6 +1991,9 @@
                                                                                 <real key="value" value="12"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="MonthsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="ifp-NP-vZ9"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <constraints>
