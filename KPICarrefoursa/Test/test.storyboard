@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Test View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController id="Y6W-OH-hqX" customClass="TestViewController" customModule="KPICarrefoursa" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lNm-E5-ifT">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="390"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5yC-DP-edD" customClass="FSCalendar">
+                                        <rect key="frame" x="50" y="50" width="293" height="290"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="5yC-DP-edD" firstAttribute="top" secondItem="lNm-E5-ifT" secondAttribute="top" constant="50" id="Ml1-X5-QPz"/>
+                                    <constraint firstItem="5yC-DP-edD" firstAttribute="leading" secondItem="lNm-E5-ifT" secondAttribute="leading" constant="50" id="Nsz-v4-qTB"/>
+                                    <constraint firstAttribute="bottom" secondItem="5yC-DP-edD" secondAttribute="bottom" constant="50" id="TrZ-s4-Oxe"/>
+                                    <constraint firstAttribute="height" constant="390" id="dXr-cD-t1s"/>
+                                    <constraint firstAttribute="trailing" secondItem="5yC-DP-edD" secondAttribute="trailing" constant="50" id="oaV-UA-Qcv"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="lNm-E5-ifT" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="3tm-DN-DZ4"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="lNm-E5-ifT" secondAttribute="trailing" id="AEW-hS-HwE"/>
+                            <constraint firstItem="lNm-E5-ifT" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="QZl-fe-tSn"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="testCalendar" destination="5yC-DP-edD" id="1AK-1c-9P0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="33" y="-28"/>
+        </scene>
+    </scenes>
+</document>

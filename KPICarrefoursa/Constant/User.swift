@@ -28,6 +28,10 @@ struct User {
     static var StoreNumber: Array = [Int]()
     static var colors: [String] = ["#004797","#FFBE3D","#FF5456","#4AECFF","#3192FF","#1CC47B","#FFBE3D","#4AECFF"]
     static var labelVersion = 1
+    static var monthsNumber = 0
+    static var weekNumber = 0
+    static var isMonthSelected = true
+
 
     
     

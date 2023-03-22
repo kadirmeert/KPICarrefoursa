@@ -187,9 +187,15 @@
                                                 <rect key="frame" x="295" y="12.666666666666657" width="75" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monthly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h9M-4J-c4u">
-                                                        <rect key="frame" x="8.3333333333333179" y="8.3333333333333428" width="58.333333333333343" height="18"/>
+                                                        <rect key="frame" x="8.3333333333333179" y="8" width="58.333333333333343" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monthly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXP-D4-62Q">
+                                                        <rect key="frame" x="0.0" y="26" width="75" height="9"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="9"/>
+                                                        <color key="textColor" red="0.01839950122" green="0.2503485084" blue="0.53678458929999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cbR-yg-KGa">
@@ -204,13 +210,19 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="bXP-D4-62Q" secondAttribute="bottom" id="2I1-aQ-B3R"/>
                                                     <constraint firstAttribute="trailing" secondItem="cbR-yg-KGa" secondAttribute="trailing" id="2U2-yE-HT1"/>
                                                     <constraint firstItem="cbR-yg-KGa" firstAttribute="leading" secondItem="w8v-Bk-yfH" secondAttribute="leading" id="6ki-rg-9r1"/>
+                                                    <constraint firstAttribute="trailing" secondItem="bXP-D4-62Q" secondAttribute="trailing" id="8fC-U1-ln7"/>
+                                                    <constraint firstItem="bXP-D4-62Q" firstAttribute="leading" secondItem="w8v-Bk-yfH" secondAttribute="leading" id="B0j-Xy-mrI"/>
+                                                    <constraint firstItem="h9M-4J-c4u" firstAttribute="top" secondItem="w8v-Bk-yfH" secondAttribute="top" constant="8.3300000000000001" id="BeH-E5-AYz"/>
                                                     <constraint firstItem="cbR-yg-KGa" firstAttribute="top" secondItem="w8v-Bk-yfH" secondAttribute="top" id="GfB-ji-oRk"/>
+                                                    <constraint firstAttribute="trailing" secondItem="h9M-4J-c4u" secondAttribute="trailing" constant="8.3300000000000001" id="IlB-FU-8Fd"/>
+                                                    <constraint firstItem="bXP-D4-62Q" firstAttribute="top" secondItem="h9M-4J-c4u" secondAttribute="bottom" id="Mh5-xe-FQO"/>
+                                                    <constraint firstAttribute="bottom" secondItem="h9M-4J-c4u" secondAttribute="bottom" constant="9" id="Nin-dn-IIy"/>
                                                     <constraint firstAttribute="height" constant="35" id="SsL-lL-SU8"/>
                                                     <constraint firstAttribute="bottom" secondItem="cbR-yg-KGa" secondAttribute="bottom" id="hSy-Rh-U3K"/>
-                                                    <constraint firstItem="h9M-4J-c4u" firstAttribute="centerX" secondItem="w8v-Bk-yfH" secondAttribute="centerX" id="oNE-uE-STp"/>
-                                                    <constraint firstItem="h9M-4J-c4u" firstAttribute="centerY" secondItem="w8v-Bk-yfH" secondAttribute="centerY" id="y6M-ha-vzZ"/>
+                                                    <constraint firstItem="h9M-4J-c4u" firstAttribute="leading" secondItem="w8v-Bk-yfH" secondAttribute="leading" constant="8.3300000000000001" id="sn6-h3-ZJr"/>
                                                     <constraint firstAttribute="width" constant="75" id="yj2-8H-aoe"/>
                                                 </constraints>
                                             </view>
@@ -1707,12 +1719,277 @@
                                             <constraint firstItem="eDW-hG-jcW" firstAttribute="top" secondItem="QbN-Mb-QEy" secondAttribute="bottom" constant="16" id="zpz-9r-0N2"/>
                                         </constraints>
                                     </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Vp-bT-d6b">
+                                        <rect key="frame" x="0.0" y="0.0" width="390" height="3200"/>
+                                        <subviews>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SD7-wz-Zkd">
+                                                <rect key="frame" x="0.0" y="0.0" width="112" height="1200"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Emv-Lz-SMp">
+                                                        <rect key="frame" x="32" y="16" width="48" height="272"/>
+                                                        <subviews>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="9DD-tV-Mio">
+                                                                <rect key="frame" x="0.0" y="0.0" width="48" height="50"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="016-vb-PYP" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="50"/>
+                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="JAN"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" systemColor="systemGrayColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rKS-9Q-CJm" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
+                                                                        <rect key="frame" x="24" y="0.0" width="0.0" height="50"/>
+                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="FEB"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" systemColor="systemGrayColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TbT-HB-zSf" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
+                                                                        <rect key="frame" x="48" y="0.0" width="0.0" height="50"/>
+                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="MAR"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" systemColor="systemGrayColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </button>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="PpT-7Y-b5P"/>
+                                                                </constraints>
+                                                            </stackView>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="pXC-gW-WjI">
+                                                                <rect key="frame" x="0.0" y="74" width="48" height="50"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aq0-qB-We8" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="4" height="50"/>
+                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="APR"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" systemColor="systemGrayColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LAG-QN-wVw" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
+                                                                        <rect key="frame" x="22" y="0.0" width="4" height="50"/>
+                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="MAY"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" systemColor="systemGrayColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bJC-dP-sfN" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
+                                                                        <rect key="frame" x="44" y="0.0" width="4" height="50"/>
+                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="JUN"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" systemColor="systemGrayColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </button>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="YbQ-pe-bJv"/>
+                                                                </constraints>
+                                                            </stackView>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="QF5-r7-Xn8">
+                                                                <rect key="frame" x="0.0" y="148" width="48" height="50"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TRA-iH-GhV" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="4" height="50"/>
+                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="JULY"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" systemColor="systemGrayColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jua-bt-phy" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
+                                                                        <rect key="frame" x="22" y="0.0" width="4" height="50"/>
+                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="AUG"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" systemColor="systemGrayColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RF6-Dh-nDr" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
+                                                                        <rect key="frame" x="44" y="0.0" width="4" height="50"/>
+                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="SEP"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" systemColor="systemGrayColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </button>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="xnh-p9-cXI"/>
+                                                                </constraints>
+                                                            </stackView>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="bxX-dI-Jli">
+                                                                <rect key="frame" x="0.0" y="222" width="48" height="50"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e7g-5f-XRB" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="4" height="50"/>
+                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="OCT"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" systemColor="systemGrayColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcJ-Xu-5WI" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
+                                                                        <rect key="frame" x="22" y="0.0" width="4" height="50"/>
+                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="NOV"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" systemColor="systemGrayColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OO9-bm-Wda" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
+                                                                        <rect key="frame" x="44" y="0.0" width="4" height="50"/>
+                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="DEC"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" systemColor="systemGrayColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </button>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="YtC-sa-7Eg"/>
+                                                                </constraints>
+                                                            </stackView>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="Emv-Lz-SMp" firstAttribute="top" secondItem="SD7-wz-Zkd" secondAttribute="top" constant="16" id="0Re-fg-1My"/>
+                                                    <constraint firstItem="Emv-Lz-SMp" firstAttribute="leading" secondItem="SD7-wz-Zkd" secondAttribute="leading" constant="32" id="47n-9o-9a2"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Emv-Lz-SMp" secondAttribute="trailing" constant="32" id="lgN-VI-IWb"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="SD7-wz-Zkd" firstAttribute="top" secondItem="8Vp-bT-d6b" secondAttribute="top" id="SpX-6f-btA"/>
+                                        </constraints>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="8Vp-bT-d6b" secondAttribute="bottom" id="24s-ok-u1U"/>
+                                    <constraint firstItem="8Vp-bT-d6b" firstAttribute="leading" secondItem="HZJ-NW-5Cw" secondAttribute="leading" id="UhW-Hg-6wK"/>
+                                    <constraint firstItem="8Vp-bT-d6b" firstAttribute="top" secondItem="HZJ-NW-5Cw" secondAttribute="top" id="XD6-9M-j4P"/>
                                     <constraint firstItem="2N9-BN-7OO" firstAttribute="top" secondItem="HZJ-NW-5Cw" secondAttribute="top" id="dVr-c1-a4Z"/>
                                     <constraint firstAttribute="bottom" secondItem="2N9-BN-7OO" secondAttribute="bottom" id="hqG-AO-Vmh"/>
                                     <constraint firstAttribute="trailing" secondItem="2N9-BN-7OO" secondAttribute="trailing" id="iFC-4w-vQX"/>
+                                    <constraint firstAttribute="trailing" secondItem="8Vp-bT-d6b" secondAttribute="trailing" id="t3n-f7-bVY"/>
                                     <constraint firstItem="2N9-BN-7OO" firstAttribute="leading" secondItem="HZJ-NW-5Cw" secondAttribute="leading" id="yQt-v4-L7Y"/>
                                     <constraint firstItem="2N9-BN-7OO" firstAttribute="centerX" secondItem="HZJ-NW-5Cw" secondAttribute="centerX" id="zTx-Cj-8Ee"/>
                                 </constraints>
@@ -1769,10 +2046,22 @@ October 11, 2022 14:37</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="APR" destination="aq0-qB-We8" id="Mna-ks-Evh"/>
+                        <outlet property="AUG" destination="jua-bt-phy" id="7V3-su-P1h"/>
+                        <outlet property="DEC" destination="OO9-bm-Wda" id="ifI-be-hRG"/>
+                        <outlet property="FEB" destination="rKS-9Q-CJm" id="k6M-dS-bGS"/>
                         <outlet property="FormatView" destination="eDW-hG-jcW" id="Pyi-sM-HYB"/>
+                        <outlet property="JAN" destination="016-vb-PYP" id="Nza-y2-IcP"/>
+                        <outlet property="JULY" destination="TRA-iH-GhV" id="y4L-O6-ogL"/>
+                        <outlet property="JUN" destination="bJC-dP-sfN" id="IZ6-pX-YjG"/>
+                        <outlet property="MAR" destination="TbT-HB-zSf" id="9M6-Ga-Wti"/>
+                        <outlet property="MAY" destination="LAG-QN-wVw" id="CWJ-77-Bk3"/>
                         <outlet property="MTL2021" destination="bb5-Ma-Bij" id="scO-MW-nTV"/>
                         <outlet property="MTL2022B" destination="q7J-Rq-3wl" id="y0a-pE-bDq"/>
                         <outlet property="MTL2022LE" destination="PKA-Ia-NZU" id="GeQ-q0-foc"/>
+                        <outlet property="NOV" destination="wcJ-Xu-5WI" id="mMo-CT-r0M"/>
+                        <outlet property="OCT" destination="e7g-5f-XRB" id="0Af-97-FgZ"/>
+                        <outlet property="SEP" destination="RF6-Dh-nDr" id="2BZ-g6-irc"/>
                         <outlet property="categoryView" destination="1zI-Rn-JKB" id="nXA-Vs-mZM"/>
                         <outlet property="chanelChartView" destination="sza-7T-z9G" id="jNd-FY-4I6"/>
                         <outlet property="chanelTableView" destination="KIi-p6-DZe" id="tq4-uP-U2e"/>
@@ -1834,6 +2123,8 @@ October 11, 2022 14:37</string>
                         <outlet property="sales2021İmage" destination="sdJ-gI-wTk" id="TH3-5N-3iF"/>
                         <outlet property="sales2022Bİmage" destination="You-Ki-bdo" id="CDC-kp-ail"/>
                         <outlet property="sales2022LEimage" destination="js3-vB-0B5" id="el0-G4-2v0"/>
+                        <outlet property="salesMonthsDetailLabel" destination="bXP-D4-62Q" id="Jnp-2V-38w"/>
+                        <outlet property="salesMonthsView" destination="SD7-wz-Zkd" id="6HC-BP-zkz"/>
                         <outlet property="scrool" destination="HZJ-NW-5Cw" id="9F2-Fm-Icx"/>
                         <outlet property="storesChartView" destination="te3-ZQ-bLG" id="0gk-OO-xeb"/>
                         <outlet property="storesTableView" destination="vTB-dM-pC2" id="1Z8-YI-p0r"/>
@@ -1865,6 +2156,9 @@ October 11, 2022 14:37</string>
         <image name="mainİcon" width="250" height="63"/>
         <systemColor name="systemBrownColor">
             <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tintColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

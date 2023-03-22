@@ -23,7 +23,7 @@ class ReportsViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         
-        let urlComponents = NSURLComponents(string: "http://10.77.170.131/reports/powerbi/Franchise%20Portal/FrPortMobile/DepartmanBazliSatisMobile")
+        let urlComponents = NSURLComponents(string: "http://10.77.170.131/reports/powerbi/Franchise%20Portal/FrPortMobile/Ma%C4%9Faza%20Kokpit")
         //        "https://10.77.170.131/reports/powerbi/Franchise%20Portal/FrPortMobile/MalzemeStokHareketleriMobile"
         urlComponents?.user = User.username
         urlComponents?.password = User.password

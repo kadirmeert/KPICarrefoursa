@@ -292,7 +292,8 @@ class NumberOfStoresViewController: UIViewController, ChartViewDelegate {
             colors.append(UIColor(hexString: numberOfStores.Color[i]))
         }
         dataSet.colors = colors
-        dataSet.sliceSpace = 2
+        dataSet.sliceSpace = 1
+        dataSet.entryLabelFont = UIFont.boldSystemFont(ofSize: 14)
         dataSet.drawValuesEnabled = false
         pieChartView.data = PieChartData(dataSet: dataSet)
         pieChartView.notifyDataSetChanged()

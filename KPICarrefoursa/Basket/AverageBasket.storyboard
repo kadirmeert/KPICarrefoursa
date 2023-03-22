@@ -65,7 +65,7 @@
                                                 <rect key="frame" x="0.0" y="12.666666666666657" width="0.0" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hourly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ruo-1v-QA8">
-                                                        <rect key="frame" x="-25.333333333333332" y="7.3333333333333428" width="50.666666666666664" height="20"/>
+                                                        <rect key="frame" x="-25.333333333333332" y="7.6666666666666838" width="50.666666666666664" height="19.333333333333329"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                                         <color key="textColor" red="0.018043307590000002" green="0.27759099009999999" blue="0.60158270599999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -186,9 +186,15 @@
                                                 <rect key="frame" x="295" y="12.666666666666657" width="75" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monthly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z0t-Gf-zm1">
-                                                        <rect key="frame" x="8.3333333333333179" y="8.3333333333333428" width="58.333333333333343" height="18"/>
+                                                        <rect key="frame" x="8.3333333333333179" y="8" width="58.333333333333343" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monthly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q1h-Ta-uaf">
+                                                        <rect key="frame" x="0.0" y="26" width="75" height="9"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="9"/>
+                                                        <color key="textColor" red="0.01839950122" green="0.2503485084" blue="0.53678458929999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="br7-0s-NWY">
@@ -204,10 +210,16 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="75" id="37u-a8-12U"/>
-                                                    <constraint firstItem="z0t-Gf-zm1" firstAttribute="centerY" secondItem="143-W1-hqf" secondAttribute="centerY" id="5gO-3y-krz"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Q1h-Ta-uaf" secondAttribute="bottom" id="3NF-I0-BlB"/>
                                                     <constraint firstAttribute="bottom" secondItem="br7-0s-NWY" secondAttribute="bottom" id="CIB-nb-gCV"/>
-                                                    <constraint firstItem="z0t-Gf-zm1" firstAttribute="centerX" secondItem="143-W1-hqf" secondAttribute="centerX" id="OS2-el-6EE"/>
+                                                    <constraint firstItem="Q1h-Ta-uaf" firstAttribute="leading" secondItem="143-W1-hqf" secondAttribute="leading" id="QEC-Zt-DFf"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Q1h-Ta-uaf" secondAttribute="trailing" id="QM6-fx-qDa"/>
                                                     <constraint firstItem="br7-0s-NWY" firstAttribute="leading" secondItem="143-W1-hqf" secondAttribute="leading" id="TcT-3k-5Da"/>
+                                                    <constraint firstAttribute="trailing" secondItem="z0t-Gf-zm1" secondAttribute="trailing" constant="8.3300000000000001" id="Ykf-Yx-aqc"/>
+                                                    <constraint firstItem="Q1h-Ta-uaf" firstAttribute="top" secondItem="z0t-Gf-zm1" secondAttribute="bottom" id="ero-ji-P9Q"/>
+                                                    <constraint firstAttribute="bottom" secondItem="z0t-Gf-zm1" secondAttribute="bottom" constant="9" id="iIs-8Z-hql"/>
+                                                    <constraint firstItem="z0t-Gf-zm1" firstAttribute="leading" secondItem="143-W1-hqf" secondAttribute="leading" constant="8.3300000000000001" id="jAR-WK-6AM"/>
+                                                    <constraint firstItem="z0t-Gf-zm1" firstAttribute="top" secondItem="143-W1-hqf" secondAttribute="top" constant="8.3300000000000001" id="mJ6-d6-hT6"/>
                                                     <constraint firstAttribute="height" constant="35" id="nbp-DH-Yos"/>
                                                     <constraint firstItem="br7-0s-NWY" firstAttribute="top" secondItem="143-W1-hqf" secondAttribute="top" id="tMC-a4-uJR"/>
                                                     <constraint firstAttribute="trailing" secondItem="br7-0s-NWY" secondAttribute="trailing" id="xW3-uH-aF3"/>
@@ -309,23 +321,23 @@ October 11, 2022 14:37</string>
                                         <rect key="frame" x="0.0" y="0.0" width="390" height="1200"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSy-18-7X5">
-                                                <rect key="frame" x="32" y="24" width="326" height="440.66666666666669"/>
+                                                <rect key="frame" x="32" y="24" width="326" height="441.66666666666669"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Basket Breakdown by Stores" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Uen-hF-kw6">
-                                                        <rect key="frame" x="12" y="24" width="302" height="18.666666666666671"/>
+                                                        <rect key="frame" x="12" y="24" width="302" height="19.666666666666671"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="16"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9u2-iz-iUF" customClass="PieChartView" customModule="Charts">
-                                                        <rect key="frame" x="25" y="50.666666666666686" width="276" height="250"/>
+                                                        <rect key="frame" x="25" y="51.666666666666686" width="276" height="250"/>
                                                         <color key="backgroundColor" systemColor="systemBrownColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="250" id="Jwa-CY-91J"/>
                                                         </constraints>
                                                     </view>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="3IU-q6-meL">
-                                                        <rect key="frame" x="25" y="316.66666666666663" width="276" height="100"/>
+                                                        <rect key="frame" x="25" y="317.66666666666663" width="276" height="100"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="100" id="bcH-Qg-Xfq"/>
@@ -389,7 +401,7 @@ October 11, 2022 14:37</string>
                                                         </connections>
                                                     </tableView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="vs 2022" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ihp-Rf-6ti">
-                                                        <rect key="frame" x="256" y="417.33333333333337" width="54" height="17.333333333333314"/>
+                                                        <rect key="frame" x="256" y="418.33333333333337" width="54" height="17.333333333333314"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="17.329999999999998" id="Lgx-4R-Zwm"/>
                                                         </constraints>
@@ -416,23 +428,23 @@ October 11, 2022 14:37</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iu8-GN-Lrw">
-                                                <rect key="frame" x="32" y="496.66666666666663" width="326" height="440.66666666666663"/>
+                                                <rect key="frame" x="32" y="497.66666666666663" width="326" height="441.66666666666663"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Basket Breakdown by Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="5gf-8S-txb">
-                                                        <rect key="frame" x="12" y="24" width="302" height="18.666666666666671"/>
+                                                        <rect key="frame" x="12" y="24" width="302" height="19.666666666666671"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="16"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ta7-mu-aRE" customClass="PieChartView" customModule="Charts">
-                                                        <rect key="frame" x="25" y="50.666666666666742" width="276" height="250"/>
+                                                        <rect key="frame" x="25" y="51.666666666666742" width="276" height="250"/>
                                                         <color key="backgroundColor" systemColor="systemBrownColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="250" id="rim-x5-1JA"/>
                                                         </constraints>
                                                     </view>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="iuq-zU-jrf">
-                                                        <rect key="frame" x="25" y="316.66666666666663" width="276" height="100"/>
+                                                        <rect key="frame" x="25" y="317.66666666666663" width="276" height="100"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="100" id="EFt-Js-lWN"/>
@@ -496,7 +508,7 @@ October 11, 2022 14:37</string>
                                                         </connections>
                                                     </tableView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="vs 2022" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yli-6I-WRe">
-                                                        <rect key="frame" x="256" y="417.33333333333337" width="54" height="17.333333333333314"/>
+                                                        <rect key="frame" x="256" y="418.33333333333337" width="54" height="17.333333333333314"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="17.329999999999998" id="5gi-hS-IM8"/>
                                                         </constraints>
@@ -534,13 +546,314 @@ October 11, 2022 14:37</string>
                                             <constraint firstItem="Iu8-GN-Lrw" firstAttribute="top" secondItem="rSy-18-7X5" secondAttribute="bottom" constant="32" id="guG-ha-VUf"/>
                                         </constraints>
                                     </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qMZ-I3-KGo">
+                                        <rect key="frame" x="0.0" y="0.0" width="390" height="1200"/>
+                                        <subviews>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HFT-tG-MAe">
+                                                <rect key="frame" x="0.0" y="0.0" width="112" height="1200"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="fwZ-EN-NGa">
+                                                        <rect key="frame" x="32" y="16" width="48" height="272"/>
+                                                        <subviews>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="qbf-f2-pmr">
+                                                                <rect key="frame" x="0.0" y="0.0" width="48" height="50"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tKm-jy-jgH" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="50"/>
+                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="JAN"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" systemColor="systemGrayColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="MonthsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="1hK-2r-KCD"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4zV-jH-fO3" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
+                                                                        <rect key="frame" x="24" y="0.0" width="0.0" height="50"/>
+                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="FEB"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" systemColor="systemGrayColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="MonthsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="a5E-Pq-OOZ"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6L2-o1-CIG" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
+                                                                        <rect key="frame" x="48" y="0.0" width="0.0" height="50"/>
+                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="MAR"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" systemColor="systemGrayColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="MonthsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="6Jk-vX-ZVp"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="8TD-8d-o4v"/>
+                                                                </constraints>
+                                                            </stackView>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="m94-iA-wgk">
+                                                                <rect key="frame" x="0.0" y="74" width="48" height="50"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="46I-QE-2sI" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="4" height="50"/>
+                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="APR"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" systemColor="systemGrayColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="MonthsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="K6E-l6-gjw"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cx5-c8-QiN" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
+                                                                        <rect key="frame" x="22" y="0.0" width="4" height="50"/>
+                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="MAY"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" systemColor="systemGrayColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="MonthsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="9Jq-t9-d1N"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IF1-ff-hBZ" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
+                                                                        <rect key="frame" x="44" y="0.0" width="4" height="50"/>
+                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="JUN"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" systemColor="systemGrayColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="MonthsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="MTG-3u-168"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="PI4-ZG-BaE"/>
+                                                                </constraints>
+                                                            </stackView>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="tvZ-Ue-BDb">
+                                                                <rect key="frame" x="0.0" y="148" width="48" height="50"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k8S-0p-j7N" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="4" height="50"/>
+                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="JULY"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" systemColor="systemGrayColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="MonthsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="diA-wh-lA5"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ogg-ha-6F6" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
+                                                                        <rect key="frame" x="22" y="0.0" width="4" height="50"/>
+                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="AUG"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" systemColor="systemGrayColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="MonthsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="xuF-sC-Cx4"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t3N-Mc-6M1" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
+                                                                        <rect key="frame" x="44" y="0.0" width="4" height="50"/>
+                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="SEP"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" systemColor="systemGrayColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="MonthsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="3dC-Ro-LY5"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="anm-Ew-JYk"/>
+                                                                </constraints>
+                                                            </stackView>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="wyo-59-aah">
+                                                                <rect key="frame" x="0.0" y="222" width="48" height="50"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UfJ-TH-9Hv" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="4" height="50"/>
+                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="OCT"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" systemColor="systemGrayColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="MonthsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="LT4-cs-uSs"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i3k-nf-rtS" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
+                                                                        <rect key="frame" x="22" y="0.0" width="4" height="50"/>
+                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="NOV"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" systemColor="systemGrayColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="MonthsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="rLi-wL-Tpk"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TFy-wP-gfc" customClass="BaseButton" customModule="KPICarrefoursa" customModuleProvider="target">
+                                                                        <rect key="frame" x="44" y="0.0" width="4" height="50"/>
+                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="DEC"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" systemColor="systemGrayColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="MonthsButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="MZh-lz-5aL"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="MXd-wN-f0p"/>
+                                                                </constraints>
+                                                            </stackView>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="fwZ-EN-NGa" firstAttribute="leading" secondItem="HFT-tG-MAe" secondAttribute="leading" constant="32" id="Lr2-cY-wjh"/>
+                                                    <constraint firstAttribute="trailing" secondItem="fwZ-EN-NGa" secondAttribute="trailing" constant="32" id="Nhu-Cv-IYu"/>
+                                                    <constraint firstItem="fwZ-EN-NGa" firstAttribute="top" secondItem="HFT-tG-MAe" secondAttribute="top" constant="16" id="Z3N-oQ-TNr"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="HFT-tG-MAe" firstAttribute="top" secondItem="qMZ-I3-KGo" secondAttribute="top" id="JQO-9S-jVM"/>
+                                        </constraints>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="qMZ-I3-KGo" firstAttribute="leading" secondItem="cdA-9Y-43l" secondAttribute="leading" id="1Ge-Eu-TYd"/>
                                     <constraint firstAttribute="bottom" secondItem="NGF-nh-L66" secondAttribute="bottom" id="4rS-hc-hML"/>
                                     <constraint firstItem="NGF-nh-L66" firstAttribute="top" secondItem="cdA-9Y-43l" secondAttribute="top" id="6sy-jU-rER"/>
+                                    <constraint firstAttribute="bottom" secondItem="qMZ-I3-KGo" secondAttribute="bottom" id="8Te-9T-5gQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="qMZ-I3-KGo" secondAttribute="trailing" id="CR8-LC-7SP"/>
                                     <constraint firstItem="NGF-nh-L66" firstAttribute="centerX" secondItem="cdA-9Y-43l" secondAttribute="centerX" id="Jgr-w5-8Hv"/>
                                     <constraint firstAttribute="trailing" secondItem="NGF-nh-L66" secondAttribute="trailing" id="Ree-27-j7k"/>
+                                    <constraint firstItem="qMZ-I3-KGo" firstAttribute="top" secondItem="cdA-9Y-43l" secondAttribute="top" id="VnF-4M-l8g"/>
                                     <constraint firstItem="NGF-nh-L66" firstAttribute="leading" secondItem="cdA-9Y-43l" secondAttribute="leading" id="t5L-Lo-3o9"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="VPO-Ny-eoi"/>
@@ -569,8 +882,22 @@ October 11, 2022 14:37</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="APR" destination="46I-QE-2sI" id="oZp-eG-yxc"/>
+                        <outlet property="AUG" destination="Ogg-ha-6F6" id="ZGy-lf-3Yp"/>
+                        <outlet property="DEC" destination="TFy-wP-gfc" id="g08-aM-VVf"/>
+                        <outlet property="FEB" destination="4zV-jH-fO3" id="ol4-tv-fMa"/>
+                        <outlet property="JAN" destination="tKm-jy-jgH" id="MR9-P1-GaH"/>
+                        <outlet property="JULY" destination="k8S-0p-j7N" id="bsj-qS-iKi"/>
+                        <outlet property="JUN" destination="IF1-ff-hBZ" id="P0n-3u-pZz"/>
+                        <outlet property="MAR" destination="6L2-o1-CIG" id="ZsT-Wi-2dY"/>
+                        <outlet property="MAY" destination="Cx5-c8-QiN" id="s6F-sV-XUF"/>
+                        <outlet property="NOV" destination="i3k-nf-rtS" id="LA5-Q0-bQb"/>
+                        <outlet property="OCT" destination="UfJ-TH-9Hv" id="JIa-pY-hpL"/>
+                        <outlet property="SEP" destination="t3N-Mc-6M1" id="1w7-dg-0Ow"/>
                         <outlet property="basketCategoryTableViewHeight" destination="EFt-Js-lWN" id="GZe-iD-xda"/>
                         <outlet property="basketLflLabel" destination="b1I-bR-N2w" id="sfQ-60-m0n"/>
+                        <outlet property="basketMonthsDetailLabel" destination="Q1h-Ta-uaf" id="KHX-5z-0FD"/>
+                        <outlet property="basketMonthsView" destination="HFT-tG-MAe" id="oNl-Ru-wzt"/>
                         <outlet property="basketStoresTableViewHeight" destination="bcH-Qg-Xfq" id="UIZ-Ep-cFs"/>
                         <outlet property="basketSwitch" destination="tFq-TP-qd6" id="3RF-Jl-gco"/>
                         <outlet property="basketViewHeight" destination="BcH-pb-bej" id="KbP-Dc-Zhq"/>
@@ -608,6 +935,9 @@ October 11, 2022 14:37</string>
         <image name="mainİcon" width="250" height="63"/>
         <systemColor name="systemBrownColor">
             <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

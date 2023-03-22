@@ -46,11 +46,25 @@ class ProductViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var productViewHeight: NSLayoutConstraint!
     @IBOutlet weak var productSwitch: UISwitch!
     @IBOutlet weak var productLflLabel: UILabel!
+    @IBOutlet weak var productMonthView: UIView!
+    @IBOutlet weak var JAN: BaseButton!
+    @IBOutlet weak var FEB: BaseButton!
+    @IBOutlet weak var MAR: BaseButton!
+    @IBOutlet weak var APR: BaseButton!
+    @IBOutlet weak var MAY: BaseButton!
+    @IBOutlet weak var JUN: BaseButton!
+    @IBOutlet weak var JULY: BaseButton!
+    @IBOutlet weak var AUG: BaseButton!
+    @IBOutlet weak var SEP: BaseButton!
+    @IBOutlet weak var OCT: BaseButton!
+    @IBOutlet weak var NOV: BaseButton!
+    @IBOutlet weak var DEC: BaseButton!
+    @IBOutlet weak var productMonthsDetailLabel: UILabel!
     
     //MARK: Properties
     var jsonmessage: Int = 1
     var userDC: String = ""
-    var chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
+    var chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
     var productStores = ProductStores()
     var productCategory = ProductCategory()
     var hud = JGProgressHUD()
@@ -64,6 +78,7 @@ class ProductViewController: UIViewController, ChartViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        productMonthsDetailLabel.text = ""
         if self.productStores.Stores.isEmpty {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
@@ -116,22 +131,22 @@ class ProductViewController: UIViewController, ChartViewDelegate {
         if (sender.isOn == true){
             self.productLflLabel.text = "LFL"
 //            if hourlyButton.isSelected == true {
-//                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
+//                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 1}"
 //            }
             if yesterdayButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
             }
             if daytodayButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
             }
             if weeklyButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
             }
             if monthlyButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
             if yeartodateButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
             }
         }
         else{
@@ -141,19 +156,19 @@ class ProductViewController: UIViewController, ChartViewDelegate {
 //            }
 
             if yesterdayButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 0}"
             }
             if daytodayButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 0}"
             }
             if weeklyButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 0}"
             }
             if monthlyButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
             if yeartodateButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 0}"
             }
         }
         if !self.productStores.Stores.isEmpty {
@@ -302,6 +317,330 @@ class ProductViewController: UIViewController, ChartViewDelegate {
         categoryChartView.data = PieChartData(dataSet: dataSetChannel)
         categoryChartView.notifyDataSetChanged()
     }
+    //    MARK: - Months Button Pressed
+        
+        @IBAction func MonthsButtonPressed(_ sender: BaseButton) {
+            if sender.titleLabel?.text ?? "" == JAN.titleLabel?.text {
+                JAN.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                JAN.tintColor = .white
+                User.monthsNumber = 1
+                productMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
+                if productSwitch.isOn == true {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                    
+                } else {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                }
+                if !self.productStores.Stores.isEmpty {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                else {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                productMonthView.isHidden = true
+            } else {
+                JAN.backgroundColor = .white
+                JAN.tintColor = .black
+            }
+            if sender.titleLabel?.text ?? "" == FEB.titleLabel?.text {
+                FEB.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                FEB.tintColor = .white
+                User.monthsNumber = 2
+                productMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
+                if productSwitch.isOn == true {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                    
+                } else {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                }
+                if !self.productStores.Stores.isEmpty {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                else {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                productMonthView.isHidden = true
+
+            } else {
+                FEB.backgroundColor = .white
+                FEB.tintColor = .black
+            }
+            if sender.titleLabel?.text ?? "" == MAR.titleLabel?.text {
+                MAR.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                MAR.tintColor = .white
+                User.monthsNumber = 3
+                productMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
+                if productSwitch.isOn == true {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                    
+                } else {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                }
+                if !self.productStores.Stores.isEmpty {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                else {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                productMonthView.isHidden = true
+            } else {
+                MAR.backgroundColor = .white
+                MAR.tintColor = .black
+            }
+            if sender.titleLabel?.text ?? "" == APR.titleLabel?.text {
+                APR.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                APR.tintColor = .white
+                User.monthsNumber = 4
+                productMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
+                if productSwitch.isOn == true {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                    
+                } else {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                }
+                if !self.productStores.Stores.isEmpty {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                else {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                productMonthView.isHidden = true
+                
+            } else {
+                APR.backgroundColor = .white
+                APR.tintColor = .black
+            }
+            if sender.titleLabel?.text ?? "" == MAY.titleLabel?.text {
+                MAY.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                MAY.tintColor = .white
+                User.monthsNumber = 5
+                productMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
+                if productSwitch.isOn == true {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                    
+                } else {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                }
+                if !self.productStores.Stores.isEmpty {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                else {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                productMonthView.isHidden = true
+            } else {
+                MAY.backgroundColor = .white
+                MAY.tintColor = .black
+            }
+            if sender.titleLabel?.text ?? "" == JUN.titleLabel?.text {
+                JUN.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                JUN.tintColor = .white
+                User.monthsNumber = 6
+                productMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
+                if productSwitch.isOn == true {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                    
+                } else {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                }
+                if !self.productStores.Stores.isEmpty {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                else {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                productMonthView.isHidden = true
+
+            } else {
+                JUN.backgroundColor = .white
+                JUN.tintColor = .black
+            }
+            if sender.titleLabel?.text ?? "" == JULY.titleLabel?.text {
+                JULY.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                JULY.tintColor = .white
+                User.monthsNumber = 7
+                productMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
+                if productSwitch.isOn == true {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                    
+                } else {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                }
+                if !self.productStores.Stores.isEmpty {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                else {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                productMonthView.isHidden = true
+
+            } else {
+                JULY.backgroundColor = .white
+                JULY.tintColor = .black
+            }
+            if sender.titleLabel?.text ?? "" == AUG.titleLabel?.text {
+                AUG.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                AUG.tintColor = .white
+                User.monthsNumber = 8
+                productMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
+                if productSwitch.isOn == true {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                    
+                } else {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                }
+                if !self.productStores.Stores.isEmpty {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                else {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                productMonthView.isHidden = true
+
+            } else {
+                AUG.backgroundColor = .white
+                AUG.tintColor = .black
+            }
+            if sender.titleLabel?.text ?? "" == SEP.titleLabel?.text {
+                SEP.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                SEP.tintColor = .white
+                User.monthsNumber = 9
+                productMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
+                if productSwitch.isOn == true {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                    
+                } else {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                }
+                if !self.productStores.Stores.isEmpty {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                else {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                productMonthView.isHidden = true
+            } else {
+                SEP.backgroundColor = .white
+                SEP.tintColor = .black
+            }
+            if sender.titleLabel?.text ?? "" == OCT.titleLabel?.text {
+                OCT.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                OCT.tintColor = .white
+                User.monthsNumber = 10
+                productMonthsDetailLabel.text = "\(User.monthsNumber)/2023"
+                if productSwitch.isOn == true {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                    
+                } else {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                }
+                if !self.productStores.Stores.isEmpty {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                else {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                productMonthView.isHidden = true
+
+            } else {
+                OCT.backgroundColor = .white
+                OCT.tintColor = .black
+            }
+            if sender.titleLabel?.text ?? "" == NOV.titleLabel?.text {
+                NOV.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                NOV.tintColor = .white
+                User.monthsNumber = 11
+                productMonthsDetailLabel.text = "\(User.monthsNumber)/2023"
+                if productSwitch.isOn == true {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                    
+                } else {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                }
+                if !self.productStores.Stores.isEmpty {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                else {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                productMonthView.isHidden = true
+            } else {
+                NOV.backgroundColor = .white
+                NOV.tintColor = .black
+            }
+            if sender.titleLabel?.text ?? "" == DEC.titleLabel?.text {
+                DEC.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                DEC.tintColor = .white
+                User.monthsNumber = 12
+                productMonthsDetailLabel.text = "\(User.monthsNumber)/2023"
+                if productSwitch.isOn == true {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                    
+                } else {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                }
+                if !self.productStores.Stores.isEmpty {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                else {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                productMonthView.isHidden = true
+                
+            } else {
+                DEC.backgroundColor = .white
+                DEC.tintColor = .black
+            }
+            
+        }
     
 //    @IBAction func hourlyBtnPressed(_ sender: UIButton) {
 //        hourlyButton.isSelected = true
@@ -311,10 +650,10 @@ class ProductViewController: UIViewController, ChartViewDelegate {
 //        monthlyButton.isSelected = false
 //        yeartodateButton.isSelected = false
 //        if productSwitch.isOn == true {
-//            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
+//            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 1}"
 //
 //        } else {
-//            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
+//            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 1}"
 //        }
 //        if !self.productStores.Stores.isEmpty {
 //            hud.textLabel.text = "Loading"
@@ -349,10 +688,10 @@ class ProductViewController: UIViewController, ChartViewDelegate {
         yeartodateButton.isSelected = false
         
         if productSwitch.isOn == true {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
             
         } else {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 0}"
         }
         if !self.productStores.Stores.isEmpty {
             hud.textLabel.text = "Loading"
@@ -386,10 +725,10 @@ class ProductViewController: UIViewController, ChartViewDelegate {
         monthlyButton.isSelected = false
         yeartodateButton.isSelected = false
         if productSwitch.isOn == true {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DaytoDay\",\"IsLfl\": 1}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DaytoDay\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
 
         } else {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DaytoDay\",\"IsLfl\": 0}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DaytoDay\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 0}"
         }
         if !self.productStores.Stores.isEmpty {
             hud.textLabel.text = "Loading"
@@ -423,10 +762,10 @@ class ProductViewController: UIViewController, ChartViewDelegate {
         monthlyButton.isSelected = false
         yeartodateButton.isSelected = false
         if productSwitch.isOn == true {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
             
         } else {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 0}"
         }
         if !self.productStores.Stores.isEmpty {
             hud.textLabel.text = "Loading"
@@ -453,28 +792,15 @@ class ProductViewController: UIViewController, ChartViewDelegate {
     }
     
     @IBAction func monthlyBtnPressed(_ sender: Any) {
+        productMonthView.isHidden.toggle()
+        
 //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
         daytodayButton.isSelected = false
         weeklyButton.isSelected = false
         monthlyButton.isSelected = true
         yeartodateButton.isSelected = false
-        if productSwitch.isOn == true {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1}"
-            
-        } else {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0}"
-        }
-        if !self.productStores.Stores.isEmpty {
-            hud.textLabel.text = "Loading"
-            hud.show(in: self.view)
-            self.checkChartData()
-        }
-        else {
-            hud.textLabel.text = "Loading"
-            hud.show(in: self.view)
-            self.checkChartData()
-        }
+      
 //        self.hourlyView.backgroundColor = UIColor.clear
 //        self.hourlyLabel.textColor = UIColor.white
         self.yesterdayView.backgroundColor = UIColor.clear
@@ -497,10 +823,10 @@ class ProductViewController: UIViewController, ChartViewDelegate {
         monthlyButton.isSelected = false
         yeartodateButton.isSelected = true
         if productSwitch.isOn == true {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
             
         } else {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 0}"
         }
         if !self.productStores.Stores.isEmpty {
             hud.textLabel.text = "Loading"

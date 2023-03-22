@@ -10,7 +10,7 @@ import CryptoSwift
 import JGProgressHUD
 import FSCalendar
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     
     //MARK: Outlets
     @IBOutlet weak var logoutView: UIView!
@@ -74,20 +74,33 @@ class MainViewController: UIViewController {
     @IBOutlet weak var scrool: UIScrollView!
     @IBOutlet weak var lastUpdateTime: UILabel!
     @IBOutlet weak var mainLflLabel: UILabel!
-    
-    @IBOutlet weak var calendarView: UIView!
+    @IBOutlet weak var monthsView: UIView!
+    @IBOutlet weak var monthsStackView: UIStackView!
+    @IBOutlet weak var JAN: BaseButton!
+    @IBOutlet weak var FEB: BaseButton!
+    @IBOutlet weak var MAR: BaseButton!
+    @IBOutlet weak var APR: BaseButton!
+    @IBOutlet weak var MAY: BaseButton!
+    @IBOutlet weak var JUN: BaseButton!
+    @IBOutlet weak var JULY: BaseButton!
+    @IBOutlet weak var AUG: BaseButton!
+    @IBOutlet weak var SEP: BaseButton!
+    @IBOutlet weak var OCT: BaseButton!
+    @IBOutlet weak var NOV: BaseButton!
+    @IBOutlet weak var DEC: BaseButton!
+    @IBOutlet weak var monthDetailLabel: UILabel!
     
     //MARK: Properties
-    var calendar: FSCalendar!
+    var formatter = DateFormatter()
     var isMenuSelected = true
     var userDC: String = ""
     var otpCheckViewController = OtpCheckViewController()
     var dashboardValue = DashboardCards()
-    var chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
+    var chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
     var logoutParams = "{\"Language\": \"tr\",\"ProcessType\": 2}"
     var hud = JGProgressHUD()
     let refreshControl = UIRefreshControl()
-    
+    var isCalendar = true
     var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat =  "MM-dd-yyyy HH:mm:ss"
@@ -97,7 +110,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mainRadius()
-        
+        monthDetailLabel.text = ""
         if self.dashboardValue.Customer.isEmpty {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
@@ -139,47 +152,47 @@ class MainViewController: UIViewController {
         if (sender.isOn == true){
             self.mainLflLabel.text = "LFL"
             //            if hourlyButton.isSelected == true {
-            //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
+            //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 1}"
             //            }
             self.yesterdayButton.isSelected = true
             if yesterdayButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
                 self.yesterdayButton.isSelected = false
             }
             if daytodayButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
             if weeklyButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
             if monthlyButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
             if yeartodateButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
         }
         else{
             self.mainLflLabel.text = "ALL"
             //            if hourlyButton.isSelected == true {
-            //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
+            //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 1}"
             //            }
             self.yesterdayButton.isSelected = true
             if yesterdayButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
-                self.yesterdayButton.isSelected = false 
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                self.yesterdayButton.isSelected = false
             }
             if daytodayButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
             if weeklyButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
             if monthlyButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
             if yeartodateButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
         }
         if !self.dashboardValue.Product.isEmpty {
@@ -299,12 +312,12 @@ class MainViewController: UIViewController {
                         
                         if !self.dashboardValue.Last_Update.isEmpty {
                             self.lastUpdateTime.text = "Last Updated Time \(self.dashboardValue.Last_Update[0])"
-//                            let dateFormatter1 = DateFormatter()
-//                            dateFormatter1.dateFormat = "dd/MM/yyyy"
-//                            if let recordDate = self.dateFormatter.date(from: self.dashboardValue.Last_Update[0]){
-//                                let dateText = dateFormatter1.string(from: recordDate)
-//                                self.lastUpdateTime.text = "Last Updated Time \(dateText)"
-//                            }
+                            //                            let dateFormatter1 = DateFormatter()
+                            //                            dateFormatter1.dateFormat = "dd/MM/yyyy"
+                            //                            if let recordDate = self.dateFormatter.date(from: self.dashboardValue.Last_Update[0]){
+                            //                                let dateText = dateFormatter1.string(from: recordDate)
+                            //                                self.lastUpdateTime.text = "Last Updated Time \(dateText)"
+                            //                            }
                             
                         } else {
                             self.lastUpdateTime.text = "00/00/0000 00:00:00"
@@ -313,7 +326,7 @@ class MainViewController: UIViewController {
                         
                         if self.dashboardValue.StoreNumber.isEmpty && self.dashboardValue.Area.isEmpty {
                             self.numberOfStoresLabel.text = "0 (0) km2)"
-
+                            
                         }
                         if self.dashboardValue.StoreNumber.isEmpty {
                             self.numberOfStoresLabel.text = "0 (\(self.dashboardValue.Area[0] / 1000) km2)"
@@ -321,12 +334,12 @@ class MainViewController: UIViewController {
                         }
                         if self.dashboardValue.Area.isEmpty {
                             self.numberOfStoresLabel.text = "\(self.dashboardValue.StoreNumber[0]) (0 km2)"
-
+                            
                         } else {
                             self.numberOfStoresLabel.text = "\(self.dashboardValue.StoreNumber[0]) (\(self.dashboardValue.Area[0] / 1000) km2)"
-
+                            
                         }
-
+                        
                         if self.dashboardValue.NetSales.isEmpty {
                             
                             self.netSalesLabel.text = "0.0 MTL"
@@ -343,8 +356,8 @@ class MainViewController: UIViewController {
                                     self.salesİmage.image = UIImage(named: "Up")
                                     self.salesPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                 }
-              
-                               
+                                
+                                
                                 
                             } else {
                                 self.netSalesLabel.text = self.dashboardValue.NetSales[0]
@@ -355,57 +368,57 @@ class MainViewController: UIViewController {
                                     self.salesİmage.image = UIImage(named: "down")
                                     self.salesPercentageLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                 }
-                               
+                                
                             }
                             
                             if "\(self.dashboardValue.NetSalesvs2022B[0].components(separatedBy: ["%"," "]).joined())".toDouble > 0.0 {
                                 self.netSalesLabel.text = self.dashboardValue.NetSales[0]
-                       
+                                
                                 if self.sales2022B.isSelected == true {
                                     self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2022B[0]
                                     self.salesİmage.image = UIImage(named: "Up")
                                     self.salesPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                 }
-
+                                
                             } else {
                                 self.netSalesLabel.text = self.dashboardValue.NetSales[0]
-                               
+                                
                                 if self.sales2022B.isSelected == true {
                                     self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2022B[0].components(separatedBy: [" ", "-"]).joined()
                                     self.salesİmage.image = UIImage(named: "down")
                                     self.salesPercentageLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                 }
-
+                                
                                 
                             }
-//                            if "\(self.dashboardValue.NetSalesvsButceLE[0].components(separatedBy: ["%"," "]).joined())".toDouble > 0.0 {
-//                                self.netSalesLabel.text = self.dashboardValue.NetSales[0]
-//
-////                                if self.sales2022LE.isSelected == true {
-////                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvsButceLE[0]
-////                                }
-//
-//                                self.salesİmage.image = UIImage(named: "Up")
-//                                self.salesPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-//
-//                            }
-//                            else {
-//                                self.netSalesLabel.text = self.dashboardValue.NetSales[0]
-//                                self.sales2021.isSelected = true
-//                                if self.sales2021.isSelected == true {
-//                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2021[0].components(separatedBy: [" ", "-"]).joined()
-//                                    self.sales2021.isSelected = false
-//                                }
-//                                if self.sales2022B.isSelected == true {
-//                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2022B[0].components(separatedBy: [" ", "-"]).joined()
-//
-//                                }
-////                                if self.sales2022LE.isSelected == true {
-////                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvsButceLE[0].components(separatedBy: [" ", "-"]).joined()
-////                                }
-//                                self.salesİmage.image = UIImage(named: "down")
-//                                self.salesPercentageLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-//                            }
+                            //                            if "\(self.dashboardValue.NetSalesvsButceLE[0].components(separatedBy: ["%"," "]).joined())".toDouble > 0.0 {
+                            //                                self.netSalesLabel.text = self.dashboardValue.NetSales[0]
+                            //
+                            ////                                if self.sales2022LE.isSelected == true {
+                            ////                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvsButceLE[0]
+                            ////                                }
+                            //
+                            //                                self.salesİmage.image = UIImage(named: "Up")
+                            //                                self.salesPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                            //
+                            //                            }
+                            //                            else {
+                            //                                self.netSalesLabel.text = self.dashboardValue.NetSales[0]
+                            //                                self.sales2021.isSelected = true
+                            //                                if self.sales2021.isSelected == true {
+                            //                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2021[0].components(separatedBy: [" ", "-"]).joined()
+                            //                                    self.sales2021.isSelected = false
+                            //                                }
+                            //                                if self.sales2022B.isSelected == true {
+                            //                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvs2022B[0].components(separatedBy: [" ", "-"]).joined()
+                            //
+                            //                                }
+                            ////                                if self.sales2022LE.isSelected == true {
+                            ////                                    self.salesPercentageLabel.text = self.dashboardValue.NetSalesvsButceLE[0].components(separatedBy: [" ", "-"]).joined()
+                            ////                                }
+                            //                                self.salesİmage.image = UIImage(named: "down")
+                            //                                self.salesPercentageLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+                            //                            }
                         }
                         
                         if self.dashboardValue.Customervs2021.isEmpty {
@@ -552,6 +565,352 @@ class MainViewController: UIViewController {
     @IBAction func logoutBtnPressed(_ sender: UIButton) {
         self.checkLogOut()
     }
+//    MARK: - Months Button Pressed
+    
+    @IBAction func MonthsButtonPressed(_ sender: BaseButton) {
+        if sender.titleLabel?.text ?? "" == JAN.titleLabel?.text {
+            JAN.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+            JAN.tintColor = .white
+            User.monthsNumber = 1
+            monthDetailLabel.text = "0\(User.monthsNumber)/2023"
+            if homeSwitch.isOn == true {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+
+            } else {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+            }
+
+            if !self.dashboardValue.NetSales.isEmpty {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            else {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            monthsView.isHidden = true
+            monthsStackView.isHidden = true
+
+        } else {
+            JAN.backgroundColor = .white
+            JAN.tintColor = .black
+        }
+        if sender.titleLabel?.text ?? "" == FEB.titleLabel?.text {
+            FEB.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+            FEB.tintColor = .white
+            User.monthsNumber = 2
+            monthDetailLabel.text = "0\(User.monthsNumber)/2023"
+            if homeSwitch.isOn == true {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+
+            } else {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+            }
+
+            if !self.dashboardValue.NetSales.isEmpty {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            else {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            monthsView.isHidden = true
+            monthsStackView.isHidden = true
+        } else {
+            FEB.backgroundColor = .white
+            FEB.tintColor = .black
+        }
+        if sender.titleLabel?.text ?? "" == MAR.titleLabel?.text {
+            MAR.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+            MAR.tintColor = .white
+            User.monthsNumber = 3
+            monthDetailLabel.text = "0\(User.monthsNumber)/2023"
+            if homeSwitch.isOn == true {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+
+            } else {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+            }
+
+            if !self.dashboardValue.NetSales.isEmpty {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            else {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            monthsView.isHidden = true
+            monthsStackView.isHidden = true
+        } else {
+            MAR.backgroundColor = .white
+            MAR.tintColor = .black
+        }
+        if sender.titleLabel?.text ?? "" == APR.titleLabel?.text {
+            APR.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+            APR.tintColor = .white
+            User.monthsNumber = 4
+            monthDetailLabel.text = "0\(User.monthsNumber)/2023"
+            if homeSwitch.isOn == true {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+
+            } else {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+            }
+
+            if !self.dashboardValue.NetSales.isEmpty {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            else {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            monthsView.isHidden = true
+            monthsStackView.isHidden = true
+        } else {
+            APR.backgroundColor = .white
+            APR.tintColor = .black
+        }
+        if sender.titleLabel?.text ?? "" == MAY.titleLabel?.text {
+            MAY.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+            MAY.tintColor = .white
+            User.monthsNumber = 5
+            monthDetailLabel.text = "0\(User.monthsNumber)/2023"
+            if homeSwitch.isOn == true {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+
+            } else {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+            }
+
+            if !self.dashboardValue.NetSales.isEmpty {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            else {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            monthsView.isHidden = true
+            monthsStackView.isHidden = true
+        } else {
+            MAY.backgroundColor = .white
+            MAY.tintColor = .black
+        }
+        if sender.titleLabel?.text ?? "" == JUN.titleLabel?.text {
+            JUN.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+            JUN.tintColor = .white
+            User.monthsNumber = 6
+            monthDetailLabel.text = "0\(User.monthsNumber)/2023"
+            if homeSwitch.isOn == true {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+
+            } else {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+            }
+
+            if !self.dashboardValue.NetSales.isEmpty {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            else {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            monthsView.isHidden = true
+            monthsStackView.isHidden = true
+        } else {
+            JUN.backgroundColor = .white
+            JUN.tintColor = .black
+        }
+        if sender.titleLabel?.text ?? "" == JULY.titleLabel?.text {
+            JULY.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+            JULY.tintColor = .white
+            User.monthsNumber = 7
+            monthDetailLabel.text = "0\(User.monthsNumber)/2023"
+            if homeSwitch.isOn == true {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+
+            } else {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+            }
+
+            if !self.dashboardValue.NetSales.isEmpty {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            else {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            monthsView.isHidden = true
+            monthsStackView.isHidden = true
+        } else {
+            JULY.backgroundColor = .white
+            JULY.tintColor = .black
+        }
+        if sender.titleLabel?.text ?? "" == AUG.titleLabel?.text {
+            AUG.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+            AUG.tintColor = .white
+            User.monthsNumber = 8
+            monthDetailLabel.text = "0\(User.monthsNumber)/2023"
+            if homeSwitch.isOn == true {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+
+            } else {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+            }
+
+            if !self.dashboardValue.NetSales.isEmpty {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            else {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            monthsView.isHidden = true
+            monthsStackView.isHidden = true
+        } else {
+            AUG.backgroundColor = .white
+            AUG.tintColor = .black
+        }
+        if sender.titleLabel?.text ?? "" == SEP.titleLabel?.text {
+            SEP.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+            SEP.tintColor = .white
+            User.monthsNumber = 9
+            monthDetailLabel.text = "0\(User.monthsNumber)/2023"
+            if homeSwitch.isOn == true {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+
+            } else {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+            }
+
+            if !self.dashboardValue.NetSales.isEmpty {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            else {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            monthsView.isHidden = true
+            monthsStackView.isHidden = true
+        } else {
+            SEP.backgroundColor = .white
+            SEP.tintColor = .black
+        }
+        if sender.titleLabel?.text ?? "" == OCT.titleLabel?.text {
+            OCT.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+            OCT.tintColor = .white
+            User.monthsNumber = 10
+            monthDetailLabel.text = "\(User.monthsNumber)/2023"
+            if homeSwitch.isOn == true {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+
+            } else {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+            }
+
+            if !self.dashboardValue.NetSales.isEmpty {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            else {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            monthsView.isHidden = true
+            monthsStackView.isHidden = true
+        } else {
+            OCT.backgroundColor = .white
+            OCT.tintColor = .black
+        }
+        if sender.titleLabel?.text ?? "" == NOV.titleLabel?.text {
+            NOV.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+            NOV.tintColor = .white
+            User.monthsNumber = 11
+            monthDetailLabel.text = "\(User.monthsNumber)/2023"
+            if homeSwitch.isOn == true {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+
+            } else {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+            }
+
+            if !self.dashboardValue.NetSales.isEmpty {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            else {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            monthsView.isHidden = true
+            monthsStackView.isHidden = true
+        } else {
+            NOV.backgroundColor = .white
+            NOV.tintColor = .black
+        }
+        if sender.titleLabel?.text ?? "" == DEC.titleLabel?.text {
+            DEC.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+            DEC.tintColor = .white
+            User.monthsNumber = 12
+            monthDetailLabel.text = "\(User.monthsNumber)/2023"
+            if homeSwitch.isOn == true {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+
+            } else {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+            }
+
+            if !self.dashboardValue.NetSales.isEmpty {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            else {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            monthsView.isHidden = true
+            monthsStackView.isHidden = true
+        } else {
+            DEC.backgroundColor = .white
+            DEC.tintColor = .black
+        }
+        
+    }
+    
+    
+    //    MARK: -HOUR
+    
     
     //    @IBAction func hourlyBtnPressed(_ sender: Any) {
     //        hourlyButton.isSelected = true
@@ -561,10 +920,10 @@ class MainViewController: UIViewController {
     //        monthlyButton.isSelected = false
     //        yeartodateButton.isSelected = false
     //        if homeSwitch.isOn == true {
-    //            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
+    //            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
     //
     //        } else {
-    //            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
+    //            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
     //        }
     //        self.checkDataDashboard()
     //        self.hourlyView.backgroundColor = UIColor.white
@@ -581,18 +940,22 @@ class MainViewController: UIViewController {
     //        self.yeartodateLabel.textColor = UIColor.white
     //    }
     
+    
+    //    MARK: -YESTERDAY-
+    
     @IBAction func yesterdayBtnPressed(_ sender: Any) {
         //        hourlyButton.isSelected = false
+        monthsView.isHidden = true
         yesterdayButton.isSelected = true
         daytodayButton.isSelected = false
         weeklyButton.isSelected = false
         monthlyButton.isSelected = false
         yeartodateButton.isSelected = false
         if homeSwitch.isOn == true {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             
         } else {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
         }
         
         if !self.dashboardValue.NetSales.isEmpty {
@@ -625,7 +988,12 @@ class MainViewController: UIViewController {
         }
     }
     
+    //    MARK: -DAYTODAY-
+    
+    
     @IBAction func daytodayBtnPressed(_ sender: Any) {
+        monthsView.isHidden = true
+        
         //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
         daytodayButton.isSelected = true
@@ -633,10 +1001,10 @@ class MainViewController: UIViewController {
         monthlyButton.isSelected = false
         yeartodateButton.isSelected = false
         if homeSwitch.isOn == true {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DaytoDay\",\"IsLfl\": 1}"
-
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DaytoDay\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+            
         } else {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DaytoDay\",\"IsLfl\": 0}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DaytoDay\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
         }
         if !self.dashboardValue.NetSales.isEmpty {
             hud.textLabel.text = "Loading"
@@ -662,13 +1030,15 @@ class MainViewController: UIViewController {
         self.yeartodateLabel.textColor = UIColor.white
     }
     
+    
+    //    MARK: -WEEK-
+    
     @IBAction func weeklyBtnPressed(_ sender: Any) {
-//        calendar = FSCalendar(frame: CGRect(x: 0.0, y: 0.0, width: self.calendarView.frame.size.width, height:self.calendarView.frame.size.height))
-//        calendar.scrollDirection = .vertical
-//        calendar.scope = .week
-//        self.calendarView.isHidden.toggle()
-//        self.calendarView.addSubview(calendar)
-        
+        monthsView.isHidden = true
+
+//        weekView.isHidden.toggle()
+      
+           
         //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
         daytodayButton.isSelected = false
@@ -676,12 +1046,12 @@ class MainViewController: UIViewController {
         monthlyButton.isSelected = false
         yeartodateButton.isSelected = false
         if homeSwitch.isOn == true {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             
         } else {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
         }
-
+        
         if !self.dashboardValue.NetSales.isEmpty {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
@@ -706,30 +1076,22 @@ class MainViewController: UIViewController {
         self.yeartodateLabel.textColor = UIColor.white
     }
     
+
+    
+    
+    //    MARK: -MONTH-
+    
     @IBAction func monthlyBtnPressed(_ sender: Any) {
+        monthsView.isHidden.toggle()
+        
+        monthsStackView.isHidden = false
         //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
         daytodayButton.isSelected = false
         weeklyButton.isSelected = false
         monthlyButton.isSelected = true
         yeartodateButton.isSelected = false
-        if homeSwitch.isOn == true {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1}"
-            
-        } else {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0}"
-        }
-
-        if !self.dashboardValue.NetSales.isEmpty {
-            hud.textLabel.text = "Loading"
-            hud.show(in: self.view)
-            self.checkDataDashboard()
-        }
-        else {
-            hud.textLabel.text = "Loading"
-            hud.show(in: self.view)
-            self.checkDataDashboard()
-        }
+        
         //        self.hourlyView.backgroundColor = UIColor.clear
         //        self.hourlyLabel.textColor = UIColor.white
         self.yesterdayView.backgroundColor = UIColor.clear
@@ -744,7 +1106,12 @@ class MainViewController: UIViewController {
         self.yeartodateLabel.textColor = UIColor.white
     }
     
+    
+    //    MARK: -YEAR-
+    
     @IBAction func yeartodateBtnPressed(_ sender: Any) {
+        monthsView.isHidden = true
+
         //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
         daytodayButton.isSelected = false
@@ -752,13 +1119,13 @@ class MainViewController: UIViewController {
         monthlyButton.isSelected = false
         yeartodateButton.isSelected = true
         if homeSwitch.isOn == true {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             
         } else {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
         }
-//
-
+        //
+        
         if !self.dashboardValue.NetSales.isEmpty {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
@@ -853,7 +1220,7 @@ class MainViewController: UIViewController {
         
         if dashboardValue.NetSalesvs2022B.isEmpty {
             self.salesPercentageLabel.text =  "%0.0"
-
+            
         } else {
             
             if "\(dashboardValue.NetSalesvs2022B[0].components(separatedBy: ["%"," "]).joined())".toDouble >= 0.0 {
@@ -879,12 +1246,12 @@ class MainViewController: UIViewController {
         ikibinyirmibirLabel.textColor = .white
         ikibinyirmiikiBView.backgroundColor = .clear
         ikibinyirmiikiBLabel.textColor = .white
-
+        
         if dashboardValue.NetSalesvsButceLE.isEmpty {
             self.salesPercentageLabel.text = "%0.0"
-
+            
         } else {
-
+            
             if "\(dashboardValue.NetSalesvsButceLE[0].components(separatedBy: ["%"," "]).joined())".toDouble >= 0.0 {
                 self.salesPercentageLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                 self.salesPercentageLabel.text = self.dashboardValue.NetSalesvsButceLE[0]
