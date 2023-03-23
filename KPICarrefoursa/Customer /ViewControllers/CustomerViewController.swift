@@ -208,8 +208,8 @@ class CustomerViewController: UIViewController, ChartViewDelegate,FSCalendarDele
         
         
 //         Check if selected date is a Monday
-        let weekday = Calendar.current.component(.weekday, from: date)
-        print(weekday)
+//        let weekday = Calendar.current.component(.weekday, from: date)
+//        print(weekday)
         // Get the first day of the week
         var startOfWeek = Calendar.current.date(from: Calendar.current.dateComponents([.yearForWeekOfYear, .weekOfYear], from: date))!
         
@@ -222,30 +222,70 @@ class CustomerViewController: UIViewController, ChartViewDelegate,FSCalendarDele
             }
         }
         let daysOfWeek = (0...6).map { Calendar.current.date(byAdding: .day, value: $0, to: startOfWeek)! }
-        
+        print(daysOfWeek)
         // Change background color of selected cell and other cells for the week
         var selectedDates = [Date]()
         for day in daysOfWeek {
-            let isInSameRow = Calendar.current.isDate(day, equalTo: startOfWeek, toGranularity: .weekOfYear)
-            if isInSameRow, let cell = calendar.cell(for: day, at: monthPosition) as? CustomCalendarCell {
-                if selectedDates.contains(day) {
-                    // If the cell was already selected, deselect it and reset its appearance
-                    cell.isCellSelected = false
-                    cell.backgroundColor = .clear
-                    cell.titleLabel.textColor = UIColor.black
-                    cell.appearance.selectionColor = .clear
-                } else {
-                    // If the cell was not already selected, select it and update its appearance
-                    cell.isCellSelected = true
-                    cell.backgroundColor = UIColor.lightGray
-                    cell.weekNumberLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                    cell.titleLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                    //                    cell.appearance.titleSelectionColor = UIColor.red
-                    //                    cell.appearance.eventSelectionColor = UIColor.red
-                }
-                
-                selectedDates.append(day)
+            let cell = calendar.cell(for: day, at: FSCalendarMonthPosition.current) as? CustomCalendarCell
+            if selectedDates.contains(day) {
+                // If the cell was already selected, deselect it and reset its appearance
+                cell?.isCellSelected = false
+                cell?.backgroundColor = .clear
+                cell?.titleLabel.textColor = UIColor.black
+                cell?.appearance.selectionColor = .clear
+            } else {
+                // If the cell was not already selected, select it and update its appearance
+                cell?.isCellSelected = true
+                cell?.backgroundColor = UIColor.lightGray
+                cell?.weekNumberLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                cell?.titleLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                //                    cell.appearance.titleSelectionColor = UIColor.red
+                //                    cell.appearance.eventSelectionColor = UIColor.red
             }
+            
+            selectedDates.append(day)
+        }
+        for day in daysOfWeek {
+            let cell = calendar.cell(for: day, at: FSCalendarMonthPosition.previous) as? CustomCalendarCell
+            if selectedDates.contains(day) {
+                // If the cell was not already selected, select it and update its appearance
+                cell?.isCellSelected = true
+                cell?.backgroundColor = UIColor.lightGray
+                cell?.weekNumberLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                cell?.titleLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                //                    cell.appearance.titleSelectionColor = UIColor.red
+                //                    cell.appearance.eventSelectionColor = UIColor.red
+             
+            } else {
+                // If the cell was already selected, deselect it and reset its appearance
+                cell?.isCellSelected = false
+                cell?.backgroundColor = .clear
+                cell?.titleLabel.textColor = UIColor.black
+                cell?.appearance.selectionColor = .clear
+            }
+            
+            selectedDates.append(day)
+        }
+        for day in daysOfWeek {
+            let cell = calendar.cell(for: day, at: FSCalendarMonthPosition.next) as? CustomCalendarCell
+            if selectedDates.contains(day) {
+                // If the cell was not already selected, select it and update its appearance
+                cell?.isCellSelected = true
+                cell?.backgroundColor = UIColor.lightGray
+                cell?.weekNumberLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                cell?.titleLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                //                    cell.appearance.titleSelectionColor = UIColor.red
+                //                    cell.appearance.eventSelectionColor = UIColor.red
+             
+            } else {
+                // If the cell was already selected, deselect it and reset its appearance
+                cell?.isCellSelected = false
+                cell?.backgroundColor = .clear
+                cell?.titleLabel.textColor = UIColor.black
+                cell?.appearance.selectionColor = .clear
+            }
+            
+            selectedDates.append(day)
         }
         
         // Deselect cells from other weeks
@@ -282,9 +322,11 @@ class CustomerViewController: UIViewController, ChartViewDelegate,FSCalendarDele
         customerWeekDetailLabel.text = "\(weekOfYear). Week"
         customerWeekStackView.isHidden = true
     }
+  
     
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        customerMonthDetailLabel.text = ""
         for cell in calendar.visibleCells() {
             cell.backgroundColor = UIColor.white
             calendar.reloadData()
