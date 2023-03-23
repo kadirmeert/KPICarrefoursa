@@ -155,9 +155,15 @@
                                                 <rect key="frame" x="202" y="12.666666666666657" width="75" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weekly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ifp-Ub-8Wx">
-                                                        <rect key="frame" x="11.666666666666657" y="8.3333333333333428" width="52" height="18"/>
+                                                        <rect key="frame" x="11.666666666666657" y="8" width="52" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weekly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mMe-8I-zQF">
+                                                        <rect key="frame" x="0.0" y="26" width="75" height="9"/>
+                                                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="9"/>
+                                                        <color key="textColor" red="0.01839950122" green="0.2784313725" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oha-bH-FUp">
@@ -172,14 +178,20 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstItem="Ifp-Ub-8Wx" firstAttribute="centerY" secondItem="KPh-1v-6b6" secondAttribute="centerY" id="1rY-7q-1Dm"/>
+                                                    <constraint firstItem="mMe-8I-zQF" firstAttribute="leading" secondItem="KPh-1v-6b6" secondAttribute="leading" id="37c-tk-kB4"/>
                                                     <constraint firstAttribute="height" constant="35" id="8k9-0j-7x8"/>
-                                                    <constraint firstItem="Ifp-Ub-8Wx" firstAttribute="centerX" secondItem="KPh-1v-6b6" secondAttribute="centerX" id="CEg-Dr-KpP"/>
+                                                    <constraint firstItem="mMe-8I-zQF" firstAttribute="top" secondItem="Ifp-Ub-8Wx" secondAttribute="bottom" id="BaH-dn-Zzt"/>
                                                     <constraint firstItem="oha-bH-FUp" firstAttribute="top" secondItem="KPh-1v-6b6" secondAttribute="top" id="DF3-cP-3kZ"/>
                                                     <constraint firstItem="oha-bH-FUp" firstAttribute="leading" secondItem="KPh-1v-6b6" secondAttribute="leading" id="OWW-pU-sbf"/>
+                                                    <constraint firstItem="Ifp-Ub-8Wx" firstAttribute="leading" secondItem="KPh-1v-6b6" secondAttribute="leading" constant="11.67" id="TiL-O4-wWz"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Ifp-Ub-8Wx" secondAttribute="bottom" constant="9" id="WEv-Zb-VQ2"/>
                                                     <constraint firstAttribute="width" constant="75" id="cFj-Rh-J1H"/>
                                                     <constraint firstAttribute="trailing" secondItem="oha-bH-FUp" secondAttribute="trailing" id="f2f-HO-zUj"/>
+                                                    <constraint firstItem="Ifp-Ub-8Wx" firstAttribute="top" secondItem="KPh-1v-6b6" secondAttribute="top" constant="8.3300000000000001" id="gVk-6n-k3o"/>
+                                                    <constraint firstAttribute="trailing" secondItem="mMe-8I-zQF" secondAttribute="trailing" id="njg-ir-2Y8"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Ifp-Ub-8Wx" secondAttribute="trailing" constant="11.33" id="rp1-U8-vYv"/>
                                                     <constraint firstAttribute="bottom" secondItem="oha-bH-FUp" secondAttribute="bottom" id="tUy-Tk-2xF"/>
+                                                    <constraint firstAttribute="bottom" secondItem="mMe-8I-zQF" secondAttribute="bottom" id="yq7-Y4-KmB"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="143-W1-hqf">
@@ -830,7 +842,7 @@ October 11, 2022 14:37</string>
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" red="0.90980392160000001" green="0.92941176469999998" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstItem="fwZ-EN-NGa" firstAttribute="leading" secondItem="HFT-tG-MAe" secondAttribute="leading" constant="32" id="Lr2-cY-wjh"/>
                                                     <constraint firstAttribute="trailing" secondItem="fwZ-EN-NGa" secondAttribute="trailing" constant="32" id="Nhu-Cv-IYu"/>
@@ -843,10 +855,40 @@ October 11, 2022 14:37</string>
                                             <constraint firstItem="HFT-tG-MAe" firstAttribute="top" secondItem="qMZ-I3-KGo" secondAttribute="top" id="JQO-9S-jVM"/>
                                         </constraints>
                                     </stackView>
+                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cte-LH-Czg">
+                                        <rect key="frame" x="0.0" y="0.0" width="390" height="1200"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5AE-d5-vsp">
+                                                <rect key="frame" x="0.0" y="0.0" width="390" height="1200"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CsI-rH-5R0" customClass="FSCalendar">
+                                                        <rect key="frame" x="50" y="50" width="290" height="310"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="310" id="PiE-1g-NVw"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="CsI-rH-5R0" firstAttribute="leading" secondItem="5AE-d5-vsp" secondAttribute="leading" constant="50" id="3Ju-ml-V5F"/>
+                                                    <constraint firstAttribute="trailing" secondItem="CsI-rH-5R0" secondAttribute="trailing" constant="50" id="YOi-dn-1dJ"/>
+                                                    <constraint firstItem="CsI-rH-5R0" firstAttribute="top" secondItem="5AE-d5-vsp" secondAttribute="top" constant="50" id="fBI-76-xNT"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="5AE-d5-vsp" firstAttribute="top" secondItem="Cte-LH-Czg" secondAttribute="top" id="9pC-UF-Uor"/>
+                                            <constraint firstAttribute="bottom" secondItem="5AE-d5-vsp" secondAttribute="bottom" id="P9k-8T-A9H"/>
+                                        </constraints>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="VPO-Ny-eoi" firstAttribute="bottom" secondItem="Cte-LH-Czg" secondAttribute="bottom" id="0nF-Y0-oN5"/>
                                     <constraint firstItem="qMZ-I3-KGo" firstAttribute="leading" secondItem="cdA-9Y-43l" secondAttribute="leading" id="1Ge-Eu-TYd"/>
+                                    <constraint firstItem="Cte-LH-Czg" firstAttribute="trailing" secondItem="lG7-73-lQg" secondAttribute="trailing" id="2Q4-2b-sOM"/>
                                     <constraint firstAttribute="bottom" secondItem="NGF-nh-L66" secondAttribute="bottom" id="4rS-hc-hML"/>
                                     <constraint firstItem="NGF-nh-L66" firstAttribute="top" secondItem="cdA-9Y-43l" secondAttribute="top" id="6sy-jU-rER"/>
                                     <constraint firstAttribute="bottom" secondItem="qMZ-I3-KGo" secondAttribute="bottom" id="8Te-9T-5gQ"/>
@@ -854,7 +896,9 @@ October 11, 2022 14:37</string>
                                     <constraint firstItem="NGF-nh-L66" firstAttribute="centerX" secondItem="cdA-9Y-43l" secondAttribute="centerX" id="Jgr-w5-8Hv"/>
                                     <constraint firstAttribute="trailing" secondItem="NGF-nh-L66" secondAttribute="trailing" id="Ree-27-j7k"/>
                                     <constraint firstItem="qMZ-I3-KGo" firstAttribute="top" secondItem="cdA-9Y-43l" secondAttribute="top" id="VnF-4M-l8g"/>
+                                    <constraint firstItem="Cte-LH-Czg" firstAttribute="leading" secondItem="lG7-73-lQg" secondAttribute="leading" id="pkU-Ad-bgR"/>
                                     <constraint firstItem="NGF-nh-L66" firstAttribute="leading" secondItem="cdA-9Y-43l" secondAttribute="leading" id="t5L-Lo-3o9"/>
+                                    <constraint firstItem="Cte-LH-Czg" firstAttribute="top" secondItem="cdA-9Y-43l" secondAttribute="top" id="x7z-Bd-V73"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="VPO-Ny-eoi"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="lG7-73-lQg"/>
@@ -894,6 +938,7 @@ October 11, 2022 14:37</string>
                         <outlet property="NOV" destination="i3k-nf-rtS" id="LA5-Q0-bQb"/>
                         <outlet property="OCT" destination="UfJ-TH-9Hv" id="JIa-pY-hpL"/>
                         <outlet property="SEP" destination="t3N-Mc-6M1" id="1w7-dg-0Ow"/>
+                        <outlet property="basketCalendar" destination="CsI-rH-5R0" id="CdI-R7-XO2"/>
                         <outlet property="basketCategoryTableViewHeight" destination="EFt-Js-lWN" id="GZe-iD-xda"/>
                         <outlet property="basketLflLabel" destination="b1I-bR-N2w" id="sfQ-60-m0n"/>
                         <outlet property="basketMonthsDetailLabel" destination="Q1h-Ta-uaf" id="KHX-5z-0FD"/>
@@ -901,6 +946,8 @@ October 11, 2022 14:37</string>
                         <outlet property="basketStoresTableViewHeight" destination="bcH-Qg-Xfq" id="UIZ-Ep-cFs"/>
                         <outlet property="basketSwitch" destination="tFq-TP-qd6" id="3RF-Jl-gco"/>
                         <outlet property="basketViewHeight" destination="BcH-pb-bej" id="KbP-Dc-Zhq"/>
+                        <outlet property="basketWeekDetailLabel" destination="mMe-8I-zQF" id="xDf-kC-YzL"/>
+                        <outlet property="basketWeekStackView" destination="Cte-LH-Czg" id="x6R-1f-k9O"/>
                         <outlet property="categoryChartView" destination="Ta7-mu-aRE" id="IVh-og-Vso"/>
                         <outlet property="categoryTableView" destination="iuq-zU-jrf" id="1hL-bo-9Lw"/>
                         <outlet property="categoryView" destination="Iu8-GN-Lrw" id="AlU-Eg-mur"/>

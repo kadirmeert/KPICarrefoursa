@@ -12,7 +12,7 @@ import FSCalendar
 
 class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     
-    //MARK: Outlets
+    //  MARK: -Outlets
     @IBOutlet weak var logoutView: UIView!
     @IBOutlet weak var logoutButton: UIButton!
     //    @IBOutlet weak var hourlyView: UIView!
@@ -89,14 +89,18 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
     @IBOutlet weak var NOV: BaseButton!
     @IBOutlet weak var DEC: BaseButton!
     @IBOutlet weak var monthDetailLabel: UILabel!
+    @IBOutlet weak var mainCalendar: FSCalendar!
+    @IBOutlet weak var weekStackView: UIStackView!
+    @IBOutlet weak var weekView: UIView!
+    @IBOutlet weak var weeklDetailLabel: UILabel!
+    //  MARK: -Properties
     
-    //MARK: Properties
     var formatter = DateFormatter()
     var isMenuSelected = true
     var userDC: String = ""
     var otpCheckViewController = OtpCheckViewController()
     var dashboardValue = DashboardCards()
-    var chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+    var chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
     var logoutParams = "{\"Language\": \"tr\",\"ProcessType\": 2}"
     var hud = JGProgressHUD()
     let refreshControl = UIRefreshControl()
@@ -106,9 +110,51 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
         formatter.dateFormat =  "MM-dd-yyyy HH:mm:ss"
         return formatter
     }()
+    var selectedDate: Date?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        weeklDetailLabel.text = ""
+        //        MARK: - Calendar
+        mainCalendar.delegate = self
+        mainCalendar.dataSource = self
+        
+        mainCalendar.appearance.headerDateFormat = "MMMM yyyy"
+        mainCalendar.scope = .month
+        mainCalendar.scrollDirection = .horizontal
+        mainCalendar.placeholderType = .fillHeadTail
+        
+        // Ay isimlerinin rengini mavi yapalım
+        mainCalendar.appearance.headerTitleColor =  UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+        mainCalendar.appearance.headerTitleFont = UIFont(name: "Montserrat-Bold", size: 17)
+        
+        
+        // Hafta sayısı görüntülemek için ayarlar
+        mainCalendar.appearance.weekdayTextColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+        mainCalendar.appearance.weekdayFont = UIFont(name: "Montserrat-Medium", size: 17)
+        mainCalendar.appearance.caseOptions = [.headerUsesUpperCase, .weekdayUsesUpperCase]
+        mainCalendar.firstWeekday = 2
+        
+        //       MARK: -GÜNLER
+        mainCalendar.appearance.todayColor = .clear
+        mainCalendar.appearance.titleSelectionColor = .black
+        mainCalendar.appearance.titleDefaultColor = UIColor.black
+        
+        // Özel hücre sınıfını kaydetme
+        mainCalendar.register(CustomCalendarCell.self, forCellReuseIdentifier: "cell")
+        
+        JAN.backgroundColor = .white
+        FEB.backgroundColor = .white
+        MAR.backgroundColor = .white
+        APR.backgroundColor = .white
+        MAY.backgroundColor = .white
+        JUN.backgroundColor = .white
+        JULY.backgroundColor = .white
+        AUG.backgroundColor = .white
+        SEP.backgroundColor = .white
+        OCT.backgroundColor = .white
+        NOV.backgroundColor = .white
+        DEC.backgroundColor = .white
         self.mainRadius()
         monthDetailLabel.text = ""
         if self.dashboardValue.Customer.isEmpty {
@@ -126,7 +172,215 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
         self.scrool.isScrollEnabled = true
         self.scrool.alwaysBounceVertical = true
         scrool.addSubview(refreshControl)
+        
     }
+    //    MARK: -CALENDAR SETTİNGS
+    
+//    func getWeekNumber(date: Date) -> Int {
+//        var calendar = Calendar(identifier: .gregorian)
+//        calendar.firstWeekday = 2 // Pazartesi günü başlaması için 2 olarak ayarla
+//        let dateComponents = calendar.dateComponents([.weekOfYear], from: date)
+//        return dateComponents.weekOfYear!
+//    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, canSelect date: Date) -> Bool {
+        
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month], from: date)
+        
+        let thisMonth = calendar.dateComponents([.year, .month], from: Date())
+        
+        if components.year == thisMonth.year && components.month == thisMonth.month {
+            return true // Bu ayın tarihleri seçilebilir
+        } else {
+            return false // Diğer tarihler seçilemez
+        }
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        if calendar.today == date {
+            return UIColor.red
+        }
+        return UIColor.black
+    }
+    
+    // Hafta sayısı görüntülemek için gerekli olan iki fonksiyon
+    func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
+        let cell = calendar.dequeueReusableCell(withIdentifier: "cell", for: date, at: position) as! CustomCalendarCell
+        let weekday = Calendar.current.component(.weekday, from: date)
+        let weekOfYear = Calendar.current.component(.weekOfYear, from: date)
+        let isMonday = weekday == 2
+        cell.weekNumberLabel.isHidden = !isMonday // Hafta numarası etiketini sadece pazartesi günlerinde göster
+        if isMonday {
+            cell.weekNumber = "\(weekOfYear)"
+        }
+        return cell
+    }
+    
+    func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at position: FSCalendarMonthPosition) {
+        let cell = cell as! CustomCalendarCell
+        let weekday = Calendar.current.component(.weekday, from: date)
+        let weekOfYear = Calendar.current.component(.weekOfYear, from: date)
+        cell.weekNumberLabel.text = "\(weekOfYear)"
+        cell.weekNumberLabel.isHidden = weekday != 2 // Hafta numarası etiketini sadece pazartesi günlerinde göster
+        if weekday == 2 {
+            cell.weekNumber = "\(weekOfYear)"
+        }
+    }
+    func calendar(_ calendar: FSCalendar, numberOfRowsInMonth month: Int) -> Int {
+        let date = calendar.currentPage
+        let range = Calendar.current.range(of: .day, in: .month, for: date)!
+        let numberOfWeeks = ceil(Double(range.count) / 7.0)
+        return Int(numberOfWeeks)
+    }
+    
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        
+        let weekOfYear = Calendar.current.component(.weekOfYear, from: date)
+        User.weekNumber = weekOfYear
+        
+        
+        // Check if selected date is a Monday
+//        let weekday = Calendar.current.component(.weekday, from: date)
+        // Get the first day of the week
+        var startOfWeek = Calendar.current.date(from: Calendar.current.dateComponents([.yearForWeekOfYear, .weekOfYear], from: date))!
+        
+        // Add or subtract days to include all days of the week
+        while !Calendar.current.dateInterval(of: .weekOfYear, for: startOfWeek)!.contains(date) {
+            if startOfWeek < date {
+                startOfWeek = Calendar.current.date(byAdding: .day, value: 1, to: startOfWeek)!
+            } else {
+                startOfWeek = Calendar.current.date(byAdding: .day, value: -1, to: startOfWeek)!
+            }
+        }
+        let daysOfWeek = (0...6).map { Calendar.current.date(byAdding: .day, value: $0, to: startOfWeek)! }
+        
+        // Change background color of selected cell and other cells for the week
+        var selectedDates = [Date]()
+        for day in daysOfWeek {
+            let isInSameRow = Calendar.current.isDate(day, equalTo: startOfWeek, toGranularity: .weekOfYear)
+            if isInSameRow, let cell = calendar.cell(for: day, at: monthPosition) as? CustomCalendarCell {
+                if selectedDates.contains(day) {
+                    // If the cell was already selected, deselect it and reset its appearance
+                    cell.isCellSelected = false
+                    cell.backgroundColor = .clear
+                    cell.titleLabel.textColor = UIColor.black
+                    cell.appearance.selectionColor = .clear
+                } else {
+                    // If the cell was not already selected, select it and update its appearance
+                    cell.isCellSelected = true
+                    cell.backgroundColor = UIColor.lightGray
+                    cell.weekNumberLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                    cell.titleLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                    //                    cell.appearance.titleSelectionColor = UIColor.red
+                    //                    cell.appearance.eventSelectionColor = UIColor.red
+                }
+                
+                selectedDates.append(day)
+            }
+        }
+        
+        // Deselect cells from other weeks
+        let allCells = calendar.visibleCells()
+        for cell in allCells {
+            if let customCell = cell as? CustomCalendarCell,
+               let cellDate = calendar.date(for: customCell) {
+                if !selectedDates.contains(cellDate) {
+                    customCell.isCellSelected = false
+                    customCell.backgroundColor = .clear
+                    customCell.titleLabel.textColor = UIColor.black
+                    customCell.appearance.selectionColor = .clear
+                } else {
+                    customCell.titleLabel.textColor = UIColor.black
+                }
+            }
+        }
+        if homeSwitch.isOn == true {
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"WeekNumber\": \(User.weekNumber),\"MonthNumber\": 0}"
+            
+        } else {
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"WeekNumber\": \(User.weekNumber),\"MonthNumber\": 0}"
+        }
+        
+        if !self.dashboardValue.NetSales.isEmpty {
+            hud.textLabel.text = "Loading"
+            hud.show(in: self.view)
+            self.checkDataDashboard()
+        }
+        else {
+            hud.textLabel.text = "Loading"
+            hud.show(in: self.view)
+            self.checkDataDashboard()
+        }
+        weeklDetailLabel.text = "\(weekOfYear). Week"
+        weekStackView.isHidden = true
+    }
+    
+    
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        for cell in calendar.visibleCells() {
+            cell.backgroundColor = UIColor.white
+            calendar.reloadData()
+            calendar.setCurrentPage(calendar.currentPage, animated: false)
+        }
+    }
+    
+    
+    func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        if let cell = calendar.cell(for: date, at: monthPosition) as? CustomCalendarCell {
+            cell.isCellSelected = false
+        }
+    }
+    // Özel hücre sınıfı
+    class CustomCalendarCell: FSCalendarCell {
+        
+        var weekNumberLabel: UILabel!
+        
+        var isCellSelected: Bool = false {
+            didSet {
+                weekNumberLabel.textColor = isCellSelected ? .white : UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+            }
+        }
+        var weekNumber: String? {
+            didSet {
+                weekNumberLabel.text = weekNumber
+            }
+        }
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            
+            // Hafta sayısı etiketi
+            weekNumberLabel = UILabel()
+            weekNumberLabel.translatesAutoresizingMaskIntoConstraints = false
+            weekNumberLabel.font = UIFont(name: "Montserrat-Bold", size: 9)
+            weekNumberLabel.textAlignment = .center
+            weekNumberLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+            contentView.addSubview(weekNumberLabel)
+            
+            // Hafta sayısı etiketinin yerleşimi
+            NSLayoutConstraint.activate([
+                weekNumberLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                weekNumberLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+                weekNumberLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5),
+                weekNumberLabel.heightAnchor.constraint(equalToConstant: 16)
+            ])
+            
+            // Takvim hücrelerinin konumlarını ayarla
+            self.titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5).isActive = true
+            self.titleLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1) // mavi renk
+            self.subtitleLabel?.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: -5).isActive = true
+            self.subtitleLabel?.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1) // mavi renk
+            self.imageView.contentMode = .scaleAspectFill
+            self.imageView.clipsToBounds = true
+        }
+        
+        required init!(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+    }
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -147,6 +401,7 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
         super.viewDidDisappear(animated)
     }
     
+    
     @IBAction func homeDidValueChanged(_ sender: UISwitch) {
         
         if (sender.isOn == true){
@@ -156,20 +411,20 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
             //            }
             self.yesterdayButton.isSelected = true
             if yesterdayButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
                 self.yesterdayButton.isSelected = false
             }
             if daytodayButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
             }
             if weeklyButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"WeekNumber\": \(User.weekNumber),\"MonthNumber\": 0}"
             }
             if monthlyButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
             if yeartodateButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
             }
         }
         else{
@@ -179,20 +434,20 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
             //            }
             self.yesterdayButton.isSelected = true
             if yesterdayButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 0}"
                 self.yesterdayButton.isSelected = false
             }
             if daytodayButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
             if weeklyButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"WeekNumber\": \(User.weekNumber),\"MonthNumber\": 0}"
             }
             if monthlyButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
             if yeartodateButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 0}"
             }
         }
         if !self.dashboardValue.Product.isEmpty {
@@ -565,7 +820,9 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
     @IBAction func logoutBtnPressed(_ sender: UIButton) {
         self.checkLogOut()
     }
-//    MARK: - Months Button Pressed
+    
+    
+    //    MARK: - Months Button Pressed
     
     @IBAction func MonthsButtonPressed(_ sender: BaseButton) {
         if sender.titleLabel?.text ?? "" == JAN.titleLabel?.text {
@@ -575,11 +832,11 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
             monthDetailLabel.text = "0\(User.monthsNumber)/2023"
             if homeSwitch.isOn == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-
+                
             } else {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
-
+            
             if !self.dashboardValue.NetSales.isEmpty {
                 hud.textLabel.text = "Loading"
                 hud.show(in: self.view)
@@ -592,7 +849,7 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
             }
             monthsView.isHidden = true
             monthsStackView.isHidden = true
-
+            
         } else {
             JAN.backgroundColor = .white
             JAN.tintColor = .black
@@ -604,11 +861,11 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
             monthDetailLabel.text = "0\(User.monthsNumber)/2023"
             if homeSwitch.isOn == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-
+                
             } else {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
-
+            
             if !self.dashboardValue.NetSales.isEmpty {
                 hud.textLabel.text = "Loading"
                 hud.show(in: self.view)
@@ -632,11 +889,11 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
             monthDetailLabel.text = "0\(User.monthsNumber)/2023"
             if homeSwitch.isOn == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-
+                
             } else {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
-
+            
             if !self.dashboardValue.NetSales.isEmpty {
                 hud.textLabel.text = "Loading"
                 hud.show(in: self.view)
@@ -660,11 +917,11 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
             monthDetailLabel.text = "0\(User.monthsNumber)/2023"
             if homeSwitch.isOn == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-
+                
             } else {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
-
+            
             if !self.dashboardValue.NetSales.isEmpty {
                 hud.textLabel.text = "Loading"
                 hud.show(in: self.view)
@@ -688,11 +945,11 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
             monthDetailLabel.text = "0\(User.monthsNumber)/2023"
             if homeSwitch.isOn == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-
+                
             } else {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
-
+            
             if !self.dashboardValue.NetSales.isEmpty {
                 hud.textLabel.text = "Loading"
                 hud.show(in: self.view)
@@ -716,11 +973,11 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
             monthDetailLabel.text = "0\(User.monthsNumber)/2023"
             if homeSwitch.isOn == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-
+                
             } else {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
-
+            
             if !self.dashboardValue.NetSales.isEmpty {
                 hud.textLabel.text = "Loading"
                 hud.show(in: self.view)
@@ -744,11 +1001,11 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
             monthDetailLabel.text = "0\(User.monthsNumber)/2023"
             if homeSwitch.isOn == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-
+                
             } else {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
-
+            
             if !self.dashboardValue.NetSales.isEmpty {
                 hud.textLabel.text = "Loading"
                 hud.show(in: self.view)
@@ -772,11 +1029,11 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
             monthDetailLabel.text = "0\(User.monthsNumber)/2023"
             if homeSwitch.isOn == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-
+                
             } else {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
-
+            
             if !self.dashboardValue.NetSales.isEmpty {
                 hud.textLabel.text = "Loading"
                 hud.show(in: self.view)
@@ -800,11 +1057,11 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
             monthDetailLabel.text = "0\(User.monthsNumber)/2023"
             if homeSwitch.isOn == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-
+                
             } else {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
-
+            
             if !self.dashboardValue.NetSales.isEmpty {
                 hud.textLabel.text = "Loading"
                 hud.show(in: self.view)
@@ -828,11 +1085,11 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
             monthDetailLabel.text = "\(User.monthsNumber)/2023"
             if homeSwitch.isOn == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-
+                
             } else {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
-
+            
             if !self.dashboardValue.NetSales.isEmpty {
                 hud.textLabel.text = "Loading"
                 hud.show(in: self.view)
@@ -856,11 +1113,11 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
             monthDetailLabel.text = "\(User.monthsNumber)/2023"
             if homeSwitch.isOn == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-
+                
             } else {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
-
+            
             if !self.dashboardValue.NetSales.isEmpty {
                 hud.textLabel.text = "Loading"
                 hud.show(in: self.view)
@@ -884,11 +1141,11 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
             monthDetailLabel.text = "\(User.monthsNumber)/2023"
             if homeSwitch.isOn == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-
+                
             } else {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
             }
-
+            
             if !self.dashboardValue.NetSales.isEmpty {
                 hud.textLabel.text = "Loading"
                 hud.show(in: self.view)
@@ -907,6 +1164,8 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
         }
         
     }
+    
+    
     
     
     //    MARK: -HOUR
@@ -945,6 +1204,7 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
     
     @IBAction func yesterdayBtnPressed(_ sender: Any) {
         //        hourlyButton.isSelected = false
+        weekStackView.isHidden = true
         monthsView.isHidden = true
         yesterdayButton.isSelected = true
         daytodayButton.isSelected = false
@@ -952,10 +1212,10 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
         monthlyButton.isSelected = false
         yeartodateButton.isSelected = false
         if homeSwitch.isOn == true {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
             
         } else {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 0}"
         }
         
         if !self.dashboardValue.NetSales.isEmpty {
@@ -992,6 +1252,7 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
     
     
     @IBAction func daytodayBtnPressed(_ sender: Any) {
+        weekStackView.isHidden = true
         monthsView.isHidden = true
         
         //        hourlyButton.isSelected = false
@@ -1001,10 +1262,10 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
         monthlyButton.isSelected = false
         yeartodateButton.isSelected = false
         if homeSwitch.isOn == true {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DaytoDay\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DaytoDay\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
             
         } else {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DaytoDay\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DaytoDay\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 0}"
         }
         if !self.dashboardValue.NetSales.isEmpty {
             hud.textLabel.text = "Loading"
@@ -1035,33 +1296,16 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
     
     @IBAction func weeklyBtnPressed(_ sender: Any) {
         monthsView.isHidden = true
-
-//        weekView.isHidden.toggle()
-      
-           
+        weekStackView.isHidden.toggle()
+        let topOffset = CGPoint(x: 0, y: 0)
+        scrool.setContentOffset(topOffset, animated: true)
         //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
         daytodayButton.isSelected = false
         weeklyButton.isSelected = true
         monthlyButton.isSelected = false
         yeartodateButton.isSelected = false
-        if homeSwitch.isOn == true {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-            
-        } else {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-        }
-        
-        if !self.dashboardValue.NetSales.isEmpty {
-            hud.textLabel.text = "Loading"
-            hud.show(in: self.view)
-            self.checkDataDashboard()
-        }
-        else {
-            hud.textLabel.text = "Loading"
-            hud.show(in: self.view)
-            self.checkDataDashboard()
-        }
+       
         //        self.hourlyView.backgroundColor = UIColor.clear
         //        self.hourlyLabel.textColor = UIColor.white
         self.yesterdayView.backgroundColor = UIColor.clear
@@ -1076,14 +1320,15 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
         self.yeartodateLabel.textColor = UIColor.white
     }
     
-
+    
     
     
     //    MARK: -MONTH-
     
     @IBAction func monthlyBtnPressed(_ sender: Any) {
         monthsView.isHidden.toggle()
-        
+        let topOffset = CGPoint(x: 0, y: 0)
+        scrool.setContentOffset(topOffset, animated: true)
         monthsStackView.isHidden = false
         //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
@@ -1110,8 +1355,9 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
     //    MARK: -YEAR-
     
     @IBAction func yeartodateBtnPressed(_ sender: Any) {
+        weekStackView.isHidden = true
         monthsView.isHidden = true
-
+        
         //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
         daytodayButton.isSelected = false
@@ -1119,10 +1365,10 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
         monthlyButton.isSelected = false
         yeartodateButton.isSelected = true
         if homeSwitch.isOn == true {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
             
         } else {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 0}"
         }
         //
         

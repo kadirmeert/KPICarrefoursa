@@ -191,9 +191,15 @@
                                                 <rect key="frame" x="204" y="12.666666666666657" width="75" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weekly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iCe-qA-fig">
-                                                        <rect key="frame" x="11.666666666666657" y="8.3333333333333428" width="52" height="18"/>
+                                                        <rect key="frame" x="11.666666666666657" y="8" width="52" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weekly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e00-qw-525">
+                                                        <rect key="frame" x="0.0" y="26" width="75" height="9"/>
+                                                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="9"/>
+                                                        <color key="textColor" red="0.019607843137254902" green="0.27843137254901962" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LGX-31-aLK">
@@ -208,14 +214,20 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="e00-qw-525" secondAttribute="bottom" id="3fF-2n-ygY"/>
+                                                    <constraint firstItem="e00-qw-525" firstAttribute="leading" secondItem="PJT-PI-OZS" secondAttribute="leading" id="8io-pW-BGg"/>
+                                                    <constraint firstAttribute="bottom" secondItem="iCe-qA-fig" secondAttribute="bottom" constant="9" id="BaE-0I-EOv"/>
                                                     <constraint firstAttribute="width" constant="75" id="DTm-K1-cfv"/>
-                                                    <constraint firstItem="iCe-qA-fig" firstAttribute="centerX" secondItem="PJT-PI-OZS" secondAttribute="centerX" id="HpQ-C9-2jO"/>
+                                                    <constraint firstAttribute="trailing" secondItem="iCe-qA-fig" secondAttribute="trailing" constant="11.33" id="DtW-Gy-ncv"/>
+                                                    <constraint firstItem="e00-qw-525" firstAttribute="top" secondItem="iCe-qA-fig" secondAttribute="bottom" id="NK9-Jw-6gd"/>
+                                                    <constraint firstItem="iCe-qA-fig" firstAttribute="leading" secondItem="PJT-PI-OZS" secondAttribute="leading" constant="11.67" id="SsR-Ra-Uam"/>
+                                                    <constraint firstAttribute="trailing" secondItem="e00-qw-525" secondAttribute="trailing" id="Sti-iw-oZK"/>
                                                     <constraint firstAttribute="height" constant="35" id="Yxa-eU-FIp"/>
                                                     <constraint firstItem="LGX-31-aLK" firstAttribute="leading" secondItem="PJT-PI-OZS" secondAttribute="leading" id="hgS-wa-1fT"/>
                                                     <constraint firstAttribute="bottom" secondItem="LGX-31-aLK" secondAttribute="bottom" id="kFv-aW-I64"/>
+                                                    <constraint firstItem="iCe-qA-fig" firstAttribute="top" secondItem="PJT-PI-OZS" secondAttribute="top" constant="8.3300000000000001" id="mn9-NH-zhU"/>
                                                     <constraint firstAttribute="trailing" secondItem="LGX-31-aLK" secondAttribute="trailing" id="oqp-0m-0WZ"/>
                                                     <constraint firstItem="LGX-31-aLK" firstAttribute="top" secondItem="PJT-PI-OZS" secondAttribute="top" id="t5e-Cj-0VP"/>
-                                                    <constraint firstItem="iCe-qA-fig" firstAttribute="centerY" secondItem="PJT-PI-OZS" secondAttribute="centerY" id="u7f-jh-bN8"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wNu-yh-qQe">
@@ -230,7 +242,7 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="03/2023" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cOj-Bo-EUo">
                                                         <rect key="frame" x="0.0" y="26" width="75" height="9"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="9"/>
-                                                        <color key="textColor" red="0.01839950122" green="0.2503485084" blue="0.53678458929999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="textColor" red="0.01839950122" green="0.27843137254901962" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3pw-fX-y1F">
@@ -1008,7 +1020,7 @@ October 11, 2022 14:37</string>
                                         </connections>
                                     </switch>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.90980392160000001" green="0.92941176469999998" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstItem="BIT-xt-5ek" firstAttribute="centerY" secondItem="pqr-Kp-c1K" secondAttribute="centerY" id="1zf-Dk-o93"/>
                                     <constraint firstItem="BIT-xt-5ek" firstAttribute="leading" secondItem="pqr-Kp-c1K" secondAttribute="trailing" constant="8" id="5bT-Bb-914"/>
@@ -1304,7 +1316,7 @@ October 11, 2022 14:37</string>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" red="0.90980392160000001" green="0.92941176469999998" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstItem="iO8-H6-6l8" firstAttribute="leading" secondItem="wer-Tp-ug6" secondAttribute="leading" constant="32" id="IAn-GY-Orv"/>
                                             <constraint firstItem="iO8-H6-6l8" firstAttribute="top" secondItem="wer-Tp-ug6" secondAttribute="top" constant="16" id="OAN-7h-hNg"/>
@@ -1320,14 +1332,29 @@ October 11, 2022 14:37</string>
                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6IO-yb-vMU">
                                 <rect key="frame" x="0.0" y="265" width="390" height="579"/>
                                 <subviews>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="70d-TF-qWS">
-                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="579"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5iX-pq-kS1">
+                                        <rect key="frame" x="0.0" y="0.0" width="390" height="579"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="09e-FY-jda" customClass="FSCalendar">
+                                                <rect key="frame" x="50" y="50" width="290" height="310"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="310" id="a3j-AY-T0A"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="09e-FY-jda" firstAttribute="top" secondItem="5iX-pq-kS1" secondAttribute="top" constant="50" id="PsL-XT-EBV"/>
+                                            <constraint firstAttribute="trailing" secondItem="09e-FY-jda" secondAttribute="trailing" constant="50" id="dG4-5N-Gku"/>
+                                            <constraint firstItem="09e-FY-jda" firstAttribute="leading" secondItem="5iX-pq-kS1" secondAttribute="leading" constant="50" id="kBx-bp-jEG"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="70d-TF-qWS" firstAttribute="top" secondItem="6IO-yb-vMU" secondAttribute="top" id="bcm-qd-dJb"/>
+                                    <constraint firstItem="5iX-pq-kS1" firstAttribute="top" secondItem="6IO-yb-vMU" secondAttribute="top" id="MPP-ko-tnZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="5iX-pq-kS1" secondAttribute="bottom" id="ggo-dH-FKA"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -1397,6 +1424,7 @@ October 11, 2022 14:37</string>
                         <outlet property="lastUpdateTime" destination="qq0-gL-lCz" id="1wa-Sh-tLI"/>
                         <outlet property="logoutButton" destination="QdX-Ky-50s" id="Tnl-04-szs"/>
                         <outlet property="logoutView" destination="2z6-20-t1o" id="LaJ-oQ-PrU"/>
+                        <outlet property="mainCalendar" destination="09e-FY-jda" id="KsL-gz-Ptd"/>
                         <outlet property="mainLflLabel" destination="pqr-Kp-c1K" id="wSM-HZ-g37"/>
                         <outlet property="monthDetailLabel" destination="cOj-Bo-EUo" id="x7Z-XZ-dWg"/>
                         <outlet property="monthlyButton" destination="3pw-fX-y1F" id="NQ0-Yq-Cg2"/>
@@ -1423,6 +1451,9 @@ October 11, 2022 14:37</string>
                         <outlet property="salesİmage" destination="AMi-qB-WaZ" id="3IP-9V-9kA"/>
                         <outlet property="salesPercentageLabel" destination="1nW-eg-3am" id="Ddp-6p-lY4"/>
                         <outlet property="scrool" destination="OOc-5D-XsO" id="43B-UH-k7K"/>
+                        <outlet property="weekStackView" destination="6IO-yb-vMU" id="OXf-YF-y7n"/>
+                        <outlet property="weekView" destination="5iX-pq-kS1" id="LFC-YT-XN3"/>
+                        <outlet property="weeklDetailLabel" destination="e00-qw-525" id="Rsk-o1-uXw"/>
                         <outlet property="weeklyButton" destination="LGX-31-aLK" id="xnN-YK-7uK"/>
                         <outlet property="weeklyLabel" destination="iCe-qA-fig" id="HHV-tS-kes"/>
                         <outlet property="weeklyView" destination="PJT-PI-OZS" id="KI6-YW-3zJ"/>

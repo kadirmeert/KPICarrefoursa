@@ -47,8 +47,6 @@
 		413A11A629BA17A90029C5FD /* Reports.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 413A11A529BA17A90029C5FD /* Reports.storyboard */; };
 		413CED8429BF575A00B0101A /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413CED8329BF575A00B0101A /* CalendarViewController.swift */; };
 		413CED8629BF576300B0101A /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 413CED8529BF576300B0101A /* Calendar.storyboard */; };
-		413CED8929C1958A00B0101A /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413CED8829C1958A00B0101A /* TestViewController.swift */; };
-		413CED8B29C1959200B0101A /* test.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 413CED8A29C1959200B0101A /* test.storyboard */; };
 		414C9BDC29028ABC00935541 /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414C9BDB29028ABB00935541 /* MainModel.swift */; };
 		4161586D28EDB5DF009A1C0C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4161586C28EDB5DF009A1C0C /* User.swift */; };
 		41627AE8291CD377002502AC /* FormatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41627AE7291CD377002502AC /* FormatTableViewCell.swift */; };
@@ -154,8 +152,6 @@
 		413A11A529BA17A90029C5FD /* Reports.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Reports.storyboard; sourceTree = "<group>"; };
 		413CED8329BF575A00B0101A /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		413CED8529BF576300B0101A /* Calendar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
-		413CED8829C1958A00B0101A /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
-		413CED8A29C1959200B0101A /* test.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = test.storyboard; sourceTree = "<group>"; };
 		414C9BDB29028ABB00935541 /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		4161586C28EDB5DF009A1C0C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		41627AE7291CD377002502AC /* FormatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatTableViewCell.swift; sourceTree = "<group>"; };
@@ -314,20 +310,19 @@
 		4122E76728EB0A8A0031931E /* KPICarrefoursa */ = {
 			isa = PBXGroup;
 			children = (
-				413CED8729C1957000B0101A /* Test */,
 				413CED8229BF574300B0101A /* Calendar */,
 				413A11A229BA17270029C5FD /* Reports */,
 				4122E79F28EB0B880031931E /* Constant */,
 				416D313B290FFCEA001187F9 /* CustomAlert */,
+				41BF9F9B28F57EB1002A9BAE /* NumberOfStores */,
 				417C06902905A7F5000CD45C /* Price */,
 				417C06842905A4B8000CD45C /* Basket */,
 				417C067629059FCF000CD45C /* Product */,
 				417C066729059058000CD45C /* Customer  */,
 				410DB2942903C062007E264C /* NetSales */,
-				41BF9F9B28F57EB1002A9BAE /* NumberOfStores */,
+				4122E79A28EB0AFB0031931E /* Main */,
 				41F1797228F19ABF0010CA9D /* Confirm */,
 				4122E7A628EB118D0031931E /* OtpCheck */,
-				4122E79A28EB0AFB0031931E /* Main */,
 				4122E79828EB0AE20031931E /* Auth */,
 				4122E79928EB0AEA0031931E /* Splash */,
 				4122E76828EB0A8A0031931E /* AppDelegate.swift */,
@@ -434,15 +429,6 @@
 				413CED8529BF576300B0101A /* Calendar.storyboard */,
 			);
 			path = Calendar;
-			sourceTree = "<group>";
-		};
-		413CED8729C1957000B0101A /* Test */ = {
-			isa = PBXGroup;
-			children = (
-				413CED8829C1958A00B0101A /* TestViewController.swift */,
-				413CED8A29C1959200B0101A /* test.storyboard */,
-			);
-			path = Test;
 			sourceTree = "<group>";
 		};
 		414C9BDA29028AAB00935541 /* Models */ = {
@@ -867,7 +853,6 @@
 				41BF9F9F28F58170002A9BAE /* NumberOfStores.storyboard in Resources */,
 				4122E7A828EB119C0031931E /* OTP.storyboard in Resources */,
 				41859E5C292510DE00CC16F7 /* GoogleService-Info.plist in Resources */,
-				413CED8B29C1959200B0101A /* test.storyboard in Resources */,
 				412A28E528F2092800F232D3 /* Confirm.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1034,7 +1019,6 @@
 				41F1797628F1A8C00010CA9D /* ConfirmViewController.swift in Sources */,
 				417C06632905402C000CD45C /* ChanelTableViewCell.swift in Sources */,
 				417C067F2905A030000CD45C /* ProductViewController.swift in Sources */,
-				413CED8929C1958A00B0101A /* TestViewController.swift in Sources */,
 				417C067529059D07000CD45C /* CustomerCategoryTableViewCell.swift in Sources */,
 				417406DB291944EC008223EA /* ConfirmTextField.swift in Sources */,
 				41741D8C2907C7C20048CB00 /* NetSalesStoresModel.swift in Sources */,

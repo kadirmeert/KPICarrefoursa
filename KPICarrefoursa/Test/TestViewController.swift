@@ -42,13 +42,9 @@ class TestViewController: UIViewController,  FSCalendarDelegate, FSCalendarDataS
         testCalendar.firstWeekday = 2
         
         //       MARK: -GÜNLER
-        //        testCalendar.appearance.borderRadius = 0.0
-        //        testCalendar.appearance.borderDefaultColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-        //        testCalendar.appearance.titleSelectionColor = .white
         testCalendar.appearance.todayColor = .clear
         testCalendar.appearance.titleSelectionColor = .black
         testCalendar.appearance.titleDefaultColor = UIColor.black
-        
         
         // Özel hücre sınıfını kaydetme
         testCalendar.register(CustomCalendarCell.self, forCellReuseIdentifier: "cell")
@@ -60,12 +56,7 @@ class TestViewController: UIViewController,  FSCalendarDelegate, FSCalendarDataS
         let dateComponents = calendar.dateComponents([.weekOfYear], from: date)
         return dateComponents.weekOfYear!
     }
-    //
-    //    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
-    //        let weekday = Calendar.current.component(.weekday, from: date)
-    //        return weekday == 2 // yalnızca pazartesi günleri seçilebilir olur
-    //    }
-    //
+
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, canSelect date: Date) -> Bool {
         
         let calendar = Calendar.current
@@ -81,11 +72,6 @@ class TestViewController: UIViewController,  FSCalendarDelegate, FSCalendarDataS
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-        
-        //        let calendarCurrent = Calendar.current
-        //        let components = calendarCurrent.dateComponents([.year, .month], from: date)
-        //
-        //        let thisMonth = calendarCurrent.dateComponents([.year, .month], from: Date())
         if calendar.today == date {
             return UIColor.red
         }
@@ -139,8 +125,6 @@ class TestViewController: UIViewController,  FSCalendarDelegate, FSCalendarDataS
             }
         }
         let daysOfWeek = (0...6).map { Calendar.current.date(byAdding: .day, value: $0, to: startOfWeek)! }
-        
-        
         
         // Change background color of selected cell and other cells for the week
         var selectedDates = [Date]()
@@ -203,7 +187,7 @@ class TestViewController: UIViewController,  FSCalendarDelegate, FSCalendarDataS
     
     // Özel hücre sınıfı
     class CustomCalendarCell: FSCalendarCell {
-        
+
         var weekNumberLabel: UILabel!
         
         var isCellSelected: Bool = false {
@@ -211,13 +195,11 @@ class TestViewController: UIViewController,  FSCalendarDelegate, FSCalendarDataS
                 weekNumberLabel.textColor = isCellSelected ? .white : UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
             }
         }
-        
         var weekNumber: String? {
             didSet {
                 weekNumberLabel.text = weekNumber
             }
         }
-        
         override init(frame: CGRect) {
             super.init(frame: frame)
             

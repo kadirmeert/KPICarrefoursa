@@ -155,9 +155,15 @@
                                                 <rect key="frame" x="202" y="12.666666666666657" width="75" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weekly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QV3-Ms-XmF">
-                                                        <rect key="frame" x="11.666666666666657" y="8.3333333333333428" width="52" height="18"/>
+                                                        <rect key="frame" x="11.666666666666657" y="8" width="52" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weekly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zBi-DS-08p">
+                                                        <rect key="frame" x="0.0" y="26" width="75" height="9"/>
+                                                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="9"/>
+                                                        <color key="textColor" red="0.01839950122" green="0.2784313725" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X5s-40-o3u">
@@ -174,12 +180,18 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="19j-Eh-Hac"/>
                                                     <constraint firstAttribute="bottom" secondItem="X5s-40-o3u" secondAttribute="bottom" id="2nt-MN-h13"/>
+                                                    <constraint firstItem="zBi-DS-08p" firstAttribute="leading" secondItem="CLW-bZ-SCT" secondAttribute="leading" id="Awf-uF-3zq"/>
                                                     <constraint firstItem="X5s-40-o3u" firstAttribute="top" secondItem="CLW-bZ-SCT" secondAttribute="top" id="Hls-kb-ie3"/>
-                                                    <constraint firstItem="QV3-Ms-XmF" firstAttribute="centerY" secondItem="CLW-bZ-SCT" secondAttribute="centerY" id="cRC-ut-FVs"/>
-                                                    <constraint firstItem="QV3-Ms-XmF" firstAttribute="centerX" secondItem="CLW-bZ-SCT" secondAttribute="centerX" id="nGe-d3-ucI"/>
+                                                    <constraint firstAttribute="bottom" secondItem="QV3-Ms-XmF" secondAttribute="bottom" constant="9" id="LNp-Fi-VgV"/>
+                                                    <constraint firstItem="zBi-DS-08p" firstAttribute="top" secondItem="QV3-Ms-XmF" secondAttribute="bottom" id="Wr5-Qw-Lwm"/>
+                                                    <constraint firstAttribute="bottom" secondItem="zBi-DS-08p" secondAttribute="bottom" id="gK8-84-KsX"/>
+                                                    <constraint firstItem="QV3-Ms-XmF" firstAttribute="leading" secondItem="CLW-bZ-SCT" secondAttribute="leading" constant="11.67" id="jpS-nf-Irf"/>
+                                                    <constraint firstAttribute="trailing" secondItem="QV3-Ms-XmF" secondAttribute="trailing" constant="11.33" id="mj4-LO-HuR"/>
                                                     <constraint firstAttribute="width" constant="75" id="r55-kQ-pfy"/>
+                                                    <constraint firstAttribute="trailing" secondItem="zBi-DS-08p" secondAttribute="trailing" id="sKL-kM-wVx"/>
                                                     <constraint firstItem="X5s-40-o3u" firstAttribute="leading" secondItem="CLW-bZ-SCT" secondAttribute="leading" id="uBD-gH-6UE"/>
                                                     <constraint firstAttribute="trailing" secondItem="X5s-40-o3u" secondAttribute="trailing" id="wAf-fL-xf7"/>
+                                                    <constraint firstItem="QV3-Ms-XmF" firstAttribute="top" secondItem="CLW-bZ-SCT" secondAttribute="top" constant="8.3300000000000001" id="zNV-2g-O3Z"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nyi-6c-TLM">
@@ -830,7 +842,7 @@ October 11, 2022 14:37</string>
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" red="0.90980392156862744" green="0.92941176470588238" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstItem="IM8-Lh-Vbj" firstAttribute="top" secondItem="RVg-UT-vYO" secondAttribute="top" constant="16" id="BW4-r6-RYt"/>
                                                     <constraint firstAttribute="trailing" secondItem="IM8-Lh-Vbj" secondAttribute="trailing" constant="32" id="Nqz-Mo-FSf"/>
@@ -843,12 +855,44 @@ October 11, 2022 14:37</string>
                                             <constraint firstItem="RVg-UT-vYO" firstAttribute="top" secondItem="Azp-dk-X6C" secondAttribute="top" id="DcT-hu-TQl"/>
                                         </constraints>
                                     </stackView>
+                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AZJ-TV-tPm">
+                                        <rect key="frame" x="0.0" y="0.0" width="390" height="1200"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SM3-h7-3pz">
+                                                <rect key="frame" x="0.0" y="0.0" width="390" height="1200"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3aG-Z6-Wpm" customClass="FSCalendar">
+                                                        <rect key="frame" x="50" y="50" width="290" height="310"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="310" id="LFT-YH-byN"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="3aG-Z6-Wpm" firstAttribute="top" secondItem="SM3-h7-3pz" secondAttribute="top" constant="50" id="1Hk-LT-ObM"/>
+                                                    <constraint firstItem="3aG-Z6-Wpm" firstAttribute="leading" secondItem="SM3-h7-3pz" secondAttribute="leading" constant="50" id="CWj-gQ-G5I"/>
+                                                    <constraint firstAttribute="trailing" secondItem="3aG-Z6-Wpm" secondAttribute="trailing" constant="50" id="g5p-T0-6NE"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="SM3-h7-3pz" secondAttribute="bottom" id="Thi-LA-oRx"/>
+                                            <constraint firstItem="SM3-h7-3pz" firstAttribute="top" secondItem="AZJ-TV-tPm" secondAttribute="top" id="taJ-Xl-u7d"/>
+                                        </constraints>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Azp-dk-X6C" secondAttribute="trailing" id="3NR-g2-hh2"/>
                                     <constraint firstAttribute="bottom" secondItem="Azp-dk-X6C" secondAttribute="bottom" id="4mU-6d-iEL"/>
                                     <constraint firstItem="NX1-yV-ECY" firstAttribute="centerX" secondItem="tLv-VB-Vfs" secondAttribute="centerX" id="BGd-xR-tZq"/>
+                                    <constraint firstItem="AZJ-TV-tPm" firstAttribute="top" secondItem="tLv-VB-Vfs" secondAttribute="top" id="FX6-iC-cBl"/>
+                                    <constraint firstItem="AZJ-TV-tPm" firstAttribute="leading" secondItem="gl6-DU-he3" secondAttribute="leading" id="Fo5-CE-VNj"/>
+                                    <constraint firstItem="AZJ-TV-tPm" firstAttribute="trailing" secondItem="gl6-DU-he3" secondAttribute="trailing" id="Hm0-ww-HG0"/>
+                                    <constraint firstItem="DeN-nw-QeF" firstAttribute="bottom" secondItem="AZJ-TV-tPm" secondAttribute="bottom" id="Kqt-S3-F7s"/>
                                     <constraint firstAttribute="bottom" secondItem="NX1-yV-ECY" secondAttribute="bottom" id="SE8-dL-UbE"/>
                                     <constraint firstItem="Azp-dk-X6C" firstAttribute="top" secondItem="tLv-VB-Vfs" secondAttribute="top" id="VQj-44-aM4"/>
                                     <constraint firstItem="NX1-yV-ECY" firstAttribute="top" secondItem="tLv-VB-Vfs" secondAttribute="top" id="ZDq-pJ-8pp"/>
@@ -904,6 +948,7 @@ October 11, 2022 14:37</string>
                         <outlet property="monthlyButton" destination="feU-bT-0vm" id="HFB-rP-Zn2"/>
                         <outlet property="monthlyLabel" destination="xJq-fT-9RP" id="6oz-Vm-kmb"/>
                         <outlet property="monthlyView" destination="nyi-6c-TLM" id="gQe-P3-Ukm"/>
+                        <outlet property="priceCalendar" destination="3aG-Z6-Wpm" id="9ee-9V-qvw"/>
                         <outlet property="priceCategoryTableViewHeight" destination="Wmd-XJ-jCt" id="ES8-Zu-Vl9"/>
                         <outlet property="priceLflLabel" destination="K8d-Ff-tmD" id="D7l-Je-XNu"/>
                         <outlet property="priceMonthsDetailLabel" destination="gYQ-2T-cXY" id="927-G4-J4h"/>
@@ -911,6 +956,8 @@ October 11, 2022 14:37</string>
                         <outlet property="priceStoresTableViewHeight" destination="ToA-Aq-fLT" id="kYe-cU-S2m"/>
                         <outlet property="priceSwitch" destination="ZUE-9L-3k0" id="CWu-HK-iXg"/>
                         <outlet property="priceViewHeight" destination="2JM-yo-7qN" id="lRw-9y-Z6w"/>
+                        <outlet property="priceWeekDetailLabel" destination="zBi-DS-08p" id="oMJ-IC-CeT"/>
+                        <outlet property="priceWeekStackView" destination="AZJ-TV-tPm" id="q1n-an-tpg"/>
                         <outlet property="scrool" destination="tLv-VB-Vfs" id="OaV-N1-SYt"/>
                         <outlet property="storesChartView" destination="IVK-QZ-Lfh" id="G2k-3C-MeK"/>
                         <outlet property="storesTableView" destination="nV6-Mn-G5h" id="zFn-Jl-A3L"/>

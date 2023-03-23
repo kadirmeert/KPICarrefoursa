@@ -152,9 +152,15 @@
                                                 <rect key="frame" x="202" y="12.666666666666657" width="75" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weekly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jgt-Z6-tpE">
-                                                        <rect key="frame" x="11.666666666666657" y="8.3333333333333428" width="52" height="18"/>
+                                                        <rect key="frame" x="11.666666666666657" y="8" width="52" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weekly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="83m-dl-GT3">
+                                                        <rect key="frame" x="0.0" y="26" width="75" height="9"/>
+                                                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="9"/>
+                                                        <color key="textColor" red="0.01839950122" green="0.2784313725" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dfh-pL-m0e">
@@ -169,14 +175,20 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstItem="Jgt-Z6-tpE" firstAttribute="centerX" secondItem="eHH-Yz-ldV" secondAttribute="centerX" id="Ajs-13-LTk"/>
+                                                    <constraint firstItem="Jgt-Z6-tpE" firstAttribute="top" secondItem="eHH-Yz-ldV" secondAttribute="top" constant="8.3300000000000001" id="4MH-dj-ROr"/>
+                                                    <constraint firstItem="83m-dl-GT3" firstAttribute="leading" secondItem="eHH-Yz-ldV" secondAttribute="leading" id="6QQ-ff-eH6"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Jgt-Z6-tpE" secondAttribute="bottom" constant="9" id="CQG-La-SCF"/>
                                                     <constraint firstItem="dfh-pL-m0e" firstAttribute="leading" secondItem="eHH-Yz-ldV" secondAttribute="leading" id="DRH-HB-Eu1"/>
                                                     <constraint firstItem="dfh-pL-m0e" firstAttribute="top" secondItem="eHH-Yz-ldV" secondAttribute="top" id="HYR-vd-EuI"/>
                                                     <constraint firstAttribute="width" constant="75" id="Jnv-ul-Ji2"/>
+                                                    <constraint firstAttribute="trailing" secondItem="83m-dl-GT3" secondAttribute="trailing" id="WvW-Md-Eva"/>
                                                     <constraint firstAttribute="trailing" secondItem="dfh-pL-m0e" secondAttribute="trailing" id="bdV-GL-TMA"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Jgt-Z6-tpE" secondAttribute="trailing" constant="11.33" id="edv-aK-Y1l"/>
+                                                    <constraint firstAttribute="bottom" secondItem="83m-dl-GT3" secondAttribute="bottom" id="iKb-GV-TJo"/>
+                                                    <constraint firstItem="Jgt-Z6-tpE" firstAttribute="leading" secondItem="eHH-Yz-ldV" secondAttribute="leading" constant="11.67" id="iPi-da-WIt"/>
                                                     <constraint firstAttribute="bottom" secondItem="dfh-pL-m0e" secondAttribute="bottom" id="pRx-fm-Nxq"/>
                                                     <constraint firstAttribute="height" constant="35" id="uMb-Sl-zeP"/>
-                                                    <constraint firstItem="Jgt-Z6-tpE" firstAttribute="centerY" secondItem="eHH-Yz-ldV" secondAttribute="centerY" id="x5g-BH-Vsn"/>
+                                                    <constraint firstItem="83m-dl-GT3" firstAttribute="top" secondItem="Jgt-Z6-tpE" secondAttribute="bottom" id="xEl-vC-DQx"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="35W-3k-84b">
@@ -823,7 +835,7 @@ October 11, 2022 14:37</string>
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" red="0.90980392160000001" green="0.92941176469999998" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstItem="mdG-Lj-YNi" firstAttribute="leading" secondItem="Tgx-wT-9DI" secondAttribute="leading" constant="32" id="JG1-ae-m1P"/>
                                                     <constraint firstItem="mdG-Lj-YNi" firstAttribute="top" secondItem="Tgx-wT-9DI" secondAttribute="top" constant="16" id="hEa-2N-5E2"/>
@@ -836,17 +848,49 @@ October 11, 2022 14:37</string>
                                             <constraint firstItem="Tgx-wT-9DI" firstAttribute="top" secondItem="VqY-Pb-0Qq" secondAttribute="top" id="7ur-jQ-dnY"/>
                                         </constraints>
                                     </stackView>
+                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d6y-zi-DoT">
+                                        <rect key="frame" x="0.0" y="0.0" width="390" height="1200"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IPT-XG-GaL">
+                                                <rect key="frame" x="0.0" y="0.0" width="390" height="1200"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U80-No-0rs" customClass="FSCalendar">
+                                                        <rect key="frame" x="50" y="50" width="290" height="310"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="310" id="vlt-m1-qvF"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="U80-No-0rs" secondAttribute="trailing" constant="50" id="7XA-bC-tMn"/>
+                                                    <constraint firstItem="U80-No-0rs" firstAttribute="leading" secondItem="IPT-XG-GaL" secondAttribute="leading" constant="50" id="GpV-36-GIV"/>
+                                                    <constraint firstItem="U80-No-0rs" firstAttribute="top" secondItem="IPT-XG-GaL" secondAttribute="top" constant="50" id="OER-tY-ENV"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="IPT-XG-GaL" secondAttribute="bottom" id="kQc-sI-56S"/>
+                                            <constraint firstItem="IPT-XG-GaL" firstAttribute="top" secondItem="d6y-zi-DoT" secondAttribute="top" id="sX1-Ae-RYx"/>
+                                        </constraints>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="VqY-Pb-0Qq" secondAttribute="trailing" id="1xn-0i-d9u"/>
+                                    <constraint firstItem="d6y-zi-DoT" firstAttribute="leading" secondItem="wtP-Yb-sma" secondAttribute="leading" id="3oW-9n-2e8"/>
                                     <constraint firstItem="VqY-Pb-0Qq" firstAttribute="leading" secondItem="Kiu-Lv-5cr" secondAttribute="leading" id="5r7-O8-y0N"/>
                                     <constraint firstItem="u9I-ZU-2jw" firstAttribute="top" secondItem="Kiu-Lv-5cr" secondAttribute="top" id="AvF-T1-8gl"/>
                                     <constraint firstAttribute="trailing" secondItem="u9I-ZU-2jw" secondAttribute="trailing" id="Ew6-aN-HaP"/>
                                     <constraint firstItem="u9I-ZU-2jw" firstAttribute="centerX" secondItem="Kiu-Lv-5cr" secondAttribute="centerX" id="FBg-pM-7Vf"/>
                                     <constraint firstItem="VqY-Pb-0Qq" firstAttribute="top" secondItem="Kiu-Lv-5cr" secondAttribute="top" id="TcQ-VT-bws"/>
+                                    <constraint firstItem="Nti-Ia-CdR" firstAttribute="bottom" secondItem="d6y-zi-DoT" secondAttribute="bottom" id="b9u-HG-Zhk"/>
                                     <constraint firstItem="u9I-ZU-2jw" firstAttribute="leading" secondItem="Kiu-Lv-5cr" secondAttribute="leading" id="gmX-uV-TU3"/>
+                                    <constraint firstItem="d6y-zi-DoT" firstAttribute="trailing" secondItem="wtP-Yb-sma" secondAttribute="trailing" id="iLs-B0-vcZ"/>
                                     <constraint firstAttribute="bottom" secondItem="VqY-Pb-0Qq" secondAttribute="bottom" id="lQC-I5-xNL"/>
+                                    <constraint firstItem="d6y-zi-DoT" firstAttribute="top" secondItem="Kiu-Lv-5cr" secondAttribute="top" id="lcb-6Y-Q0N"/>
                                     <constraint firstAttribute="bottom" secondItem="u9I-ZU-2jw" secondAttribute="bottom" id="pKH-5G-7UA"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="Nti-Ia-CdR"/>
@@ -892,11 +936,14 @@ October 11, 2022 14:37</string>
                         <outlet property="categoryView" destination="n8U-ln-QhM" id="kXy-3P-5WI"/>
                         <outlet property="chanelChartView" destination="Z1c-E0-Y6r" id="yOX-o6-gAK"/>
                         <outlet property="chanelTableView" destination="5as-dm-S3C" id="ONn-NO-SME"/>
+                        <outlet property="customerCalendar" destination="U80-No-0rs" id="yJz-kr-RHo"/>
                         <outlet property="customerLflLabel" destination="XSJ-aY-CI6" id="wbh-YO-Ox3"/>
                         <outlet property="customerMonthDetailLabel" destination="37n-BA-Hbo" id="wRe-U4-K4J"/>
                         <outlet property="customerSwitch" destination="9IN-1o-A0D" id="NOj-QL-YSS"/>
                         <outlet property="customerView" destination="u9I-ZU-2jw" id="Hzo-SR-pam"/>
                         <outlet property="customerViewHeight" destination="TDE-Tz-HSe" id="CRS-Ls-Pnq"/>
+                        <outlet property="customerWeekDetailLabel" destination="83m-dl-GT3" id="EI8-yq-VUX"/>
+                        <outlet property="customerWeekStackView" destination="d6y-zi-DoT" id="3hI-EP-Lxn"/>
                         <outlet property="daytodayButton" destination="XQW-44-d4P" id="uXA-K8-9gw"/>
                         <outlet property="daytodayLabel" destination="sox-DC-U7K" id="5U4-f0-n4E"/>
                         <outlet property="daytodayView" destination="PVe-vP-RKe" id="yJf-2K-mHJ"/>

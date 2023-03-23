@@ -9,8 +9,9 @@ import UIKit
 import Charts
 import CryptoSwift
 import JGProgressHUD
+import FSCalendar
 
-class CustomerViewController: UIViewController, ChartViewDelegate {
+class CustomerViewController: UIViewController, ChartViewDelegate,FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     
     //MARK: Outlets
     
@@ -60,6 +61,11 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var NOV: BaseButton!
     @IBOutlet weak var DEC: BaseButton!
     @IBOutlet weak var customerMonthDetailLabel: UILabel!
+    @IBOutlet weak var customerWeekStackView: UIStackView!
+    @IBOutlet weak var customerCalendar: FSCalendar!
+    
+    @IBOutlet weak var customerWeekDetailLabel: UILabel!
+    
     
     //MARK: Properties
     var jsonmessage: Int = 1
@@ -74,9 +80,51 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
     var selectedInfo = ""
     var selectedStoresGelisim = ""
     var selectedCategoryGelisim = ""
+    var formatter = DateFormatter()
+    var selectedDate: Date?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        customerWeekDetailLabel.text = ""
+//  MARK: - Calendar
+        customerCalendar.delegate = self
+        customerCalendar.dataSource = self
+        
+        customerCalendar.appearance.headerDateFormat = "MMMM yyyy"
+        customerCalendar.scope = .month
+        customerCalendar.scrollDirection = .horizontal
+        customerCalendar.placeholderType = .fillHeadTail
+        
+        // Ay isimlerinin rengini mavi yapalım
+        customerCalendar.appearance.headerTitleColor =  UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+        customerCalendar.appearance.headerTitleFont = UIFont(name: "Montserrat-Bold", size: 17)
+        
+        
+        // Hafta sayısı görüntülemek için ayarlar
+        customerCalendar.appearance.weekdayTextColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+        customerCalendar.appearance.weekdayFont = UIFont(name: "Montserrat-Medium", size: 17)
+        customerCalendar.appearance.caseOptions = [.headerUsesUpperCase, .weekdayUsesUpperCase]
+        customerCalendar.firstWeekday = 2
+        
+        //       MARK: -GÜNLER
+        customerCalendar.appearance.todayColor = .clear
+        customerCalendar.appearance.titleSelectionColor = .black
+        customerCalendar.appearance.titleDefaultColor = UIColor.black
+        
+        // Özel hücre sınıfını kaydetme
+        customerCalendar.register(CustomCalendarCell.self, forCellReuseIdentifier: "cell")
+        JAN.backgroundColor = .white
+        FEB.backgroundColor = .white
+        MAR.backgroundColor = .white
+        APR.backgroundColor = .white
+        MAY.backgroundColor = .white
+        JUN.backgroundColor = .white
+        JULY.backgroundColor = .white
+        AUG.backgroundColor = .white
+        SEP.backgroundColor = .white
+        OCT.backgroundColor = .white
+        NOV.backgroundColor = .white
+        DEC.backgroundColor = .white
         customerMonthDetailLabel.text = ""
         if self.customerStores.Stores.isEmpty {
             hud.textLabel.text = "Loading"
@@ -92,6 +140,212 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
         prepareUI()
         
     }
+    //    MARK: -CALENDAR SETTİNGS
+    
+//    func getWeekNumber(date: Date) -> Int {
+//        var calendar = Calendar(identifier: .gregorian)
+//        calendar.firstWeekday = 2 // Pazartesi günü başlaması için 2 olarak ayarla
+//        let dateComponents = calendar.dateComponents([.weekOfYear], from: date)
+//        return dateComponents.weekOfYear!
+//    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, canSelect date: Date) -> Bool {
+        
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month], from: date)
+        
+        let thisMonth = calendar.dateComponents([.year, .month], from: Date())
+        
+        if components.year == thisMonth.year && components.month == thisMonth.month {
+            return true // Bu ayın tarihleri seçilebilir
+        } else {
+            return false // Diğer tarihler seçilemez
+        }
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        if calendar.today == date {
+            return UIColor.red
+        }
+        return UIColor.black
+    }
+    
+    // Hafta sayısı görüntülemek için gerekli olan iki fonksiyon
+    func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
+        let cell = calendar.dequeueReusableCell(withIdentifier: "cell", for: date, at: position) as! CustomCalendarCell
+        let weekday = Calendar.current.component(.weekday, from: date)
+        let weekOfYear = Calendar.current.component(.weekOfYear, from: date)
+        let isMonday = weekday == 2
+        cell.weekNumberLabel.isHidden = !isMonday // Hafta numarası etiketini sadece pazartesi günlerinde göster
+        if isMonday {
+            cell.weekNumber = "\(weekOfYear)"
+        }
+        return cell
+    }
+    
+    func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at position: FSCalendarMonthPosition) {
+        let cell = cell as! CustomCalendarCell
+        let weekday = Calendar.current.component(.weekday, from: date)
+        let weekOfYear = Calendar.current.component(.weekOfYear, from: date)
+        cell.weekNumberLabel.text = "\(weekOfYear)"
+        cell.weekNumberLabel.isHidden = weekday != 2 // Hafta numarası etiketini sadece pazartesi günlerinde göster
+        if weekday == 2 {
+            cell.weekNumber = "\(weekOfYear)"
+        }
+    }
+    func calendar(_ calendar: FSCalendar, numberOfRowsInMonth month: Int) -> Int {
+        let date = calendar.currentPage
+        let range = Calendar.current.range(of: .day, in: .month, for: date)!
+        let numberOfWeeks = ceil(Double(range.count) / 7.0)
+        return Int(numberOfWeeks)
+    }
+    
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        
+        let weekOfYear = Calendar.current.component(.weekOfYear, from: date)
+        User.weekNumber = weekOfYear
+        
+        
+//         Check if selected date is a Monday
+        let weekday = Calendar.current.component(.weekday, from: date)
+        print(weekday)
+        // Get the first day of the week
+        var startOfWeek = Calendar.current.date(from: Calendar.current.dateComponents([.yearForWeekOfYear, .weekOfYear], from: date))!
+        
+        // Add or subtract days to include all days of the week
+        while !Calendar.current.dateInterval(of: .weekOfYear, for: startOfWeek)!.contains(date) {
+            if startOfWeek < date {
+                startOfWeek = Calendar.current.date(byAdding: .day, value: 1, to: startOfWeek)!
+            } else {
+                startOfWeek = Calendar.current.date(byAdding: .day, value: -1, to: startOfWeek)!
+            }
+        }
+        let daysOfWeek = (0...6).map { Calendar.current.date(byAdding: .day, value: $0, to: startOfWeek)! }
+        
+        // Change background color of selected cell and other cells for the week
+        var selectedDates = [Date]()
+        for day in daysOfWeek {
+            let isInSameRow = Calendar.current.isDate(day, equalTo: startOfWeek, toGranularity: .weekOfYear)
+            if isInSameRow, let cell = calendar.cell(for: day, at: monthPosition) as? CustomCalendarCell {
+                if selectedDates.contains(day) {
+                    // If the cell was already selected, deselect it and reset its appearance
+                    cell.isCellSelected = false
+                    cell.backgroundColor = .clear
+                    cell.titleLabel.textColor = UIColor.black
+                    cell.appearance.selectionColor = .clear
+                } else {
+                    // If the cell was not already selected, select it and update its appearance
+                    cell.isCellSelected = true
+                    cell.backgroundColor = UIColor.lightGray
+                    cell.weekNumberLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                    cell.titleLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                    //                    cell.appearance.titleSelectionColor = UIColor.red
+                    //                    cell.appearance.eventSelectionColor = UIColor.red
+                }
+                
+                selectedDates.append(day)
+            }
+        }
+        
+        // Deselect cells from other weeks
+        let allCells = calendar.visibleCells()
+        for cell in allCells {
+            if let customCell = cell as? CustomCalendarCell,
+               let cellDate = calendar.date(for: customCell) {
+                if !selectedDates.contains(cellDate) {
+                    customCell.isCellSelected = false
+                    customCell.backgroundColor = .clear
+                    customCell.titleLabel.textColor = UIColor.black
+                    customCell.appearance.selectionColor = .clear
+                } else {
+                    customCell.titleLabel.textColor = UIColor.black
+                }
+            }
+        }
+        if customerSwitch.isOn == true {
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"WeekNumber\": \(User.weekNumber),\"MonthNumber\": 0}"
+            
+        } else {
+            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"WeekNumber\": \(User.weekNumber),\"MonthNumber\": 0}"
+        }
+        if !self.customerStores.Stores.isEmpty {
+            hud.textLabel.text = "Loading"
+            hud.show(in: self.view)
+            self.checkChartData()
+        }
+        else {
+            hud.textLabel.text = "Loading"
+            hud.show(in: self.view)
+            self.checkChartData()
+        }
+        customerWeekDetailLabel.text = "\(weekOfYear). Week"
+        customerWeekStackView.isHidden = true
+    }
+    
+    
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        for cell in calendar.visibleCells() {
+            cell.backgroundColor = UIColor.white
+            calendar.reloadData()
+            calendar.setCurrentPage(calendar.currentPage, animated: false)
+        }
+    }
+    
+    
+    func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        if let cell = calendar.cell(for: date, at: monthPosition) as? CustomCalendarCell {
+            cell.isCellSelected = false
+        }
+    }
+    // Özel hücre sınıfı
+    class CustomCalendarCell: FSCalendarCell {
+        
+        var weekNumberLabel: UILabel!
+        
+        var isCellSelected: Bool = false {
+            didSet {
+                weekNumberLabel.textColor = isCellSelected ? .white : UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+            }
+        }
+        var weekNumber: String? {
+            didSet {
+                weekNumberLabel.text = weekNumber
+            }
+        }
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            
+            // Hafta sayısı etiketi
+            weekNumberLabel = UILabel()
+            weekNumberLabel.translatesAutoresizingMaskIntoConstraints = false
+            weekNumberLabel.font = UIFont(name: "Montserrat-Bold", size: 9)
+            weekNumberLabel.textAlignment = .center
+            weekNumberLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+            contentView.addSubview(weekNumberLabel)
+            
+            // Hafta sayısı etiketinin yerleşimi
+            NSLayoutConstraint.activate([
+                weekNumberLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                weekNumberLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+                weekNumberLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5),
+                weekNumberLabel.heightAnchor.constraint(equalToConstant: 16)
+            ])
+            
+            // Takvim hücrelerinin konumlarını ayarla
+            self.titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5).isActive = true
+            self.titleLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1) // mavi renk
+            self.subtitleLabel?.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: -5).isActive = true
+            self.subtitleLabel?.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1) // mavi renk
+            self.imageView.contentMode = .scaleAspectFill
+            self.imageView.clipsToBounds = true
+        }
+        
+        required init!(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setupPieChart()
@@ -147,7 +401,7 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
             }
             
             if weeklyButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"WeekNumber\": \(User.weekNumber),\"MonthNumber\": 0}"
             }
             
             if monthlyButton.isSelected == true {
@@ -174,7 +428,7 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
             }
             
             if weeklyButton.isSelected == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"WeekNumber\": \(User.weekNumber),\"MonthNumber\": 0}"
             }
             
             if monthlyButton.isSelected == true {
@@ -696,6 +950,8 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
     
     @IBAction func yesterdayBtnPressed(_ sender: UIButton) {
         //    hourlyButton.isSelected = false
+        monthCustomerView.isHidden = true
+        customerWeekStackView.isHidden = true
         yesterdayButton.isSelected = true
         daytodayButton.isSelected = false
         weeklyButton.isSelected = false
@@ -732,6 +988,8 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
     }
     
     @IBAction func daytodayBtnPressed(_ sender: UIButton) {
+        monthCustomerView.isHidden = true
+        customerWeekStackView.isHidden = true
         //    hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
         daytodayButton.isSelected = true
@@ -769,28 +1027,17 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
     }
     
     @IBAction func weeklyBtnPressed(_ sender: Any) {
+        monthCustomerView.isHidden = true
+        customerWeekStackView.isHidden.toggle()
+        let topOffset = CGPoint(x: 0, y: 0)
+        scrool.setContentOffset(topOffset, animated: true)
         //    hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
         daytodayButton.isSelected = false
         weeklyButton.isSelected = true
         monthlyButton.isSelected = false
         yeartodateButton.isSelected = false
-        if customerSwitch.isOn == true {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
-            
-        } else {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 0}"
-        }
-        if !self.customerStores.Stores.isEmpty {
-            hud.textLabel.text = "Loading"
-            hud.show(in: self.view)
-            self.checkChartData()
-        }
-        else {
-            hud.textLabel.text = "Loading"
-            hud.show(in: self.view)
-            self.checkChartData()
-        }
+       
         //    self.hourlyView.backgroundColor = UIColor.clear
         //    self.hourlyLabel.textColor = UIColor.white
         self.yesterdayView.backgroundColor = UIColor.clear
@@ -806,8 +1053,10 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
     }
     
     @IBAction func monthlyBtnPressed(_ sender: Any) {
+        customerWeekStackView.isHidden = true
         monthCustomerView.isHidden.toggle()
-        
+        let topOffset = CGPoint(x: 0, y: 0)
+        scrool.setContentOffset(topOffset, animated: true)
         //    hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
         daytodayButton.isSelected = false
@@ -830,6 +1079,8 @@ class CustomerViewController: UIViewController, ChartViewDelegate {
     }
     
     @IBAction func yeartodateBtnPressed(_ sender: Any) {
+        monthCustomerView.isHidden = true
+        customerWeekStackView.isHidden = true
         //    hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
         daytodayButton.isSelected = false
