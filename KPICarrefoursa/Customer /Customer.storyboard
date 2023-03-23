@@ -855,17 +855,17 @@ October 11, 2022 14:37</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="390" height="1200"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U80-No-0rs" customClass="FSCalendar">
-                                                        <rect key="frame" x="50" y="50" width="290" height="310"/>
+                                                        <rect key="frame" x="24" y="50" width="342" height="320"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="310" id="vlt-m1-qvF"/>
+                                                            <constraint firstAttribute="height" constant="320" id="vlt-m1-qvF"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="U80-No-0rs" secondAttribute="trailing" constant="50" id="7XA-bC-tMn"/>
-                                                    <constraint firstItem="U80-No-0rs" firstAttribute="leading" secondItem="IPT-XG-GaL" secondAttribute="leading" constant="50" id="GpV-36-GIV"/>
+                                                    <constraint firstAttribute="trailing" secondItem="U80-No-0rs" secondAttribute="trailing" constant="24" id="7XA-bC-tMn"/>
+                                                    <constraint firstItem="U80-No-0rs" firstAttribute="leading" secondItem="IPT-XG-GaL" secondAttribute="leading" constant="24" id="GpV-36-GIV"/>
                                                     <constraint firstItem="U80-No-0rs" firstAttribute="top" secondItem="IPT-XG-GaL" secondAttribute="top" constant="50" id="OER-tY-ENV"/>
                                                 </constraints>
                                             </view>

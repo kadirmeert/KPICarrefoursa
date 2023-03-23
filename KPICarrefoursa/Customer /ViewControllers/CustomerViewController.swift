@@ -326,7 +326,6 @@ class CustomerViewController: UIViewController, ChartViewDelegate,FSCalendarDele
     
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        customerMonthDetailLabel.text = ""
         for cell in calendar.visibleCells() {
             cell.backgroundColor = UIColor.white
             calendar.reloadData()

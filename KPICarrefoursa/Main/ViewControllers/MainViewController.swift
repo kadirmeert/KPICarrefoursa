@@ -118,7 +118,7 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
         //        MARK: - Calendar
         mainCalendar.delegate = self
         mainCalendar.dataSource = self
-        
+        mainCalendar.locale = Locale(identifier: "en_US")
         mainCalendar.appearance.headerDateFormat = "MMMM yyyy"
         mainCalendar.scope = .month
         mainCalendar.scrollDirection = .horizontal
@@ -1366,6 +1366,7 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
     //    MARK: -MONTH-
     
     @IBAction func monthlyBtnPressed(_ sender: Any) {
+        weekStackView.isHidden = true
         monthsView.isHidden.toggle()
         let topOffset = CGPoint(x: 0, y: 0)
         scrool.setContentOffset(topOffset, animated: true)
