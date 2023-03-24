@@ -990,9 +990,9 @@ class CustomerViewController: UIViewController, ChartViewDelegate,FSCalendarDele
     //}
     
     @IBAction func yesterdayBtnPressed(_ sender: UIButton) {
-        //    hourlyButton.isSelected = false
         monthCustomerView.isHidden = true
         customerWeekStackView.isHidden = true
+        //    hourlyButton.isSelected = false
         yesterdayButton.isSelected = true
         daytodayButton.isSelected = false
         weeklyButton.isSelected = false

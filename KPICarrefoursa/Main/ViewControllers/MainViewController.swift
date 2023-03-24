@@ -1243,9 +1243,10 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
     //    MARK: -YESTERDAY-
     
     @IBAction func yesterdayBtnPressed(_ sender: Any) {
-        //        hourlyButton.isSelected = false
         weekStackView.isHidden = true
         monthsView.isHidden = true
+        monthsStackView.isHidden = true
+        //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = true
         daytodayButton.isSelected = false
         weeklyButton.isSelected = false
@@ -1294,6 +1295,7 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
     @IBAction func daytodayBtnPressed(_ sender: Any) {
         weekStackView.isHidden = true
         monthsView.isHidden = true
+        monthsStackView.isHidden = true
         
         //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
@@ -1336,9 +1338,29 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
     
     @IBAction func weeklyBtnPressed(_ sender: Any) {
         monthsView.isHidden = true
+        monthsStackView.isHidden = true
         weekStackView.isHidden.toggle()
         let topOffset = CGPoint(x: 0, y: 0)
         scrool.setContentOffset(topOffset, animated: true)
+        if User.weekNumber != 0 {
+            if homeSwitch.isOn == true {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 1,\"WeekNumber\": \(User.weekNumber),\"MonthNumber\": 0}"
+                
+            } else {
+                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Weekly\",\"IsLfl\": 0,\"WeekNumber\": \(User.weekNumber),\"MonthNumber\": 0}"
+            }
+            
+            if !self.dashboardValue.NetSales.isEmpty {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+            else {
+                hud.textLabel.text = "Loading"
+                hud.show(in: self.view)
+                self.checkDataDashboard()
+            }
+        }
         //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
         daytodayButton.isSelected = false
@@ -1368,9 +1390,9 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
     @IBAction func monthlyBtnPressed(_ sender: Any) {
         weekStackView.isHidden = true
         monthsView.isHidden.toggle()
+        monthsStackView.isHidden.toggle()
         let topOffset = CGPoint(x: 0, y: 0)
         scrool.setContentOffset(topOffset, animated: true)
-        monthsStackView.isHidden = false
         //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
         daytodayButton.isSelected = false
@@ -1398,6 +1420,7 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
     @IBAction func yeartodateBtnPressed(_ sender: Any) {
         weekStackView.isHidden = true
         monthsView.isHidden = true
+        monthsStackView.isHidden = true
         
         //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
