@@ -119,6 +119,7 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
         
         
         weeklDetailLabel.text = ""
+        
         //        MARK: - Calendar
         mainCalendar.delegate = self
         mainCalendar.dataSource = self
@@ -161,6 +162,7 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
         DEC.backgroundColor = .white
         self.mainRadius()
         monthDetailLabel.text = ""
+        
         if self.dashboardValue.Customer.isEmpty {
             hud.textLabel.text = "Loading"
             hud.show(in: self.view)
@@ -173,6 +175,7 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
         
         self.refreshControl.tintColor = UIColor.gray
         self.refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControl.Event.valueChanged)
+        
         self.scrool.isScrollEnabled = true
         self.scrool.alwaysBounceVertical = true
         scrool.addSubview(refreshControl)
@@ -241,6 +244,7 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
         }
         
     }
+    
     func calendar(_ calendar: FSCalendar, numberOfRowsInMonth month: Int) -> Int {
         let date = calendar.currentPage
         let range = Calendar.current.range(of: .day, in: .month, for: date)!
