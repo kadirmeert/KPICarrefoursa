@@ -124,7 +124,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
     
     
     //MARK: -Properties
-    
+    var months : [BaseButton] = []
     var jsonmessage: Int = 1
     var userDC: String = ""
     var chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
@@ -151,11 +151,11 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
     var selectedChanelGelisim = ""
     var formatter = DateFormatter()
     var selectedDate: Date?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         salesWeekDetailLabel.text = ""
-//  MARK: - Calendar
+        //  MARK: - Calendar
         salesCalendar.delegate = self
         salesCalendar.dataSource = self
         
@@ -208,13 +208,15 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
         }
     }
     //    MARK: -CALENDAR SETTİNGS
-    
-//    func getWeekNumber(date: Date) -> Int {
-//        var calendar = Calendar(identifier: .gregorian)
-//        calendar.firstWeekday = 2 // Pazartesi günü başlaması için 2 olarak ayarla
-//        let dateComponents = calendar.dateComponents([.weekOfYear], from: date)
-//        return dateComponents.weekOfYear!
-//    }
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+        let today = Date()
+        let selectedYear = Calendar.current.component(.year, from: date)
+        let currentYear = Calendar.current.component(.year, from: today)
+        if date >= today || selectedYear < currentYear {
+            return false
+        }
+        return true
+    }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, canSelect date: Date) -> Bool {
         
@@ -252,6 +254,13 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
     
     func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at position: FSCalendarMonthPosition) {
         let cell = cell as! CustomCalendarCell
+        let today = Date()
+        let selectedYear = Calendar.current.component(.year, from: date)
+        let currentYear = Calendar.current.component(.year, from: today)
+        if date >= today || selectedYear < currentYear {
+            cell.titleLabel.textColor = UIColor.lightGray
+        }
+        
         let weekday = Calendar.current.component(.weekday, from: date)
         let weekOfYear = Calendar.current.component(.weekOfYear, from: date)
         cell.weekNumberLabel.text = "\(weekOfYear)"
@@ -259,6 +268,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
         if weekday == 2 {
             cell.weekNumber = "\(weekOfYear)"
         }
+        
     }
     func calendar(_ calendar: FSCalendar, numberOfRowsInMonth month: Int) -> Int {
         let date = calendar.currentPage
@@ -273,9 +283,6 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
         let weekOfYear = Calendar.current.component(.weekOfYear, from: date)
         User.weekNumber = weekOfYear
         
-        
-        // Check if selected date is a Monday
-//        let weekday = Calendar.current.component(.weekday, from: date)
         // Get the first day of the week
         var startOfWeek = Calendar.current.date(from: Calendar.current.dateComponents([.yearForWeekOfYear, .weekOfYear], from: date))!
         
@@ -288,12 +295,12 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
             }
         }
         let daysOfWeek = (0...6).map { Calendar.current.date(byAdding: .day, value: $0, to: startOfWeek)! }
-        
         // Change background color of selected cell and other cells for the week
         var selectedDates = [Date]()
         for day in daysOfWeek {
             let cell = calendar.cell(for: day, at: FSCalendarMonthPosition.current) as? CustomCalendarCell
             if selectedDates.contains(day) {
+                
                 // If the cell was already selected, deselect it and reset its appearance
                 cell?.isCellSelected = false
                 cell?.backgroundColor = .clear
@@ -302,11 +309,9 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
             } else {
                 // If the cell was not already selected, select it and update its appearance
                 cell?.isCellSelected = true
-                cell?.backgroundColor = UIColor.lightGray
+                cell?.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
                 cell?.weekNumberLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
                 cell?.titleLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                //                    cell.appearance.titleSelectionColor = UIColor.red
-                //                    cell.appearance.eventSelectionColor = UIColor.red
             }
             
             selectedDates.append(day)
@@ -316,12 +321,10 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
             if selectedDates.contains(day) {
                 // If the cell was not already selected, select it and update its appearance
                 cell?.isCellSelected = true
-                cell?.backgroundColor = UIColor.lightGray
+                cell?.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
                 cell?.weekNumberLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
                 cell?.titleLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                //                    cell.appearance.titleSelectionColor = UIColor.red
-                //                    cell.appearance.eventSelectionColor = UIColor.red
-             
+                
             } else {
                 // If the cell was already selected, deselect it and reset its appearance
                 cell?.isCellSelected = false
@@ -337,12 +340,10 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
             if selectedDates.contains(day) {
                 // If the cell was not already selected, select it and update its appearance
                 cell?.isCellSelected = true
-                cell?.backgroundColor = UIColor.lightGray
+                cell?.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
                 cell?.weekNumberLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
                 cell?.titleLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                //                    cell.appearance.titleSelectionColor = UIColor.red
-                //                    cell.appearance.eventSelectionColor = UIColor.red
-             
+                
             } else {
                 // If the cell was already selected, deselect it and reset its appearance
                 cell?.isCellSelected = false
@@ -772,7 +773,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
         self.netSalesChanelHeight.constant = self.chanelTableView.contentSize.height
         self.netSalesFormatHeight.constant = self.formatTableView.contentSize.height + 10
         if self.netSalesFormat.Gelisim.count >= 6 {
-            self.netSalesHeight.constant = 3500 
+            self.netSalesHeight.constant = 3500
         }
     }
     
@@ -832,7 +833,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
                     self.netSalesStores.Stores = json!["NetSalesByStores"]?.value(forKey: "Stores") as? [String] ?? ["0"]
                     self.netSalesStores.Last_Update = json!["NetSalesByStores"]?.value(forKey: "Last_Update") as? [String] ?? ["0"]
                     self.netSalesStores.Gelisim = json!["NetSalesByStores"]?.value(forKey: "Gelisim") as? [String] ?? ["0"]
-
+                    
                     
                     self.netSalesChannel.FormatPNL = json!["NetSalesByChannel"]?.value(forKey: "FormatPNL") as? [String] ?? ["0"]
                     self.netSalesChannel.FiiliCiro = json!["NetSalesByChannel"]?.value(forKey: "FiiliCiro") as? [String] ?? ["0"]
@@ -840,7 +841,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
                     self.netSalesChannel.ColorChannels = json!["NetSalesByChannel"]?.value(forKey: "ColorChannels") as? [String] ?? ["0"]
                     self.netSalesChannel.Last_Update =  json!["NetSalesByChannel"]?.value(forKey: "Last_Update") as? [String] ?? ["0"]
                     self.netSalesChannel.Gelisim =  json!["NetSalesByChannel"]?.value(forKey: "Gelisim") as? [String] ?? ["0"]
-
+                    
                     
                     self.netSalesFormat.Fark = json!["NetSalesByFormat"]?.value(forKey: "Fark") as? [String] ?? ["0"]
                     self.netSalesFormat.RevizeFormat = json!["NetSalesByFormat"]?.value(forKey: "RevizeFormat") as? [String] ?? ["0"]
@@ -1339,12 +1340,14 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
         
     }
     //    MARK: - Months Button Pressed
-        
-        @IBAction func MonthsButtonPressed(_ sender: BaseButton) {
-            if sender.titleLabel?.text ?? "" == JAN.titleLabel?.text {
-                JAN.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                JAN.tintColor = .white
-                User.monthsNumber = 1
+    
+    @IBAction func MonthsButtonPressed(_ sender: BaseButton) {
+        months.append(JAN) ;  months.append(FEB) ;  months.append(MAR) ;  months.append(APR) ;  months.append(MAY) ;  months.append(JUN) ; months.append(JULY) ; months.append(AUG) ;  months.append(SEP) ;  months.append(OCT) ;  months.append(NOV) ;  months.append(DEC)
+        for i in 0..<months.count - 1 {
+            if sender.titleLabel?.text ?? "" == months[i].titleLabel?.text {
+                months[i].backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                months[i].tintColor = .white
+                User.monthsNumber = i + 1
                 salesMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
                 if netSalesSwitch.isOn == true {
                     if netSales2021Button.isSelected == true {
@@ -1405,765 +1408,12 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
                 salesMonthsStackView.isHidden = true
                 salesMonthsView.isHidden = true
             } else {
-                JAN.backgroundColor = .white
-                JAN.tintColor = .black
+                months[i].backgroundColor = .white
+                months[i].tintColor = .black
             }
-            if sender.titleLabel?.text ?? "" == FEB.titleLabel?.text {
-                FEB.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                FEB.tintColor = .white
-                User.monthsNumber = 2
-                salesMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
-                if netSalesSwitch.isOn == true {
-                    if netSales2021Button.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2021
-                        
-                    }
-                    if netSales2022BButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022b
-                        
-                    }
-                    if netSales2022LEButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022LE
-                    }
-                } else {
-                    if netSales2021Button.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2021
-                        
-                    }
-                    if netSales2022BButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022b
-                        
-                    }
-                    if netSales2022LEButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022LE
-                    }
-                    
-                }
-                
-                if !self.netSalesCiro.Ciro.isEmpty {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkNetSales()
-                }
-                else {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkNetSales()
-                }
-                self.setupPieChart()
-                salesMonthsStackView.isHidden = true
-                salesMonthsView.isHidden = true
-
-
-            } else {
-                FEB.backgroundColor = .white
-                FEB.tintColor = .black
-            }
-            if sender.titleLabel?.text ?? "" == MAR.titleLabel?.text {
-                MAR.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                MAR.tintColor = .white
-                User.monthsNumber = 3
-                salesMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
-                if netSalesSwitch.isOn == true {
-                    if netSales2021Button.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2021
-                        
-                    }
-                    if netSales2022BButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022b
-                        
-                    }
-                    if netSales2022LEButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022LE
-                    }
-                } else {
-                    if netSales2021Button.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2021
-                        
-                    }
-                    if netSales2022BButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022b
-                        
-                    }
-                    if netSales2022LEButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022LE
-                    }
-                    
-                }
-                
-                if !self.netSalesCiro.Ciro.isEmpty {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkNetSales()
-                }
-                else {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkNetSales()
-                }
-                self.setupPieChart()
-                salesMonthsStackView.isHidden = true
-                salesMonthsView.isHidden = true
-
-            } else {
-                MAR.backgroundColor = .white
-                MAR.tintColor = .black
-            }
-            if sender.titleLabel?.text ?? "" == APR.titleLabel?.text {
-                APR.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                APR.tintColor = .white
-                User.monthsNumber = 4
-                salesMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
-                if netSalesSwitch.isOn == true {
-                    if netSales2021Button.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2021
-                        
-                    }
-                    if netSales2022BButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022b
-                        
-                    }
-                    if netSales2022LEButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022LE
-                    }
-                } else {
-                    if netSales2021Button.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2021
-                        
-                    }
-                    if netSales2022BButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022b
-                        
-                    }
-                    if netSales2022LEButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022LE
-                    }
-                    
-                }
-                
-                if !self.netSalesCiro.Ciro.isEmpty {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkNetSales()
-                }
-                else {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkNetSales()
-                }
-                self.setupPieChart()
-                salesMonthsStackView.isHidden = true
-                salesMonthsView.isHidden = true
-
-
-            } else {
-                APR.backgroundColor = .white
-                APR.tintColor = .black
-            }
-            if sender.titleLabel?.text ?? "" == MAY.titleLabel?.text {
-                MAY.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                MAY.tintColor = .white
-                User.monthsNumber = 5
-                salesMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
-                if netSalesSwitch.isOn == true {
-                    if netSales2021Button.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2021
-                        
-                    }
-                    if netSales2022BButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022b
-                        
-                    }
-                    if netSales2022LEButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022LE
-                    }
-                } else {
-                    if netSales2021Button.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2021
-                        
-                    }
-                    if netSales2022BButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022b
-                        
-                    }
-                    if netSales2022LEButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022LE
-                    }
-                    
-                }
-                
-                if !self.netSalesCiro.Ciro.isEmpty {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkNetSales()
-                }
-                else {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkNetSales()
-                }
-                self.setupPieChart()
-                salesMonthsStackView.isHidden = true
-                salesMonthsView.isHidden = true
-
-            } else {
-                MAY.backgroundColor = .white
-                MAY.tintColor = .black
-            }
-            if sender.titleLabel?.text ?? "" == JUN.titleLabel?.text {
-                JUN.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                JUN.tintColor = .white
-                User.monthsNumber = 6
-                salesMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
-                if netSalesSwitch.isOn == true {
-                    if netSales2021Button.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2021
-                        
-                    }
-                    if netSales2022BButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022b
-                        
-                    }
-                    if netSales2022LEButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022LE
-                    }
-                } else {
-                    if netSales2021Button.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2021
-                        
-                    }
-                    if netSales2022BButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022b
-                        
-                    }
-                    if netSales2022LEButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022LE
-                    }
-                    
-                }
-                
-                if !self.netSalesCiro.Ciro.isEmpty {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkNetSales()
-                }
-                else {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkNetSales()
-                }
-                self.setupPieChart()
-                salesMonthsStackView.isHidden = true
-                salesMonthsView.isHidden = true
-
-
-            } else {
-                JUN.backgroundColor = .white
-                JUN.tintColor = .black
-            }
-            if sender.titleLabel?.text ?? "" == JULY.titleLabel?.text {
-                JULY.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                JULY.tintColor = .white
-                User.monthsNumber = 7
-                salesMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
-                if netSalesSwitch.isOn == true {
-                    if netSales2021Button.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2021
-                        
-                    }
-                    if netSales2022BButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022b
-                        
-                    }
-                    if netSales2022LEButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022LE
-                    }
-                } else {
-                    if netSales2021Button.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2021
-                        
-                    }
-                    if netSales2022BButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022b
-                        
-                    }
-                    if netSales2022LEButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022LE
-                    }
-                    
-                }
-                
-                if !self.netSalesCiro.Ciro.isEmpty {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkNetSales()
-                }
-                else {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkNetSales()
-                }
-                self.setupPieChart()
-                salesMonthsStackView.isHidden = true
-                salesMonthsView.isHidden = true
-
-            } else {
-                JULY.backgroundColor = .white
-                JULY.tintColor = .black
-            }
-            if sender.titleLabel?.text ?? "" == AUG.titleLabel?.text {
-                AUG.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                AUG.tintColor = .white
-                User.monthsNumber = 8
-                salesMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
-                if netSalesSwitch.isOn == true {
-                    if netSales2021Button.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2021
-                        
-                    }
-                    if netSales2022BButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022b
-                        
-                    }
-                    if netSales2022LEButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022LE
-                    }
-                } else {
-                    if netSales2021Button.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2021
-                        
-                    }
-                    if netSales2022BButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022b
-                        
-                    }
-                    if netSales2022LEButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022LE
-                    }
-                    
-                }
-                
-                if !self.netSalesCiro.Ciro.isEmpty {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkNetSales()
-                }
-                else {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkNetSales()
-                }
-                self.setupPieChart()
-                salesMonthsStackView.isHidden = true
-                salesMonthsView.isHidden = true
-
-
-            } else {
-                AUG.backgroundColor = .white
-                AUG.tintColor = .black
-            }
-            if sender.titleLabel?.text ?? "" == SEP.titleLabel?.text {
-                SEP.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                SEP.tintColor = .white
-                User.monthsNumber = 9
-                salesMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
-                if netSalesSwitch.isOn == true {
-                    if netSales2021Button.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2021
-                        
-                    }
-                    if netSales2022BButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022b
-                        
-                    }
-                    if netSales2022LEButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022LE
-                    }
-                } else {
-                    if netSales2021Button.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2021
-                        
-                    }
-                    if netSales2022BButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022b
-                        
-                    }
-                    if netSales2022LEButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022LE
-                    }
-                    
-                }
-                
-                if !self.netSalesCiro.Ciro.isEmpty {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkNetSales()
-                }
-                else {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkNetSales()
-                }
-                self.setupPieChart()
-                salesMonthsStackView.isHidden = true
-                salesMonthsView.isHidden = true
-
-            } else {
-                SEP.backgroundColor = .white
-                SEP.tintColor = .black
-            }
-            if sender.titleLabel?.text ?? "" == OCT.titleLabel?.text {
-                OCT.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                OCT.tintColor = .white
-                User.monthsNumber = 10
-                salesMonthsDetailLabel.text = "\(User.monthsNumber)/2023"
-                if netSalesSwitch.isOn == true {
-                    if netSales2021Button.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2021
-                        
-                    }
-                    if netSales2022BButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022b
-                        
-                    }
-                    if netSales2022LEButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022LE
-                    }
-                } else {
-                    if netSales2021Button.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2021
-                        
-                    }
-                    if netSales2022BButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022b
-                        
-                    }
-                    if netSales2022LEButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022LE
-                    }
-                    
-                }
-                
-                if !self.netSalesCiro.Ciro.isEmpty {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkNetSales()
-                }
-                else {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkNetSales()
-                }
-                self.setupPieChart()
-                salesMonthsStackView.isHidden = true
-                salesMonthsView.isHidden = true
-
-
-            } else {
-                OCT.backgroundColor = .white
-                OCT.tintColor = .black
-            }
-            if sender.titleLabel?.text ?? "" == NOV.titleLabel?.text {
-                NOV.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                NOV.tintColor = .white
-                User.monthsNumber = 11
-                salesMonthsDetailLabel.text = "\(User.monthsNumber)/2023"
-                if netSalesSwitch.isOn == true {
-                    if netSales2021Button.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2021
-                        
-                    }
-                    if netSales2022BButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022b
-                        
-                    }
-                    if netSales2022LEButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022LE
-                    }
-                } else {
-                    if netSales2021Button.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2021
-                        
-                    }
-                    if netSales2022BButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022b
-                        
-                    }
-                    if netSales2022LEButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022LE
-                    }
-                    
-                }
-                
-                if !self.netSalesCiro.Ciro.isEmpty {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkNetSales()
-                }
-                else {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkNetSales()
-                }
-                self.setupPieChart()
-                salesMonthsStackView.isHidden = true
-                salesMonthsView.isHidden = true
-
-            } else {
-                NOV.backgroundColor = .white
-                NOV.tintColor = .black
-            }
-            if sender.titleLabel?.text ?? "" == DEC.titleLabel?.text {
-                DEC.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                DEC.tintColor = .white
-                User.monthsNumber = 12
-                salesMonthsDetailLabel.text = "\(User.monthsNumber)/2023"
-                if netSalesSwitch.isOn == true {
-                    if netSales2021Button.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2021
-                        
-                    }
-                    if netSales2022BButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022b
-                        
-                    }
-                    if netSales2022LEButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022LE
-                    }
-                } else {
-                    if netSales2021Button.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2021
-                        
-                    }
-                    if netSales2022BButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022b
-                        
-                    }
-                    if netSales2022LEButton.isSelected == true {
-                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                        self.chartParameters = self.Parameters2022LE
-                    }
-                    
-                }
-                
-                if !self.netSalesCiro.Ciro.isEmpty {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkNetSales()
-                }
-                else {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkNetSales()
-                }
-                self.setupPieChart()
-                salesMonthsStackView.isHidden = true
-                salesMonthsView.isHidden = true
-
-                
-            } else {
-                DEC.backgroundColor = .white
-                DEC.tintColor = .black
-            }
-            
         }
+        months.removeAll()
+    }
     //    @IBAction func hourlyBtnPressed(_ sender: Any) {
     //        hourlyStoreButton.isSelected = true
     //        yesterdayStoreButton.isSelected = false
@@ -2408,7 +1658,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
         weeklyStoreButton.isSelected = true
         monthlyStoreButton.isSelected = false
         yeartodateStoreButton.isSelected = false
-       
+        
         //        self.hourlyStoreView.backgroundColor = UIColor.clear
         //        self.hourlyStoreLabel.textColor = UIColor.white
         self.yesterdayStoreView.backgroundColor = UIColor.clear
@@ -2470,8 +1720,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
         weeklyStoreButton.isSelected = false
         monthlyStoreButton.isSelected = true
         yeartodateStoreButton.isSelected = false
-       
-      
+        
+        
         //        self.hourlyStoreView.backgroundColor = UIColor.clear
         //        self.hourlyStoreLabel.textColor = UIColor.white
         self.yesterdayStoreView.backgroundColor = UIColor.clear
@@ -2721,7 +1971,7 @@ extension NetSalesViewController: UITableViewDelegate, UITableViewDataSource {
             } else {
                 self.selectedChanelGelisim = self.netSalesChannel.Gelisim[indexPath.item]
             }
-
+            
             chanelCell.prepareCell(info: selectedInfo, color: selectedColor, price: selectedPrice, gelisim: selectedChanelGelisim)
             
             cellToReturn = chanelCell

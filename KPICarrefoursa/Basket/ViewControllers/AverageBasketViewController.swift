@@ -21,9 +21,9 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
     @IBOutlet weak var categoryView: UIView!
     @IBOutlet weak var categoryChartView: PieChartView!
     @IBOutlet weak var categoryTableView: UITableView!
-//    @IBOutlet weak var hourlyView: UIView!
-//    @IBOutlet weak var hourlyLabel: UILabel!
-//    @IBOutlet weak var hourlyButton: UIButton!
+    //    @IBOutlet weak var hourlyView: UIView!
+    //    @IBOutlet weak var hourlyLabel: UILabel!
+    //    @IBOutlet weak var hourlyButton: UIButton!
     @IBOutlet weak var yesterdayView: UIView!
     @IBOutlet weak var yesterdayLabel: UILabel!
     @IBOutlet weak var yesterdayButton: UIButton!
@@ -65,7 +65,7 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
     @IBOutlet weak var basketWeekDetailLabel: UILabel!
     
     //MARK: Properties
-    
+    var months : [BaseButton] = []
     var jsonmessage: Int = 1
     var userDC: String = ""
     var chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
@@ -90,7 +90,7 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
     override func viewDidLoad() {
         super.viewDidLoad()
         basketWeekDetailLabel.text = ""
-//  MARK: - Calendar
+        //  MARK: - Calendar
         basketCalendar.delegate = self
         basketCalendar.dataSource = self
         
@@ -143,13 +143,15 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
         prepareUI()
     }
     //    MARK: -CALENDAR SETTİNGS
-    
-//    func getWeekNumber(date: Date) -> Int {
-//        var calendar = Calendar(identifier: .gregorian)
-//        calendar.firstWeekday = 2 // Pazartesi günü başlaması için 2 olarak ayarla
-//        let dateComponents = calendar.dateComponents([.weekOfYear], from: date)
-//        return dateComponents.weekOfYear!
-//    }
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+        let today = Date()
+        let selectedYear = Calendar.current.component(.year, from: date)
+        let currentYear = Calendar.current.component(.year, from: today)
+        if date >= today || selectedYear < currentYear {
+            return false
+        }
+        return true
+    }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, canSelect date: Date) -> Bool {
         
@@ -187,6 +189,13 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
     
     func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at position: FSCalendarMonthPosition) {
         let cell = cell as! CustomCalendarCell
+        let today = Date()
+        let selectedYear = Calendar.current.component(.year, from: date)
+        let currentYear = Calendar.current.component(.year, from: today)
+        if date >= today || selectedYear < currentYear {
+            cell.titleLabel.textColor = UIColor.lightGray
+        }
+        
         let weekday = Calendar.current.component(.weekday, from: date)
         let weekOfYear = Calendar.current.component(.weekOfYear, from: date)
         cell.weekNumberLabel.text = "\(weekOfYear)"
@@ -194,6 +203,7 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
         if weekday == 2 {
             cell.weekNumber = "\(weekOfYear)"
         }
+        
     }
     func calendar(_ calendar: FSCalendar, numberOfRowsInMonth month: Int) -> Int {
         let date = calendar.currentPage
@@ -208,9 +218,6 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
         let weekOfYear = Calendar.current.component(.weekOfYear, from: date)
         User.weekNumber = weekOfYear
         
-        
-        // Check if selected date is a Monday
-//        let weekday = Calendar.current.component(.weekday, from: date)
         // Get the first day of the week
         var startOfWeek = Calendar.current.date(from: Calendar.current.dateComponents([.yearForWeekOfYear, .weekOfYear], from: date))!
         
@@ -223,12 +230,12 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
             }
         }
         let daysOfWeek = (0...6).map { Calendar.current.date(byAdding: .day, value: $0, to: startOfWeek)! }
-        
         // Change background color of selected cell and other cells for the week
         var selectedDates = [Date]()
         for day in daysOfWeek {
             let cell = calendar.cell(for: day, at: FSCalendarMonthPosition.current) as? CustomCalendarCell
             if selectedDates.contains(day) {
+                
                 // If the cell was already selected, deselect it and reset its appearance
                 cell?.isCellSelected = false
                 cell?.backgroundColor = .clear
@@ -237,11 +244,9 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
             } else {
                 // If the cell was not already selected, select it and update its appearance
                 cell?.isCellSelected = true
-                cell?.backgroundColor = UIColor.lightGray
+                cell?.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
                 cell?.weekNumberLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
                 cell?.titleLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                //                    cell.appearance.titleSelectionColor = UIColor.red
-                //                    cell.appearance.eventSelectionColor = UIColor.red
             }
             
             selectedDates.append(day)
@@ -251,12 +256,10 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
             if selectedDates.contains(day) {
                 // If the cell was not already selected, select it and update its appearance
                 cell?.isCellSelected = true
-                cell?.backgroundColor = UIColor.lightGray
+                cell?.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
                 cell?.weekNumberLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
                 cell?.titleLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                //                    cell.appearance.titleSelectionColor = UIColor.red
-                //                    cell.appearance.eventSelectionColor = UIColor.red
-             
+                
             } else {
                 // If the cell was already selected, deselect it and reset its appearance
                 cell?.isCellSelected = false
@@ -272,12 +275,10 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
             if selectedDates.contains(day) {
                 // If the cell was not already selected, select it and update its appearance
                 cell?.isCellSelected = true
-                cell?.backgroundColor = UIColor.lightGray
+                cell?.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
                 cell?.weekNumberLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
                 cell?.titleLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                //                    cell.appearance.titleSelectionColor = UIColor.red
-                //                    cell.appearance.eventSelectionColor = UIColor.red
-             
+                
             } else {
                 // If the cell was already selected, deselect it and reset its appearance
                 cell?.isCellSelected = false
@@ -392,7 +393,7 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
         
     }
     
- 
+    
     override func viewWillLayoutSubviews() {
         self.basketStoresTableViewHeight.constant = self.storesTableView.contentSize.height 
         self.basketCategoryTableViewHeight.constant = self.categoryTableView.contentSize.height
@@ -412,8 +413,8 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
         navigationController?.navigationBar.isTranslucent = true
         storesView.dropShadow(cornerRadius: 12)
         categoryView.dropShadow(cornerRadius: 12)
-//        hourlyView.layer.cornerRadius = 12
-//        hourlyLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
+        //        hourlyView.layer.cornerRadius = 12
+        //        hourlyLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
         yesterdayLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
         yesterdayView.layer.cornerRadius = 12
         daytodayView.layer.cornerRadius = 12
@@ -421,15 +422,15 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
         monthlyView.layer.cornerRadius = 12
         yeartodateView.layer.cornerRadius = 12
         self.yesterdayButton.isSelected = true
-
+        
     }
     
     @IBAction func basketDidValueChanged(_ sender: UISwitch) {
         if (sender.isOn == true){
             self.basketLflLabel.text = "LFL"
-//            if hourlyButton.isSelected == true {
-//                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
-//            }
+            //            if hourlyButton.isSelected == true {
+            //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
+            //            }
             if yesterdayButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
             }
@@ -448,10 +449,10 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
         }
         else{
             self.basketLflLabel.text = "ALL"
-//            if hourlyButton.isSelected == true {
-//                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 0}"
-//            }
-
+            //            if hourlyButton.isSelected == true {
+            //                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 0}"
+            //            }
+            
             if yesterdayButton.isSelected == true {
                 self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 0}"
             }
@@ -521,13 +522,13 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
                 if json!["Success"] as? Int ?? 0 ==  0{
                     print("error")
                 } else if json!["Success"] as? Int ?? 0 == 1 {
-//                    self.basketStores.Ciro = json!["AverageBasketByStores"]?.value(forKey: "Ciro") as? [Double] ?? [0.0]
+                    //                    self.basketStores.Ciro = json!["AverageBasketByStores"]?.value(forKey: "Ciro") as? [Double] ?? [0.0]
                     self.basketStores.AverageBasket = json!["AverageBasketByStores"]?.value(forKey: "AverageBasket") as? [Double] ?? [0.0]
                     self.basketStores.Stores = json!["AverageBasketByStores"]?.value(forKey: "Stores") as? [String] ?? ["0"]
                     self.basketStores.Oran = json!["AverageBasketByStores"]?.value(forKey: "Oran") as? [Double] ?? [0.0]
                     self.basketStores.ColorStores = json!["AverageBasketByStores"]?.value(forKey: "ColorStores") as? [String] ?? ["0"]
                     self.basketStores.Gelisim = json!["AverageBasketByStores"]?.value(forKey: "Gelisim") as? [String] ?? ["0"]
-
+                    
                     
                     self.basketCategory.Ciro = json!["AverageBasketByCategory"]?.value(forKey: "Ciro") as? [Double] ?? [0.0]
                     self.basketCategory.AverageBasket = json!["AverageBasketByCategory"]?.value(forKey: "AverageBasket") as? [String] ?? ["0.0"]
@@ -535,7 +536,7 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
                     self.basketStores.Last_Update =  json!["AverageBasketByCategory"]?.value(forKey: "Last_Update") as? [String] ?? [""]
                     self.basketCategory.ColorCategory = json!["AverageBasketByCategory"]?.value(forKey: "ColorCategory") as? [String] ?? ["0"]
                     self.basketCategory.Gelisim = json!["AverageBasketByCategory"]?.value(forKey: "Gelisim") as? [String] ?? ["0"]
-
+                    
                     DispatchQueue.main.async {
                         self.hud.dismiss()
                         
@@ -549,7 +550,7 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
                             
                         } else {
                             self.lastUpdateTime.text = "00/00/00 00:00:00"
-
+                            
                         }
                         
                         self.setupPieChart()
@@ -617,305 +618,15 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
     }
     
     //    MARK: - Months Button Pressed
-        
-        @IBAction func MonthsButtonPressed(_ sender: BaseButton) {
-            if sender.titleLabel?.text ?? "" == JAN.titleLabel?.text {
-                JAN.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                JAN.tintColor = .white
-                User.monthsNumber = 1
+    
+    @IBAction func MonthsButtonPressed(_ sender: BaseButton) {
+        months.append(JAN) ;  months.append(FEB) ;  months.append(MAR) ;  months.append(APR) ;  months.append(MAY) ;  months.append(JUN) ; months.append(JULY) ; months.append(AUG) ;  months.append(SEP) ;  months.append(OCT) ;  months.append(NOV) ;  months.append(DEC)
+        for i in 0..<months.count - 1 {
+            if sender.titleLabel?.text ?? "" == months[i].titleLabel?.text {
+                months[i].backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                months[i].tintColor = .white
+                User.monthsNumber = i + 1
                 basketMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
-                if basketSwitch.isOn == true {
-                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                    
-                } else {
-                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                }
-                if !self.basketStores.Stores.isEmpty {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkChartData()
-                }
-                else {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkChartData()
-                }
-                basketMonthsView.isHidden = true
-            } else {
-                JAN.backgroundColor = .white
-                JAN.tintColor = .black
-            }
-            if sender.titleLabel?.text ?? "" == FEB.titleLabel?.text {
-                FEB.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                FEB.tintColor = .white
-                User.monthsNumber = 2
-                basketMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
-                if basketSwitch.isOn == true {
-                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                    
-                } else {
-                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                }
-                if !self.basketStores.Stores.isEmpty {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkChartData()
-                }
-                else {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkChartData()
-                }
-                basketMonthsView.isHidden = true
-
-            } else {
-                FEB.backgroundColor = .white
-                FEB.tintColor = .black
-            }
-            if sender.titleLabel?.text ?? "" == MAR.titleLabel?.text {
-                MAR.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                MAR.tintColor = .white
-                User.monthsNumber = 3
-                basketMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
-                if basketSwitch.isOn == true {
-                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                    
-                } else {
-                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                }
-                if !self.basketStores.Stores.isEmpty {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkChartData()
-                }
-                else {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkChartData()
-                }
-                basketMonthsView.isHidden = true
-            } else {
-                MAR.backgroundColor = .white
-                MAR.tintColor = .black
-            }
-            if sender.titleLabel?.text ?? "" == APR.titleLabel?.text {
-                APR.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                APR.tintColor = .white
-                User.monthsNumber = 4
-                basketMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
-                if basketSwitch.isOn == true {
-                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                    
-                } else {
-                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                }
-                if !self.basketStores.Stores.isEmpty {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkChartData()
-                }
-                else {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkChartData()
-                }
-                basketMonthsView.isHidden = true
-
-            } else {
-                APR.backgroundColor = .white
-                APR.tintColor = .black
-            }
-            if sender.titleLabel?.text ?? "" == MAY.titleLabel?.text {
-                MAY.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                MAY.tintColor = .white
-                User.monthsNumber = 5
-                basketMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
-                if basketSwitch.isOn == true {
-                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                    
-                } else {
-                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                }
-                if !self.basketStores.Stores.isEmpty {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkChartData()
-                }
-                else {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkChartData()
-                }
-                basketMonthsView.isHidden = true
-            } else {
-                MAY.backgroundColor = .white
-                MAY.tintColor = .black
-            }
-            if sender.titleLabel?.text ?? "" == JUN.titleLabel?.text {
-                JUN.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                JUN.tintColor = .white
-                User.monthsNumber = 6
-                basketMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
-                if basketSwitch.isOn == true {
-                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                    
-                } else {
-                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                }
-                if !self.basketStores.Stores.isEmpty {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkChartData()
-                }
-                else {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkChartData()
-                }
-                basketMonthsView.isHidden = true
-
-            } else {
-                JUN.backgroundColor = .white
-                JUN.tintColor = .black
-            }
-            if sender.titleLabel?.text ?? "" == JULY.titleLabel?.text {
-                JULY.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                JULY.tintColor = .white
-                User.monthsNumber = 7
-                basketMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
-                if basketSwitch.isOn == true {
-                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                    
-                } else {
-                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                }
-                if !self.basketStores.Stores.isEmpty {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkChartData()
-                }
-                else {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkChartData()
-                }
-                basketMonthsView.isHidden = true
-
-            } else {
-                JULY.backgroundColor = .white
-                JULY.tintColor = .black
-            }
-            if sender.titleLabel?.text ?? "" == AUG.titleLabel?.text {
-                AUG.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                AUG.tintColor = .white
-                User.monthsNumber = 8
-                basketMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
-                if basketSwitch.isOn == true {
-                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                    
-                } else {
-                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                }
-                if !self.basketStores.Stores.isEmpty {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkChartData()
-                }
-                else {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkChartData()
-                }
-                basketMonthsView.isHidden = true
-
-            } else {
-                AUG.backgroundColor = .white
-                AUG.tintColor = .black
-            }
-            if sender.titleLabel?.text ?? "" == SEP.titleLabel?.text {
-                SEP.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                SEP.tintColor = .white
-                User.monthsNumber = 9
-                basketMonthsDetailLabel.text = "0\(User.monthsNumber)/2023"
-                if basketSwitch.isOn == true {
-                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                    
-                } else {
-                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                }
-                if !self.basketStores.Stores.isEmpty {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkChartData()
-                }
-                else {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkChartData()
-                }
-                basketMonthsView.isHidden = true
-            } else {
-                SEP.backgroundColor = .white
-                SEP.tintColor = .black
-            }
-            if sender.titleLabel?.text ?? "" == OCT.titleLabel?.text {
-                OCT.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                OCT.tintColor = .white
-                User.monthsNumber = 10
-                basketMonthsDetailLabel.text = "\(User.monthsNumber)/2023"
-                if basketSwitch.isOn == true {
-                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                    
-                } else {
-                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                }
-                if !self.basketStores.Stores.isEmpty {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkChartData()
-                }
-                else {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkChartData()
-                }
-                basketMonthsView.isHidden = true
-
-            } else {
-                OCT.backgroundColor = .white
-                OCT.tintColor = .black
-            }
-            if sender.titleLabel?.text ?? "" == NOV.titleLabel?.text {
-                NOV.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                NOV.tintColor = .white
-                User.monthsNumber = 11
-                basketMonthsDetailLabel.text = "\(User.monthsNumber)/2023"
-                if basketSwitch.isOn == true {
-                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                    
-                } else {
-                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                }
-                if !self.basketStores.Stores.isEmpty {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkChartData()
-                }
-                else {
-                    hud.textLabel.text = "Loading"
-                    hud.show(in: self.view)
-                    self.checkChartData()
-                }
-                basketMonthsView.isHidden = true
-            } else {
-                NOV.backgroundColor = .white
-                NOV.tintColor = .black
-            }
-            if sender.titleLabel?.text ?? "" == DEC.titleLabel?.text {
-                DEC.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                DEC.tintColor = .white
-                User.monthsNumber = 12
-                basketMonthsDetailLabel.text = "\(User.monthsNumber)/2023"
                 if basketSwitch.isOn == true {
                     self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
                     
@@ -935,52 +646,54 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
                 basketMonthsView.isHidden = true
                 
             } else {
-                DEC.backgroundColor = .white
-                DEC.tintColor = .black
+                months[i].backgroundColor = .white
+                months[i].tintColor = .black
             }
-            
         }
-//    @IBAction func hourlyBtnPressed(_ sender: UIButton) {
-//        hourlyButton.isSelected = true
-//        yesterdayButton.isSelected = false
-//        daytodayButton.isSelected = false
-//        weeklyButton.isSelected = false
-//        monthlyButton.isSelected = false
-//        yeartodateButton.isSelected = false
-//        if basketSwitch.isOn == true {
-//            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 1}"
-//
-//        } else {
-//            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 1}"
-//        }
-//        if !self.basketStores.Stores.isEmpty {
-//            hud.textLabel.text = "Loading"
-//            hud.show(in: self.view)
-//            self.checkChartData()
-//        }
-//        else {
-//            hud.textLabel.text = "Loading"
-//            hud.show(in: self.view)
-//            self.checkChartData()
-//        }
-//        self.hourlyView.backgroundColor = UIColor.white
-//        self.hourlyLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
-//        self.yesterdayView.backgroundColor = UIColor.clear
-//        self.yesterdayLabel.textColor = UIColor.white
-//        self.daytodayView.backgroundColor = UIColor.clear
-//        self.daytodayLabel.textColor = UIColor.white
-//        self.weeklyView.backgroundColor = UIColor.clear
-//        self.weeklyLabel.textColor = UIColor.white
-//        self.monthlyView.backgroundColor = UIColor.clear
-//        self.monthlyLabel.textColor = UIColor.white
-//        self.yeartodateView.backgroundColor = UIColor.clear
-//        self.yeartodateLabel.textColor = UIColor.white
-//    }
+        months.removeAll()
+    }
+    
+    //    @IBAction func hourlyBtnPressed(_ sender: UIButton) {
+    //        hourlyButton.isSelected = true
+    //        yesterdayButton.isSelected = false
+    //        daytodayButton.isSelected = false
+    //        weeklyButton.isSelected = false
+    //        monthlyButton.isSelected = false
+    //        yeartodateButton.isSelected = false
+    //        if basketSwitch.isOn == true {
+    //            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 1}"
+    //
+    //        } else {
+    //            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 1}"
+    //        }
+    //        if !self.basketStores.Stores.isEmpty {
+    //            hud.textLabel.text = "Loading"
+    //            hud.show(in: self.view)
+    //            self.checkChartData()
+    //        }
+    //        else {
+    //            hud.textLabel.text = "Loading"
+    //            hud.show(in: self.view)
+    //            self.checkChartData()
+    //        }
+    //        self.hourlyView.backgroundColor = UIColor.white
+    //        self.hourlyLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
+    //        self.yesterdayView.backgroundColor = UIColor.clear
+    //        self.yesterdayLabel.textColor = UIColor.white
+    //        self.daytodayView.backgroundColor = UIColor.clear
+    //        self.daytodayLabel.textColor = UIColor.white
+    //        self.weeklyView.backgroundColor = UIColor.clear
+    //        self.weeklyLabel.textColor = UIColor.white
+    //        self.monthlyView.backgroundColor = UIColor.clear
+    //        self.monthlyLabel.textColor = UIColor.white
+    //        self.yeartodateView.backgroundColor = UIColor.clear
+    //        self.yeartodateLabel.textColor = UIColor.white
+    //    }
     
     @IBAction func yesterdayBtnPressed(_ sender: UIButton) {
         basketWeekStackView.isHidden = true
         basketMonthsView.isHidden = true
-//        hourlyButton.isSelected = false
+        //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = true
         daytodayButton.isSelected = false
         weeklyButton.isSelected = false
@@ -1002,8 +715,8 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
             hud.show(in: self.view)
             self.checkChartData()
         }
-//        self.hourlyView.backgroundColor = UIColor.clear
-//        self.hourlyLabel.textColor = UIColor.white
+        //        self.hourlyView.backgroundColor = UIColor.clear
+        //        self.hourlyLabel.textColor = UIColor.white
         self.yesterdayView.backgroundColor = UIColor.white
         self.yesterdayLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
         self.daytodayView.backgroundColor = UIColor.clear
@@ -1060,7 +773,7 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
         basketMonthsView.isHidden = true
         let topOffset = CGPoint(x: 0, y: 0)
         scrool.setContentOffset(topOffset, animated: true)
-//        hourlyButton.isSelected = false
+        //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
         daytodayButton.isSelected = false
         weeklyButton.isSelected = true
@@ -1082,8 +795,8 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
             hud.show(in: self.view)
             self.checkChartData()
         }
-//        self.hourlyView.backgroundColor = UIColor.clear
-//        self.hourlyLabel.textColor = UIColor.white
+        //        self.hourlyView.backgroundColor = UIColor.clear
+        //        self.hourlyLabel.textColor = UIColor.white
         self.yesterdayView.backgroundColor = UIColor.clear
         self.yesterdayLabel.textColor = UIColor.white
         self.daytodayView.backgroundColor = UIColor.clear
@@ -1136,15 +849,15 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
         if currentMonth == 11 {
             DEC.alpha = 0.5 ; DEC.isUserInteractionEnabled = false
         }
-//        hourlyButton.isSelected = false
+        //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
         daytodayButton.isSelected = false
         weeklyButton.isSelected = false
         monthlyButton.isSelected = true
         yeartodateButton.isSelected = false
-      
-//        self.hourlyView.backgroundColor = UIColor.clear
-//        self.hourlyLabel.textColor = UIColor.white
+        
+        //        self.hourlyView.backgroundColor = UIColor.clear
+        //        self.hourlyLabel.textColor = UIColor.white
         self.yesterdayView.backgroundColor = UIColor.clear
         self.yesterdayLabel.textColor = UIColor.white
         self.daytodayView.backgroundColor = UIColor.clear
@@ -1160,7 +873,7 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
     @IBAction func yeartodateBtnPressed(_ sender: Any) {
         basketWeekStackView.isHidden = true
         basketMonthsView.isHidden = true
-//        hourlyButton.isSelected = false
+        //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
         daytodayButton.isSelected = false
         weeklyButton.isSelected = false
@@ -1182,8 +895,8 @@ class AverageBasketViewController: UIViewController,ChartViewDelegate,FSCalendar
             hud.show(in: self.view)
             self.checkChartData()
         }
-//        self.hourlyView.backgroundColor = UIColor.clear
-//        self.hourlyLabel.textColor = UIColor.white
+        //        self.hourlyView.backgroundColor = UIColor.clear
+        //        self.hourlyLabel.textColor = UIColor.white
         self.yesterdayView.backgroundColor = UIColor.clear
         self.yesterdayLabel.textColor = UIColor.white
         self.daytodayView.backgroundColor = UIColor.clear
@@ -1240,9 +953,9 @@ extension AverageBasketViewController: UITableViewDelegate, UITableViewDataSourc
             } else {
                 self.selectedStoresGelisim = self.basketStores.Gelisim[indexPath.item]
             }
-          
+            
             storeCell.prepareCell(info: selectedInfo , color: selectedColor, ciro: selectedCiro, gelisim: selectedStoresGelisim)
-           
+            
             cellToReturn = storeCell
             
             
@@ -1274,9 +987,9 @@ extension AverageBasketViewController: UITableViewDelegate, UITableViewDataSourc
             } else {
                 self.selectedCategoryGelisim = self.basketCategory.Gelisim[indexPath.item]
             }
-           
+            
             chanelCell.prepareCell(info: selectedInfo, color: selectedColor, ciro: selectedCategoryCiro, gelisim: selectedCategoryGelisim)
-         
+            
             cellToReturn = chanelCell
         }
         return cellToReturn

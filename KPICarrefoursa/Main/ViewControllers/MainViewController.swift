@@ -93,8 +93,10 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
     @IBOutlet weak var weekStackView: UIStackView!
     @IBOutlet weak var weekView: UIView!
     @IBOutlet weak var weeklDetailLabel: UILabel!
+    
     //  MARK: -Properties
     
+    var months : [BaseButton] = []
     var formatter = DateFormatter()
     var isMenuSelected = true
     var userDC: String = ""
@@ -114,7 +116,7 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        
         
         weeklDetailLabel.text = ""
         //        MARK: - Calendar
@@ -177,13 +179,15 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
         
     }
     //    MARK: -CALENDAR SETTİNGS
-    
-//    func getWeekNumber(date: Date) -> Int {
-//        var calendar = Calendar(identifier: .gregorian)
-//        calendar.firstWeekday = 2 // Pazartesi günü başlaması için 2 olarak ayarla
-//        let dateComponents = calendar.dateComponents([.weekOfYear], from: date)
-//        return dateComponents.weekOfYear!
-//    }
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+        let today = Date()
+        let selectedYear = Calendar.current.component(.year, from: date)
+        let currentYear = Calendar.current.component(.year, from: today)
+        if date >= today || selectedYear < currentYear {
+            return false
+        }
+        return true
+    }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, canSelect date: Date) -> Bool {
         
@@ -221,6 +225,13 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
     
     func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at position: FSCalendarMonthPosition) {
         let cell = cell as! CustomCalendarCell
+        let today = Date()
+        let selectedYear = Calendar.current.component(.year, from: date)
+        let currentYear = Calendar.current.component(.year, from: today)
+        if date >= today || selectedYear < currentYear {
+            cell.titleLabel.textColor = UIColor.lightGray
+        }
+        
         let weekday = Calendar.current.component(.weekday, from: date)
         let weekOfYear = Calendar.current.component(.weekOfYear, from: date)
         cell.weekNumberLabel.text = "\(weekOfYear)"
@@ -228,6 +239,7 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
         if weekday == 2 {
             cell.weekNumber = "\(weekOfYear)"
         }
+        
     }
     func calendar(_ calendar: FSCalendar, numberOfRowsInMonth month: Int) -> Int {
         let date = calendar.currentPage
@@ -242,9 +254,6 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
         let weekOfYear = Calendar.current.component(.weekOfYear, from: date)
         User.weekNumber = weekOfYear
         
-        
-        // Check if selected date is a Monday
-//        let weekday = Calendar.current.component(.weekday, from: date)
         // Get the first day of the week
         var startOfWeek = Calendar.current.date(from: Calendar.current.dateComponents([.yearForWeekOfYear, .weekOfYear], from: date))!
         
@@ -257,12 +266,12 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
             }
         }
         let daysOfWeek = (0...6).map { Calendar.current.date(byAdding: .day, value: $0, to: startOfWeek)! }
-        
         // Change background color of selected cell and other cells for the week
         var selectedDates = [Date]()
         for day in daysOfWeek {
             let cell = calendar.cell(for: day, at: FSCalendarMonthPosition.current) as? CustomCalendarCell
             if selectedDates.contains(day) {
+                
                 // If the cell was already selected, deselect it and reset its appearance
                 cell?.isCellSelected = false
                 cell?.backgroundColor = .clear
@@ -271,11 +280,9 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
             } else {
                 // If the cell was not already selected, select it and update its appearance
                 cell?.isCellSelected = true
-                cell?.backgroundColor = UIColor.lightGray
+                cell?.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
                 cell?.weekNumberLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
                 cell?.titleLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                //                    cell.appearance.titleSelectionColor = UIColor.red
-                //                    cell.appearance.eventSelectionColor = UIColor.red
             }
             
             selectedDates.append(day)
@@ -285,12 +292,9 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
             if selectedDates.contains(day) {
                 // If the cell was not already selected, select it and update its appearance
                 cell?.isCellSelected = true
-                cell?.backgroundColor = UIColor.lightGray
+                cell?.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
                 cell?.weekNumberLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
                 cell?.titleLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                //                    cell.appearance.titleSelectionColor = UIColor.red
-                //                    cell.appearance.eventSelectionColor = UIColor.red
-             
             } else {
                 // If the cell was already selected, deselect it and reset its appearance
                 cell?.isCellSelected = false
@@ -306,12 +310,9 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
             if selectedDates.contains(day) {
                 // If the cell was not already selected, select it and update its appearance
                 cell?.isCellSelected = true
-                cell?.backgroundColor = UIColor.lightGray
+                cell?.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
                 cell?.weekNumberLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
                 cell?.titleLabel.textColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-                //                    cell.appearance.titleSelectionColor = UIColor.red
-                //                    cell.appearance.eventSelectionColor = UIColor.red
-             
             } else {
                 // If the cell was already selected, deselect it and reset its appearance
                 cell?.isCellSelected = false
@@ -867,344 +868,40 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
     //    MARK: - Months Button Pressed
     
     @IBAction func MonthsButtonPressed(_ sender: BaseButton) {
-        if sender.titleLabel?.text ?? "" == JAN.titleLabel?.text {
-            JAN.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-            JAN.tintColor = .white
-            User.monthsNumber = 1
-            monthDetailLabel.text = "0\(User.monthsNumber)/2023"
-            if homeSwitch.isOn == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+        months.append(JAN) ;  months.append(FEB) ;  months.append(MAR) ;  months.append(APR) ;  months.append(MAY) ;  months.append(JUN) ; months.append(JULY) ; months.append(AUG) ;  months.append(SEP) ;  months.append(OCT) ;  months.append(NOV) ;  months.append(DEC)
+        for i in 0..<months.count - 1 {
+            if sender.titleLabel?.text ?? "" == months[i].titleLabel?.text {
+                months[i].backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
+                months[i].tintColor = .white
+                User.monthsNumber = i + 1
+                monthDetailLabel.text = "0\(User.monthsNumber)/2023"
+                if homeSwitch.isOn == true {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                    
+                } else {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                }
+                
+                if !self.dashboardValue.NetSales.isEmpty {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkDataDashboard()
+                }
+                else {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkDataDashboard()
+                }
+                
+                monthsView.isHidden = true
+                monthsStackView.isHidden = true
                 
             } else {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
+                months[i].backgroundColor = .white
+                months[i].tintColor = .black
             }
-            
-            if !self.dashboardValue.NetSales.isEmpty {
-                hud.textLabel.text = "Loading"
-                hud.show(in: self.view)
-                self.checkDataDashboard()
-            }
-            else {
-                hud.textLabel.text = "Loading"
-                hud.show(in: self.view)
-                self.checkDataDashboard()
-            }
-            monthsView.isHidden = true
-            monthsStackView.isHidden = true
-            
-        } else {
-            JAN.backgroundColor = .white
-            JAN.tintColor = .black
         }
-        if sender.titleLabel?.text ?? "" == FEB.titleLabel?.text {
-            FEB.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-            FEB.tintColor = .white
-            User.monthsNumber = 2
-            monthDetailLabel.text = "0\(User.monthsNumber)/2023"
-            if homeSwitch.isOn == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                
-            } else {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-            }
-            
-            if !self.dashboardValue.NetSales.isEmpty {
-                hud.textLabel.text = "Loading"
-                hud.show(in: self.view)
-                self.checkDataDashboard()
-            }
-            else {
-                hud.textLabel.text = "Loading"
-                hud.show(in: self.view)
-                self.checkDataDashboard()
-            }
-            monthsView.isHidden = true
-            monthsStackView.isHidden = true
-        } else {
-            FEB.backgroundColor = .white
-            FEB.tintColor = .black
-        }
-        if sender.titleLabel?.text ?? "" == MAR.titleLabel?.text {
-            MAR.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-            MAR.tintColor = .white
-            User.monthsNumber = 3
-            monthDetailLabel.text = "0\(User.monthsNumber)/2023"
-            if homeSwitch.isOn == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                
-            } else {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-            }
-            
-            if !self.dashboardValue.NetSales.isEmpty {
-                hud.textLabel.text = "Loading"
-                hud.show(in: self.view)
-                self.checkDataDashboard()
-            }
-            else {
-                hud.textLabel.text = "Loading"
-                hud.show(in: self.view)
-                self.checkDataDashboard()
-            }
-            monthsView.isHidden = true
-            monthsStackView.isHidden = true
-        } else {
-            MAR.backgroundColor = .white
-            MAR.tintColor = .black
-        }
-        if sender.titleLabel?.text ?? "" == APR.titleLabel?.text {
-            APR.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-            APR.tintColor = .white
-            User.monthsNumber = 4
-            monthDetailLabel.text = "0\(User.monthsNumber)/2023"
-            if homeSwitch.isOn == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                
-            } else {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-            }
-            
-            if !self.dashboardValue.NetSales.isEmpty {
-                hud.textLabel.text = "Loading"
-                hud.show(in: self.view)
-                self.checkDataDashboard()
-            }
-            else {
-                hud.textLabel.text = "Loading"
-                hud.show(in: self.view)
-                self.checkDataDashboard()
-            }
-            monthsView.isHidden = true
-            monthsStackView.isHidden = true
-        } else {
-            APR.backgroundColor = .white
-            APR.tintColor = .black
-        }
-        if sender.titleLabel?.text ?? "" == MAY.titleLabel?.text {
-            MAY.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-            MAY.tintColor = .white
-            User.monthsNumber = 5
-            monthDetailLabel.text = "0\(User.monthsNumber)/2023"
-            if homeSwitch.isOn == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                
-            } else {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-            }
-            
-            if !self.dashboardValue.NetSales.isEmpty {
-                hud.textLabel.text = "Loading"
-                hud.show(in: self.view)
-                self.checkDataDashboard()
-            }
-            else {
-                hud.textLabel.text = "Loading"
-                hud.show(in: self.view)
-                self.checkDataDashboard()
-            }
-            monthsView.isHidden = true
-            monthsStackView.isHidden = true
-        } else {
-            MAY.backgroundColor = .white
-            MAY.tintColor = .black
-        }
-        if sender.titleLabel?.text ?? "" == JUN.titleLabel?.text {
-            JUN.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-            JUN.tintColor = .white
-            User.monthsNumber = 6
-            monthDetailLabel.text = "0\(User.monthsNumber)/2023"
-            if homeSwitch.isOn == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                
-            } else {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-            }
-            
-            if !self.dashboardValue.NetSales.isEmpty {
-                hud.textLabel.text = "Loading"
-                hud.show(in: self.view)
-                self.checkDataDashboard()
-            }
-            else {
-                hud.textLabel.text = "Loading"
-                hud.show(in: self.view)
-                self.checkDataDashboard()
-            }
-            monthsView.isHidden = true
-            monthsStackView.isHidden = true
-        } else {
-            JUN.backgroundColor = .white
-            JUN.tintColor = .black
-        }
-        if sender.titleLabel?.text ?? "" == JULY.titleLabel?.text {
-            JULY.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-            JULY.tintColor = .white
-            User.monthsNumber = 7
-            monthDetailLabel.text = "0\(User.monthsNumber)/2023"
-            if homeSwitch.isOn == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                
-            } else {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-            }
-            
-            if !self.dashboardValue.NetSales.isEmpty {
-                hud.textLabel.text = "Loading"
-                hud.show(in: self.view)
-                self.checkDataDashboard()
-            }
-            else {
-                hud.textLabel.text = "Loading"
-                hud.show(in: self.view)
-                self.checkDataDashboard()
-            }
-            monthsView.isHidden = true
-            monthsStackView.isHidden = true
-        } else {
-            JULY.backgroundColor = .white
-            JULY.tintColor = .black
-        }
-        if sender.titleLabel?.text ?? "" == AUG.titleLabel?.text {
-            AUG.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-            AUG.tintColor = .white
-            User.monthsNumber = 8
-            monthDetailLabel.text = "0\(User.monthsNumber)/2023"
-            if homeSwitch.isOn == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                
-            } else {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-            }
-            
-            if !self.dashboardValue.NetSales.isEmpty {
-                hud.textLabel.text = "Loading"
-                hud.show(in: self.view)
-                self.checkDataDashboard()
-            }
-            else {
-                hud.textLabel.text = "Loading"
-                hud.show(in: self.view)
-                self.checkDataDashboard()
-            }
-            monthsView.isHidden = true
-            monthsStackView.isHidden = true
-        } else {
-            AUG.backgroundColor = .white
-            AUG.tintColor = .black
-        }
-        if sender.titleLabel?.text ?? "" == SEP.titleLabel?.text {
-            SEP.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-            SEP.tintColor = .white
-            User.monthsNumber = 9
-            monthDetailLabel.text = "0\(User.monthsNumber)/2023"
-            if homeSwitch.isOn == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                
-            } else {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-            }
-            
-            if !self.dashboardValue.NetSales.isEmpty {
-                hud.textLabel.text = "Loading"
-                hud.show(in: self.view)
-                self.checkDataDashboard()
-            }
-            else {
-                hud.textLabel.text = "Loading"
-                hud.show(in: self.view)
-                self.checkDataDashboard()
-            }
-            monthsView.isHidden = true
-            monthsStackView.isHidden = true
-        } else {
-            SEP.backgroundColor = .white
-            SEP.tintColor = .black
-        }
-        if sender.titleLabel?.text ?? "" == OCT.titleLabel?.text {
-            OCT.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-            OCT.tintColor = .white
-            User.monthsNumber = 10
-            monthDetailLabel.text = "\(User.monthsNumber)/2023"
-            if homeSwitch.isOn == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                
-            } else {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-            }
-            
-            if !self.dashboardValue.NetSales.isEmpty {
-                hud.textLabel.text = "Loading"
-                hud.show(in: self.view)
-                self.checkDataDashboard()
-            }
-            else {
-                hud.textLabel.text = "Loading"
-                hud.show(in: self.view)
-                self.checkDataDashboard()
-            }
-            monthsView.isHidden = true
-            monthsStackView.isHidden = true
-        } else {
-            OCT.backgroundColor = .white
-            OCT.tintColor = .black
-        }
-        if sender.titleLabel?.text ?? "" == NOV.titleLabel?.text {
-            NOV.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-            NOV.tintColor = .white
-            User.monthsNumber = 11
-            monthDetailLabel.text = "\(User.monthsNumber)/2023"
-            if homeSwitch.isOn == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                
-            } else {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-            }
-            
-            if !self.dashboardValue.NetSales.isEmpty {
-                hud.textLabel.text = "Loading"
-                hud.show(in: self.view)
-                self.checkDataDashboard()
-            }
-            else {
-                hud.textLabel.text = "Loading"
-                hud.show(in: self.view)
-                self.checkDataDashboard()
-            }
-            monthsView.isHidden = true
-            monthsStackView.isHidden = true
-        } else {
-            NOV.backgroundColor = .white
-            NOV.tintColor = .black
-        }
-        if sender.titleLabel?.text ?? "" == DEC.titleLabel?.text {
-            DEC.backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
-            DEC.tintColor = .white
-            User.monthsNumber = 12
-            monthDetailLabel.text = "\(User.monthsNumber)/2023"
-            if homeSwitch.isOn == true {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-                
-            } else {
-                self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
-            }
-            
-            if !self.dashboardValue.NetSales.isEmpty {
-                hud.textLabel.text = "Loading"
-                hud.show(in: self.view)
-                self.checkDataDashboard()
-            }
-            else {
-                hud.textLabel.text = "Loading"
-                hud.show(in: self.view)
-                self.checkDataDashboard()
-            }
-            monthsView.isHidden = true
-            monthsStackView.isHidden = true
-        } else {
-            DEC.backgroundColor = .white
-            DEC.tintColor = .black
-        }
-        
+        months.removeAll()
     }
     
     
@@ -1369,7 +1066,7 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
         weeklyButton.isSelected = true
         monthlyButton.isSelected = false
         yeartodateButton.isSelected = false
-       
+        
         //        self.hourlyView.backgroundColor = UIColor.clear
         //        self.hourlyLabel.textColor = UIColor.white
         self.yesterdayView.backgroundColor = UIColor.clear
