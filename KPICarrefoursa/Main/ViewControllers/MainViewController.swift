@@ -116,7 +116,11 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        months.append(JAN) ;  months.append(FEB) ;  months.append(MAR) ;  months.append(APR) ;  months.append(MAY) ;  months.append(JUN) ; months.append(JULY) ; months.append(AUG) ;  months.append(SEP) ;  months.append(OCT) ;  months.append(NOV) ;  months.append(DEC)
+        for i in 0..<months.count {
+            months[i].alpha = 0.5
+            months[i].isUserInteractionEnabled = false
+        }
         
         weeklDetailLabel.text = ""
         
@@ -872,13 +876,18 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
     //    MARK: - Months Button Pressed
     
     @IBAction func MonthsButtonPressed(_ sender: BaseButton) {
-        months.append(JAN) ;  months.append(FEB) ;  months.append(MAR) ;  months.append(APR) ;  months.append(MAY) ;  months.append(JUN) ; months.append(JULY) ; months.append(AUG) ;  months.append(SEP) ;  months.append(OCT) ;  months.append(NOV) ;  months.append(DEC)
+      
         for i in 0..<months.count - 1 {
             if sender.titleLabel?.text ?? "" == months[i].titleLabel?.text {
                 months[i].backgroundColor = UIColor(red:0/255, green:71/255, blue:152/255, alpha: 1)
                 months[i].tintColor = .white
                 User.monthsNumber = i + 1
-                monthDetailLabel.text = "0\(User.monthsNumber)/2023"
+                if i > 9 {
+                    monthDetailLabel.text = "\(User.monthsNumber)/2023"
+                } else {
+                    monthDetailLabel.text = "0\(User.monthsNumber)/2023"
+                }
+                
                 if homeSwitch.isOn == true {
                     self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Monthly\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": \(User.monthsNumber)}"
                     
@@ -905,7 +914,6 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
                 months[i].tintColor = .black
             }
         }
-        months.removeAll()
     }
     
     
@@ -1098,41 +1106,12 @@ class MainViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSo
         scrool.setContentOffset(topOffset, animated: true)
         let currentDate = Date()
         let currentMonth = Calendar.current.component(.month, from: currentDate)
-        if currentMonth == 1 {
-            FEB.alpha = 0.5 ; FEB.isUserInteractionEnabled = false ; MAR.alpha = 0.5 ; MAR.isUserInteractionEnabled = false ; APR.alpha = 0.5 ; APR.isUserInteractionEnabled = false ; MAY.alpha = 0.5 ; MAY.isUserInteractionEnabled = false ; JUN.alpha = 0.5 ; JUN.isUserInteractionEnabled = false ; JULY.alpha = 0.5 ; JULY.isUserInteractionEnabled = false ; AUG.alpha = 0.5 ; AUG.isUserInteractionEnabled = false ; SEP.alpha = 0.5 ; SEP.isUserInteractionEnabled = false ; OCT.alpha = 0.5 ; OCT.isUserInteractionEnabled = false ; NOV.alpha = 0.5 ; NOV.isUserInteractionEnabled = false ; DEC.alpha = 0.5 ; DEC.isUserInteractionEnabled = false
+        for i in 0..<currentMonth  {
+            if i <= currentMonth {
+                months[i].alpha = 1
+                months[i].isUserInteractionEnabled = true
+            }
         }
-        if currentMonth == 2 {
-            MAR.alpha = 0.5 ; MAR.isUserInteractionEnabled = false ; APR.alpha = 0.5 ; APR.isUserInteractionEnabled = false ; MAY.alpha = 0.5 ; MAY.isUserInteractionEnabled = false ; JUN.alpha = 0.5 ; JUN.isUserInteractionEnabled = false ; JULY.alpha = 0.5 ; JULY.isUserInteractionEnabled = false ; AUG.alpha = 0.5 ; AUG.isUserInteractionEnabled = false ; SEP.alpha = 0.5 ; SEP.isUserInteractionEnabled = false ; OCT.alpha = 0.5 ; OCT.isUserInteractionEnabled = false ; NOV.alpha = 0.5 ; NOV.isUserInteractionEnabled = false ; DEC.alpha = 0.5 ; DEC.isUserInteractionEnabled = false
-        }
-        if currentMonth == 3 {
-            APR.alpha = 0.5 ; APR.isUserInteractionEnabled = false ; MAY.alpha = 0.5 ; MAY.isUserInteractionEnabled = false ; JUN.alpha = 0.5 ; JUN.isUserInteractionEnabled = false ; JULY.alpha = 0.5 ; JULY.isUserInteractionEnabled = false ; AUG.alpha = 0.5 ; AUG.isUserInteractionEnabled = false ; SEP.alpha = 0.5 ; SEP.isUserInteractionEnabled = false ; OCT.alpha = 0.5 ; OCT.isUserInteractionEnabled = false ; NOV.alpha = 0.5 ; NOV.isUserInteractionEnabled = false ; DEC.alpha = 0.5 ; DEC.isUserInteractionEnabled = false
-        }
-        if currentMonth == 4 {
-            MAY.alpha = 0.5 ; MAY.isUserInteractionEnabled = false ; JUN.alpha = 0.5 ; JUN.isUserInteractionEnabled = false ; JULY.alpha = 0.5 ; JULY.isUserInteractionEnabled = false ; AUG.alpha = 0.5 ; AUG.isUserInteractionEnabled = false ; SEP.alpha = 0.5 ; SEP.isUserInteractionEnabled = false ; OCT.alpha = 0.5 ; OCT.isUserInteractionEnabled = false ; NOV.alpha = 0.5 ; NOV.isUserInteractionEnabled = false ; DEC.alpha = 0.5 ; DEC.isUserInteractionEnabled = false
-        }
-        if currentMonth == 5 {
-            JUN.alpha = 0.5 ; JUN.isUserInteractionEnabled = false ; JULY.alpha = 0.5 ; JULY.isUserInteractionEnabled = false ; AUG.alpha = 0.5 ; AUG.isUserInteractionEnabled = false ; SEP.alpha = 0.5 ; SEP.isUserInteractionEnabled = false ; OCT.alpha = 0.5 ; OCT.isUserInteractionEnabled = false ; NOV.alpha = 0.5 ; NOV.isUserInteractionEnabled = false ; DEC.alpha = 0.5 ; DEC.isUserInteractionEnabled = false
-        }
-        if currentMonth == 6 {
-            JULY.alpha = 0.5 ; JULY.isUserInteractionEnabled = false ; AUG.alpha = 0.5 ; AUG.isUserInteractionEnabled = false ; SEP.alpha = 0.5 ; SEP.isUserInteractionEnabled = false ; OCT.alpha = 0.5 ; OCT.isUserInteractionEnabled = false ; NOV.alpha = 0.5 ; NOV.isUserInteractionEnabled = false ; DEC.alpha = 0.5 ; DEC.isUserInteractionEnabled = false
-        }
-        if currentMonth == 7 {
-            AUG.alpha = 0.5 ; AUG.isUserInteractionEnabled = false ; SEP.alpha = 0.5 ; SEP.isUserInteractionEnabled = false ; OCT.alpha = 0.5 ; OCT.isUserInteractionEnabled = false ; NOV.alpha = 0.5 ; NOV.isUserInteractionEnabled = false ; DEC.alpha = 0.5 ; DEC.isUserInteractionEnabled = false
-        }
-        if currentMonth == 8 {
-            SEP.alpha = 0.5 ; SEP.isUserInteractionEnabled = false ; OCT.alpha = 0.5 ; OCT.isUserInteractionEnabled = false ; NOV.alpha = 0.5 ; NOV.isUserInteractionEnabled = false ; DEC.alpha = 0.5 ; DEC.isUserInteractionEnabled = false
-        }
-        if currentMonth == 9 {
-            OCT.alpha = 0.5 ; OCT.isUserInteractionEnabled = false ; NOV.alpha = 0.5 ; NOV.isUserInteractionEnabled = false ; DEC.alpha = 0.5 ; DEC.isUserInteractionEnabled = false
-        }
-        if currentMonth == 10 {
-            NOV.alpha = 0.5 ; NOV.isUserInteractionEnabled = false ; DEC.alpha = 0.5 ; DEC.isUserInteractionEnabled = false
-        }
-        if currentMonth == 11 {
-            DEC.alpha = 0.5 ; DEC.isUserInteractionEnabled = false
-        }
-        
-        
         
         //        hourlyButton.isSelected = false
         yesterdayButton.isSelected = false
