@@ -102,9 +102,9 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="75" height="35"/>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title=" "/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="Yesterday"/>
                                                         <connections>
-                                                            <action selector="yesterdayBtnPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="mYG-sO-2sd"/>
+                                                            <action selector="buttonsPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="VNP-u8-2hm"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -133,9 +133,9 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="75" height="35"/>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title=" "/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="DaytoDay"/>
                                                         <connections>
-                                                            <action selector="daytodayBtnPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="AXs-Kb-iSO"/>
+                                                            <action selector="buttonsPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="in1-ub-KmI"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -170,9 +170,9 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="75" height="35"/>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title=" "/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="Weekly"/>
                                                         <connections>
-                                                            <action selector="weeklyBtnPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="mDQ-Ou-qEB"/>
+                                                            <action selector="buttonsPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="ohf-5I-zJS"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -213,9 +213,9 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="75" height="35"/>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title=" "/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="Monthly"/>
                                                         <connections>
-                                                            <action selector="monthlyBtnPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Tku-UU-d4y"/>
+                                                            <action selector="buttonsPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="IY3-jg-FIB"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -250,9 +250,9 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="75" height="35"/>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title=" "/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="YTD"/>
                                                         <connections>
-                                                            <action selector="yeartodateBtnPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="uTT-30-8Xm"/>
+                                                            <action selector="buttonsPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="eHT-KY-EX5"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>

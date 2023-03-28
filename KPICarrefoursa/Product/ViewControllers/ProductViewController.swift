@@ -67,6 +67,9 @@ class ProductViewController: UIViewController, ChartViewDelegate,FSCalendarDeleg
     
     //MARK: Properties
     var months : [BaseButton] = []
+    var buttons : [UIButton] = []
+    var arrayView : [UIView] = []
+    var arrayLabel : [UILabel] = []
     var jsonmessage: Int = 1
     var userDC: String = ""
     var chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
@@ -84,6 +87,12 @@ class ProductViewController: UIViewController, ChartViewDelegate,FSCalendarDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        arrayLabel.append(yesterdayLabel) ;  arrayLabel.append(daytodayLabel) ;  arrayLabel.append(weeklyLabel) ;  arrayLabel.append(monthlyLabel) ;  arrayLabel.append(yeartodateLabel)
+        
+        arrayView.append(yesterdayView) ;  arrayView.append(daytodayView) ;  arrayView.append(weeklyView) ;  arrayView.append(monthlyView) ;  arrayView.append(yeartodateView)
+        
+        buttons.append(yesterdayButton) ;  buttons.append(daytodayButton) ;  buttons.append(weeklyButton) ;  buttons.append(monthlyButton) ;  buttons.append(yeartodateButton)
+        
         months.append(JAN) ;  months.append(FEB) ;  months.append(MAR) ;  months.append(APR) ;  months.append(MAY) ;  months.append(JUN) ; months.append(JULY) ; months.append(AUG) ;  months.append(SEP) ;  months.append(OCT) ;  months.append(NOV) ;  months.append(DEC)
         for i in 0..<months.count {
             months[i].alpha = 0.5
@@ -541,11 +550,11 @@ class ProductViewController: UIViewController, ChartViewDelegate,FSCalendarDeleg
                     
                     DispatchQueue.main.async {
                         self.hud.dismiss()
-                        //                        let removeCharactersLatUpdate: Set<Character> = ["T", ":"]
-                        //                        self.productStores.LastUpdate[0].removeAll(where: { removeCharactersLatUpdate.contains($0) })
+                        //      let removeCharactersLatUpdate: Set<Character> = ["T", ":"]
+                        //    self.productStores.LastUpdate[0].removeAll(where: { removeCharactersLatUpdate.contains($0) })
                         if self.productStores.Last_Update.isEmpty {
                             
-                            self.lastUpdateTime.text = "00/00/0000 00:00:00"
+                            self.lastUpdateTime.text = ""
                             
                         } else {
                             self.lastUpdateTime.text = "Last Updated Time \(self.productStores.Last_Update[0])"
@@ -631,7 +640,7 @@ class ProductViewController: UIViewController, ChartViewDelegate,FSCalendarDeleg
                 }
                 if !self.productStores.Stores.isEmpty {
                     hud.textLabel.text = "Loading"
-                    hud.show(in: self.view) 
+                    hud.show(in: self.view)
                     self.checkChartData()
                 }
                 else {
@@ -647,222 +656,60 @@ class ProductViewController: UIViewController, ChartViewDelegate,FSCalendarDeleg
             }
         }
     }
-    
-    //    @IBAction func hourlyBtnPressed(_ sender: UIButton) {
-    //        hourlyButton.isSelected = true
-    //        yesterdayButton.isSelected = false
-    //        daytodayButton.isSelected = false
-    //        weeklyButton.isSelected = false
-    //        monthlyButton.isSelected = false
-    //        yeartodateButton.isSelected = false
-    //        if productSwitch.isOn == true {
-    //            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 1}"
-    //
-    //        } else {
-    //            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 1}"
-    //        }
-    //        if !self.productStores.Stores.isEmpty {
-    //            hud.textLabel.text = "Loading"
-    //            hud.show(in: self.view)
-    //            self.checkChartData()
-    //        }
-    //        else {
-    //            hud.textLabel.text = "Loading"
-    //            hud.show(in: self.view)
-    //            self.checkChartData()
-    //        }
-    //        self.hourlyView.backgroundColor = UIColor.white
-    //        self.hourlyLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
-    //        self.yesterdayView.backgroundColor = UIColor.clear
-    //        self.yesterdayLabel.textColor = UIColor.white
-    //        self.daytodayView.backgroundColor = UIColor.clear
-    //        self.daytodayLabel.textColor = UIColor.white
-    //        self.weeklyView.backgroundColor = UIColor.clear
-    //        self.weeklyLabel.textColor = UIColor.white
-    //        self.monthlyView.backgroundColor = UIColor.clear
-    //        self.monthlyLabel.textColor = UIColor.white
-    //        self.yeartodateView.backgroundColor = UIColor.clear
-    //        self.yeartodateLabel.textColor = UIColor.white
-    //    }
-    //
-    @IBAction func yesterdayBtnPressed(_ sender: UIButton) {
+//    MARK: - Buttons Pressed
+    @IBAction func buttonsPressed(_ sender: UIButton) {
         productMonthView.isHidden = true
         productWeekStackView.isHidden = true
-        //        hourlyButton.isSelected = false
-        yesterdayButton.isSelected = true
-        daytodayButton.isSelected = false
-        weeklyButton.isSelected = false
-        monthlyButton.isSelected = false
-        yeartodateButton.isSelected = false
-        
-        if productSwitch.isOn == true {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
-            
-        } else {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 0}"
-        }
-        if !self.productStores.Stores.isEmpty {
-            hud.textLabel.text = "Loading"
-            hud.show(in: self.view)
-            self.checkChartData()
-        }
-        else {
-            hud.textLabel.text = "Loading"
-            hud.show(in: self.view)
-            self.checkChartData()
-        }
-        //        self.hourlyView.backgroundColor = UIColor.clear
-        //        self.hourlyLabel.textColor = UIColor.white
-        self.yesterdayView.backgroundColor = UIColor.white
-        self.yesterdayLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
-        self.daytodayView.backgroundColor = UIColor.clear
-        self.daytodayLabel.textColor = UIColor.white
-        self.weeklyView.backgroundColor = UIColor.clear
-        self.weeklyLabel.textColor = UIColor.white
-        self.monthlyView.backgroundColor = UIColor.clear
-        self.monthlyLabel.textColor = UIColor.white
-        self.yeartodateView.backgroundColor = UIColor.clear
-        self.yeartodateLabel.textColor = UIColor.white
-    }
-    
-    @IBAction func daytodayBtnPressed(_ sender: UIButton) {
-        productMonthView.isHidden = true
-        productWeekStackView.isHidden = true
-        //        hourlyButton.isSelected = false
-        yesterdayButton.isSelected = false
-        daytodayButton.isSelected = true
-        weeklyButton.isSelected = false
-        monthlyButton.isSelected = false
-        yeartodateButton.isSelected = false
-        if productSwitch.isOn == true {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DaytoDay\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
-            
-        } else {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DaytoDay\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 0}"
-        }
-        if !self.productStores.Stores.isEmpty {
-            hud.textLabel.text = "Loading"
-            hud.show(in: self.view)
-            self.checkChartData()
-        }
-        else {
-            hud.textLabel.text = "Loading"
-            hud.show(in: self.view)
-            self.checkChartData()
-        }
-        //        self.hourlyView.backgroundColor = UIColor.clear
-        //        self.hourlyLabel.textColor = UIColor.white
-        self.yesterdayView.backgroundColor = UIColor.clear
-        self.yesterdayLabel.textColor = UIColor.white
-        self.daytodayView.backgroundColor = UIColor.white
-        self.daytodayLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
-        self.weeklyView.backgroundColor = UIColor.clear
-        self.weeklyLabel.textColor = UIColor.white
-        self.monthlyView.backgroundColor = UIColor.clear
-        self.monthlyLabel.textColor = UIColor.white
-        self.yeartodateView.backgroundColor = UIColor.clear
-        self.yeartodateLabel.textColor = UIColor.white
-    }
-    
-    @IBAction func weeklyBtnPressed(_ sender: Any) {
-        productMonthView.isHidden = true
-        productWeekStackView.isHidden.toggle()
         let topOffset = CGPoint(x: 0, y: 0)
         scrool.setContentOffset(topOffset, animated: true)
-        //        hourlyButton.isSelected = false
-        yesterdayButton.isSelected = false
-        daytodayButton.isSelected = false
-        weeklyButton.isSelected = true
-        monthlyButton.isSelected = false
-        yeartodateButton.isSelected = false
         
-        //        self.hourlyView.backgroundColor = UIColor.clear
-        //        self.hourlyLabel.textColor = UIColor.white
-        self.yesterdayView.backgroundColor = UIColor.clear
-        self.yesterdayLabel.textColor = UIColor.white
-        self.daytodayView.backgroundColor = UIColor.clear
-        self.daytodayLabel.textColor = UIColor.white
-        self.weeklyView.backgroundColor = UIColor.white
-        self.weeklyLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
-        self.monthlyView.backgroundColor = UIColor.clear
-        self.monthlyLabel.textColor = UIColor.white
-        self.yeartodateView.backgroundColor = UIColor.clear
-        self.yeartodateLabel.textColor = UIColor.white
-    }
-    
-    @IBAction func monthlyBtnPressed(_ sender: Any) {
-        productWeekStackView.isHidden = true
-        productMonthView.isHidden.toggle()
-        let topOffset = CGPoint(x: 0, y: 0)
-        scrool.setContentOffset(topOffset, animated: true)
-        let currentDate = Date()
-        let currentMonth = Calendar.current.component(.month, from: currentDate)
-        for i in 0..<currentMonth  {
-            if i <= currentMonth {
-                months[i].alpha = 1
-                months[i].isUserInteractionEnabled = true
+        if sender.titleLabel?.text == "Weekly"{
+            productWeekStackView.isHidden = false
+        }
+        if sender.titleLabel?.text == "Monthly"{
+            productMonthView.isHidden = false
+            let topOffset = CGPoint(x: 0, y: 0)
+            scrool.setContentOffset(topOffset, animated: true)
+            let currentDate = Date()
+            let currentMonth = Calendar.current.component(.month, from: currentDate)
+            for i in 0..<currentMonth  {
+                if i <= currentMonth {
+                    months[i].alpha = 1
+                    months[i].isUserInteractionEnabled = true
+                }
             }
         }
-      
-        //        hourlyButton.isSelected = false
-        yesterdayButton.isSelected = false
-        daytodayButton.isSelected = false
-        weeklyButton.isSelected = false
-        monthlyButton.isSelected = true
-        yeartodateButton.isSelected = false
-        
-        //        self.hourlyView.backgroundColor = UIColor.clear
-        //        self.hourlyLabel.textColor = UIColor.white
-        self.yesterdayView.backgroundColor = UIColor.clear
-        self.yesterdayLabel.textColor = UIColor.white
-        self.daytodayView.backgroundColor = UIColor.clear
-        self.daytodayLabel.textColor = UIColor.white
-        self.weeklyView.backgroundColor = UIColor.clear
-        self.weeklyLabel.textColor = UIColor.white
-        self.monthlyView.backgroundColor = UIColor.white
-        self.monthlyLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
-        self.yeartodateView.backgroundColor = UIColor.clear
-        self.yeartodateLabel.textColor = UIColor.white
-    }
-    
-    @IBAction func yeartodateBtnPressed(_ sender: Any) {
-        productWeekStackView.isHidden = true
-        productMonthView.isHidden = true
-        //        hourlyButton.isSelected = false
-        yesterdayButton.isSelected = false
-        daytodayButton.isSelected = false
-        weeklyButton.isSelected = false
-        monthlyButton.isSelected = false
-        yeartodateButton.isSelected = true
-        if productSwitch.isOn == true {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
-            
-        } else {
-            self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 0}"
+        var button = ""
+        for i in 0..<buttons.count {
+            if sender.titleLabel?.text == buttons[i].titleLabel?.text {
+                button = buttons[i].titleLabel?.text ?? ""
+                if productSwitch.isOn == true {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"\(button)\",\"IsLfl\": 1,\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                    
+                } else {
+                    self.chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"\(button)\",\"IsLfl\": 0,\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                }
+                if !self.productStores.Stores.isEmpty {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                else {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkChartData()
+                }
+                
+                buttons[i].isSelected = true
+                arrayView[i].backgroundColor = UIColor.white
+                arrayLabel[i].textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
+            }
+            else {
+                buttons[i].isSelected = false
+                arrayView[i].backgroundColor = UIColor.clear
+                arrayLabel[i].textColor = UIColor.white
+            }
         }
-        if !self.productStores.Stores.isEmpty {
-            hud.textLabel.text = "Loading"
-            hud.show(in: self.view)
-            self.checkChartData()
-        }
-        else {
-            hud.textLabel.text = "Loading"
-            hud.show(in: self.view)
-            self.checkChartData()
-        }
-        //        self.hourlyView.backgroundColor = UIColor.clear
-        //        self.hourlyLabel.textColor = UIColor.white
-        self.yesterdayView.backgroundColor = UIColor.clear
-        self.yesterdayLabel.textColor = UIColor.white
-        self.daytodayView.backgroundColor = UIColor.clear
-        self.daytodayLabel.textColor = UIColor.white
-        self.weeklyView.backgroundColor = UIColor.clear
-        self.weeklyLabel.textColor = UIColor.white
-        self.monthlyView.backgroundColor = UIColor.clear
-        self.monthlyLabel.textColor = UIColor.white
-        self.yeartodateView.backgroundColor = UIColor.white
-        self.yeartodateLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
-        
     }
 }
 extension ProductViewController: UITableViewDelegate, UITableViewDataSource {

@@ -125,6 +125,14 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
     
     //MARK: -Properties
     var months : [BaseButton] = []
+    var buttons : [UIButton] = []
+    var arrayView : [UIView] = []
+    var arrayLabel : [UILabel] = []
+    var categorylabel : [UILabel] = []
+    var categoryİmage : [UIImageView] = []
+    var categoryProgress : [MKMagneticProgress] = []
+    
+    var categoryArray : [String] = ["Textile", "Home", "Non-Food", "Fresh Food", "FMCG", "Food", "Electronic" , "Other" ]
     var jsonmessage: Int = 1
     var userDC: String = ""
     var chartParameters = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
@@ -154,6 +162,19 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        categoryProgress.append(textileProgress);  categoryProgress.append(homeProgress) ;  categoryProgress.append(nonFoodProgress) ;  categoryProgress.append(freshFoodProgress) ;  categoryProgress.append(fmcgProgress) ;  categoryProgress.append(foodProgress) ; categoryProgress.append(electronicProgress) ; categoryProgress.append(otherProgress)
+        
+        categoryİmage.append(textfileİmage);  categoryİmage.append(homeİmage) ;  categoryİmage.append(nonFoodİmage) ;  categoryİmage.append(freshFoodİmage) ;  categoryİmage.append(fmcgİmage) ;  categoryİmage.append(foodİmage) ; categoryİmage.append(electronicİmage) ; categoryİmage.append(otherİmage)
+        
+        categorylabel.append(textfilePercLabel);  categorylabel.append(homePercLabel) ;  categorylabel.append(nonFoodPercLabel) ;  categorylabel.append(freshFoodPercLabel) ;  categorylabel.append(fmcgPercLabel) ;  categorylabel.append(foodPercLabel) ; categorylabel.append(electronicPercLabel) ; categorylabel.append(otherPercLabel)
+        
+        arrayLabel.append(yesterdayStoreLabel) ;  arrayLabel.append(daytodayStoreLabel) ;  arrayLabel.append(weeklyStoreLabel) ;  arrayLabel.append(monthlyStoreLabel) ;  arrayLabel.append(yeartodateStoreLabel)
+        
+        arrayView.append(yesterdayStoreView) ;  arrayView.append(daytodayStoreView) ;  arrayView.append(weeklyStoreView) ;  arrayView.append(monthlyStoreView) ;  arrayView.append(yeartodateStoreView)
+        
+        buttons.append(yesterdayStoreButton) ;  buttons.append(daytodayStoreButton) ;  buttons.append(weeklyStoreButton) ;  buttons.append(monthlyStoreButton) ;  buttons.append(yeartodateStoreButton)
+        
         months.append(JAN) ;  months.append(FEB) ;  months.append(MAR) ;  months.append(APR) ;  months.append(MAY) ;  months.append(JUN) ; months.append(JULY) ; months.append(AUG) ;  months.append(SEP) ;  months.append(OCT) ;  months.append(NOV) ;  months.append(DEC)
         for i in 0..<months.count {
             months[i].alpha = 0.5
@@ -645,20 +666,20 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
             
             if yeartodateStoreButton.isSelected == true {
                 if netSales2021Button.isSelected == true {
-                    self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 1}"
+                    self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
                     self.chartParameters = self.Parameters2021
                 }
                 if netSales2022BButton.isSelected == true {
-                    self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 1}"
+                    self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
                     self.chartParameters = self.Parameters2022b
                 }
                 if netSales2022LEButton.isSelected == true {
-                    self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 1}"
+                    self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
                     self.chartParameters = self.Parameters2022LE
                 }
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 1}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 1}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 1}"
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
             }
         }
         else{
@@ -744,20 +765,20 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
             
             if yeartodateStoreButton.isSelected == true  {
                 if netSales2021Button.isSelected == true {
-                    self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 1}"
+                    self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
                     self.chartParameters = self.Parameters2021
                 }
                 if netSales2022BButton.isSelected == true {
-                    self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 1}"
+                    self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
                     self.chartParameters = self.Parameters2022b
                 }
                 if netSales2022LEButton.isSelected == true {
-                    self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 1}"
+                    self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
                     self.chartParameters = self.Parameters2022LE
                 }
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 1}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 1}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 1}"
+                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
             }
         }
         
@@ -869,7 +890,7 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
                         }
                         
                         if self.netSalesStores.Last_Update.isEmpty {
-                            self.lastUpdateTİme.text = "00/00/000 00:00:00"
+                            self.lastUpdateTİme.text = ""
                             
                         } else {
                             self.lastUpdateTİme.text = "Last Updated Time \(self.netSalesStores.Last_Update[0])"
@@ -892,8 +913,8 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
                             self.progress2022LE.setProgress(0.0, animated: false)
                             
                         } else {
+                            
                             for i in 0..<self.netSalesCiro.Fark.count {
-                                
                                 let removeCharacters: Set<Character> = ["v", "s", " ", "%", "B"]
                                 self.netSalesCiro.Gelisim[i].removeAll(where: { removeCharacters.contains($0) } )
                                 if self.netSalesCiro.ChartType[i] == "2022" {
@@ -1011,268 +1032,38 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
                         }
                         
                         //MARK: -CATEGORY
-                        
-                        if self.netSalesCategory.CategoryBreakDown.count <= 1 {
-                            self.fmcgPercLabel.text = "0.0 KTL"
-                            self.fmcgProgress.percentLabelFormat = "0.0"
-                            self.freshFoodPercLabel.text = "0.0 KTL"
-                            self.freshFoodProgress.percentLabelFormat = "0.0"
-                            self.homePercLabel.text = "0.0 KTL"
-                            self.homeProgress.percentLabelFormat = "0.0"
-                            self.textfilePercLabel.text = "0.0 KTL"
-                            self.textileProgress.percentLabelFormat = "0.0"
-                            self.electronicPercLabel.text = "0.0 KTL"
-                            self.electronicProgress.percentLabelFormat = "0.0"
-                            self.otherPercLabel.text = "0.0 KTL"
-                            self.otherProgress.percentLabelFormat = "0.0"
-                            self.foodPercLabel.text = "0.0 KTL"
-                            self.foodProgress.percentLabelFormat = "0.0"
-                            self.nonFoodPercLabel.text = "0.0 KTL"
-                            self.nonFoodProgress.percentLabelFormat = "0.0"
-                            
-                        } else {
-                            for index in 0..<self.netSalesCategory.CategoryBreakDown.count {
+                        for index in 0..<self.netSalesCategory.CategoryBreakDown.count {
+                            if self.netSalesCategory.CategoryBreakDown.count <= 1 {
+                                self.categorylabel[index].text = "0.0 KTL"
+                                self.categoryProgress[index].percentLabelFormat = "0.0"
+                            } else {
                                 let removeCharactersGelisim: Set<Character> = ["%", "K", "T", "L", " ", "M", "B"]
                                 self.netSalesCategory.Gelisim[index].removeAll(where: { removeCharactersGelisim.contains($0) } )
-                                //                                self.netSalesCategory.Fark[index].removeAll(where: { removeCharactersGelisim.contains($0) } )
                                 
-                                if self.netSalesCategory.CategoryBreakDown[index] == "FMCG" {
+                                if self.netSalesCategory.CategoryBreakDown[index] == self.categoryArray[index] {
                                     if self.netSalesCategory.Fark.count <= 1 {
-                                        self.fmcgPercLabel.text = "0.0 KTL"
-                                        
+                                        self.categorylabel[index].text = "0.0 KTL"
                                     }
                                     if self.netSalesCategory.Gelisim.count <= 1 {
-                                        self.fmcgProgress.percentLabelFormat = "0.0"
+                                        self.categoryProgress[index].percentLabelFormat = "0.0"
                                         
                                     } else {
-                                        if self.netSalesCategory.CategoryBreakDown[index] == "FMCG" {
+                                        if self.netSalesCategory.CategoryBreakDown[index] == self.categoryArray[index] {
                                             if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M","B"]).joined().toDouble >= 0.0 {
                                                 
-                                                self.fmcgPercLabel.text = self.netSalesCategory.Fark[index]
-                                                self.fmcgİmage.image = UIImage(named: "Up")
-                                                self.fmcgPercLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
+                                                self.categorylabel[index].text = self.netSalesCategory.Fark[index]
+                                                self.categoryİmage[index].image = UIImage(named: "Up")
+                                                self.categorylabel[index].textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
                                             } else {
-                                                self.fmcgPercLabel.text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
-                                                self.fmcgİmage.image = UIImage(named: "down")
-                                                self.fmcgPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
+                                                self.categorylabel[index].text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
+                                                self.categoryİmage[index].image = UIImage(named: "down")
+                                                self.categorylabel[index].textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
                                             }
-                                            self.fmcgProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: [" "]).joined())") ?? 0.0)"
+                                            self.categoryProgress[index].percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: [" "]).joined())") ?? 0.0)"
                                             if CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0 > 1.0 {
-                                                self.fmcgProgress.setProgress(progress: 1.0, animated: false)
+                                                self.categoryProgress[index].setProgress(progress: 1.0, animated: false)
                                             } else {
-                                                self.fmcgProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0, animated: false)
-                                                
-                                            }
-                                        }
-                                        
-                                    }
-                                }
-                                if self.netSalesCategory.CategoryBreakDown[index] == "Fresh Food" {
-                                    if self.netSalesCategory.Fark.count <= 1 {
-                                        self.freshFoodPercLabel.text = "0.0 KTL"
-                                        
-                                    }
-                                    if self.netSalesCategory.Gelisim.count <= 1 {
-                                        self.freshFoodProgress.percentLabelFormat = "0.0"
-                                        
-                                    } else {
-                                        if self.netSalesCategory.CategoryBreakDown[index] == "Fresh Food" {
-                                            if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M", "B"]).joined().toDouble >= 0.0 {
-                                                
-                                                self.freshFoodPercLabel.text = self.netSalesCategory.Fark[index]
-                                                self.freshFoodİmage.image = UIImage(named: "Up")
-                                                self.freshFoodPercLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                                            } else {
-                                                self.freshFoodPercLabel.text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
-                                                self.freshFoodİmage.image = UIImage(named: "down")
-                                                self.freshFoodPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                                            }
-                                            self.freshFoodProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: [" "]).joined())") ?? 0.0)"
-                                            if CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0 > 1.0 {
-                                                self.freshFoodProgress.setProgress(progress: 1.0, animated: false)
-                                            } else {
-                                                self.freshFoodProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0, animated: false)
-                                                
-                                            }
-                                        }
-                                        
-                                    }
-                                }
-                                if self.netSalesCategory.CategoryBreakDown[index] == "Home" {
-                                    if self.netSalesCategory.Fark.count <= 1 {
-                                        self.homePercLabel.text = "0.0 KTL"
-                                        
-                                    }
-                                    if self.netSalesCategory.Gelisim.count <= 1 {
-                                        self.homeProgress.percentLabelFormat = "0.0"
-                                        
-                                    } else {
-                                        if self.netSalesCategory.CategoryBreakDown[index] == "Home" {
-                                            if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M", "B"]).joined().toDouble >= 0.0 {
-                                                
-                                                self.homePercLabel.text = self.netSalesCategory.Fark[index]
-                                                self.homeİmage.image = UIImage(named: "Up")
-                                                self.homePercLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                                            } else {
-                                                self.homePercLabel.text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
-                                                self.homeİmage.image = UIImage(named: "down")
-                                                self.homePercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                                            }
-                                            self.homeProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: [" "]).joined())") ?? 0.0)"
-                                            if CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0 > 1.0 {
-                                                self.homeProgress.setProgress(progress: 1.0, animated: false)
-                                            } else {
-                                                self.homeProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0, animated: false)
-                                                
-                                            }
-                                        }
-                                    }
-                                }
-                                if self.netSalesCategory.CategoryBreakDown[index] == "Textile" {
-                                    if self.netSalesCategory.Fark.count <= 1 {
-                                        self.textfilePercLabel.text = "0.0 KTL"
-                                        
-                                    }
-                                    if self.netSalesCategory.Gelisim.count <= 1 {
-                                        self.textileProgress.percentLabelFormat = "0.0"
-                                        
-                                    } else {
-                                        if self.netSalesCategory.CategoryBreakDown[index] == "Textile" {
-                                            if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M", "B"]).joined().toDouble >= 0.0 {
-                                                
-                                                self.textfilePercLabel.text = self.netSalesCategory.Fark[index]
-                                                self.textfileİmage.image = UIImage(named: "Up")
-                                                self.textfilePercLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                                            } else {
-                                                self.textfilePercLabel.text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
-                                                self.textfileİmage.image = UIImage(named: "down")
-                                                self.textfilePercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                                            }
-                                            self.textileProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: [" "]).joined())") ?? 0.0)"
-                                            if CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0 > 1.0 {
-                                                self.textileProgress.setProgress(progress: 1.0, animated: false)
-                                            } else {
-                                                self.textileProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0, animated: false)
-                                                
-                                            }
-                                        }
-                                    }
-                                }
-                                if self.netSalesCategory.CategoryBreakDown[index] == "Electronic" {
-                                    if self.netSalesCategory.Fark.count <= 1 {
-                                        self.electronicPercLabel.text = "0.0 KTL"
-                                        
-                                    }
-                                    if self.netSalesCategory.Gelisim.count <= 1 {
-                                        self.electronicProgress.percentLabelFormat = "0.0"
-                                        
-                                    } else {
-                                        if self.netSalesCategory.CategoryBreakDown[index] == "Electronic" {
-                                            if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M", "B"]).joined().toDouble >= 0.0 {
-                                                
-                                                self.electronicPercLabel.text = self.netSalesCategory.Fark[index]
-                                                self.electronicİmage.image = UIImage(named: "Up")
-                                                self.electronicPercLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                                            } else {
-                                                self.electronicPercLabel.text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
-                                                self.electronicİmage.image = UIImage(named: "down")
-                                                self.electronicPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                                            }
-                                            self.electronicProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: [" "]).joined())") ?? 0.0)"
-                                            if CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0 > 1.0 {
-                                                self.electronicProgress.setProgress(progress: 1.0, animated: false)
-                                            } else {
-                                                self.electronicProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0, animated: false)
-                                                
-                                            }
-                                        }
-                                    }
-                                }
-                                if self.netSalesCategory.CategoryBreakDown[index] == "Other" {
-                                    if self.netSalesCategory.Fark.count <= 1 {
-                                        self.otherPercLabel.text = "0.0 KTL"
-                                        
-                                    }
-                                    if self.netSalesCategory.Gelisim.count <= 1 {
-                                        self.otherProgress.percentLabelFormat = "0.0"
-                                        
-                                    } else {
-                                        if self.netSalesCategory.CategoryBreakDown[index] == "Other" {
-                                            if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M", "B"]).joined().toDouble >= 0.0 {
-                                                
-                                                self.otherPercLabel.text = self.netSalesCategory.Fark[index]
-                                                self.otherİmage.image = UIImage(named: "Up")
-                                                self.otherPercLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                                            } else {
-                                                self.otherPercLabel.text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
-                                                self.otherİmage.image = UIImage(named: "down")
-                                                self.otherPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                                            }
-                                            self.otherProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: [" "]).joined())") ?? 0.0)"
-                                            if CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0 > 1.0 {
-                                                self.otherProgress.setProgress(progress: 1.0, animated: false)
-                                            } else {
-                                                self.otherProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0, animated: false)
-                                                
-                                            }
-                                        }
-                                    }
-                                }
-                                if self.netSalesCategory.CategoryBreakDown[index] == "Food" {
-                                    if self.netSalesCategory.Fark.count <= 1 {
-                                        self.foodPercLabel.text = "0.0 KTL"
-                                        
-                                    }
-                                    if self.netSalesCategory.Gelisim.count <= 1 {
-                                        self.foodProgress.percentLabelFormat = "0.0"
-                                        
-                                    } else {
-                                        if self.netSalesCategory.CategoryBreakDown[index] == "Food" {
-                                            if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M", "B"]).joined().toDouble >= 0.0 {
-                                                
-                                                self.foodPercLabel.text = self.netSalesCategory.Fark[index]
-                                                self.foodİmage.image = UIImage(named: "Up")
-                                                self.foodPercLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                                            } else {
-                                                self.foodPercLabel.text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
-                                                self.foodİmage.image = UIImage(named: "down")
-                                                self.foodPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                                            }
-                                            self.foodProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: [" "]).joined())") ?? 0.0)"
-                                            if CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0 > 1.0 {
-                                                self.foodProgress.setProgress(progress: 1.0, animated: false)
-                                            } else {
-                                                self.foodProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0, animated: false)
-                                                
-                                            }
-                                        }
-                                    }
-                                }
-                                if self.netSalesCategory.CategoryBreakDown[index] == "Non-Food" {
-                                    if self.netSalesCategory.Fark.count <= 1 {
-                                        self.nonFoodPercLabel.text = "0.0 KTL"
-                                        
-                                    }
-                                    if self.netSalesCategory.Gelisim.count <= 1 {
-                                        self.nonFoodProgress.percentLabelFormat = "0.0"
-                                        
-                                    } else {
-                                        if self.netSalesCategory.CategoryBreakDown[index] == "Non-Food" {
-                                            if self.netSalesCategory.Fark[index].components(separatedBy: ["K","T","L"," ","M", "B"]).joined().toDouble >= 0.0 {
-                                                
-                                                self.nonFoodPercLabel.text = self.netSalesCategory.Fark[index]
-                                                self.nonFoodİmage.image = UIImage(named: "Up")
-                                                self.nonFoodPercLabel.textColor = UIColor(red:10/255, green:138/255, blue:33/255, alpha: 1)
-                                            } else {
-                                                self.nonFoodPercLabel.text = self.netSalesCategory.Fark[index].components(separatedBy: ["-"]).joined()
-                                                self.nonFoodİmage.image = UIImage(named: "down")
-                                                self.nonFoodPercLabel.textColor = UIColor(red:223/255, green:47/255, blue:49/255, alpha: 1)
-                                            }
-                                            self.nonFoodProgress.percentLabelFormat = "\(Double("\(self.netSalesCategory.Gelisim[index].components(separatedBy: [" "]).joined())") ?? 0.0)"
-                                            if CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0 > 1.0 {
-                                                self.nonFoodProgress.setProgress(progress: 1.0, animated: false)
-                                            } else {
-                                                self.nonFoodProgress.setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0, animated: false)
+                                                self.categoryProgress[index].setProgress(progress: CGFloat((Float(self.netSalesCategory.Gelisim[index]) ?? 0.0)) / 100.0, animated: false)
                                                 
                                             }
                                         }
@@ -1417,379 +1208,104 @@ class NetSalesViewController: UIViewController, ChartViewDelegate,FSCalendarDele
             }
         }
     }
-    //    @IBAction func hourlyBtnPressed(_ sender: Any) {
-    //        hourlyStoreButton.isSelected = true
-    //        yesterdayStoreButton.isSelected = false
-    //        daytodayStoreButton.isSelected = false
-    //        weeklyStoreButton.isSelected = false
-    //        monthlyStoreButton.isSelected = false
-    //        yeartodateStoreButton.isSelected = false
-    //        if netSalesSwitch.isOn == true {
-    //            if netSales2021Button.isSelected == true {
-    //                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 1}"
-    //                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 1}"
-    //                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 1}"
-    //                self.chartParameters = self.Parameters2021
-    //                self.netSales2021Button.isSelected = false
-    //
-    //            }
-    //            if netSales2022BButton.isSelected == true {
-    //                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 1}"
-    //                self.chartParameters = self.Parameters2022b
-    //
-    //            }
-    //            if netSales2022LEButton.isSelected == true {
-    //                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 1}"
-    //                self.chartParameters = self.Parameters2022LE
-    //
-    //            }
-    //        } else {
-    //            if netSales2021Button.isSelected == true {
-    //                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 1}"
-    //                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 1}"
-    //                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 1}"
-    //                self.chartParameters = self.Parameters2021
-    //                self.netSales2021Button.isSelected = false
-    //
-    //            }
-    //            if netSales2022BButton.isSelected == true {
-    //                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 1}"
-    //                self.chartParameters = self.Parameters2022b
-    //            }
-    //            if netSales2022LEButton.isSelected == true {
-    //                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Hourly\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 1}"
-    //                self.chartParameters = self.Parameters2022LE
-    //
-    //            }
-    //
-    //        }
-    //        if !self.netSalesCiro.Ciro.isEmpty {
-    //            hud.textLabel.text = "Loading"
-    //            hud.show(in: self.view)
-    //            self.checkNetSales()
-    //        }
-    //    else {
-    //        hud.textLabel.text = "Loading"
-    //        hud.show(in: self.view)
-    //        self.checkNetSales()
-    //    }
-    //        self.setupPieChart()
-    //        self.hourlyStoreView.backgroundColor = UIColor.white
-    //        self.hourlyStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
-    //        self.yesterdayStoreView.backgroundColor = UIColor.clear
-    //        self.yesterdayStoreLabel.textColor = UIColor.white
-    //        self.daytodayStoreView.backgroundColor = UIColor.clear
-    //        self.daytodayStoreLabel.textColor = UIColor.white
-    //        self.weeklyStoreView.backgroundColor = UIColor.clear
-    //        self.weeklyStoreLabel.textColor = UIColor.white
-    //        self.monthlyStoreView.backgroundColor = UIColor.clear
-    //        self.monthlyStoreLabel.textColor = UIColor.white
-    //        self.yeartodateStoreView.backgroundColor = UIColor.clear
-    //        self.yeartodateStoreLabel.textColor = UIColor.white
-    //    }
+    //    MARK: - Buttons Pressed
     
-    @IBAction func yesterdayBtnPressed(_ sender: Any) {
+    @IBAction func buttonPressed(_ sender: UIButton) {
         salesMonthsView.isHidden = true
         salesMonthsStackView.isHidden = true
         salesWeekStackView.isHidden = true
-        //        hourlyStoreButton.isSelected = false
-        yesterdayStoreButton.isSelected = true
-        daytodayStoreButton.isSelected = false
-        weeklyStoreButton.isSelected = false
-        monthlyStoreButton.isSelected = false
-        yeartodateStoreButton.isSelected = false
-        if netSalesSwitch.isOn == true {
-            if netSales2021Button.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.chartParameters = self.Parameters2021
-            }
-            if netSales2022BButton.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.chartParameters = self.Parameters2022b
-                
-            }
-            if netSales2022LEButton.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.chartParameters = self.Parameters2022LE
-            }
-            
-        } else {
-            
-            if netSales2021Button.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.chartParameters = self.Parameters2021
-            }
-            
-            if netSales2022BButton.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.chartParameters = self.Parameters2022b
-            }
-            
-            if netSales2022LEButton.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"Yesterday\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.chartParameters = self.Parameters2022LE
-            }
-        }
         
-        if !self.netSalesCiro.Ciro.isEmpty {
-            hud.textLabel.text = "Loading"
-            hud.show(in: self.view)
-            self.checkNetSales()
+        if sender.titleLabel?.text == "Weekly"{
+            salesWeekStackView.isHidden = false
+            let topOffset = CGPoint(x: 0, y: 0)
+            scrool.setContentOffset(topOffset, animated: true)
         }
-        else {
-            hud.textLabel.text = "Loading"
-            hud.show(in: self.view)
-            self.checkNetSales()
+        if sender.titleLabel?.text == "Monthly"{
+            salesMonthsStackView.isHidden = false
+            salesMonthsView.isHidden = false
+            let topOffset = CGPoint(x: 0, y: 0)
+            scrool.setContentOffset(topOffset, animated: true)
+            let currentDate = Date()
+            let currentMonth = Calendar.current.component(.month, from: currentDate)
+            for i in 0..<currentMonth  {
+                if i <= currentMonth {
+                    months[i].alpha = 1
+                    months[i].isUserInteractionEnabled = true
+                }
+            }
         }
-        self.setupPieChart()
-        //        self.hourlyStoreView.backgroundColor = UIColor.clear
-        //        self.hourlyStoreLabel.textColor = UIColor.white
-        self.yesterdayStoreView.backgroundColor = UIColor.white
-        self.yesterdayStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
-        self.daytodayStoreView.backgroundColor = UIColor.clear
-        self.daytodayStoreLabel.textColor = UIColor.white
-        self.weeklyStoreView.backgroundColor = UIColor.clear
-        self.weeklyStoreLabel.textColor = UIColor.white
-        self.monthlyStoreView.backgroundColor = UIColor.clear
-        self.monthlyStoreLabel.textColor = UIColor.white
-        self.yeartodateStoreView.backgroundColor = UIColor.clear
-        self.yeartodateStoreLabel.textColor = UIColor.white
+        var button = ""
+        for i in 0..<buttons.count {
+            if sender.titleLabel?.text == buttons[i].titleLabel?.text {
+                button = buttons[i].titleLabel?.text ?? ""
+                if netSalesSwitch.isOn == true {
+                    if netSales2021Button.isSelected == true {
+                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"\(button)\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"\(button)\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"\(button)\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                        self.chartParameters = self.Parameters2021
+                    }
+                    if netSales2022BButton.isSelected == true {
+                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"\(button)\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"\(button)\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"\(button)\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                        self.chartParameters = self.Parameters2022b
+                        
+                    }
+                    if netSales2022LEButton.isSelected == true {
+                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"\(button)\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"\(button)\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"\(button)\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                        self.chartParameters = self.Parameters2022LE
+                    }
+                    
+                } else {
+                    
+                    if netSales2021Button.isSelected == true {
+                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"\(button)\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"\(button)\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"\(button)\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                        self.chartParameters = self.Parameters2021
+                    }
+                    
+                    if netSales2022BButton.isSelected == true {
+                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"\(button)\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"\(button)\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"\(button)\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                        self.chartParameters = self.Parameters2022b
+                    }
+                    
+                    if netSales2022LEButton.isSelected == true {
+                        self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"\(button)\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                        self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"\(button)\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                        self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"\(button)\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
+                        self.chartParameters = self.Parameters2022LE
+                    }
+                }
+                if !self.netSalesCiro.Ciro.isEmpty {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkNetSales()
+                }
+                else {
+                    hud.textLabel.text = "Loading"
+                    hud.show(in: self.view)
+                    self.checkNetSales()
+                }
+                self.setupPieChart()
+                
+                buttons[i].isSelected = true
+                arrayView[i].backgroundColor = UIColor.white
+                arrayLabel[i].textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
+            }
+            else {
+                buttons[i].isSelected = false
+                arrayView[i].backgroundColor = UIColor.clear
+                arrayLabel[i].textColor = UIColor.white
+            }
+        }
     }
     
-    @IBAction func daytodayBtnPressed(_ sender: Any) {
-        salesMonthsView.isHidden = true
-        salesMonthsStackView.isHidden = true
-        salesWeekStackView.isHidden = true
-        //        hourlyStoreButton.isSelected = false
-        yesterdayStoreButton.isSelected = false
-        daytodayStoreButton.isSelected = true
-        weeklyStoreButton.isSelected = false
-        monthlyStoreButton.isSelected = false
-        yeartodateStoreButton.isSelected = false
-        if netSalesSwitch.isOn == true {
-            if netSales2021Button.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.chartParameters = self.Parameters2021
-                
-            }
-            if netSales2022BButton.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.chartParameters = self.Parameters2022b
-                
-            }
-            if netSales2022LEButton.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.chartParameters = self.Parameters2022LE
-                
-            }
-            
-        } else {
-            if netSales2021Button.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.chartParameters = self.Parameters2021
-                
-            }
-            if netSales2022BButton.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.chartParameters = self.Parameters2022b
-                
-            }
-            if netSales2022LEButton.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"DayToDay\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.chartParameters = self.Parameters2022LE
-            }
-        }
-        
-        if !self.netSalesCiro.Ciro.isEmpty {
-            hud.textLabel.text = "Loading"
-            hud.show(in: self.view)
-            self.checkNetSales()
-        }
-        else {
-            hud.textLabel.text = "Loading"
-            hud.show(in: self.view)
-            self.checkNetSales()
-        }
-        self.setupPieChart()
-        //        self.hourlyStoreView.backgroundColor = UIColor.clear
-        //        self.hourlyStoreLabel.textColor = UIColor.white
-        self.yesterdayStoreView.backgroundColor = UIColor.clear
-        self.yesterdayStoreLabel.textColor = UIColor.white
-        self.daytodayStoreView.backgroundColor = UIColor.white
-        self.daytodayStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
-        self.weeklyStoreView.backgroundColor = UIColor.clear
-        self.weeklyStoreLabel.textColor = UIColor.white
-        self.monthlyStoreView.backgroundColor = UIColor.clear
-        self.monthlyStoreLabel.textColor = UIColor.white
-        self.yeartodateStoreView.backgroundColor = UIColor.clear
-        self.yeartodateStoreLabel.textColor = UIColor.white
-    }
-    
-    @IBAction func weeklyBtnPressed(_ sender: Any) {
-        salesMonthsView.isHidden = true
-        salesMonthsStackView.isHidden = true
-        salesWeekStackView.isHidden.toggle()
-        let topOffset = CGPoint(x: 0, y: 0)
-        scrool.setContentOffset(topOffset, animated: true)
-        //        hourlyStoreButton.isSelected = false
-        yesterdayStoreButton.isSelected = false
-        daytodayStoreButton.isSelected = false
-        weeklyStoreButton.isSelected = true
-        monthlyStoreButton.isSelected = false
-        yeartodateStoreButton.isSelected = false
-        
-        //        self.hourlyStoreView.backgroundColor = UIColor.clear
-        //        self.hourlyStoreLabel.textColor = UIColor.white
-        self.yesterdayStoreView.backgroundColor = UIColor.clear
-        self.yesterdayStoreLabel.textColor = UIColor.white
-        self.daytodayStoreView.backgroundColor = UIColor.clear
-        self.daytodayStoreLabel.textColor = UIColor.white
-        self.weeklyStoreView.backgroundColor = UIColor.white
-        self.weeklyStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
-        self.monthlyStoreView.backgroundColor = UIColor.clear
-        self.monthlyStoreLabel.textColor = UIColor.white
-        self.yeartodateStoreView.backgroundColor = UIColor.clear
-        self.yeartodateStoreLabel.textColor = UIColor.white
-    }
-    
-    @IBAction func monthlyBtnPressed(_ sender: Any) {
-        salesWeekStackView.isHidden = true
-        salesMonthsStackView.isHidden.toggle()
-        salesMonthsView.isHidden.toggle()
-        let topOffset = CGPoint(x: 0, y: 0)
-        scrool.setContentOffset(topOffset, animated: true)
-        let currentDate = Date()
-        let currentMonth = Calendar.current.component(.month, from: currentDate)
-        for i in 0..<currentMonth  {
-            if i <= currentMonth {
-                months[i].alpha = 1
-                months[i].isUserInteractionEnabled = true
-            }
-        }
-        //        hourlyStoreButton.isSelected = false
-        yesterdayStoreButton.isSelected = false
-        daytodayStoreButton.isSelected = false
-        weeklyStoreButton.isSelected = false
-        monthlyStoreButton.isSelected = true
-        yeartodateStoreButton.isSelected = false
-        
-        
-        //        self.hourlyStoreView.backgroundColor = UIColor.clear
-        //        self.hourlyStoreLabel.textColor = UIColor.white
-        self.yesterdayStoreView.backgroundColor = UIColor.clear
-        self.yesterdayStoreLabel.textColor = UIColor.white
-        self.daytodayStoreView.backgroundColor = UIColor.clear
-        self.daytodayStoreLabel.textColor = UIColor.white
-        self.weeklyStoreView.backgroundColor = UIColor.clear
-        self.weeklyStoreLabel.textColor = UIColor.white
-        self.monthlyStoreView.backgroundColor = UIColor.white
-        self.monthlyStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
-        self.yeartodateStoreView.backgroundColor = UIColor.clear
-        self.yeartodateStoreLabel.textColor = UIColor.white
-    }
-    
-    @IBAction func yeartodateBtnPressed(_ sender: Any) {
-        salesMonthsView.isHidden = true
-        salesMonthsStackView.isHidden = true
-        salesWeekStackView.isHidden = true
-        //        hourlyStoreButton.isSelected = false
-        yesterdayStoreButton.isSelected = false
-        daytodayStoreButton.isSelected = false
-        weeklyStoreButton.isSelected = false
-        monthlyStoreButton.isSelected = false
-        yeartodateStoreButton.isSelected = true
-        if netSalesSwitch.isOn == true {
-            if netSales2021Button.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.chartParameters = self.Parameters2021
-                
-            }
-            if netSales2022BButton.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.chartParameters = self.Parameters2022b
-                
-            }
-            if netSales2022LEButton.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 1,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.chartParameters = self.Parameters2022LE
-            }
-        } else {
-            if netSales2021Button.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.chartParameters = self.Parameters2021
-                
-            }
-            if netSales2022BButton.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.chartParameters = self.Parameters2022b
-                
-            }
-            if netSales2022LEButton.isSelected == true {
-                self.Parameters2021 = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2022\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022b = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2023B\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.Parameters2022LE = "{\"Language\": \"tr\",\"ProcessType\": 2,\"FilterType\": \"YTD\",\"IsLfl\": 0,\"ChartType\": \"2023LE\",\"WeekNumber\": 0,\"MonthNumber\": 0}"
-                self.chartParameters = self.Parameters2022LE
-            }
-        }
-        if !self.netSalesCiro.Ciro.isEmpty {
-            hud.textLabel.text = "Loading"
-            hud.show(in: self.view)
-            self.checkNetSales()
-        }
-        else {
-            hud.textLabel.text = "Loading"
-            hud.show(in: self.view)
-            self.checkNetSales()
-        }
-        self.setupPieChart()
-        //        self.hourlyStoreView.backgroundColor = UIColor.clear
-        //        self.hourlyStoreLabel.textColor = UIColor.white
-        self.yesterdayStoreView.backgroundColor = UIColor.clear
-        self.yesterdayStoreLabel.textColor = UIColor.white
-        self.daytodayStoreView.backgroundColor = UIColor.clear
-        self.daytodayStoreLabel.textColor = UIColor.white
-        self.weeklyStoreView.backgroundColor = UIColor.clear
-        self.weeklyStoreLabel.textColor = UIColor.white
-        self.monthlyStoreView.backgroundColor = UIColor.clear
-        self.monthlyStoreLabel.textColor = UIColor.white
-        self.yeartodateStoreView.backgroundColor = UIColor.white
-        self.yeartodateStoreLabel.textColor = UIColor(red:5/255, green:71/255, blue:153/255, alpha: 1)
-        
-    }
     
     @IBAction func netSales2021BtnPressed(_ sender: UIButton) {
         self.years = "2022"
